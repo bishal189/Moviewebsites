@@ -45,7 +45,7 @@ def Register(request):
 
             
             messages.success(request,'Registration successful')
-            return redirect('register')
+            return redirect('signup')
 
 
 
