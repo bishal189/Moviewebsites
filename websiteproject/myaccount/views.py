@@ -2,7 +2,13 @@ from django.shortcuts import render,HttpResponse,redirect
 from .forms import ResitrationForm
 from.models import Account
 from django.contrib import messages,auth
-# Create your views here.    
+from django.contrib.auth import login
+from django.contrib.auth.decorators import login_required
+# Create your views here.  
+# 
+# 
+# 
+# register page is here   
 def Register(request):
     if request.method == 'POST':
         form =ResitrationForm(request.POST)
@@ -50,3 +56,41 @@ def Register(request):
         'form':form
     }
     return render(request,'signup.html',context)
+
+
+
+
+
+
+
+# the login function
+
+def Login(request):
+    if request.method=='POST':
+        email=request.POST['email']
+        password=request.POST['password']
+
+        print(email,password)
+        user=auth.authenticate(email=email,password=password)
+        print(user)
+        if user is not None:
+            auth.login(request,user)
+            return redirect('home')
+
+        else:
+            messages.error(request,'invalid login credentials')   
+            return redirect('/myaccounts/login') 
+
+    else: 
+      return render(request,'signin.html')
+
+
+
+
+
+# logout function is here 
+@login_required(login_url='login')
+def logout(request):
+    auth.logout(request)
+    messages.success(request,'you are logged out!')
+    return redirect('login')
