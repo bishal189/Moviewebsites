@@ -16,7 +16,7 @@
 					<div class="sign__content">
 						
 						<!-- registration form -->
-						<form action="{% url 'register' %}"  method='POST' class="sign__form">
+						<form action="{% url 'signup' %}"  method='POST' class="sign__form">
 							{% include 'include/alert.html' %}
 							{% csrf_token %}
 							<a href="index.html" class="sign__logo">
