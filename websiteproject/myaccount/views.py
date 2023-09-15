@@ -70,10 +70,13 @@ def Login(request):
         email=request.POST['email']
         password=request.POST['password']
 
+        print(email,password)
+
         
         user=auth.authenticate(email=email,password=password)
+        print(user)
         if request.user.is_superuser:
-            return redirect('index_admin')
+            return redirect('dashboard')
         if user is not None:
             auth.login(request,user)
             return redirect('home')

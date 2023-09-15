@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'detailapp',
     'profileapp',
     'contactapp',
-    'adminapp'
+    'owner',
 ]
 
 MIDDLEWARE = [
