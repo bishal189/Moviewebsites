@@ -66,12 +66,10 @@ $(document).ready(function () {
 		allowClear: true
 	});
 
-	$('#country').select2({
-		placeholder: "Choose country / countries"
-	});
+	
 
-	$('#genre').select2({
-		placeholder: "Choose genre / genres"
+ $('#genre').select2({
+	 	placeholder: "Choose genre / genres"
 	});
 
 	$('#subscription, #rights').select2();
