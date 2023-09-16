@@ -29,7 +29,7 @@ def Register(request):
             password=form.cleaned_data['password']  
             username=email.split("@")[0]
 
-            user=Account(email=email,username=username,password=password )
+            user=Account.objects.create_user(email=email,username=username,password=password )
             user.save()
 
 
@@ -84,9 +84,13 @@ def Login(request):
 
         user=auth.authenticate(email=email,password=password)
         print(user)
-        if user is not None:
-            auth.login(request,user)
-            return redirect('home')
+        if user is not None:  
+            if Account.objects.filter(email=email,is_superadmin=True).exists():
+                auth.login(request,user)
+                return redirect('dashboard')
+            else:    
+               auth.login(request,user)
+               return redirect('home')
 
         else:
             messages.error(request,'login credintials errors!')
