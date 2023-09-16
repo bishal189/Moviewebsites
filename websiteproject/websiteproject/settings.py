@@ -157,3 +157,12 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'bishalmurmu150@gmail.com'
 EMAIL_HOST_PASSWORD = 'xuut nezi fuhn hrfl'
+
+
+
+# settings.py
+# Session configuration
+SESSION_ENGINE = 'django.contrib.sessions.backends.cache'  # or 'django.contrib.sessions.backends.db' or other backends
+SESSION_COOKIE_NAME = 'my_session_cookie'
+SESSION_COOKIE_AGE = 3600  # Session timeout in seconds (1 hour)
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
