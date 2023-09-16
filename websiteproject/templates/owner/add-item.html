@@ -1,9 +1,6 @@
 {% extends 'owner/base.html' %}
 {% load static %}
 {% block content %}
-
-	
-
 	<!-- main content -->
 	<main class="main">
 		<div class="container-fluid">
@@ -18,14 +15,16 @@
 
 				<!-- form -->
 				<div class="col-12">
-					<form action="#" class="form">
+					<form action="{% url 'add_item' %}" method='POST' enctype="multipart/form-data class="form">
+						
+						 {% csrf_token %}
 						<div class="row">
 							<div class="col-12 col-md-5 form__cover">
 								<div class="row">
 									<div class="col-12 col-sm-6 col-md-12">
 										<div class="form__img">
 											<label for="form__img-upload">Upload cover (190 x 270)</label>
-											<input id="form__img-upload" name="form__img-upload" type="file" accept=".png, .jpg, .jpeg">
+											<input id="form__img-upload" required name="form__img-upload" type="file" accept=".png, .jpg, .jpeg">
 											<img id="form__img" src="#" alt=" ">
 										</div>
 									</div>
@@ -36,47 +35,51 @@
 								<div class="row">
 									<div class="col-12">
 										<div class="form__group">
-											<input type="text" class="form__input" placeholder="Title">
+											<input type="text" required class="form__input" name='title' placeholder="Title">
 										</div>
 									</div>
 
 									<div class="col-12">
 										<div class="form__group">
-											<textarea id="text" name="text" class="form__textarea" placeholder="Description"></textarea>
+											<textarea id="text" required name="text" class="form__textarea" placeholder="Description"></textarea>
 										</div>
 									</div>
 
 									<div class="col-12 col-sm-6 col-lg-3">
 										<div class="form__group">
-											<input type="text" class="form__input" placeholder="Release year">
+											<input type="text" required class="form__input" name='releasedyear' placeholder="Release year">
 										</div>
 									</div>
 
 									<div class="col-12 col-sm-6 col-lg-3">
 										<div class="form__group">
-											<input type="text" class="form__input" placeholder="Running timed in minutes">
+											<input type="text"   required name='length' class="form__input" placeholder="Running timed in minutes">
 										</div>
 									</div>
 
 									<div class="col-12 col-sm-6 col-lg-3">
 										<div class="form__group">
-											<select class="js-example-basic-single" id="quality">
+											<select class="js-example-basic-single" id="quality" name='quality'>
 												<option value="FullHD">FullHD</option>
 												<option value="HD">HD</option>
 											</select>
 										</div>
 									</div>
-
+ 
 									<div class="col-12 col-sm-6 col-lg-3">
 										<div class="form__group">
-											<input type="text" class="form__input" placeholder="Price">
+
+											<input type="text" required class="form__input" placeholder="price" name='price'>
+
+											
+
 										</div>
 									</div>
 {% comment %} {% endcomment %}
 										
 									<div class="col-12 col-lg-6 ">
 										<div class="form__group">
-											<select class="js-example-basic-multiple" id="genre" multiple="multiple">
+											<select class="js-example-basic-multiple" name='genere' id="genre" multiple="multiple">
 												<option value="Action">Action</option>
 												<option value="Animation">Animation</option>
 												<option value="Comedy">Comedy</option>
@@ -97,31 +100,29 @@
 									<div class="col-12">
 										<div class="form__gallery">
 											<label id="gallery1" for="form__gallery-upload">Upload photos</label>
-											<input data-name="#gallery1" id="form__gallery-upload" name="gallery" class="form__gallery-upload" type="file" accept=".png, .jpg, .jpeg" multiple>
+											<input data-name="#gallery1" required id="form__gallery-upload" name='image' name="gallery" class="form__gallery-upload" type="file" accept=".png, .jpg, .jpeg" multiple>
 										</div>
 									</div>
 								</div>
 							</div>
 
-							
-							
 							<div class="col-12">
 								<div class="row">
 									<div class="col-12 col-lg-6">
 										<div class="form__video">
 											<label id="movie1" for="form__video-upload">Upload video</label>
-											<input data-name="#movie1" id="form__video-upload" name="movie" class="form__video-upload" type="file" accept="video/mp4,video/x-m4v,video/*">
+											<input data-name="#movie1" required id="form__video-upload" name="movie" class="form__video-upload" type="file" accept="video/mp4,video/x-m4v,video/*">
 										</div>
 									</div>
 
 									<div class="col-12 col-lg-6">
 										<div class="form__group form__group--link">
-											<input type="text" class="form__input" placeholder="or add a link">
+											<input type="link"  required class="form__input" name='link' placeholder="or add a link">
 										</div>
 									</div>
 
 									<div class="col-12">
-										<button type="button" class="form__btn">publish</button>
+										<button type="submit" class="form__btn">publish</button>
 									</div>
 								</div>
 							</div>
