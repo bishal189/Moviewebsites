@@ -4,6 +4,17 @@ from.models import Account
 from django.contrib import messages,auth
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
+from django.core.mail import send_mail
+from django.contrib.auth.tokens import default_token_generator
+from django.contrib.auth import get_user_model
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.contrib.auth.tokens import default_token_generator
+from django.utils.http import urlsafe_base64_encode
+from django.utils.encoding import force_bytes
+from django.urls import reverse
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.models import User
 # Create your views here.  
 # 
 # 
@@ -18,7 +29,7 @@ def Register(request):
             password=form.cleaned_data['password']  
             username=email.split("@")[0]
 
-            user=Account.objects.create_user(email=email,username=username,password=password )
+            user=Account(email=email,username=username,password=password )
             user.save()
 
 
@@ -70,25 +81,19 @@ def Login(request):
         email=request.POST['email']
         password=request.POST['password']
 
-        print(email,password)
 
-        
         user=auth.authenticate(email=email,password=password)
         print(user)
-        if request.user.is_superuser:
-            return redirect('dashboard')
         if user is not None:
             auth.login(request,user)
             return redirect('home')
 
         else:
-            messages.error(request,'invalid login credentials')   
-            return redirect('/myaccounts/login') 
+            messages.error(request,'login credintials errors!')
+            return redirect('login')    
 
-    else: 
-      return render(request,'signin.html')
-
-
+    else:
+        return render(request,'signin.html')    
 
 
 
@@ -98,3 +103,77 @@ def logout(request):
     auth.logout(request)
     messages.success(request,'you are logged out!')
     return redirect('login')
+
+
+
+
+def forget_password(request):
+    if request.method == 'POST':
+        email=request.POST['email']
+        try:
+          user=Account.objects.get(email=email)
+
+        except:
+            messages.error(request,'invalid email id,check it!')  
+        print(user)
+
+
+         # Generate the token for password reset or confirmation
+        token = default_token_generator.make_token(user)
+    
+        # Encode the user's ID and token
+        uidb64 = urlsafe_base64_encode(force_bytes(user.pk))
+        token = urlsafe_base64_encode(force_bytes(token))
+    
+     # Build the confirmation URL
+        confirmation_url = reverse('password_confirmation', args=[uidb64, token])
+    
+        # Send the email with the confirmation URL
+        subject = 'Confirm Your Account'
+        message = f'Click the link below to confirm your account: {request.build_absolute_uri(confirmation_url)}'
+        from_email = 'bishalmurmu150@gmail.com'
+        recipient_list = [user.email]
+    
+        send_mail(subject, message, from_email, recipient_list, fail_silently=False)
+        # subject = 'Welcome to My Website'
+        # message = 'Thank you for signing up for our website. please click to this link to reset your password http://localhost:8000/myaccounts/reset/ '
+        # from_email = 'bishalmurmu150@gmail.com'  # Use your email address
+        # recipient_list = [email]  # Replace with the recipient's email address
+        # send_mail(subject, message, from_email, recipient_list, fail_silently=False)
+    return render(request,'forgot.html')
+
+
+
+
+
+
+
+# User = get_user_model()
+
+# # def password_confirmation(request, uidb64, token):
+   
+
+   
+
+# def reset(request,uid64,token):
+#     try:
+#         # Decode the UID and get the user
+#         uid = urlsafe_base64_decode(uidb64).decode()
+#         user = User.objects.get(pk=uid)
+
+#         # Check if the token is valid
+#         if default_token_generator.check_token(user, token):
+#             # Token is valid, handle password reset here
+#             # For example, render a password reset form
+#             return render(request, 'password_confirmation.html', {'user': user})
+#         else:
+#             messages.error(request, 'Invalid confirmation link.')
+#             return redirect('login')  # Redirect to login or an error page
+#     except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+#         user = None
+
+#     # Handle invalid link or user not found here
+#     messages.error(request, 'Invalid confirmation link.')
+#     return redirect('login')  # Redirect to login or an error page
+        
+#     return render(request,'reset.html')

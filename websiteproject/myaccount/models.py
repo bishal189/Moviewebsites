@@ -1,5 +1,3 @@
-
-# Create your models here.
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser,BaseUserManager
 
@@ -17,7 +15,8 @@ class myaccountmanager(BaseUserManager):
         user=self.model(
             email=self.normalize_email(email),
             username=username,
-          
+            # first_name=first_name,
+            # last_name=last_name,
         )
 
         user.set_password(password)
@@ -30,7 +29,8 @@ class myaccountmanager(BaseUserManager):
             email=self.normalize_email(email),
             username=username,
             password=password,
-            
+            # first_name=first_name,
+            # last_name=last_name,
         )
 
         user.is_admin=True
@@ -47,11 +47,11 @@ class myaccountmanager(BaseUserManager):
 
 
 class Account(AbstractBaseUser):
-   
- 
+    # first_name= models.CharField(max_length=50)
+    # last_name=models.CharField(max_length=50)
     username=models.CharField(max_length=50,unique=True)
     email=models.EmailField(max_length=100,unique=True)
-  
+    # phone_number=models.CharField(max_length=50)
    
 
 
