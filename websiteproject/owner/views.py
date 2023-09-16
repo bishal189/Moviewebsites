@@ -12,6 +12,7 @@ def dashboard(request):
 
 
 def  add_item(request):
+
     if request.method == 'POST':
       cover_image=request.POST['form__img-upload']
       title=request.POST['title']
@@ -29,4 +30,19 @@ def  add_item(request):
       messages.error(request,'please check a details')
       return render(request,'owner/add-item.html')
     return render(request,'owner/add-item.html')
- 
+
+    return render(request,'owner/add-item.html')
+
+
+def catalog(request):
+    return render(request,'owner/catalog.html')
+
+def edit_user(request):
+    return render(request,"owner/edit-user.html")
+
+def comments_list(request):
+    return render(request,'owner/comments.html')
+
+def user_list(request):
+    return render(request,'owner/users.html')
+
