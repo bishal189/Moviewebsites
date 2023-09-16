@@ -1,0 +1,40 @@
+
+{% extends 'base.html' %}
+{% block content %}
+	<!-- sign in -->
+	<div class="sign section--full-bg" data-bg="img/bg.jpg">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div class="sign__content">
+						<!-- authorization form -->
+						<form action="{% url 'confrim_password' %}"  method='POST' class="sign__form">
+							{% csrf_token %}
+                            {% include 'include/alert.html' %}
+							<div class="sign__group">
+								<input type="hidden" required class="sign__input" name='id' value={{uid}} placeholder="Password">
+							</div>
+							<div class="sign__group">
+								<input type="password" required class="sign__input" name='password' placeholder="Password">
+							</div>
+							<div class="sign__group">
+								<input type="password" required class="sign__input" name='new_password' placeholder="Confrim password">
+							</div>
+
+							<div class="sign__group sign__group--checkbox">
+								<input id="remember" name="remember" type="checkbox" checked="checked">
+								<label for="remember">I agree to the <a href="privacy.html">Privacy Policy</a></label>
+							</div>
+							
+							<button class="sign__btn" type="submit">Send</button>
+
+							<span class="sign__text">We will send a password to your Email</span>
+						</form>
+						<!-- end authorization form -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	{% endblock %}
+	<!-- end sign in -->

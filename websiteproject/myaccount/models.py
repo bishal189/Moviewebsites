@@ -1,5 +1,3 @@
-
-# Create your models here.
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser,BaseUserManager
 
@@ -7,6 +5,7 @@ from django.contrib.auth.models import AbstractBaseUser,BaseUserManager
 
 class myaccountmanager(BaseUserManager):
     def create_user(self,username,email,password=None):
+        print(password)
         if not email:
             raise ValueError('user must have an email address')
 
@@ -17,7 +16,8 @@ class myaccountmanager(BaseUserManager):
         user=self.model(
             email=self.normalize_email(email),
             username=username,
-          
+            # first_name=first_name,
+            # last_name=last_name,
         )
 
         user.set_password(password)
@@ -30,7 +30,8 @@ class myaccountmanager(BaseUserManager):
             email=self.normalize_email(email),
             username=username,
             password=password,
-            
+            # first_name=first_name,
+            # last_name=last_name,
         )
 
         user.is_admin=True
@@ -47,11 +48,12 @@ class myaccountmanager(BaseUserManager):
 
 
 class Account(AbstractBaseUser):
-   
- 
+    # first_name= models.CharField(max_length=50)
+    # last_name=models.CharField(max_length=50)
     username=models.CharField(max_length=50,unique=True)
     email=models.EmailField(max_length=100,unique=True)
-  
+    password=models.CharField(max_length=100)
+    # phone_number=models.CharField(max_length=50)
    
 
 
@@ -62,7 +64,7 @@ class Account(AbstractBaseUser):
     last_login=models.DateTimeField(auto_now_add=True)
     is_admin=models.BooleanField(default=False)
     is_staff=models.BooleanField(default=False)
-    is_active=models.BooleanField(default=False)
+    is_active=models.BooleanField(default=True)
     is_superadmin=models.BooleanField(default=False)
     
 

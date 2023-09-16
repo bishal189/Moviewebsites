@@ -2509,6 +2509,8 @@ body::-webkit-scrollbar-thumb {
 .select2-container .select2-search--inline .select2-search__field {
   font-size: 14px;
   height: 44px;
+  position:absolute;
+  top:0px;
   margin: 0;
   color: #fff;
 }

@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'detailapp',
     'profileapp',
     'contactapp',
-    'adminapp'
+    'owner',
 ]
 
 MIDDLEWARE = [
@@ -57,7 +57,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'websiteproject.urls'
-
+AUTH_USER_MODEL='myaccount.Account'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -147,3 +147,22 @@ MESSAGE_TAGS = {
     messages.ERROR: 'danger',
    
 }
+
+
+
+# email verifcation in django
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'bishalmurmu150@gmail.com'
+EMAIL_HOST_PASSWORD = 'xuut nezi fuhn hrfl'
+
+
+
+# settings.py
+# Session configuration
+SESSION_ENGINE = 'django.contrib.sessions.backends.cache'  # or 'django.contrib.sessions.backends.db' or other backends
+SESSION_COOKIE_NAME = 'my_session_cookie'
+SESSION_COOKIE_AGE = 3600  # Session timeout in seconds (1 hour)
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
