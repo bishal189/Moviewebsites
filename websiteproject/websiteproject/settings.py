@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'profileapp',
     'contactapp',
     'owner',
+    'indexapp'
 ]
 
 MIDDLEWARE = [
@@ -122,7 +123,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -166,3 +167,12 @@ SESSION_ENGINE = 'django.contrib.sessions.backends.cache'  # or 'django.contrib.
 SESSION_COOKIE_NAME = 'my_session_cookie'
 SESSION_COOKIE_AGE = 3600  # Session timeout in seconds (1 hour)
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+
+
+# this is for media display of db 
+
+
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'data/') # 'data' is my media folder
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
