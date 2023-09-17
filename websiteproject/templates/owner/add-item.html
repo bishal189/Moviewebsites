@@ -15,7 +15,7 @@
 
 				<!-- form -->
 				<div class="col-12">
-					<form action="{% url 'add_item' %}" method='POST' enctype="multipart/form-data class="form">
+					<form action="{% url 'add_item' %}" method='POST' enctype="multipart/form-data" class="form">
 						
 						 {% csrf_token %}
 						<div class="row">
@@ -24,7 +24,7 @@
 									<div class="col-12 col-sm-6 col-md-12">
 										<div class="form__img">
 											<label for="form__img-upload">Upload cover (190 x 270)</label>
-											<input id="form__img-upload" required name="form__img-upload" type="file" accept=".png, .jpg, .jpeg">
+											<input type="file" id="form__img-upload" required name="form__img-upload" type="file" accept=".png, .jpg, .jpeg">
 											<img id="form__img" src="#" alt=" ">
 										</div>
 									</div>
@@ -79,7 +79,7 @@
 										
 									<div class="col-12 col-lg-6 ">
 										<div class="form__group">
-											<select class="js-example-basic-multiple" name='genere' id="genre" multiple="multiple">
+											<select class="js-example-basic-multiple" name='genre' id="genre" multiple="multiple">
 												<option value="Action">Action</option>
 												<option value="Animation">Animation</option>
 												<option value="Comedy">Comedy</option>
@@ -111,13 +111,13 @@
 									<div class="col-12 col-lg-6">
 										<div class="form__video">
 											<label id="movie1" for="form__video-upload">Upload video</label>
-											<input data-name="#movie1" required id="form__video-upload" name="movie" class="form__video-upload" type="file" accept="video/mp4,video/x-m4v,video/*">
+											<input data-name="#movie1"  id="form__video-upload" name="movie" class="form__video-upload" type="file" accept="video/mp4,video/x-m4v,video/*">
 										</div>
 									</div>
 
 									<div class="col-12 col-lg-6">
 										<div class="form__group form__group--link">
-											<input type="link"  required class="form__input" name='link' placeholder="or add a link">
+											<input type="link"   class="form__input" name='link' placeholder="or add a link">
 										</div>
 									</div>
 
