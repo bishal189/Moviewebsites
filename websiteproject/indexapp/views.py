@@ -1,10 +1,14 @@
 from django.shortcuts import render
-
+from .models import MovieDetail
 # Create your views here.
 
 
 def home(request):
-    return render(request,'index.html')
+    get_data=MovieDetail.objects.all()
+    context={
+        'get_data':get_data
+    }
+    return render(request,'index.html',context)
 
 
 def search(request):
