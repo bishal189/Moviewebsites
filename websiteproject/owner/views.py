@@ -31,7 +31,7 @@ def  add_item(request):
       return render(request,'owner/add-item.html')
     return render(request,'owner/add-item.html')
 
-    return render(request,'owner/add-item.html')
+  
 
 
 def catalog(request):
