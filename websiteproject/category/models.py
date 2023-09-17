@@ -4,4 +4,4 @@ from django.db import models
 
 class Category(models.Model):
     title=models.CharField(max_length=50)
-    slug=models.SlugField(unique=True,blank=False)
+#    slug=models.SlugField(unique=True,blank=False)
