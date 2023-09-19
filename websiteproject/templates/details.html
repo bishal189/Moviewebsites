@@ -41,12 +41,12 @@
 
 					<!-- video player -->
 					<div class="col-12 col-xl-8">
-						<video controls crossorigin playsinline poster="{{product.coverphoto}}" id="player">
+						<video controls crossorigin playsinline poster="{{product.coverphoto.url}}" id="player">
 							<!-- Video files -->
-							<source src="{{product.trailer}}" type="video/mp4" size="576">
-								<source src="{{product.trailer}}" type="video/mp4" size="720">
-									<source src="{{product.trailer}}" type="video/mp4" size="1080">
-
+							<source src="{{product.trailer.url}}" type="video/mp4" size="576">
+								<source src="{{product.trailer.url}}" type="video/mp4" size="720">
+									<source src="{{product.trailer.url}}" type="video/mp4" size="1080">
+										
 							<!-- Caption files -->
 							<track kind="captions" label="English" srclang="en" src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.en.vtt"
 							    default>
@@ -65,8 +65,9 @@
 								
 							</div>
 							{% else %}
-							<div class="article__download">
-								
+
+							<div class="article__download"><b>Price: {{product.price}} $</b>	</div>
+							<div class="article__download ">
 								
 								<a href="{% url 'add_cart' product.id %}">Add To Cart</a>
 								
@@ -87,9 +88,9 @@
 						<!-- categories -->
 						<div class="categories">
 							<h3 class="categories__title">Genres</h3>
-							<a href="category.html" class="categories__item">Action</a>
-							<a href="category.html" class="categories__item">Thriller</a>
-							<a href="category.html" class="categories__item">Crime</a>
+							{% for gen in product.genre.all  %}
+							<a href="category.html" class="categories__item">{{ gen.title }}</a>
+							{% endfor %}
 						</div>
 						<!-- end categories -->
 

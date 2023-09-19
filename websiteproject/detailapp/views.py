@@ -30,7 +30,7 @@ def details(request,product_id=1,slug=None):
         'val':item,
         'product':product
     }
-    print(context['product'].movie_name)
+    
     return render(request,'details.html',context)
 
 
