@@ -1,9 +1,9 @@
 from django.shortcuts import render
-from indexapp.models import MovieDetail
+from indexapp.models import MovieDetail,ImagesModel
 from django. contrib import messages
 from .forms import movie_form
 # Create your views here.
-
+from category.models import Category
 
 
 def dashboard(request):
@@ -14,6 +14,8 @@ def dashboard(request):
 def  add_item(request):
     
     if request.method == 'POST' and request.FILES.get('form__img-upload'):
+      images_list=[]
+      print(request.POST)
       cover_image=request.FILES['form__img-upload']
       title=request.POST['title']
       text=request.POST['text']
@@ -21,11 +23,24 @@ def  add_item(request):
       length=request.POST['length']
       quality=request.POST['quality']
       price=request.POST['price']
-      genre=request.POST['genre']
-      image=request.FILES['image']
       movie=request.FILES['movie']
       link=request.POST['link']
-      form=MovieDetail.objects.create(movie_name=title,year=releasedyear,quality=quality,coverphoto=cover_image,duration=length,short_description=text,thumbnail=image,trailer=movie,genere=genre,price=price,link=link)
+      form=MovieDetail.objects.create(movie_name=title,year=releasedyear,quality=quality,coverphoto=cover_image,duration=length,short_description=text,trailer=movie,price=price,link=link)
+      form.images.clear()
+      form.genre.clear()
+      for uploaded_file in request.FILES.getlist('image'):
+        image_instance=ImagesModel.objects.create(image=uploaded_file)
+        images_list.append(image_instance)
+
+
+      form.images.set(images_list)
+
+      for gen in request.POST.getlist('genre'):
+        print(gen)
+        category,created=Category.objects.get_or_create(title=gen)
+        form.genre.add(category)
+
+
       form.save()
       messages.error(request,'please check a details')
       return render(request,'owner/add-item.html')
