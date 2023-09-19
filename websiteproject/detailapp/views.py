@@ -17,20 +17,19 @@ def _cart_id(request):
         cart=request.session.create()
     return cart   
 
-def details(request,product_id=1):
+def details(request,product_id=1,slug=None):
     li=[]
-    product =MovieDetail.objects.get(pk=product_id)
+    product =MovieDetail.objects.get(slug=slug)
     user=request.user
     cart_item=Cartitem.objects.filter(user=user)
     for item in cart_item:
         li.append(item.product)
     item=product in li
-
-  
     context={
         'val':item,
         'product':product
     }
+    print(context['product'].movie_name)
     return render(request,'details.html',context)
 
 
