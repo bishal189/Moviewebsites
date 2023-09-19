@@ -50,9 +50,9 @@
 			<div class="row">
 				<div class="col-12">
 					
-
+{% comment %} here is the paginator  {% endcomment %}
 					<div class="row row--grid">
-						{% for item in  get_data %}
+						{% for item in  all_products %}
 						<div class="col-12 col-md-6 col-xl-4">
 							<div class="card card--big">
 								<a href="{% url 'details' slug=item.slug %}" class="card__cover">
@@ -67,9 +67,9 @@
 										<li>${{item.price}}</li>
 										<li>{{item.year}}</li>
 									</ul>
-										<li><span>Genre:</span><span><a href="{% url 'details' slug=item.slug %}">Rian Johnson</a></span></li>
+										<li><span>Genre:{{item.genre}}</span><span><a href="{% url 'details' slug=item.slug %}">Rian Johnson</a></span></li>
 									</ul>
-									<p class="card__tagline">{{item.short_description}}</p>
+									<p class="card__tagline">{{item.short_description|truncatewords:10}}</p>
 								</div>
 							</div>
 						</div>
@@ -77,34 +77,47 @@
 
 					
 					</div>
+
 				</div>
 			</div>	
 	
 
-			{% comment %} <div class="row">
+		 <div class="row">
 				<div class="col-12">
 					<div class="catalog__paginator-wrap">
-						<span class="catalog__pages">12 from 144</span>
+						<span class="catalog__pages">10 from {{count}}</span>
 
 						<ul class="catalog__paginator">
-							<li>
-								<a href="#">
-									<svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.75 5.36475L13.1992 5.36475" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5.771 10.1271L0.749878 5.36496L5.771 0.602051" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-								</a>
-							</li>
-							<li class="active"><a href="#">1</a></li>
-							<li><a href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">4</a></li>
-							<li>
-								<a href="#">
-									<svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.1992 5.3645L0.75 5.3645" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M8.17822 0.602051L13.1993 5.36417L8.17822 10.1271" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-								</a>
-							</li>
+							<nav class="mt-4" aria-label="Page navigation sample">
+								{% if all_products.has_other_pages %}
+								<ul class="pagination" style='display: flex;
+								margin-bottom: 13px;'>
+									{% if all_products.has_previous %}
+									<li class="page-item "><a class="page-link"
+											href="?page={{all_products.previous_page_number}}">Previous</a></li>
+									{% else %}
+									<li class="page-item disabled"><a class="page-link" href="">Previous</a></li>
+									{% endif %}
+			
+									{% for i in all_products.paginator.page_range %}
+									{% if all_products.number == i %}
+									<li class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
+									{% else %}
+									<li class="page-item "><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+									{% endif %}
+									{% endfor %}
+									{% if all_products.has_next %}
+									<li class="page-item"><a class="page-link active" href="?page={{all_products.next_page_number}}">Next</a></li>
+									{% else %}
+									<li class="page-item disabled"><a class="page-link " href="#">Next</a></li>
+									{% endif %}
+								</ul>
+								{% endif %}
+							</nav>
 						</ul>
 					</div>
 				</div>
-			</div> {% endcomment %}
+			</div>
 		</div>
 	</div>
 	<!-- end catalog -->
