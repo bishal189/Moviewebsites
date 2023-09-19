@@ -23,7 +23,16 @@ def home(request):
     
 
 def search(request):
-    return render(request,'search.html')
+
+    tosearch=request.POST['searchtext']
+    print("search",tosearch)
+    get_searched_data=MovieDetail.objects.filter(movie_name__icontains=tosearch)
+    print(get_searched_data)
+    context={
+        'data':get_searched_data
+    }
+    return render(request,'search.html',context)
+
 
 
 
@@ -40,3 +49,4 @@ def pagination(request):
         
     }
     return render(request,'index.html',context)
+=

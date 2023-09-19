@@ -70,8 +70,9 @@
 								
 							</div>
 							{% else %}
-							<div class="article__download">
-								
+
+							<div class="article__download"><b>Price: {{product.price}} $</b>	</div>
+							<div class="article__download ">
 								
 								<a href="{% url 'add_cart' product.id %}">Add To Cart</a>
 								
@@ -92,9 +93,9 @@
 						<!-- categories -->
 						<div class="categories">
 							<h3 class="categories__title">Genres</h3>
-							<a href="category.html" class="categories__item">Action</a>
-							<a href="category.html" class="categories__item">Thriller</a>
-							<a href="category.html" class="categories__item">Crime</a>
+							{% for gen in product.genre.all  %}
+							<a href="category.html" class="categories__item">{{ gen.title }}</a>
+							{% endfor %}
 						</div>
 						<!-- end categories -->
 

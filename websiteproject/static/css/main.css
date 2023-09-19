@@ -1274,6 +1274,7 @@ body::-webkit-scrollbar-thumb {
     height: 500px;
   }
   .section--head {
+    height:200px;
     margin-top: 0px;
     padding-top: 60px;
     padding-bottom: 20px;

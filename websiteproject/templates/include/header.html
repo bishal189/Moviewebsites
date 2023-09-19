@@ -11,7 +11,7 @@
             <span></span>
           </button>
 
-          <a href="index.html" class="header__logo">
+          <a href="{% url 'home'  %}" class="header__logo">
             <img
               src="{% static  'img/logo.svg'%}"
               alt="Movies & TV Shows, Online cinema HTML Template"
@@ -42,9 +42,11 @@
                      </ul>
 
           <div class="header__actions">
-            <form action="#" class="header__form" method="POST">
+            <form action="{% url 'search'  %}" class="header__form" method="POST">
+              {% csrf_token %}
               <input
                 class="header__form-input"
+                name="searchtext"
                 type="text"
                 placeholder="I'm looking for..."
               />
