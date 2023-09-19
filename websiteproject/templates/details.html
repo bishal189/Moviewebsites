@@ -9,7 +9,7 @@
 {% include 'include/header.html' %}	
 
 	<!-- details -->
-	<section class="section section--head section--head-fixed section--gradient section--details-bg">
+	<section style="padding:0px;" class="section section--head section--head-fixed section--gradient section--details-bg">
 		<div class="container">
 			<!-- article -->
 			<div class="article">
@@ -46,16 +46,17 @@
 
 					<!-- video player -->
 					<div class="col-12 col-xl-8">
-						<video controls crossorigin playsinline poster="{{product.coverphoto.url}}" id="player">
+						
+						<video  style="height:400px;" controls crossorigin playsinline poster="{{product.coverphoto.url}}" id="player">
 							<!-- Video files -->
 							<source src="{{product.trailer.url}}" type="video/mp4" size="576">
 								<source src="{{product.trailer.url}}" type="video/mp4" size="720">
 									<source src="{{product.trailer.url}}" type="video/mp4" size="1080">
 
-							<!-- Caption files -->
+							{% comment %} <!-- Caption files -->
 							<track kind="captions" label="English" srclang="en" src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.en.vtt"
 							    default>
-							<track kind="captions" label="Français" srclang="fr" src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.fr.vtt">
+							<track kind="captions" label="Français" srclang="fr" src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.fr.vtt"> {% endcomment %}
 
 							<!-- Fallback for browsers that don't support the <video> element -->
 							<a href="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-576p.mp4" download>Download</a>
@@ -73,9 +74,12 @@
 
 							<div class="article__download"><b>Price: {{product.price}} $</b>	</div>
 							<div class="article__download ">
-								
+								{% if notlogin %}
+								<a href="{% url 'login' %}">Add To Cart</a>
+							
+{%else%}
 								<a href="{% url 'add_cart' product.id %}">Add To Cart</a>
-								
+							{%endif%}	
 							</div>
 							{% endif %}
 
@@ -94,7 +98,7 @@
 						<div class="categories">
 							<h3 class="categories__title">Genres</h3>
 							{% for gen in product.genre.all  %}
-							<a href="category.html" class="categories__item">{{ gen.title }}</a>
+							<a href="category.html" class="categories__item">{{ gen.category_name }}</a>
 							{% endfor %}
 						</div>
 						<!-- end categories -->

@@ -37,7 +37,7 @@ def  add_item(request):
 
       for gen in request.POST.getlist('genre'):
         print(gen)
-        category,created=Category.objects.get_or_create(title=gen)
+        category,created=Category.objects.get_or_create(category_name=gen)
         form.genre.add(category)
 
 

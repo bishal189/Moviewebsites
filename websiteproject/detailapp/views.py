@@ -18,20 +18,30 @@ def _cart_id(request):
     return cart   
 
 def details(request,product_id=1,slug=None):
+    if request.user.is_authenticated:
+        li=[]
+        product =MovieDetail.objects.get(slug=slug)
+        user=request.user
+        cart_item=Cartitem.objects.filter(user=user)
+        for item in cart_item:
+            li.append(item.product)
+        item=product in li
+        context={
+            'val':item,
+            'product':product,
+            'notlogin':False,
+        }
+        
+        return render(request,'details.html',context)
+    else:
+       product =MovieDetail.objects.get(slug=slug)
+       context={
+            'val':False,
+            'product':product,
+            'notlogin':True
+        }
+       return render(request,'details.html',context)
 
-    li=[]
-    product =MovieDetail.objects.get(slug=slug)
-    user=request.user
-    cart_item=Cartitem.objects.filter(user=user)
-    for item in cart_item:
-        li.append(item.product)
-    item=product in li
-    context={
-        'val':item,
-        'product':product
-    }
-    
-    return render(request,'details.html',context)
 
 
 
@@ -76,8 +86,8 @@ def add_cart(request,product_id):
             ex_var_list=[]
             id=[]
             for item in cart_item:
-                existing_variation=item.variations.all()
-                ex_var_list.append(list(existing_variation))
+                # existing_variation=item.variations.all()
+                # ex_var_list.append(list(existing_variation))
                 id.append(item.id)
 
             # print(ex_var_list)

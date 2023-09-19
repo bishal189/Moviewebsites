@@ -49,4 +49,3 @@ def pagination(request):
         
     }
     return render(request,'index.html',context)
-=
