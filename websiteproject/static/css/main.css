@@ -1446,10 +1446,10 @@ body::-webkit-scrollbar-thumb {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  width: 30px;
-  height: 30px;
+  /* width: 30px; */
+  /* height: 30px; */
   border-radius: 12px;
-  background-color: #131720;
+  /* background-color: #131720; */
   font-size: 14px;
   color: #e0e0e0;
   font-weight: 500;
