@@ -118,12 +118,11 @@
                         </dl>
                         <hr>
                         <p class="text-center mb-3">
-                            <img src="{% static './images/misc/payments.png' %}" height="26">
+                            <img src="{% static 'cart/images/misc/payments.png' %}" height="26">
                         </p>
                         <div id="paypal-button-container">
 
                             <!-- for paypayl button form paypal intregation -->
-
 
                         </div>
 
@@ -151,13 +150,15 @@
         if (document.cookie && document.cookie != '') {
             var cookies = document.cookie.split(';');
             for (var i = 0; i < cookies.length; i++) {
-                var cookie = jQuery.trim(cookies[i]);
+                var cookie = cookies[i].trim();
+                
                 if (cookie.substring(0, 10) == ('csrftoken' + '=')) {
                     cookieValue = decodeURIComponent(cookie.substring(10));
                     break;
                 }
             }
         }
+
         return cookieValue;
     }
 
@@ -182,8 +183,6 @@
                 }]
             });
         },
-
-
 
         // finalize the transaction
         onApprove: function (data, actions) {

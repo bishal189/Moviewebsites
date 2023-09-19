@@ -17,6 +17,7 @@ def _cart_id(request):
         cart=request.session.create()
     return cart   
 
+
 def details(request,product_id=1):
     li=[]
     product =MovieDetail.objects.get(pk=product_id)
@@ -427,10 +428,11 @@ def checkout(request,total=0,quantity=0,cart_items=None):
 def payement(request):
     
     body=json.loads(request.body)
+    print(body)
     
-    order=Order.objects.get(user=request.user,is_ordered=False,order_number=body['orderID'])
+    order=Order.objects.get(user=request.user,order_number=body['orderID'])
  
-
+    print(order)
     # store all the information in the payemnt model
     payment=Payment.objects.create(
         user=request.user,
@@ -470,16 +472,16 @@ def payement(request):
         # for adding variation in that  particular item
 
         cart_item=Cartitem.objects.get(id=item.id)
-        product_variation=cart_item.variations.all()
+        # product_variation=cart_item.variations.all()
         orderproduct=Order_Product.objects.get(id=orderproduct.id)
-        orderproduct.variations.set(product_variation)
+        # orderproduct.variations.set(product_variation)
         orderproduct.save()
 
 
 # reduce the quantity of sold products
        
-        product_item=Product.objects.get(id=item.product.id)
-        product_item.stock-=item.quantity
+        product_item=MovieDetail.objects.get(id=item.product.id)
+        # product_item.stock-=item.quantity
         product_item.save()
 
 
