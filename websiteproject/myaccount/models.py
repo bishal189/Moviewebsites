@@ -72,7 +72,8 @@ class Account(AbstractBaseUser):
     REQUIRED_FIELDS=['username',]
 
     objects=myaccountmanager()
-
+    def fullname(self):
+        pass
     def __str__(self):
         return self.email
     
