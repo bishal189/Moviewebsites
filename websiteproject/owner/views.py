@@ -37,7 +37,6 @@ def  add_item(request):
       form.images.set(images_list)
 
       for gen in request.POST.getlist('genre'):
-        print(gen)
         category,created=Category.objects.get_or_create(category_name=gen)
         form.genre.add(category)
 

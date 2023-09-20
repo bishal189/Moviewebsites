@@ -8,7 +8,7 @@ from django.core.paginator import EmptyPage,PageNotAnInteger,Paginator
 def home(request):
    
     all_product=MovieDetail.objects.all().order_by('id')
-    paginator=Paginator(all_product,1)
+    paginator=Paginator(all_product,10)
     page=request.GET.get('page')
     paged_products=paginator.get_page(page)
     count=all_product.count()

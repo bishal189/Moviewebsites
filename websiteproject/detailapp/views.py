@@ -8,6 +8,7 @@ from .models import Order,Order_Product,Payment
 import json
 from django.http import JsonResponse
 import datetime
+from commentapp.models import Comment
 # Create your views here.
 
 
@@ -17,12 +18,18 @@ def _cart_id(request):
         cart=request.session.create()
     return cart   
 
-def details(request,product_id=1,slug=None):
+def details(request,slug=None):
+    product =MovieDetail.objects.get(slug=slug)
+    user=request.user
+    comments=Comment.objects.all().order_by('-id')
+    commentscount=Comment.objects.all().count()
+    newmovies=MovieDetail.objects.all().order_by('-id')[:4]
+    similar=MovieDetail.objects.all().order_by('?')[:20]
     if request.user.is_authenticated:
         li=[]
-        product =MovieDetail.objects.get(slug=slug)
-        user=request.user
         cart_item=Cartitem.objects.filter(user=user)
+        
+
         for item in cart_item:
             li.append(item.product)
         item=product in li
@@ -30,6 +37,10 @@ def details(request,product_id=1,slug=None):
             'val':item,
             'product':product,
             'notlogin':False,
+            'comments':comments,
+            'commentscount':commentscount,
+            'newmovies':newmovies,
+            'similar':similar,
         }
         
         return render(request,'details.html',context)
@@ -38,7 +49,11 @@ def details(request,product_id=1,slug=None):
        context={
             'val':False,
             'product':product,
-            'notlogin':True
+            'notlogin':True,
+            'comments':comments,
+            'commentscount':commentscount,
+            'newmovies':newmovies,
+            'similar':similar,
         }
        return render(request,'details.html',context)
 
