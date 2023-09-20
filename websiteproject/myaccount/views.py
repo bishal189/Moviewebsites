@@ -74,6 +74,7 @@ def Register(request):
 # the login function
 
 def Login(request):
+    url=request.META.get('HTTP_REFERER')
     if request.method == 'POST':
         email = request.POST['email']
         password = request.POST['password']
@@ -83,7 +84,7 @@ def Login(request):
         if user is not None:
             if Account.objects.filter(email=email, is_superadmin=True).exists():
                 auth.login(request, user)
-                return redirect('dashboard')
+                return redirect(url)
             else:
                auth.login(request, user)
                return redirect('home')
