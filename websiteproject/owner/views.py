@@ -23,10 +23,11 @@ def  add_item(request):
       releasedyear=request.POST['releasedyear']
       length=request.POST['length']
       quality=request.POST['quality']
+      type=request.POST['type']
       price=request.POST['price']
       movie=request.FILES['movie']
       link=request.POST['link']
-      form=MovieDetail.objects.create(movie_name=title,year=releasedyear,quality=quality,coverphoto=cover_image,duration=length,short_description=text,trailer=movie,price=price,link=link)
+      form=MovieDetail.objects.create(movie_name=title,year=releasedyear,type=type,quality=quality,coverphoto=cover_image,duration=length,short_description=text,trailer=movie,price=price,link=link)
       form.images.clear()
       form.genre.clear()
       for uploaded_file in request.FILES.getlist('image'):
