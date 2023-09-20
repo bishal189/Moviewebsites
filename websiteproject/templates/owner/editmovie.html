@@ -1,0 +1,191 @@
+{% extends 'owner/base.html' %} {% load static %} {% block content %}
+<!-- main content -->
+<main class="main">
+  <div class="container-fluid">
+    <div class="row">
+      <!-- main title -->
+      <div class="col-12">
+        <div class="main__title">
+          <h2>Edit Movie details!</h2>
+        </div>
+      </div>
+      <!-- end main title -->
+
+      <!-- form -->
+      <div class="col-12">
+        <form
+          action="{% url 'edit_movie' movie.id %}"
+          method="POST"
+          enctype="multipart/form-data"
+          class="form"
+        >
+          {% csrf_token %}
+          <div class="row">
+            <div class="col-12 col-md-5 form__cover">
+              <div class="row">
+                <div class="col-12 col-sm-6 col-md-12">
+                  <div class="form__img">
+                    <label for="form__img-upload"
+                      >Upload cover (190 x 270)</label
+                    >
+                    {% comment %}
+                    <input
+                      type="file"
+                      id="form__img-upload"
+                      required
+                      name="form__img-upload"
+                      type="file"
+                      accept=".png, .jpg, .jpeg"
+                      value="{{movie.coverphoto.url}}"
+                    />
+                    {% endcomment %} {{form.coverphoto}}
+                    <img
+                      id="form__img"
+                      src="{{movie.coverphoto.url}}"
+                      alt=" "
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-md-7 form__content">
+              <div class="row">
+                <div class="col-12">
+                  <div class="form__group">
+                    {{form.movie_name}} {% comment %}
+                    <input
+                      type="text"
+                      required
+                      class="form__input"
+                      name="title"
+                      placeholder="Title"
+                      value="{{movie.movie_name}}"
+                    />
+                    {% endcomment %}
+                  </div>
+                </div>
+
+                <div class="col-12">
+                  <div class="form__group">
+                    {{form.short_description}}
+                    
+                  </div>
+                </div>
+
+                <div class="col-12 col-sm-6 col-lg-3">
+                  <div class="form__group">
+                    {{form.year}} 
+                   
+                  </div>
+                </div>
+
+                <div class="col-12 col-sm-6 col-lg-3">
+                  <div class="form__group">
+                    {{form.duration}}
+                    
+                  </div>
+                </div>
+
+                <div class="col-12 col-sm-6 col-lg-3">
+                  <div class="form__group">
+                    <select
+                      class="js-example-basic-single"
+                      id="quality"
+                      name="quality"
+                    >
+                      <option value="FullHD">FullHD</option>
+                      <option value="HD">HD</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="col-12 col-sm-6 col-lg-3">
+                  <div class="form__group">
+                    {% comment %}
+                    <input
+                      type="text"
+                      required
+                      class="form__input"
+                      placeholder="price"
+                      name="price"
+                      value="{{movie.price}}"
+                    />
+                    {% endcomment %} {{form.price}}
+                  </div>
+                </div>
+                <div class="col-12 col-lg-6">
+                  <div class="form__group">
+                    <select
+                      class="js-example-basic-multiple"
+                      name="genre"
+                      id="genre"
+                      multiple="multiple"
+                    >
+                      <option value="Action">Action</option>
+                      <option value="Animation">Animation</option>
+                      <option value="Comedy">Comedy</option>
+                      <option value="Crime">Crime</option>
+                      <option value="Drama">Drama</option>
+                      <option value="Fantasy">Fantasy</option>
+                      <option value="Historical">Historical</option>
+                      <option value="Horror">Horror</option>
+                      <option value="Romance">Romance</option>
+                      <option value="Science-fiction">Science-fiction</option>
+                      <option value="Thriller">Thriller</option>
+                      <option value="Western">Western</option>
+                      <option value="Otheer">Otheer</option>
+                    </select>
+                  </div>
+                </div>
+
+               
+              </div>
+            </div>
+
+            <div class="col-12">
+              <div class="row">
+                <div class="col-12 col-lg-6">
+                  <div class="form__video">
+                    <label id="movie1" for="form__video-upload"
+                      >Upload video</label
+                    >
+                    {{form.trailer}}
+                    {% comment %} <input
+                      data-name="#movie1"
+                      id="form__video-upload"
+                      name="movie"
+                      class="form__video-upload"
+                      type="file"
+                      accept="video/mp4,video/x-m4v,video/*"
+                    /> {% endcomment %}
+                  </div>
+                </div>
+
+                <div class="col-12 col-lg-6">
+                  <div class="form__group form__group--link">
+                    {{form.link}}
+                    {% comment %} <input
+                      type="link"
+                      class="form__input"
+                      name="link"
+                      placeholder="or add a link"
+                      value="{{movie.link}}"
+                    /> {% endcomment %}
+                  </div>
+                </div>
+
+                <div class="col-12">
+                  <button type="submit" class="form__btn">Edit</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <!-- end form -->
+    </div>
+  </div>
+</main>
+<!-- end main content -->
+{% endblock %}

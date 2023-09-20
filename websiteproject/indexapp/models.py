@@ -17,6 +17,7 @@ class MovieDetail(models.Model):
     genre=models.ManyToManyField(Category)
     slug=models.SlugField(unique=False,blank=False)
     link=models.URLField(unique=False,blank=False, default=False)
+    created_at=models.DateField(auto_created=True,null=True,default='24 Oct 2021')
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.movie_name)
