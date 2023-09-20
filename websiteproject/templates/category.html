@@ -50,17 +50,17 @@
 								
 							</select>
 
-							<select class="catalog__select" name="years" id ="year">
-								<option value="All the years">All the years</option>
+							<select class="catalog__select" name="years" id ="year" onchange="yearPost();">
+								<option value="all">All the years</option>
 
-								<option value="8">2023</option>
-								<option value="7">2022</option>
-								<option value="6">2021</option>
-								<option value="5">2020</option>
-								<option value="4">2019</option>
-								<option value="3">2018</option>
-								<option value="2">2017</option>
-								<option value="1">2015 and before</option>
+								<option value="2023">2023</option>
+								<option value="2022">2022</option>
+								<option value="2021">2021</option>
+								<option value="2020">2020</option>
+								<option value="2019">2019</option>
+								<option value="2018">2018</option>
+								<option value="2017">2017</option>
+								<option value="2016">2016 and before</option>
 
 								
 								
@@ -361,7 +361,6 @@
 	</footer>
 	<!-- end footer -->
 <script>
-	year=document.getElementById('year')
 
 	function genrePost(){
 		genre=document.getElementById('genre')
@@ -375,5 +374,20 @@
 	window.location.replace('/category/genre/'+selectedGenre)
 		
 	}
+	function yearPost(){
+		year=document.getElementById('year').value
+		if (year=="all"){
+			{% if genre %}
+			window.location.replace('/category/genre'+genre)
+			{% else %}
+			window.location.replace('/category')
+			{% endif %}
+		}
+		window.location.replace('/category/year/'+year)
+
+
+	}
+
+
 </script>
 	{% endblock %}

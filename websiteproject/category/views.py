@@ -31,3 +31,5 @@ def category_by_genre(request,genrename):
 
      return render(request,"category.html",context)
 
+def category_by_year(request,year):
+     return render(request,"category.html")
