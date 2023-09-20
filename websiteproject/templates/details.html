@@ -33,10 +33,10 @@
 							<h1>{{ product.movie_name }}</h1>
 
 							<ul class="list">
-								<li>Action</li>
+								<li>{{product.quality}}</li>
 								<li>{{product.year}}</li>
 								<li>{{product.duration}} min</li>
-								<li>18+</li>
+								<li>{{product.type}}</li>
 							</ul>
 
 							<p>{{product.short_description}}</p>
@@ -178,7 +178,13 @@
 										<div class="sign__group">
 											<textarea id="text" name="comment" class="sign__textarea" placeholder="Add comment"></textarea>
 										</div>
+										{% if user.is_authenticated %}
+
 										<button type="submit" class="sign__btn">Send</button>
+										{% else %}
+									       
+										<button onclick="redirecter(event);" class="sign__btn">Send</button>
+										{% endif %}
 									</form>
 								</div>
 								<!-- end comments -->
@@ -369,6 +375,12 @@
 		</div>
 	</footer>
 	<!-- end footer -->
-
+<script>
+	function redirecter(e){
+		e.preventDefault()
+		window.location.replace('/myaccounts/login')
+		return 
+	}
+</script>
 
 {% endblock %}

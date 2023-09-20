@@ -8,6 +8,7 @@ class MovieDetail(models.Model):
     movie_name=models.CharField(max_length=100)
     year=models.IntegerField()
     quality=models.CharField(max_length=50,default=False)
+    type=models.CharField(max_length=20,blank=True)
     coverphoto=models.ImageField(upload_to='coverphoto/',null=True)
     duration=models.IntegerField(null=True)
     short_description=models.TextField(max_length=100000)
