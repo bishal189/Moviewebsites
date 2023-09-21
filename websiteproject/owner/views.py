@@ -15,7 +15,7 @@ def dashboard(request):
   top_movie=MovieDetail.objects.all().order_by()[:5]
   latest_movie=MovieDetail.objects.all().order_by('-id')[:5]
   latest_user=Account.objects.all().order_by('-id')[:5]
-  specific_comment=Comment.objects.filter(User=request.user).count()
+  # specific_comment=Comment.objects.filter(User=request.user).count()
   
   context={
     'get_data':get_data,
@@ -23,7 +23,7 @@ def dashboard(request):
     'top_movie':top_movie,
     'latest_movie':latest_movie,
     'latest_user':latest_user,
-    'specific_comment':specific_comment
+    # 'specific_comment':specific_comment
   }
 
   return render(request,'owner/index.html',context)
@@ -66,6 +66,14 @@ def  add_item(request):
     return render(request,'owner/add-item.html')
 
   
+def add_album(request):
+   movies=MovieDetail.objects.all()
+   context={
+      'movies':movies
+   }
+   return render(request,"owner/add-album.html",context)
+   
+
 
 
 def catalog(request):
@@ -109,8 +117,6 @@ def remove_movie(request,id):
   movie.delete()
   return redirect('catalog')
  
-
-
 
 
 
