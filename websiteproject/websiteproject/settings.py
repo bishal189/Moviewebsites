@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-rb!a2mhqn2jp_p1x19p0fiv-us@8c+fgzoae25z2cz_s3n1-xt
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -174,5 +174,5 @@ SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'data/') # 'data' is my media folder
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_ROOT = BASE_DIR /'media'
 

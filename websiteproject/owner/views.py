@@ -1,32 +1,43 @@
-from django.shortcuts import render,get_object_or_404,redirect
+from django.shortcuts import render,get_object_or_404,redirect,HttpResponse
 from indexapp.models import MovieDetail,ImagesModel
 from django. contrib import messages
+from django.core.exceptions import PermissionDenied
+from django.http import HttpResponseNotFound
+
 # from .forms import movie_form
 from .forms import MovieDetailForm
 from commentapp.models import Comment
 from myaccount.models import Account
 # Create your views here.
 from category.models import Category
+from django.contrib.auth.decorators import user_passes_test
+def is_superadmin(user):
+    return user.is_authenticated and user.is_superadmin
 
-
+@user_passes_test(is_superadmin)
 def dashboard(request):
-  get_data=MovieDetail.objects.all().count()
-  comment=Comment.objects.all().count()
-  top_movie=MovieDetail.objects.all().order_by()[:5]
-  latest_movie=MovieDetail.objects.all().order_by('-id')[:5]
-  latest_user=Account.objects.all().order_by('-id')[:5]
-  specific_comment=Comment.objects.filter(User=request.user).count()
-  
-  context={
-    'get_data':get_data,
-    'comment':comment,
-    'top_movie':top_movie,
-    'latest_movie':latest_movie,
-    'latest_user':latest_user,
-    'specific_comment':specific_comment
-  }
+  try:
+      get_data=MovieDetail.objects.all().count()
+      comment=Comment.objects.all().count()
+      top_movie=MovieDetail.objects.all().order_by()[:5]
+      latest_movie=MovieDetail.objects.all().order_by('-id')[:5]
+      latest_user=Account.objects.all().order_by('-id')[:5]
+      specific_comment=Comment.objects.filter(User=request.user).count()
+      
+      context={
+        'get_data':get_data,
+        'comment':comment,
+        'top_movie':top_movie,
+        'latest_movie':latest_movie,
+        'latest_user':latest_user,
+        'specific_comment':specific_comment
+      }
 
-  return render(request,'owner/index.html',context)
+      return render(request,'owner/index.html',context)
+
+  except PermissionDenied:
+        return HttpResponse('Page not found')
+
 
 
 

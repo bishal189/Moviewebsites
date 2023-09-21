@@ -84,7 +84,7 @@ def Login(request):
         if user is not None:
             if Account.objects.filter(email=email, is_superadmin=True).exists():
                 auth.login(request, user)
-                return redirect(url)
+                return redirect('home')
             else:
                auth.login(request, user)
                return redirect('home')
