@@ -77,6 +77,14 @@ def  add_item(request):
     return render(request,'owner/add-item.html')
 
   
+def add_album(request):
+   movies=MovieDetail.objects.all()
+   context={
+      'movies':movies
+   }
+   return render(request,"owner/add-album.html",context)
+   
+
 
 
 def catalog(request):
@@ -120,8 +128,6 @@ def remove_movie(request,id):
   movie.delete()
   return redirect('catalog')
  
-
-
 
 
 

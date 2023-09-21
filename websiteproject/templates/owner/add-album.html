@@ -1,0 +1,82 @@
+{% extends 'owner/base.html' %}
+{% load static %}
+{% block content %}
+	<!-- main content -->
+	<main class="main">
+		<div class="container-fluid">
+			<div class="row">
+				<!-- main title -->
+				<div class="col-12">
+					<div class="main__title">
+						<h2>Add new Album</h2>
+					</div>
+				</div>
+				<!-- end main title -->
+
+				<!-- form -->
+				<div class="col-12">
+					<form action="{% url 'add_item' %}" method='POST' enctype="multipart/form-data" class="form">
+						
+						 {% csrf_token %}
+						<div class="row">
+							<div class="col-12 col-md-5 form__cover">
+								<div class="row">
+									<div class="col-12 col-sm-6 col-md-12">
+										<div class="form__img">
+											<label for="form__img-upload">Upload album cover (190 x 270)</label>
+											<input type="file" id="form__img-upload" required name="form__img-upload" type="file" accept=".png, .jpg, .jpeg">
+											<img id="form__img" src="#" alt=" ">
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-12 col-md-7 form__content">
+								<div class="row">
+									<div class="col-12">
+										<div class="form__group">
+											<input type="text" required class="form__input" name='title' placeholder="Title">
+										</div>
+									</div>
+
+									<div class="col-12">
+										<div class="form__group">
+											<textarea id="text" required name="text" class="form__textarea" placeholder="Description"></textarea>
+										</div>
+									</div>
+
+									
+
+ 
+									<div class="col-12 col-sm-6 col-lg-3">
+										<div class="form__group">
+
+											<input type="text" required class="form__input" placeholder="price" name='price'>
+										</div>
+									</div>
+	
+									<div class="col-12 col-lg-6 ">
+										<div class="form__group">
+											<select class="js-example-basic-multiple" name='genre' id="genre" multiple="multiple">
+												{% for item in movies %}
+												<option value="{{item.movie_name}}">{{item.movie_name}}</option>
+												{% endfor %}
+											</select>
+										</div>
+									</div> 
+
+
+									<div style="mt-5"class="col-12">
+										<button type="submit" class="form__btn">publish</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+				<!-- end form -->
+			</div>
+		</div>
+	</main>
+	<!-- end main content -->
+{% endblock %}
