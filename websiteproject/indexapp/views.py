@@ -3,7 +3,7 @@ from .models import MovieDetail
 from indexapp.models import Category
 from django.core.paginator import EmptyPage,PageNotAnInteger,Paginator
 # Create your views here.
-
+from albums.models import Albums
 
 def home(request):
    
@@ -12,11 +12,14 @@ def home(request):
     page=request.GET.get('page')
     paged_products=paginator.get_page(page)
     count=all_product.count()
+    allalbums=Albums.objects.all()
+    
     # count1=paged_products.count()
     context={
         'all_products':paged_products,
         'get_data':all_product,
         'count':count,
+        'allalbums':allalbums,
         
     }
     return render(request,'index.html',context)

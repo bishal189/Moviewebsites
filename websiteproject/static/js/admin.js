@@ -72,6 +72,10 @@ $(document).ready(function () {
 	 	placeholder: "Choose genre / genres"
 	});
 
+$('#movie').select2({
+	placeholder:"Choose Movies for Albums"
+});
+
 	$('#subscription, #rights').select2();
 
 	/*==============================

@@ -1,5 +1,6 @@
 from django.shortcuts import render,get_object_or_404,redirect,HttpResponse
 from indexapp.models import MovieDetail,ImagesModel
+from albums.models import Albums
 from django. contrib import messages
 from django.core.exceptions import PermissionDenied
 from django.http import HttpResponseNotFound
@@ -45,7 +46,7 @@ def  add_item(request):
     
     if request.method == 'POST' and request.FILES.get('form__img-upload'):
       images_list=[]
-      print(request.POST)
+      
       cover_image=request.FILES['form__img-upload']
       title=request.POST['title']
       text=request.POST['text']
@@ -77,7 +78,23 @@ def  add_item(request):
     return render(request,'owner/add-item.html')
 
   
+  
 def add_album(request):
+   if request.method=="POST" and request.FILES.get('form__img-upload'):
+      coverphoto=request.FILES['form__img-upload']
+      title=request.POST['title']
+      text=request.POST['text']
+      price=request.POST['price']
+      creator=Albums.objects.create(coverphoto=coverphoto,album_name=title,description=text,price=price)
+
+      for movie in request.POST.getlist('movies'):
+        moviedetail=MovieDetail.objects.get(movie_name=movie)
+        creator.movies.add(moviedetail)
+        print(moviedetail)
+      
+      creator.save()
+      
+
    movies=MovieDetail.objects.all()
    context={
       'movies':movies
