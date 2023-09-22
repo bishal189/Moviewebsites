@@ -92,12 +92,11 @@ $('#movie').select2({
 			reader.readAsDataURL(input.files[0]);
 		}
 	}
-
+		
 	$('#form__img-upload').on('change', function() {
 		readURL(this);
 	});
-
-	/*==============================
+		/*==============================
 	Upload video
 	==============================*/
 	$('.form__video-upload').on('change', function() {
