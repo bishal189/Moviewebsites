@@ -26,17 +26,45 @@ def home(request):
     
 
 def search(request):
-
+   
     tosearch=request.POST['searchtext']
-    print("search",tosearch)
-    get_searched_data=MovieDetail.objects.filter(movie_name__icontains=tosearch)
-    print(get_searched_data)
+    get_dvd=MovieDetail.objects.filter(movie_name__icontains=tosearch,type="DVD")
+    get_scene=MovieDetail.objects.filter(movie_name__icontains=tosearch,type="Scene")
+   
+    paginator = Paginator(get_dvd, per_page=1)
+    paginator1=Paginator(get_scene,per_page=1)  # Set the number of items per page (e.g., 10 items per page)
+    page_number = request.GET.get('page') 
+    page_number1=request.GET.get('page') # Get the current page number from the request
+    paged_products = paginator.get_page(page_number)  # Get the Page object for the current page
+    paged_products1 = paginator1.get_page(page_number1)  # Get the Page object for the current page
     context={
-        'data':get_searched_data
+        'data1':get_scene,
+        'all_products':paged_products,
+        'tosearch':tosearch,
+        'all_products1':paged_products1
+        
+        
     }
     return render(request,'search.html',context)
 
-
+def search_pagination(request,tosearch):
+    get_dvd=MovieDetail.objects.filter(movie_name__icontains=tosearch,type="DVD")
+    get_scene=MovieDetail.objects.filter(movie_name__icontains=tosearch,type="Scene")
+    paginator1=Paginator(get_scene,per_page=1) 
+    paginator = Paginator(get_dvd, per_page=1)
+    page_number1=request.GET.get('page')
+    paged_products1 = paginator1.get_page(page_number1)   # Set the number of items per page (e.g., 10 items per page)
+    page_number = request.GET.get('page')  # Get the current page number from the request
+    paged_products = paginator.get_page(page_number)  # Get the Page object for the current page
+    context={
+        'data1':get_scene,
+        'all_products':paged_products,
+        'all_products1':paged_products1,
+        'tosearch':tosearch,
+        
+        
+    }
+    return render(request,'search.html',context)
 
 
 def pagination(request):
