@@ -1,5 +1,5 @@
 from django.shortcuts import render,get_object_or_404,redirect,HttpResponse
-from indexapp.models import MovieDetail,ImagesModel
+from indexapp.models import MovieDetail,ImagesModel,StarsModel
 from albums.models import Albums
 from django. contrib import messages
 from django.core.exceptions import PermissionDenied
@@ -56,10 +56,14 @@ def  add_item(request):
       type=request.POST['type']
       price=request.POST['price']
       movie=request.FILES['movie']
-      link=request.POST['link']
-      form=MovieDetail.objects.create(movie_name=title,year=releasedyear,type=type,quality=quality,coverphoto=cover_image,duration=length,short_description=text,trailer=movie,price=price,link=link)
+      starimage=request.FILES['starimage']
+      starname=request.POST['starname']
+
+      star=StarsModel.objects.create(name=starname,image=starimage)
+      form=MovieDetail.objects.create(movie_name=title,year=releasedyear,type=type,quality=quality,coverphoto=cover_image,duration=length,short_description=text,trailer=movie,price=price)
       form.images.clear()
       form.genre.clear()
+      form.stars.add(star)
       for uploaded_file in request.FILES.getlist('image'):
         image_instance=ImagesModel.objects.create(image=uploaded_file)
         images_list.append(image_instance)
