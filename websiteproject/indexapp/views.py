@@ -52,3 +52,15 @@ def pagination(request):
         
     }
     return render(request,'index.html',context)
+
+
+
+def scenes(request):
+    alldata=MovieDetail.objects.filter(type='Scene')
+    
+    return render(request,'scenes.html',{'alldata':alldata})
+
+
+def dvd(request):
+    alldata=MovieDetail.objects.filter(type='DVD')
+    return render(request,'dvd.html',{'alldata':alldata})

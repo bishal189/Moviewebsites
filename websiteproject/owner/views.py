@@ -90,7 +90,6 @@ def add_album(request):
       for movie in request.POST.getlist('movies'):
         moviedetail=MovieDetail.objects.get(movie_name=movie)
         creator.movies.add(moviedetail)
-        print(moviedetail)
       
       creator.save()
       

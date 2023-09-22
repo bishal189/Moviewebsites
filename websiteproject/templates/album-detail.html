@@ -1,170 +1,71 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}
+{% block  title %}
 	<title>FlixTV – Movies & TV Shows, Online cinema HTML Template</title>
-	{% endblock%}
-
+{% endblock %}
 
 {% block content %}
-	<!-- header (fixed style) -->
-	{% include 'include/header.html' %}
-	<!-- end header -->
+	<!-- header (hidden style) -->
+{% include 'include/header.html' %}	
 
-	<!-- home -->
-	<div class="home home--title">
+	<!-- details -->
+	<section style="padding:0px;" class="section section--head section--head-fixed section--gradient section--details-bg">
 		<div class="container">
-			<div class="row">
-				<div class="col-12">
-					<h1 class="home__title"><b>Best </b> of this season</h1>
-				</div>
-			</div>
-		</div>
-		<div class="home__carousel owl-carousel " id="flixtv-hero">
-			{% for item in get_data %}
-			<div class="home__card">
-				<a href="{% url 'details' slug=item.slug %}">
-					<img src="{{item.coverphoto.url}}" width='300'height='300'  alt="">
-				</a>
-				<div>
-					<h2>{{item.movie_name}}</h2>
-					<ul>
-						<li>{{item.type}}</li>
-						<li>{{item.duration}} min</li>
-						<li>{{item.year}}</li>
-					</ul>
-				</div>
-			</div>
-			{% endfor %}
-		</div>
-		<button class="home__nav home__nav--prev" data-nav="#flixtv-hero" type="button"><svg width="17" height="15" viewBox="0 0 17 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1.25 7.72559L16.25 7.72559" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M7.2998 1.70124L1.2498 7.72524L7.2998 13.7502" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+			<!-- article -->
+			<div class="article">
+				<div class="row">
+						<div class="article__content">
+								
+							<h1>{{ product.album_name }}({{product.price}}$)</h1>
+							
+							
+							<p>{{product.description}}</p>
+						</div>
+						<!-- end article content -->
+					</div>
+<div style="color:white;margin-top:25px;font-size:20px;">{{product.movies.count}} Album Items :</div>
+				
+						<div class="row row--grid">
 
-		<button class="home__nav home__nav--next" data-nav="#flixtv-hero" type="button"></button>
-	</div>
-	<!-- end home -->
-
-	<!-- catalog -->
-	<div class="catalog catalog--list">
-		<div class="container">
-			
-			<div class="row">
-				<div class="col-12">
-					<h1 class="home__title">Movies</h1><F5>
-				</div>
+							{% for item in product.movies.all %}
 
 					
-{% comment %} here is the paginator  {% endcomment %}
-					<div style="justify-content:center;" class="row row--grid">
-						{% for item in  all_products %}
 						<div  style="margin-right:18px;"class="col-6 col-sm-4 col-lg-3 col-xl-2">
 							<div class="card">
 								<a href="{% url 'details' slug=item.slug %}" class="card__cover">
 									<img src="{{item.coverphoto.url}}" alt="">
 									<svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M11 1C16.5228 1 21 5.47716 21 11C21 16.5228 16.5228 21 11 21C5.47716 21 1 16.5228 1 11C1 5.47716 5.47716 1 11 1Z" stroke-linecap="round" stroke-linejoin="round"/><path fill-rule="evenodd" clip-rule="evenodd" d="M14.0501 11.4669C13.3211 12.2529 11.3371 13.5829 10.3221 14.0099C10.1601 14.0779 9.74711 14.2219 9.65811 14.2239C9.46911 14.2299 9.28711 14.1239 9.19911 13.9539C9.16511 13.8879 9.06511 13.4569 9.03311 13.2649C8.93811 12.6809 8.88911 11.7739 8.89011 10.8619C8.88911 9.90489 8.94211 8.95489 9.04811 8.37689C9.07611 8.22089 9.15811 7.86189 9.18211 7.80389C9.22711 7.69589 9.30911 7.61089 9.40811 7.55789C9.48411 7.51689 9.57111 7.49489 9.65811 7.49789C9.74711 7.49989 10.1091 7.62689 10.2331 7.67589C11.2111 8.05589 13.2801 9.43389 14.0401 10.2439C14.1081 10.3169 14.2951 10.5129 14.3261 10.5529C14.3971 10.6429 14.4321 10.7519 14.4321 10.8619C14.4321 10.9639 14.4011 11.0679 14.3371 11.1549C14.3041 11.1999 14.1131 11.3999 14.0501 11.4669Z" stroke-linecap="round" stroke-linejoin="round"/></svg>
 								</a>
+								<button class="card__add" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16,2H8A3,3,0,0,0,5,5V21a1,1,0,0,0,.5.87,1,1,0,0,0,1,0L12,18.69l5.5,3.18A1,1,0,0,0,18,22a1,1,0,0,0,.5-.13A1,1,0,0,0,19,21V5A3,3,0,0,0,16,2Zm1,17.27-4.5-2.6a1,1,0,0,0-1,0L7,19.27V5A1,1,0,0,1,8,4h8a1,1,0,0,1,1,1Z"/></svg></button>
 								<span class="card__rating">{{item.price}} $</span>
 								<h3 class="card__title"><a href="{% url 'details' slug=item.slug%}">{{item.movie_name}}</a></h3>
 								<ul class="card__list">
-									<li>{{item.type}}</li>
+									<li>{{item.quality}}</li>
 									<li>{{item.year}}</li>
 									<li>{{item.duration}} min</li>
 								</ul>
 							</div>
 						</div>
-						{% endfor %}	
-
 					
-					</div>
-
+					
+						{% endfor %}</div>
+					
 				</div>
-			</div>	
-	
+          {% if user.is_authenticated %}
+				<a href='{% url 'add_cart'  product_id=product.id %}' style="width:40%;" class="sign__btn">Add to Cart</a>
 
-		 <div class="row">
-				<div class="col-12">
-					<div class="catalog__paginator-wrap">
-						<span class="catalog__pages">10 from {{count}}</span>
-
-						<ul class="catalog__paginator">
-							<nav class="mt-4" aria-label="Page navigation sample">
-								{% if all_products.has_other_pages %}
-								<ul class="pagination" style='display: flex;
-								margin-bottom: 13px;'>
-									{% if all_products.has_previous %}
-									<li class="page-item "><a class="page-link"
-											href="?page={{all_products.previous_page_number}}">Previous</a></li>
-									{% else %}
-									<li class="page-item disabled"><a class="page-link" href="">Previous</a></li>
-									{% endif %}
-			
-									{% for i in all_products.paginator.page_range %}
-									{% if all_products.number == i %}
-									<li class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
-									{% else %}
-									<li class="page-item "><a class="page-link" href="?page={{i}}">{{i}}</a></li>
-									{% endif %}
-									{% endfor %}
-									{% if all_products.has_next %}
-									<li class="page-item"><a class="page-link active" href="?page={{all_products.next_page_number}}">Next</a></li>
-									{% else %}
-									<li class="page-item disabled"><a class="page-link " href="#">Next</a></li>
-									{% endif %}
-								</ul>
-								{% endif %}
-							</nav>
-						</ul>
-					</div>
-				</div>
+	     {% else %}		
+		 <a href='{% url 'login' %}' style="width:40%;" class="sign__btn">Add to Cart</a>
+		 {% endif %}
 			</div>
-		</div>
-	</div>
-	<!-- end catalog -->
-
-	<!-- subscriptions -->
-	<section class="section section--pb0">
-		<div class="container">
-			<div class="row">
-				<div class="col-12">
-					<h2 class="section__title">Albums</h2>
-				</div>
-
-				<div class="col-12">
-					<div class="section__carousel-wrap">
-						<div class="section__carousel owl-carousel" id="subscriptions">
-							{% for album in allalbums %}
-							<div class="card">
-								<a href="{% url 'album_detail' album.id %}" class="card__cover">
-									<img src="{{album.coverphoto.url}}" alt="">
-									<svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M13.1615 8.05308C13.1615 9.79908 11.7455 11.2141 9.9995 11.2141C8.2535 11.2141 6.8385 9.79908 6.8385 8.05308C6.8385 6.30608 8.2535 4.89108 9.9995 4.89108C11.7455 4.89108 13.1615 6.30608 13.1615 8.05308Z" stroke-linecap="round" stroke-linejoin="round"/><path fill-rule="evenodd" clip-rule="evenodd" d="M9.998 15.3549C13.806 15.3549 17.289 12.6169 19.25 8.05289C17.289 3.48888 13.806 0.750885 9.998 0.750885H10.002C6.194 0.750885 2.711 3.48888 0.75 8.05289C2.711 12.6169 6.194 15.3549 10.002 15.3549H9.998Z" stroke-linecap="round" stroke-linejoin="round"/></svg>
-								</a>
-
-								<span class="card__rating">{{album.price}} $</span>
-								{% comment %} <button class="card__add" type="button">{{album.price}}</button> {% endcomment %}
-								<h3 class="card__title card__title--subs"><a href="{% url 'album_detail' album.id %}">{{album.album_name}}</a></h3>
-								<h3 class="card__title card__title--subs">{{album.movies.count}} Videos Available</h3>
-
-								<ul class="card__list card__list--subs">
-									<li>{{album.description | truncatewords:3}}</li>
-								</ul>
-							</div>
-							{% endfor %}
-							
-
-						
-						</div>
-
-						<button class="section__nav section__nav--cards section__nav--prev" data-nav="#subscriptions" type="button"><svg width="17" height="15" viewBox="0 0 17 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1.25 7.72559L16.25 7.72559" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M7.2998 1.70124L1.2498 7.72524L7.2998 13.7502" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-						<button class="section__nav section__nav--cards section__nav--next" data-nav="#subscriptions" type="button"><svg width="17" height="15" viewBox="0 0 17 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15.75 7.72559L0.75 7.72559" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M9.7002 1.70124L15.7502 7.72524L9.7002 13.7502" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-					</div>
-				</div>
-			</div>
+			<!-- end article -->
 		</div>
 	</section>
-	<!-- end subscriptions -->
+	<!-- end details -->
 
-	<!-- plan -->
-		<!-- end plan -->
-
+	<!-- similar -->
 	
+	<!-- end similar -->
 
 	<!-- footer -->
 	<footer class="footer">
@@ -172,7 +73,7 @@
 			<div class="row">
 				<div class="col-12 col-sm-8 col-md-6 col-lg-4 col-xl-3 order-4 order-md-1 order-lg-4 order-xl-1">
 					<div class="footer__flixtv">
-						<img src="{% static 'img/logo.svg' %}" alt="">
+						<img src="img/logo.svg" alt="">
 					</div>
 					<p class="footer__tagline">Movies & TV Shows, Online cinema,<br> Movie database HTML Template.</p>
 					<div class="footer__social">
@@ -182,6 +83,8 @@
 						<a href="#" target="_blank"><svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 15C0 6.71573 6.71573 0 15 0C23.2843 0 30 6.71573 30 15C30 23.2843 23.2843 30 15 30C6.71573 30 0 23.2843 0 15Z" fill="#4C6C91"/><path d="M15.7848 19.9226C15.7848 19.9226 16.0736 19.8911 16.2215 19.7351C16.3568 19.5922 16.3521 19.3226 16.3521 19.3226C16.3521 19.3226 16.3341 18.0636 16.9297 17.8777C17.5166 17.6949 18.2702 19.0952 19.07 19.6337C19.6741 20.0408 20.1327 19.9517 20.1327 19.9517L22.2699 19.9226C22.2699 19.9226 23.3874 19.855 22.8576 18.9923C22.8137 18.9216 22.5485 18.354 21.269 17.1879C19.9284 15.9673 20.1084 16.1647 21.7221 14.053C22.705 12.7672 23.0978 11.9821 22.975 11.6464C22.8584 11.3253 22.1353 11.4106 22.1353 11.4106L19.7297 11.4252C19.7297 11.4252 19.5513 11.4014 19.419 11.4789C19.2899 11.555 19.2061 11.7324 19.2061 11.7324C19.2061 11.7324 18.8258 12.7272 18.3179 13.5737C17.2466 15.3589 16.8185 15.4534 16.6433 15.3428C16.2355 15.0839 16.3373 14.3042 16.3373 13.7504C16.3373 12.0197 16.6049 11.2984 15.8169 11.1118C15.5555 11.0495 15.363 11.0088 14.6939 11.0019C13.8354 10.9935 13.1092 11.005 12.6976 11.2024C12.4237 11.3338 12.2124 11.6272 12.3415 11.6441C12.5004 11.6648 12.8604 11.7394 13.0513 11.9944C13.2978 12.3239 13.2892 13.0629 13.2892 13.0629C13.2892 13.0629 13.4308 15.1 12.9582 15.3528C12.6342 15.5264 12.1897 15.1723 11.2342 13.5522C10.7451 12.7226 10.3757 11.8054 10.3757 11.8054C10.3757 11.8054 10.3045 11.6341 10.177 11.5419C10.0228 11.4306 9.80759 11.396 9.80759 11.396L7.52173 11.4106C7.52173 11.4106 7.17818 11.4198 7.05219 11.5665C6.94029 11.6963 7.04358 11.966 7.04358 11.966C7.04358 11.966 8.8333 16.0764 10.8601 18.1481C12.7187 20.047 14.8285 19.9226 14.8285 19.9226H15.7848Z" fill="white"/></svg></a>
 						<a href="#" target="_blank"><svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 15C0 6.71573 6.71573 0 15 0C23.2843 0 30 6.71573 30 15C30 23.2843 23.2843 30 15 30C6.71573 30 0 23.2843 0 15Z" fill="#010101"/><path d="M13.2143 13.1245V12.4195C12.9696 12.3808 12.7224 12.3595 12.4747 12.356C10.0763 12.3509 7.95291 13.9051 7.23271 16.1928C6.51252 18.4805 7.36263 20.9708 9.33138 22.3405C7.85664 20.7622 7.44716 18.4646 8.28583 16.474C9.1245 14.4834 11.0547 13.1716 13.2143 13.1245Z" fill="#25F4EE"/><path d="M13.3472 21.1097C14.6881 21.1079 15.7904 20.0515 15.8491 18.7118V6.75693H18.0332C17.9886 6.50713 17.9673 6.25373 17.9696 6H14.9824V17.9433C14.9327 19.2898 13.8279 20.3564 12.4804 20.3586C12.0778 20.3552 11.6817 20.2561 11.3248 20.0697C11.794 20.7197 12.5456 21.1062 13.3472 21.1097Z" fill="#25F4EE"/><path d="M22.1125 10.8133V10.1489C21.3087 10.1491 20.5227 9.91193 19.8533 9.46704C20.4401 10.1493 21.2332 10.6219 22.1125 10.8133Z" fill="#25F4EE"/><path d="M19.8534 9.46693C19.1939 8.71597 18.8304 7.75063 18.8306 6.75122H18.0333C18.2414 7.86795 18.8996 8.84996 19.8534 9.46693Z" fill="#FE2C55"/><path d="M12.4747 15.343C11.324 15.3489 10.325 16.1372 10.0517 17.2551C9.77836 18.3729 10.3009 19.5333 11.3191 20.0695C10.7674 19.3078 10.6895 18.301 11.1174 17.4635C11.5453 16.626 12.4067 16.0992 13.3472 16.0999C13.598 16.103 13.8471 16.1419 14.0868 16.2155V13.1762C13.842 13.1395 13.5948 13.1202 13.3472 13.1184H13.2143V15.4296C12.9733 15.365 12.7242 15.3358 12.4747 15.343Z" fill="#FE2C55"/><path d="M22.1125 10.813V13.1242C20.6245 13.1214 19.1751 12.6503 17.9696 11.7779V17.8507C17.9632 20.881 15.5049 23.3341 12.4746 23.3341C11.3493 23.3361 10.251 22.9889 9.33136 22.3403C10.8662 23.991 13.2547 24.5344 15.3525 23.71C17.4504 22.8857 18.8301 20.8616 18.8306 18.6076V12.5522C20.0401 13.4189 21.4913 13.8838 22.9792 13.8812V10.9054C22.6879 10.9045 22.3975 10.8735 22.1125 10.813Z" fill="#FE2C55"/><path d="M17.9696 17.851V11.7782C19.1787 12.6456 20.6301 13.1105 22.1182 13.1071V10.7959C21.2391 10.6102 20.4441 10.1438 19.8532 9.46693C18.8994 8.84996 18.2413 7.86795 18.0331 6.75122H15.849V18.7119C15.8053 19.779 15.0906 20.7013 14.0682 21.01C13.0458 21.3186 11.9401 20.9459 11.3132 20.0813C10.295 19.5451 9.77243 18.3847 10.0457 17.2669C10.319 16.1491 11.3181 15.3607 12.4688 15.3548C12.7197 15.357 12.9688 15.396 13.2084 15.4704V13.1591C11.0368 13.1959 9.09197 14.5124 8.25091 16.5149C7.40985 18.5174 7.83142 20.8277 9.32553 22.4041C10.2543 23.0313 11.3541 23.3562 12.4746 23.3344C15.5049 23.3344 17.9632 20.8812 17.9696 17.851Z" fill="white"/></svg></a>
 					</div>
+
+
 				</div>
 
 				<div class="col-6 col-md-4 col-lg-3 col-xl-2 order-1 order-md-2 order-lg-1 order-xl-2 offset-md-2 offset-lg-0 offset-xl-1">
@@ -200,7 +103,14 @@
 							<h6 class="footer__title">Browse</h6>
 						</div>
 
-						
+						<div class="col-6">
+							<div class="footer__nav">
+								<a href="live.html">Live TV</a>
+								<a href="live.html">Live News</a>
+								<a href="live.html">Live Sports</a>
+								<a href="live.html">Streaming Library</a>
+							</div>
+						</div>
 
 						<div class="col-6">
 							<div class="footer__nav">
@@ -238,5 +148,12 @@
 		</div>
 	</footer>
 	<!-- end footer -->
+<script>
+	function redirecter(e){
+		e.preventDefault()
+		window.location.replace('/myaccounts/login')
+		return 
+	}
+</script>
 
-	{% endblock %}
+{% endblock %}

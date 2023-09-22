@@ -22,7 +22,7 @@
             <li class="header__nav-item">
               <a
                 class="header__nav-link"
-                href="#"
+                href="{% url 'home' %}"
                 role="button"
                 aria-haspopup="true"
                 aria-expanded="false"
@@ -37,6 +37,33 @@
                 aria-haspopup="true"
                 aria-expanded="false"
                 >Category</a>
+            </li>
+            <li class="header__nav-item">
+              <a
+                class="header__nav-link"
+                href="{% url 'album' %}"
+                role="button"
+                aria-haspopup="true"
+                aria-expanded="false"
+                >Albums</a>
+            </li>
+            <li class="header__nav-item">
+              <a
+                class="header__nav-link"
+                href="{% url 'scenes' %}"
+                role="button"
+                aria-haspopup="true"
+                aria-expanded="false"
+                >Scenes</a>
+            </li>
+            <li class="header__nav-item">
+              <a
+                class="header__nav-link"
+                href="{% url 'dvd' %}"
+                role="button"
+                aria-haspopup="true"
+                aria-expanded="false"
+                >DVD</a>
             </li>
             
                      </ul>
