@@ -4,9 +4,17 @@ from category.models import Category
 from django.utils.text import slugify 
 class ImagesModel(models.Model):
     image=models.ImageField(upload_to='images/')
+
+class StarsModel(models.Model):
+    name=models.CharField(max_length=100,null=True)
+    image=models.ImageField(upload_to='stars/',null=True)
+
+
+
 class MovieDetail(models.Model):
     movie_name=models.CharField(max_length=100)
     year=models.IntegerField()
+    stars=models.ManyToManyField(StarsModel,related_name='stars',null=True,blank=True)
     quality=models.CharField(max_length=50,default=False)
     type=models.CharField(max_length=20,blank=True)
     coverphoto=models.ImageField(upload_to='coverphoto/',null=True)
@@ -17,7 +25,7 @@ class MovieDetail(models.Model):
     price=models.IntegerField()
     genre=models.ManyToManyField(Category)
     slug=models.SlugField(unique=False,blank=False)
-    link=models.URLField(unique=False,blank=False, default=False)
+    link=models.URLField(unique=False,blank=True, default=False)
     created_at=models.DateField(auto_created=True,null=True,)
 
     def save(self, *args, **kwargs):

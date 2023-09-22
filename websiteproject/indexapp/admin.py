@@ -7,3 +7,4 @@ class MovieDetailAdmin(admin.ModelAdmin):
     form=MovieDetailForm
 admin.site.register(ImagesModel)
 admin.site.register(MovieDetail,MovieDetailAdmin)
+admin.site.register(StarsModel)

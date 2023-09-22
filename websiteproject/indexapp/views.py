@@ -1,5 +1,5 @@
 from django.shortcuts import render,get_object_or_404
-from .models import MovieDetail
+from .models import MovieDetail,StarsModel
 from indexapp.models import Category
 from django.core.paginator import EmptyPage,PageNotAnInteger,Paginator
 # Create your views here.
@@ -92,3 +92,19 @@ def scenes(request):
 def dvd(request):
     alldata=MovieDetail.objects.filter(type='DVD')
     return render(request,'dvd.html',{'alldata':alldata})
+
+def stars(request):
+    allstars=StarsModel.objects.all().order_by('-id')
+    context={
+        'stars':allstars,
+    }
+    return render(request,'stars.html',context)
+def star_detail(request,id):
+    star=StarsModel.objects.get(id=id)
+    movies=MovieDetail.objects.filter(stars=star)
+    print(star.name,movies)
+    context={
+        'star':star,
+        'movies':movies,
+    }
+    return render(request,'stardetail.html',context)
