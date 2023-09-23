@@ -15,18 +15,26 @@ def album_detail(request,id):
     movies=MovieDetail.objects.all()
     li=[]
     user=request.user
-    cart_item=Cartitem.objects.filter(user=user)
-        
+    if request.user.is_authenticated:
 
-    for item in cart_item:
-            li.append(item.product)
+        cart_item=Cartitem.objects.filter(user=user)
+
+        for item in cart_item:
+                li.append(item.product)
     
     
 
-    context={
-        'product':album,
-        'movies':movies,
-        'itemsincart':li,
-        'itemcount':len(li),
-    }
+        context={
+            'product':album,
+            'movies':movies,
+            'itemsincart':li,
+            'itemcount':len(li),
+        }
+    else:
+        context={
+             'product':album,
+            'movies':movies,
+            
+
+        }
     return render(request,"album-detail.html",context)

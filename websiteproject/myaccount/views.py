@@ -102,7 +102,7 @@ def Login(request):
 def logout(request):
     auth.logout(request)
     messages.success(request, 'you are logged out!')
-    return redirect('login')
+    return redirect('home')
 
 
 def forget_password(request):
