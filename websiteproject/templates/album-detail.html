@@ -16,19 +16,19 @@
 				<div class="row">
 						<div class="article__content">
 								
-							<h1>{{ product.album_name }}({{product.price}}$)</h1>
+							<h1>{{ product.album_name }}</h1>
 							
-							
-							<p>{{product.description}}</p>
-						</div>
+													</div>
 						<!-- end article content -->
 					</div>
-<div style="color:white;margin-top:25px;font-size:20px;">{{product.movies.count}} Album Items :</div>
+<div id='counter' style="color:white;margin-top:25px;font-size:20px;"></div>
 				
 						<div class="row row--grid">
 
-							{% for item in product.movies.all %}
-
+							{% for item in movies %}
+								{% if item in itemsincart %}
+								<script></script>
+								{% endif%}
 					
 						<div  style="margin-right:18px;"class="col-6 col-sm-4 col-lg-3 col-xl-2">
 							<div class="card">
@@ -36,7 +36,6 @@
 									<img src="{{item.coverphoto.url}}" alt="">
 									<svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M11 1C16.5228 1 21 5.47716 21 11C21 16.5228 16.5228 21 11 21C5.47716 21 1 16.5228 1 11C1 5.47716 5.47716 1 11 1Z" stroke-linecap="round" stroke-linejoin="round"/><path fill-rule="evenodd" clip-rule="evenodd" d="M14.0501 11.4669C13.3211 12.2529 11.3371 13.5829 10.3221 14.0099C10.1601 14.0779 9.74711 14.2219 9.65811 14.2239C9.46911 14.2299 9.28711 14.1239 9.19911 13.9539C9.16511 13.8879 9.06511 13.4569 9.03311 13.2649C8.93811 12.6809 8.88911 11.7739 8.89011 10.8619C8.88911 9.90489 8.94211 8.95489 9.04811 8.37689C9.07611 8.22089 9.15811 7.86189 9.18211 7.80389C9.22711 7.69589 9.30911 7.61089 9.40811 7.55789C9.48411 7.51689 9.57111 7.49489 9.65811 7.49789C9.74711 7.49989 10.1091 7.62689 10.2331 7.67589C11.2111 8.05589 13.2801 9.43389 14.0401 10.2439C14.1081 10.3169 14.2951 10.5129 14.3261 10.5529C14.3971 10.6429 14.4321 10.7519 14.4321 10.8619C14.4321 10.9639 14.4011 11.0679 14.3371 11.1549C14.3041 11.1999 14.1131 11.3999 14.0501 11.4669Z" stroke-linecap="round" stroke-linejoin="round"/></svg>
 								</a>
-								<button class="card__add" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16,2H8A3,3,0,0,0,5,5V21a1,1,0,0,0,.5.87,1,1,0,0,0,1,0L12,18.69l5.5,3.18A1,1,0,0,0,18,22a1,1,0,0,0,.5-.13A1,1,0,0,0,19,21V5A3,3,0,0,0,16,2Zm1,17.27-4.5-2.6a1,1,0,0,0-1,0L7,19.27V5A1,1,0,0,1,8,4h8a1,1,0,0,1,1,1Z"/></svg></button>
 								<span class="card__rating">{{item.price}} $</span>
 								<h3 class="card__title"><a href="{% url 'details' slug=item.slug%}">{{item.movie_name}}</a></h3>
 								<ul class="card__list">
@@ -44,6 +43,22 @@
 									<li>{{item.year}}</li>
 									<li>{{item.duration}} min</li>
 								</ul>
+								{% if user.is_authenticated %}
+								
+								{% if item in itemsincart %}
+								<button data-url={% url 'remove_item' item.id %} id="item_remove_{{item.id}}" onclick="remove_item({{item.id}})"  class="sign__btn">Added</button>
+								{% else %}
+								<button data-url="{% url 'add_cart' item.id %}" id="item_add_{{item.id}}" onclick="add_item({{item.id}})"  class="sign__btn">Add to Album</button>
+								{% endif %}
+								<button style="display:none" data-url={% url 'remove_item' item.id %} id="item_remove_{{item.id}}" onclick="remove_item({{item.id}})"  class="sign__btn">Added</button>
+
+								<button style="display:none" data-url="{% url 'add_cart' item.id %}" id="item_add_{{item.id}}" onclick="add_item({{item.id}})"  class="sign__btn">Add to Album</button>
+
+
+	     {% else %}		
+		<a href="{% url 'login' %}" <button   class="sign__btn">Add to Album</button></button></a>
+		<a href="{% url 'login' %}" <button  style="display:none;" class="sign__btn">Added</button></a>
+{% endif %}
 							</div>
 						</div>
 					
@@ -52,10 +67,10 @@
 					
 				</div>
           {% if user.is_authenticated %}
-				<a href='{% url 'add_cart'  product_id=product.id %}' style="width:40%;" class="sign__btn">Add to Cart</a>
+				<a href='{% url 'cart'  %}' style="width:40%;" class="sign__btn">Show Cart</a>
 
 	     {% else %}		
-		 <a href='{% url 'login' %}' style="width:40%;" class="sign__btn">Add to Cart</a>
+		 <a href='{% url 'login' %}' style="width:40%;" class="sign__btn">Show Cart</a>
 		 {% endif %}
 			</div>
 			<!-- end article -->
@@ -149,6 +164,35 @@
 	</footer>
 	<!-- end footer -->
 <script>
+
+
+	
+var counter=0
+ct=document.getElementById('counter')
+	function add_item(id){
+		add=document.getElementById('item_add_'+id)
+		remove=document.getElementById('item_remove_'+id)
+		url=add.getAttribute('data-url')
+		fetch(url)
+		counter=counter+1
+		ct.textContent=counter+" Items added"
+		add.style.display="none"
+		remove.style.display="block"
+	}
+	function remove_item(id){
+
+		add=document.getElementById('item_add_'+id)
+		remove=document.getElementById('item_remove_'+id)
+		url=remove.getAttribute('data-url')
+
+		fetch(url)
+	counter=counter-1
+	if (counter<0){counter=0}
+	ct.textContent=counter+" Items added"
+
+	add.style.display="block"
+	remove.style.display="none"	
+}
 	function redirecter(e){
 		e.preventDefault()
 		window.location.replace('/myaccounts/login')

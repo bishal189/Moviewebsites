@@ -20,12 +20,41 @@
 	<!-- Favicons -->
 	<link rel="icon" type="image/png" href="{% static 'icon/favicon-32x32.png' %}" sizes="32x32">
 	<link rel="apple-touch-icon" href="{% static 'icon/favicon-32x32.png'  %}">
+	<link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
 
 	<meta name="description" content="">
 	<meta name="keywords" content="">
 	<meta name="author" content="Dmitry Volkov">
-	{% block title %}{% endblock %}
 
+       
+    
+	{% block title %}{% endblock %}
+	
+	<style>
+        /* Styles for the shopping cart icon container */
+        .cart-icon-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Styles for the shopping cart icon */
+        .cart-icon {
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* Styles for the value badge */
+        .cart-value {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: red;
+            color: white;
+            border-radius: 50%;
+            padding: 4px 8px;
+            font-size: 12px;
+        }
+    </style>
 </head>
 
 

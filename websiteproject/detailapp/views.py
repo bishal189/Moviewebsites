@@ -320,15 +320,15 @@ def cart(request,total=0,quantity=0,cart_items=None):
 
 
 
-def remove_cart_item(request,product_id,cart_item_id):
+def remove_cart_item(request,product_id):
    
     product=MovieDetail.objects.get(id=product_id)
     try:
         if request.user.is_authenticated:
-            cart_item=Cartitem.objects.get(product=product,id=cart_item_id,user=request.user)
+            cart_item=Cartitem.objects.get(product=product,user=request.user)
         else:
             cart=Cart.objects.get(cart_id=_cart_id(request))   
-            cart_item=Cartitem.objects.get(product=product,id=cart_item_id,cart=cart) 
+            cart_item=Cartitem.objects.get(product=product,cart=cart) 
         if cart_item.quantity>1:
            cart_item.quantity-=1;
            cart_item.save()

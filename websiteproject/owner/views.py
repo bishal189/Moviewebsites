@@ -87,13 +87,10 @@ def add_album(request):
    if request.method=="POST" and request.FILES.get('form__img-upload'):
       coverphoto=request.FILES['form__img-upload']
       title=request.POST['title']
-      text=request.POST['text']
-      price=request.POST['price']
-      creator=Albums.objects.create(coverphoto=coverphoto,album_name=title,description=text,price=price)
+      limit=request.POST['limit']
+      creator=Albums.objects.create(coverphoto=coverphoto,album_name=title,limit=limit)
 
-      for movie in request.POST.getlist('movies'):
-        moviedetail=MovieDetail.objects.get(movie_name=movie)
-        creator.movies.add(moviedetail)
+     
       
       creator.save()
       

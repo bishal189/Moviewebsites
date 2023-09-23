@@ -21,7 +21,31 @@
 	<meta name="keywords" content="">
 	<meta name="author" content="Dmitry Volkov">
 	<title>FlixTV – Movies & TV Shows, Online cinema HTML Template</title>
+	<style>
+        /* Styles for the shopping cart icon container */
+        .cart-icon-container {
+            position: relative;
+            display: inline-block;
+        }
 
+        /* Styles for the shopping cart icon */
+        .cart-icon {
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* Styles for the value badge */
+        .cart-value {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: red;
+            color: white;
+            border-radius: 50%;
+            padding: 4px 8px;
+            font-size: 12px;
+        }
+    </style>
 </head>
 <body>
     {% include 'owner/include/header.html' %}
