@@ -8,7 +8,6 @@ from .models import Order,Order_Product,Payment
 import json
 from django.http import JsonResponse
 import datetime
-from commentapp.models import Comment
 # Create your views here.
 
 
@@ -21,9 +20,7 @@ def _cart_id(request):
 def details(request,slug=None):
     product =MovieDetail.objects.get(slug=slug)
     user=request.user
-    comments=Comment.objects.filter(Movie=product).order_by('-id')
-    commentscount=Comment.objects.filter(Movie=product).count()
-    newmovies=MovieDetail.objects.all().order_by('-id')[:4]
+    newmovies=MovieDetail.objects.all().order_by('-id')[:5]
     similar=MovieDetail.objects.all().order_by('?')[:20]
     if request.user.is_authenticated:
         li=[]
@@ -37,8 +34,6 @@ def details(request,slug=None):
             'val':item,
             'product':product,
             'notlogin':False,
-            'comments':comments,
-            'commentscount':commentscount,
             'newmovies':newmovies,
             'similar':similar,
         }
@@ -50,8 +45,6 @@ def details(request,slug=None):
             'val':False,
             'product':product,
             'notlogin':True,
-            'comments':comments,
-            'commentscount':commentscount,
             'newmovies':newmovies,
             'similar':similar,
         }

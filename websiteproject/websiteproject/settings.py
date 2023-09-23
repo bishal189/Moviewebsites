@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'myaccount',
     'category',
-    'commentapp',
     'detailapp',
     'profileapp',
     'contactapp',

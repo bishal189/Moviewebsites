@@ -7,7 +7,6 @@ from django.http import HttpResponseNotFound
 
 # from .forms import movie_form
 from .forms import MovieDetailForm
-from commentapp.models import Comment
 from myaccount.models import Account
 # Create your views here.
 from category.models import Category
@@ -19,19 +18,15 @@ def is_superadmin(user):
 def dashboard(request):
   try:
       get_data=MovieDetail.objects.all().count()
-      comment=Comment.objects.all().count()
       top_movie=MovieDetail.objects.all().order_by()[:5]
       latest_movie=MovieDetail.objects.all().order_by('-id')[:5]
       latest_user=Account.objects.all().order_by('-id')[:5]
-      specific_comment=Comment.objects.filter(User=request.user).count()
       
       context={
         'get_data':get_data,
-        'comment':comment,
         'top_movie':top_movie,
         'latest_movie':latest_movie,
         'latest_user':latest_user,
-        'specific_comment':specific_comment
       }
 
       return render(request,'owner/index.html',context)
