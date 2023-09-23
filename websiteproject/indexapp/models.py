@@ -8,6 +8,10 @@ class ImagesModel(models.Model):
 class StarsModel(models.Model):
     name=models.CharField(max_length=100,null=True)
     image=models.ImageField(upload_to='stars/',null=True)
+    haircolor=models.CharField(max_length=100,blank=True,null=True)
+    height=models.FloatField(null=True,blank=True)
+    age=models.IntegerField(null=True,blank=True)
+
 
 
 

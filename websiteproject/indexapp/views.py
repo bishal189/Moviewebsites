@@ -13,13 +13,19 @@ def home(request):
     paged_products=paginator.get_page(page)
     count=all_product.count()
     allalbums=Albums.objects.all()
-    
+    stardata=StarsModel.objects.all()
+    genres=Category.objects.all()
+
     # count1=paged_products.count()
     context={
+        'genres':genres,
         'all_products':paged_products,
         'get_data':all_product,
         'count':count,
         'allalbums':allalbums,
+        'star':stardata,
+
+
         
     }
     return render(request,'index.html',context)
