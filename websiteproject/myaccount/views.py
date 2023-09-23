@@ -226,3 +226,23 @@ def reset_password(request):
 
 
 
+def profile(request):
+    return render(request,'profile.html')
+
+
+
+def changed_password(request):
+    if request.method=='POST':
+        email=request.POST['email']
+        password=request.POST['password']
+        confrim_password=request.POST['new_password']
+        if password==confrim_password:
+            user=Account.objects.get(email=email)
+            user.set_password(password)
+            user.save()
+            print('done')
+            return redirect('profile')
+        else:
+            return messages.error(request,'password doesnot match')
+
+

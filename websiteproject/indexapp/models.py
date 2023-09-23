@@ -18,7 +18,7 @@ class StarsModel(models.Model):
 class MovieDetail(models.Model):
     movie_name=models.CharField(max_length=100)
     year=models.IntegerField()
-    stars=models.ManyToManyField(StarsModel,related_name='stars',null=True,blank=True)
+    stars=models.ManyToManyField(StarsModel,related_name='stars',blank=True)
     quality=models.CharField(max_length=50,default=False)
     type=models.CharField(max_length=20,blank=True)
     coverphoto=models.ImageField(upload_to='coverphoto/',null=True)

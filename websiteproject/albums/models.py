@@ -7,6 +7,8 @@ class Albums(models.Model):
     album_name=models.CharField(max_length=100)
     movies=models.ManyToManyField(MovieDetail,related_name='albums',blank=True)
     limit=models.IntegerField(blank=True,null=True)
+    counter=models.IntegerField(blank=True,null=True)
+    price=models.IntegerField(blank=True,null=True)
 
 
     def __str__(self):

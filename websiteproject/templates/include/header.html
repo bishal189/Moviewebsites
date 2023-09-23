@@ -141,6 +141,10 @@
 
            
           </div>
+          <a  href='{% url 'profile' %}' style='font-size:1.1rem; color:white;'>
+          <i class="fa-solid fa-user"></i>
+         Welcome,<br> <strong style='margin-left:25px;'> {{user.username}}</strong>
+          </a>
           <a  href='{% url 'cart' %}' class="cart-icon-container" style='font-size:2rem;'>
             <!-- Shopping cart icon (you can replace this with your own icon) -->
             <span class="cart-icon">&#x1F6D2;</span>

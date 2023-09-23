@@ -21,7 +21,7 @@
 		</div>
 		<div class="home__carousel owl-carousel " id="flixtv-hero">
 			{% for item in get_data %}
-			<div class="home__card">
+			<div class="home__card" style="width:255px;">
 				<a href="{% url 'details' slug=item.slug %}">
 					<img src="{{item.coverphoto.url}}" width='300'height='300'  alt="">
 				</a>

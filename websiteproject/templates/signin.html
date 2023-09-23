@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block title %}
 	<title>FlixTV – Movies & TV Shows, Online cinema HTML Template</title>
 {% endblock %}
@@ -17,8 +17,8 @@
 							
 							{% include 'include/alert.html' %}
 							
-							<a href="index.html" class="sign__logo">
-								<img src="img/logo.svg" alt="">
+							<a href="{% url 'home' %}" class="sign__logo">
+								<img src="{% static 'img/logo.svg' %}" alt="">
 							</a>
 
 							<div class="sign__group">
@@ -29,10 +29,10 @@
 								<input type="password" name='password' class="sign__input" placeholder="Password">
 							</div>
 
-							<div class="sign__group sign__group--checkbox">
+							{% comment %} <div class="sign__group sign__group--checkbox">
 								<input id="remember" name="remember" type="checkbox" checked="checked">
 								<label for="remember">Remember Me</label>
-							</div>
+							</div> {% endcomment %}
 							
 							<button class="sign__btn" type="submit">Sign in</button>
 
