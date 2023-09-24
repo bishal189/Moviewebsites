@@ -1,7 +1,7 @@
 {% load static %}
 
 <header class="header header--hidden">
-  <div class="container">
+  <div style="max-width:100%;" class="container">
     <div class="row">
       <div class="col-12">
         <div class="header__content">
@@ -139,18 +139,17 @@
 
             {% endif %}
 
-           
           </div>
           {% if user.is_authenticated %}
           <a  href='{% url 'profile' %}' style='font-size:1.1rem; color:white;'>
           <i class="fa-solid fa-user"></i>
          Welcome,<br> <strong style='margin-left:25px;'> {{user.username}}</strong>
           </a>{% endif %}
-          <a  href='{% url 'cart' %}' class="cart-icon-container" style='font-size:2rem;'>
+          <a style="padding-right:10px;"  href='{% url 'cart' %}' class="cart-icon-container" style='font-size:2rem;'>
             <!-- Shopping cart icon (you can replace this with your own icon) -->
             <span class="cart-icon">&#x1F6D2;</span>
             <!-- Cart value (replace '3' with the actual value) -->
-            <span id="cart-value" class="cart-value">{{cart_count}}</span>
+            <span style="right:0px;" id="cart-value" class="cart-value">{{cart_count}}</span>
         </a>
         </div>
       </div>

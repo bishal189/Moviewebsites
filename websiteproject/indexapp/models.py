@@ -31,7 +31,7 @@ class MovieDetail(models.Model):
     price=models.IntegerField()
     genre=models.ManyToManyField(Category)
     studio=models.ForeignKey(StudioModel,on_delete=models.SET_NULL,blank=True,null=True)
-    slug=models.SlugField(unique=False,blank=False)
+    slug=models.SlugField(unique=True,blank=False)
     link=models.URLField(unique=False,blank=True, default=False)
     created_at=models.DateField(auto_now=True,null=True)
 

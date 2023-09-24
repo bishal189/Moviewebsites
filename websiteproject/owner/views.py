@@ -53,10 +53,19 @@ def  add_item(request):
       movie=request.FILES['movie']
       starimage=request.FILES['starimage']
       starname=request.POST['starname']
+      starheight=request.POST['starheight']
+      starhaircolor=request.POST['starhaircolor']
+      starage=request.POST['starage']
       studioname=request.POST['studio']
-
-      star=StarsModel.objects.create(name=starname,image=starimage)
-      studio=StudioModel.objects.create(name=studioname)
+      
+      star,created=StarsModel.objects.get_or_create(name=starname.title())
+      
+      star.height=starheight
+      star.haircolor=starhaircolor
+      star.age=starage
+      star.image=starimage
+      star.save()
+      studio,created=StudioModel.objects.get_or_create(name=studioname.title())
       form=MovieDetail.objects.create(movie_name=title,studio=studio,year=releasedyear,type=type,quality=quality,coverphoto=cover_image,duration=length,short_description=text,trailer=movie,price=price)
       form.images.clear()
       form.genre.clear()

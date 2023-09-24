@@ -62,7 +62,7 @@ def category_filter(request):
     if height != "all":
         current['height']=height
         lower_bound,upper_bound=height.split('-')
-        filters_star['age__range']=(float(lower_bound),float(upper_bound))
+        filters_star['height__range']=(float(lower_bound),float(upper_bound))
         
 
     if price != "all":
