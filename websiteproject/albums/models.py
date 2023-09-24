@@ -9,6 +9,7 @@ class Albums(models.Model):
     limit=models.IntegerField(blank=True,null=True)
     counter=models.IntegerField(blank=True,null=True)
     price=models.IntegerField(blank=True,null=True)
+    
 
 
     def __str__(self):

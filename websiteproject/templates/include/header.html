@@ -65,6 +65,24 @@
                 aria-expanded="false"
                 >DVD</a>
             </li>
+            <li class="header__nav-item">
+              <a
+                class="header__nav-link"
+                href="{% url 'album' %}"
+                role="button"
+                aria-haspopup="true"
+                aria-expanded="false"
+                >Album</a>
+            </li>
+            <li class="header__nav-item">
+              <a
+                class="header__nav-link"
+                href="{% url 'photosets' %}"
+                role="button"
+                aria-haspopup="true"
+                aria-expanded="false"
+                >PhotoSets</a>
+            </li>
  <li class="header__nav-item">
               <a
                 class="header__nav-link"
@@ -76,7 +94,6 @@
             </li>
             
                      </ul>
-
           <div class="header__actions">
             <form action="{% url 'search'  %}" class="header__form" method="POST">
               {% csrf_token %}

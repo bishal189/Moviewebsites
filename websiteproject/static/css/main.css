@@ -206,7 +206,7 @@ body::-webkit-scrollbar-thumb {
   align-items: center;
   position: relative;
   overflow: hidden;
-  height: 80px;
+  height: 170px;
   width: 100%;
 }
 .header__logo {
@@ -226,7 +226,7 @@ body::-webkit-scrollbar-thumb {
   align-items: flex-start;
   position: fixed;
   background-color: #131720;
-  top: -250px;
+  top: -400px;
   left: 0;
   width: 100%;
   z-index: 100;
@@ -237,6 +237,9 @@ body::-webkit-scrollbar-thumb {
   border-bottom: 1px solid #151f30;
 }
 .header__nav--active {
+  z-index:-1;
+  height:320px;
+  margin-bottom:50px;
   top: 0;
 }
 .header__nav-link {
@@ -579,6 +582,7 @@ body::-webkit-scrollbar-thumb {
     background: none;
     border-bottom: none;
   }
+  
   .header__nav-item {
     display: flex;
     flex-direction: row;

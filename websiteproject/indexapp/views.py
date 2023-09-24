@@ -121,3 +121,20 @@ def star_detail(request,id):
         'movies':movies,
     }
     return render(request,'stardetail.html',context)
+
+
+def photosets(request):
+    movies=MovieDetail.objects.filter(type="PhotoSets")
+    context={
+        'movies':movies
+    }
+
+    return render(request,'photosets.html',context)
+
+
+
+
+def about(request):
+    return render(request,'about.html')
+def privacy(request):
+    return render(request,'privacy.html')

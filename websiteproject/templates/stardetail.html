@@ -84,7 +84,7 @@
 
 								<h3 class="card__title"><a href="{% url 'details' slug=item.slug %}">{{item.movie_name}}</a></h3>
 								<ul class="card__list">
-									<li>{{item.quality}}</li>
+									<li>{{item.type}}</li>
 									<li>{{item.duration}} min</li>
 									<li>{{item.year}}</li>
 								</ul>
@@ -106,7 +106,8 @@
 	<!-- end similar -->
 
 	<!-- footer -->
-	<footer class="footer">
+	{% include 'include/footer.html' %}
+	{% comment %} <footer class="footer">
 		<div class="container">
 			<div class="row">
 				<div class="col-12 col-sm-8 col-md-6 col-lg-4 col-xl-3 order-4 order-md-1 order-lg-4 order-xl-1">
@@ -182,7 +183,7 @@
 				</div>
 			</div>
 		</div>
-	</footer>
+	</footer> {% endcomment %}
 	<!-- end footer -->
 
 

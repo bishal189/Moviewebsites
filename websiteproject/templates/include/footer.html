@@ -1,79 +1,12 @@
-{% extends 'base.html' %}
-{% load static %}
-{% block title %}
-	<title>FlixTV – Movies & TV Shows, Online cinema HTML Template</title>
-{% endblock %}
-
-
-{% block content %}
-
-	<!-- header (relative style) -->
-{% include 'include/header.html' %}
-<section class="section section--head mt-5">
-    <div class="container">
-        <div class="row">
-            <div class="col-12 col-xl-6">
-                <h1 style="margin-bottom:70px;" class="section__title section__title--head">Stars</h1>
-            </div>
-
-            <div class="col-12 col-xl-6">
-                <ul class="breadcrumb">
-                    <li class="breadcrumb__item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb__item breadcrumb__item--active">Stars</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- end head -->
-
-<!-- catalog -->
-<div class="catalog catalog--page">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-             
-                    <div style="justify-content:center;" class="row row--grid">
-
-                        {% for item in stars %}
-
-                
-                    <div  style="margin-right:18px;"class="col-6 col-sm-4 col-lg-3 col-xl-2">
-                        <div class="card">
-                            <a href="{% url 'star_detail' id=item.id %}" class="card__cover">
-                                <img src="{{item.image.url}}" alt="">
-                            </a>
-                            <h3 class="card__title"><a href="{% url 'star_detail' id=item.id%}">{{item.name}}</a></h3>
-                           
-                        </div>
-                    </div>
-                
-                
-                    {% endfor %}</div>
-
-                </div>
-            </div>
-        </div>		
-
-        {% comment %} <div class="row">
-            <div class="col-12">
-                <button class="catalog__more" type="button">Load more</button>
-            </div>
-        </div> {% endcomment %}
-    </div>
-</div>
-<!-- end catalog -->
-
-
-
 <!-- footer -->
-{% include 'include/footer.html' %}
-{% comment %} <footer class="footer">
+
+{% load static %}
+<footer class="footer">
     <div class="container">
         <div class="row">
             <div class="col-12 col-sm-8 col-md-6 col-lg-4 col-xl-3 order-4 order-md-1 order-lg-4 order-xl-1">
                 <div class="footer__flixtv">
-                    <img src="img/logo.svg" alt="">
+                    <img src="{% static 'img/logo.svg' %}" alt="">
                 </div>
                 <p class="footer__tagline">Movies & TV Shows, Online cinema,<br> Movie database HTML Template.</p>
                 <div class="footer__social">
@@ -88,10 +21,9 @@
             <div class="col-6 col-md-4 col-lg-3 col-xl-2 order-1 order-md-2 order-lg-1 order-xl-2 offset-md-2 offset-lg-0 offset-xl-1">
                 <h6 class="footer__title">FlixTV</h6>
                 <div class="footer__nav">
-                    <a href="about.html">About us</a>
-                    <a href="profile.html">My profile</a>
-                    <a href="pricing.html">Pricing plans</a>
-                    <a href="contacts.html">Contacts</a>
+                    <a href="{% url 'about'%}">About us</a>
+                    <a href="{% url 'contact' %}">Contacts</a>
+                    <a href="{% url 'profile' %}">My Profile</a>
                 </div>
             </div>
 
@@ -101,21 +33,14 @@
                         <h6 class="footer__title">Browse</h6>
                     </div>
 
-                    <div class="col-6">
-                        <div class="footer__nav">
-                            <a href="live.html">Live TV</a>
-                            <a href="live.html">Live News</a>
-                            <a href="live.html">Live Sports</a>
-                            <a href="live.html">Streaming Library</a>
-                        </div>
-                    </div>
+                    
 
                     <div class="col-6">
                         <div class="footer__nav">
-                            <a href="category.html">TV Shows</a>
-                            <a href="category.html">Movies</a>
-                            <a href="category.html">Kids</a>
-                            <a href="category.html">Collections</a>
+                            <a href="{% url 'dvd' %}">DVD</a>
+                            <a href="{% url 'home' %}">Movies</a>
+                            <a href="{% url 'scenes' %}">Scene</a>
+                            <a href="{% url 'category' %}">Collections</a>
                         </div>
                     </div>
                 </div>
@@ -124,9 +49,9 @@
             <div class="col-6 col-md-4 col-lg-3 col-xl-2 order-2 order-lg-3 order-md-4 order-xl-4">
                 <h6 class="footer__title">Help</h6>
                 <div class="footer__nav">
-                    <a href="privacy.html">Account & Billing</a>
-                    <a href="privacy.html">Plans & Pricing</a>
-                    <a href="privacy.html">Supported devices</a>
+                    {% comment %} <a href="privacy.">Account & Billing</a> {% endcomment %}
+                    {% comment %} <a href="privacy.html">Plans & Pricing</a> {% endcomment %}
+                    <a href="">Supported partner</a>
                     <a href="privacy.html">Accessibility</a>
                 </div>
             </div>
@@ -136,14 +61,12 @@
             <div class="col-12">
                 <div class="footer__content">
                     <div class="footer__links">
-                        <a href="privacy.html">Privacy policy</a>
-                        <a href="privacy.html">Terms and conditions</a>
+                        <a href="{% url 'privacy' %}">Privacy policy</a>
+                        <a href="{% url 'privacy' %}">Terms and conditions</a>
                     </div>
-                    <small class="footer__copyright">© FlixTV.template, 2021. Created by <a href="https://themeforest.net/user/dmitryvolkov/portfolio" target="_blank">Dmitry Volkov</a>.</small>
+                    <small class="footer__copyright">©Copy right reserved, 2023. Created by <a href="https://themeforest.net/user/dmitryvolkov/portfolio" target="_blank">Bishal and sandesh</a>.</small>
                 </div>
             </div>
         </div>
     </div>
-</footer> {% endcomment %}
-<!-- end footer -->
-{% endblock %}
+</footer>

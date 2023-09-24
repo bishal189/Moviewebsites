@@ -50,7 +50,11 @@ def  add_item(request):
       quality=request.POST['quality']
       type=request.POST['type']
       price=request.POST['price']
-      movie=request.FILES['movie']
+      if 'movie' in request.FILES:
+
+        movie=request.FILES['movie']
+      else:
+        movie=None
       starimage=request.FILES['starimage']
       starname=request.POST['starname']
       starheight=request.POST['starheight']
@@ -61,7 +65,7 @@ def  add_item(request):
       star,created=StarsModel.objects.get_or_create(name=starname.title())
       
       star.height=starheight
-      star.haircolor=starhaircolor
+      star.haircolor=starhaircolor.title()
       star.age=starage
       star.image=starimage
       star.save()
@@ -147,8 +151,10 @@ def edit_movie(request,id):
 
 
 def remove_movie(request,id):
-  print('hello world')
   movie=MovieDetail.objects.get(id=id)
+  movie.stars.clear()
+  movie.genre.clear()
+  movie.images.clear()
   movie.delete()
   return redirect('catalog')
  

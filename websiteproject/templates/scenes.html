@@ -14,15 +14,15 @@
 	<section class="section section--head mt-5">
 		<div class="container">
 			<div class="row">
-				<div class="col-12 col-xl-6">
+				<div style="margin-bottom:30px;" class="col-12 col-xl-6">
 					<h1 class="section__title section__title--head">Scenes</h1>
 				</div>
 
 				<div class="col-12 col-xl-6">
-					<ul class="breadcrumb">
+					{% comment %} <ul class="breadcrumb">
 						<li class="breadcrumb__item"><a href="{%url 'home' %}">Home</a></li>
 						<li class="breadcrumb__item breadcrumb__item--active">Scenes</li>
-					</ul>
+					</ul> {% endcomment %}
 				</div>
 			</div>
 		</div>
@@ -74,7 +74,8 @@
 	<!-- end subscriptions -->
 
 	<!-- footer -->
-	<footer class="footer">
+	{% include 'include/footer.html' %}
+	{% comment %} <footer class="footer">
 		<div class="container">
 			<div class="row">
 				<div class="col-12 col-sm-8 col-md-6 col-lg-4 col-xl-3 order-4 order-md-1 order-lg-4 order-xl-1">
@@ -150,7 +151,7 @@
 				</div>
 			</div>
 		</div>
-	</footer>
+	</footer> {% endcomment %}
 	<!-- end footer -->
 <script>
 
