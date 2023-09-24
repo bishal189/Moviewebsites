@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from .models import Cart,Cartitem
 from indexapp.models import MovieDetail
+from albums.models import Albums
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
 from .forms import Order,OrderForm
@@ -22,16 +23,18 @@ def details(request,slug=None):
     user=request.user
     newmovies=MovieDetail.objects.all().order_by('-id')[:5]
     similar=MovieDetail.objects.all().order_by('?')[:20]
+    li=[]
     if request.user.is_authenticated:
-        li=[]
+
         cart_item=Cartitem.objects.filter(user=user)
-        
 
         for item in cart_item:
-            li.append(item.product)
-        item=product in li
+                li.append(item.product)
+        
+        val=product in li
+     
         context={
-            'val':item,
+            'val':val,
             'product':product,
             'notlogin':False,
             'newmovies':newmovies,
@@ -51,10 +54,20 @@ def details(request,slug=None):
        return render(request,'details.html',context)
 
 
+def remove_album(request,album_id):
+    allcartitems=Cartitem.objects.all()
+    allcartitems.delete()
+    albums=Albums.objects.get(id=album_id)
+    albums.movies.clear()
+    albums.counter=0
+    albums.save()
+    
+
+    return redirect('cart')
 
 
 
-def add_cart(request,product_id):
+def add_cart(request,product_id,album_price=None):
     # if the user is login 
     current_user=request.user
      
@@ -256,7 +269,10 @@ def add_cart(request,product_id):
             cart_item.save()
 
         # return HttpResponse(cart_item.quantity)
-        return redirect('cart');   
+        if album_price:
+            return redirect('cart_album',album_price=album_price)
+        else:
+            return redirect('cart');   
 
 
 
@@ -267,8 +283,8 @@ def add_cart(request,product_id):
 
 
    
-def cart(request,total=0,quantity=0,cart_items=None):
-    
+def cart(request,total=0,quantity=0,cart_items=None,album_price=None,album_name=None):
+    print("price",album_price)
    
     try:
         tax=0
@@ -293,14 +309,28 @@ def cart(request,total=0,quantity=0,cart_items=None):
     except ObjectDoesNotExist:
         pass    
     
-
-    context={
-        'total':total,
+    if album_price:
+        album=Albums.objects.get(album_name=album_name)
+        context={
+        'album_id':album.id,
+        'album':True,
+        'total':album_price,
         'quantity':quantity,
         'cart_items':cart_items,
-        'tax':tax,
-        'grand_total':grand_total
+        'album_name':album_name,
+        'tax':0,
+        'grand_total':album_price
     }
+    else:
+
+        context={
+            'album':False,
+            'total':total,
+            'quantity':quantity,
+            'cart_items':cart_items,
+            'tax':tax,
+            'grand_total':grand_total
+        }
     return render(request,'cart/cart.html',context)
 
 
@@ -339,7 +369,7 @@ def remove_cart_item(request,product_id):
 
 
 @login_required(login_url='login')
-def checkout(request,total=0,quantity=0,cart_items=None):
+def checkout(request,total=0,quantity=0,cart_items=None,album_price=None):
     tax=0
     grand_total=0
     try:
@@ -381,11 +411,14 @@ def checkout(request,total=0,quantity=0,cart_items=None):
             data.city=form.cleaned_data['city']
             data.state=form.cleaned_data['state']
             data.order_note=form.cleaned_data['order_note']
-            data.total=grand_total
+            if album_price:
+
+                data.total=album_price
+            else:
+                data.total=grand_total
             data.tax=tax
             data.ip=request.META.get('REMOTE_ADDR')
             data.save()
-
 
 
 
@@ -404,38 +437,60 @@ def checkout(request,total=0,quantity=0,cart_items=None):
 
 
 
-
-
-
             order=Order.objects.get(user=request.user,is_ordered=False,order_number=order_number)
-            context={
+            if album_price:
+                context={
+                'album':True,
                 'order':order,
                 'cart_items':cart_items,
-                'grand_total':grand_total,
-                 'tax':tax,
-                 'total':total,
+                'grand_total':album_price,
+                 'tax':0,
+                 'total':album_price,
 
             }
+            else:
 
+
+                context={
+                    'album':False,
+                    'order':order,
+                    'cart_items':cart_items,
+                    'grand_total':grand_total,
+                    'tax':tax,
+                    'total':total,
+
+                }
 
             return render(request,'cart/payements.html',context)
 
-
-
         else:
-            return redirect('checkout')    
+            if album_price:
+                return redirect('checkout_album',album_price=album_price)
+            else:
+                return redirect('checkout')    
             
     else:
         form=OrderForm()
-
-    context={
-        'total':total,
+    if album_price:
+         context={
+        'album':True,
+        'total':album_price,
         'quantity':quantity,
         'cart_items':cart_items,
-        'tax':tax,
-        'grand_total':grand_total,
+        'tax':0,
+        'grand_total':album_price,
         'form':form
     }
+    else:
+        context={
+            'album':False,
+            'total':total,
+            'quantity':quantity,
+            'cart_items':cart_items,
+            'tax':tax,
+            'grand_total':grand_total,
+            'form':form
+        }
     return render(request,'cart/checkout.html',context)
 
 
@@ -445,11 +500,9 @@ def checkout(request,total=0,quantity=0,cart_items=None):
 def payement(request):
     
     body=json.loads(request.body)
-    print(body)
     
     order=Order.objects.get(user=request.user,order_number=body['orderID'])
  
-    print(order)
     # store all the information in the payemnt model
     payment=Payment.objects.create(
         user=request.user,
@@ -473,7 +526,6 @@ def payement(request):
     cart_items=Cartitem.objects.filter(user=request.user)
     
     for item in cart_items:
-        print(item)
         orderproduct=Order_Product()
         orderproduct.order_id=order.id
         orderproduct.payment=payment

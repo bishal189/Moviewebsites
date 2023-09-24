@@ -13,6 +13,8 @@ class StarsModel(models.Model):
     age=models.IntegerField(null=True,blank=True)
 
 
+class StudioModel(models.Model):
+    name=models.CharField(max_length=100,blank=True)
 
 
 class MovieDetail(models.Model):
@@ -25,12 +27,13 @@ class MovieDetail(models.Model):
     duration=models.IntegerField(null=True)
     short_description=models.TextField(max_length=100000)
     images=models.ManyToManyField(ImagesModel,related_name='related_images')
-    trailer=models.FileField(upload_to='trailer/')
+    trailer=models.FileField(upload_to='trailer/',blank=True,null=True)
     price=models.IntegerField()
     genre=models.ManyToManyField(Category)
+    studio=models.ForeignKey(StudioModel,on_delete=models.SET_NULL,blank=True,null=True)
     slug=models.SlugField(unique=False,blank=False)
     link=models.URLField(unique=False,blank=True, default=False)
-    created_at=models.DateField(auto_created=True,null=True,)
+    created_at=models.DateField(auto_now=True,null=True)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.movie_name)

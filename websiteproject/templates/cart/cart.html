@@ -11,7 +11,7 @@
         <h2 class="text-center">Your shopping cart is empty!</h2>
         <br>
         <div class="text-center">
-            <a href="" class="btn btn-primary"> Continue shopping</a>
+            <a href="{% url 'home' %}" class="btn btn-primary"> Continue shopping</a>
         </div>
 
         {% else %}
@@ -29,10 +29,16 @@
                         </thead>
                         <tbody>
 
+                            {% if album %}
+                            <a style="margin:auto;" href="{% url 'remove_album' album_id %}" onclick="return confirm('Are you sure want to delete this item?') " class="btn btn-danger">
+                                Remove Album</a>
 
+                            {% endif%}
                             {% for cart_item in cart_items %}
                             <tr>
                                 <td>
+                                   
+                                    
                                     <figure class="itemside align-items-center">
                                         <div class="aside"><img src="{{cart_item.product.coverphoto.url}}" class="img-sm">
                                         </div>
@@ -94,8 +100,12 @@
                                     </div> <!-- price-wrap .// -->
                                 </td>
                                 <td class="text-right">
+                                    {% if album %}
+                                    
+                                    {% else %}
                                     <a href="{% url 'remove_item' cart_item.product.id %}" onclick="return confirm('Are you sure want to delete this item?') " class="btn btn-danger">
                                         Remove</a>
+                                        {% endif %}
                                 </td>
                             </tr>
                             {% endfor %}
@@ -126,7 +136,11 @@
                         <p class="text-center mb-3">
                             <img src="{% static 'cart/images/misc/payments.png' %}" height="26">
                         </p>
+                        {% if album %}
+                        <a href="{% url 'checkout_album' album_price=grand_total %}" class="btn btn-primary btn-block"> Checkout </a>
+                        {% else %}
                         <a href="{% url 'checkout' %}" class="btn btn-primary btn-block"> Checkout </a>
+                        {% endif %}
                         <a href="{% url 'home' %}" class="btn btn-light btn-block">Continue Shopping</a>
                     </div> <!-- card-body.// -->
                 </div> <!-- card.// -->
@@ -140,6 +154,11 @@
 
     </div> <!-- container .//  -->
 </section>
+
+<script>
+    localStorage.removeItem('pageReloaded');
+
+</script>
 <!-- ========================= SECTION CONTENT END// ========================= -->
 
 {% endblock %}

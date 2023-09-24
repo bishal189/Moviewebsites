@@ -284,13 +284,14 @@
 									<img src="{{album.coverphoto.url}}" alt="">
 									<svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M13.1615 8.05308C13.1615 9.79908 11.7455 11.2141 9.9995 11.2141C8.2535 11.2141 6.8385 9.79908 6.8385 8.05308C6.8385 6.30608 8.2535 4.89108 9.9995 4.89108C11.7455 4.89108 13.1615 6.30608 13.1615 8.05308Z" stroke-linecap="round" stroke-linejoin="round"/><path fill-rule="evenodd" clip-rule="evenodd" d="M9.998 15.3549C13.806 15.3549 17.289 12.6169 19.25 8.05289C17.289 3.48888 13.806 0.750885 9.998 0.750885H10.002C6.194 0.750885 2.711 3.48888 0.75 8.05289C2.711 12.6169 6.194 15.3549 10.002 15.3549H9.998Z" stroke-linecap="round" stroke-linejoin="round"/></svg>
 								</a>
+								<span class="card__rating">{{album.price}} $</span>
 
-								{% comment %} <button class="card__add" type="button">{{album.price}}</button> {% endcomment %}
 								<h3 class="card__title card__title--subs"><a href="{% url 'album_detail' album.id %}">{{album.album_name}}</a></h3>
-
-								<ul class="card__list card__list--subs">
-									<li>{{album.description | truncatewords:3}}</li>
-								</ul>
+								<ul class="card__list">
+												<li>{{album.movies.count}} items added</li>
+												
+											</ul>
+								
 							</div>
 							{% endfor %}
 							

@@ -1,5 +1,5 @@
 from django.shortcuts import render,get_object_or_404
-from .models import MovieDetail,StarsModel
+from .models import MovieDetail,StarsModel,StudioModel
 from indexapp.models import Category
 from django.core.paginator import EmptyPage,PageNotAnInteger,Paginator
 # Create your views here.
@@ -30,7 +30,14 @@ def home(request):
     }
     return render(request,'index.html',context)
     
-
+def studio_detail(request,id):
+    studio=StudioModel.objects.get(id=id)
+    movies=MovieDetail.objects.filter(studio=studio)
+    context={
+        'product':studio,
+        'movies':movies,
+    }
+    return render(request,'studio-detail.html',context)
 def search(request):
    
     tosearch=request.POST['searchtext']

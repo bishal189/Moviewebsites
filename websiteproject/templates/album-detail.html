@@ -26,10 +26,7 @@
 						<div class="row row--grid">
 
 							{% for item in movies %}
-								{% if item in itemsincart %}
-								<script></script>
-								{% endif%}
-					
+							
 						<div  style="margin-right:18px;"class="col-6 col-sm-4 col-lg-3 col-xl-2">
 							<div class="card">
 								<a href="{% url 'details' slug=item.slug %}" class="card__cover">
@@ -46,13 +43,41 @@
 								{% if user.is_authenticated %}
 								
 								{% if item in itemsincart %}
-								<button data-url={% url 'remove_item' item.id %} id="item_remove_{{item.id}}" onclick="remove_item({{item.id}})"  class="sign__btn">Added</button>
-								{% else %}
-								<button data-url="{% url 'add_cart' item.id %}" id="item_add_{{item.id}}" onclick="add_item({{item.id}})"  class="sign__btn">Add to Album</button>
-								{% endif %}
-								<button style="display:none" data-url={% url 'remove_item' item.id %} id="item_remove_{{item.id}}" onclick="remove_item({{item.id}})"  class="sign__btn">Added</button>
 
-								<button style="display:none" data-url="{% url 'add_cart' item.id %}" id="item_add_{{item.id}}" onclick="add_item({{item.id}})"  class="sign__btn">Add to Album</button>
+								<script>
+									counterlocal=0
+									ct=document.getElementById('counter')
+
+									function add_item(id){
+										if (counterlocal>={{product.limit}}){
+											alert('limit reached')
+											return
+										}
+										//url="{% url 'add_cart_album' product_id=item.id album_price=product.price %}"
+										//alert(url)
+										addurl="{% url 'inc_counter' album_id=product.id movie_id=item.id %}"
+										//alert(url)
+										//fetch(url)
+										fetch(addurl).then(response=>response.json()).then(data=>{
+											ct.textContent=data.count+" Items in Album"
+
+										}).catch(error => {
+											// Handle any errors here
+											console.error(error);
+							
+																		})
+											
+																	
+										}
+									add_item({{item.id}})
+								</script>
+								<button dec-url="{% url 'dec_counter' album_id=product.id movie_id=item.id %}"data-url={% url 'remove_item' item.id %} id="item_remove_{{item.id}}" onclick="remove_item({{item.id}})"  class="sign__btn">Added</button>
+								{% else %}
+								<button inc-url="{% url 'inc_counter' album_id=product.id movie_id=item.id %}"data-url="{% url 'add_cart_album' product_id=item.id album_price=product.price %}" id="item_add_{{item.id}}" onclick="add_item({{item.id}})"  class="sign__btn">Add to Album</button>
+								{% endif %}
+								<button dec-url="{% url 'dec_counter' album_id=product.id movie_id=item.id  %}" style="display:none" data-url={% url 'remove_item' item.id %} id="item_remove_{{item.id}}" onclick="remove_item({{item.id}})"  class="sign__btn">Added</button>
+
+								<button inc-url="{% url 'inc_counter' album_id=product.id movie_id=item.id %}" style="display:none" data-url="{% url 'add_cart_album' item.id product.price %}" id="item_add_{{item.id}}" onclick="add_item({{item.id}})"  class="sign__btn">Add to Album</button>
 
 
 	     {% else %}		
@@ -67,7 +92,7 @@
 					
 				</div>
           {% if user.is_authenticated %}
-				<a href='{% url 'cart'  %}' style="width:40%;" class="sign__btn">Show Cart</a>
+				<a href='{% url 'cart_album' album_price=product.price album_name=product.album_name %}' style="width:40%;" class="sign__btn">Show Cart</a>
 
 	     {% else %}		
 		 <a href='{% url 'login' %}' style="width:40%;" class="sign__btn">Show Cart</a>
@@ -164,38 +189,62 @@
 	</footer>
 	<!-- end footer -->
 <script>
+// Check if the page has a stored flag indicating it has been reloaded
+
+// If the flag is not set, reload the page and set the flag
+
+window.addEventListener('load',function(){
+	const pageReloaded = localStorage.getItem('pageReloaded');
+
+if (!pageReloaded) {
+    // Reload the page
+    location.reload();
+
+    // Set the flag in local storage to indicate that the page has been reloaded
+    localStorage.setItem('pageReloaded', 'true');
+}
+})
 
 
-	
-var counter=0
-var cart=document.getElementById('cart-value')
+
+var	counterlocal={{counter}}
+ cart=document.getElementById('cart-value')
 ct=document.getElementById('counter')
 	function add_item(id){
+		if (counterlocal>={{product.limit}}){
+			alert('limit reached')
+			return
+		}
 		add=document.getElementById('item_add_'+id)
 		remove=document.getElementById('item_remove_'+id)
 		url=add.getAttribute('data-url')
+		addurl=add.getAttribute('inc-url')
 		fetch(url)
-		counter=counter+1
+		fetch(addurl)
+		counterlocal++
+		ct.textContent=counterlocal+" items added in album"
 		cart.textContent=parseInt(cart.textContent)+1
-		ct.textContent=counter+" Items added"
 		add.style.display="none"
 		remove.style.display="block"
 	}
 	function remove_item(id){
-
 		add=document.getElementById('item_add_'+id)
 		remove=document.getElementById('item_remove_'+id)
 		url=remove.getAttribute('data-url')
-
+		removeurl=remove.getAttribute('dec-url')
 		fetch(url)
+
+		
+		fetch(removeurl)
+		
+		counterlocal--
+		if (counterlocal<0){
+			counterlocal=0
+		}
+		ct.textContent=counterlocal+" items added in album"
 		cart.textContent=parseInt(cart.textContent)-1
-
-	counter=counter-1
-	if (counter<0){counter=0}
-	ct.textContent=counter+" Items added"
-
-	add.style.display="block"
-	remove.style.display="none"	
+		add.style.display="block"
+		remove.style.display="none"	
 }
 	function redirecter(e){
 		e.preventDefault()

@@ -9,5 +9,6 @@ urlpatterns = [
     path('scenes/',views.scenes,name='scenes'),
     path('DVD/',views.dvd,name='dvd'),
     path('stars/',views.stars,name='stars'),
-    path('stars/<int:id>',views.star_detail,name='star_detail')
+    path('stars/<int:id>',views.star_detail,name='star_detail'),
+    path('studio/<int:id>',views.studio_detail,name='studio_detail'),
 ]

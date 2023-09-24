@@ -8,3 +8,4 @@ class MovieDetailAdmin(admin.ModelAdmin):
 admin.site.register(ImagesModel)
 admin.site.register(MovieDetail,MovieDetailAdmin)
 admin.site.register(StarsModel)
+admin.site.register(StudioModel)

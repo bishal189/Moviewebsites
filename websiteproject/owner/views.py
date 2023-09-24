@@ -1,5 +1,5 @@
 from django.shortcuts import render,get_object_or_404,redirect,HttpResponse
-from indexapp.models import MovieDetail,ImagesModel,StarsModel
+from indexapp.models import MovieDetail,ImagesModel,StarsModel,StudioModel
 from albums.models import Albums
 from django. contrib import messages
 from django.core.exceptions import PermissionDenied
@@ -53,9 +53,11 @@ def  add_item(request):
       movie=request.FILES['movie']
       starimage=request.FILES['starimage']
       starname=request.POST['starname']
+      studioname=request.POST['studio']
 
       star=StarsModel.objects.create(name=starname,image=starimage)
-      form=MovieDetail.objects.create(movie_name=title,year=releasedyear,type=type,quality=quality,coverphoto=cover_image,duration=length,short_description=text,trailer=movie,price=price)
+      studio=StudioModel.objects.create(name=studioname)
+      form=MovieDetail.objects.create(movie_name=title,studio=studio,year=releasedyear,type=type,quality=quality,coverphoto=cover_image,duration=length,short_description=text,trailer=movie,price=price)
       form.images.clear()
       form.genre.clear()
       form.stars.add(star)
@@ -83,12 +85,11 @@ def add_album(request):
       coverphoto=request.FILES['form__img-upload']
       title=request.POST['title']
       limit=request.POST['limit']
-      creator=Albums.objects.create(coverphoto=coverphoto,album_name=title,limit=limit)
+      price=request.POST['price']
+      creator=Albums.objects.create(coverphoto=coverphoto,album_name=title,limit=limit,price=price,counter=0)
 
-     
       
       creator.save()
-      
 
    movies=MovieDetail.objects.all()
    context={
@@ -96,6 +97,8 @@ def add_album(request):
    }
    return render(request,"owner/add-album.html",context)
    
+
+
 
 
 

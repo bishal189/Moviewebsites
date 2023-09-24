@@ -38,8 +38,8 @@
 								<li>{{product.duration}} min</li>
 								<li>{{product.type}}</li>
 							</ul>
-
-							<p>{{product.short_description}}</p>
+							<div style="color:white;margin-bottom:10px;">Studio: <a style="display:inline" href="{% url 'studio_detail' product.studio.id %}">{{product.studio.name}}</a></div>
+							<p>Description:{{product.short_description}}</p>
 						</div>
 						<!-- end article content -->
 					</div>
