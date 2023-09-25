@@ -19,12 +19,12 @@ def album_detail(request,id):
     user=request.user
     if request.user.is_authenticated:
 
-        cart_item=album.movies.all()
+        cart_item=Cartitem.objects.filter(user=user)
 
         for item in cart_item:
-                li.append(item)
+                li.append(item.product)
     
-    
+        
 
         context={
             'product':album,
