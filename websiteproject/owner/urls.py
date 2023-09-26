@@ -11,7 +11,9 @@ urlpatterns = [
     path('add_stars/',views.add_stars,name='add_stars'),
     path('add_studio/',views.add_studio,name='add_studio'),
     path('edit_user/',views.edit_user,name='edit_user'),
+    path('add_album/',views.add_album,name='add_album'),
+    # path('total_amount/',views.total_amount,name='total_amount'),
     path('edit_movie/<int:id>',views.edit_movie,name='edit_movie'),
     path('remove_movie/<int:id>',views.remove_movie,name='remove_movie'),
-    path('add_album/',views.add_album,name='add_album'),
+  
 ]

@@ -4,6 +4,9 @@ from albums.models import Albums
 from django. contrib import messages
 from django.core.exceptions import PermissionDenied
 from django.http import HttpResponseNotFound
+from detailapp.models import Payment 
+from django.db.models import Sum
+# from .models import Product  # Replace `.models` with the actual path to your model
 
 # from .forms import movie_form
 from .forms import MovieDetailForm
@@ -21,12 +24,15 @@ def dashboard(request):
       top_movie=MovieDetail.objects.all().order_by()[:5]
       latest_movie=MovieDetail.objects.all().order_by('-id')[:5]
       latest_user=Account.objects.all().order_by('-id')[:5]
+      total_price =Payment.objects.aggregate(total_price=Sum('amount_paid'))
+      sum_of_prices = total_price['total_price']
       
       context={
         'get_data':get_data,
         'top_movie':top_movie,
         'latest_movie':latest_movie,
         'latest_user':latest_user,
+        'total_price':sum_of_prices
       }
 
       return render(request,'owner/index.html',context)
@@ -37,6 +43,7 @@ def dashboard(request):
 
 
 
+@user_passes_test(is_superadmin)
 def  add_item(request):
     star=StarsModel.objects.all().order_by('-id')
     studio=StudioModel.objects.all().order_by('-id')
@@ -90,6 +97,7 @@ def  add_item(request):
 
   
   
+@user_passes_test(is_superadmin)
 def add_album(request):
    if request.method=="POST" and request.FILES.get('form__img-upload'):
       coverphoto=request.FILES['form__img-upload']
@@ -116,6 +124,7 @@ def add_album(request):
 
 
 
+@user_passes_test(is_superadmin)
 def catalog(request):
     movie_details=MovieDetail.objects.all().order_by('-id')
     # category=movie_details.genre.all()
@@ -125,6 +134,7 @@ def catalog(request):
     return render(request,'owner/catalog.html',context)
 
 
+@user_passes_test(is_superadmin)
 def edit_movie(request,id):
     movie = get_object_or_404(MovieDetail, pk=id)
     if request.method == 'POST':
@@ -151,6 +161,7 @@ def edit_movie(request,id):
 
 
 
+@user_passes_test(is_superadmin)
 def remove_movie(request,id):
   movie=MovieDetail.objects.get(id=id)
   movie.stars.clear()
@@ -179,6 +190,7 @@ def user_list(request):
 
 
 
+@user_passes_test(is_superadmin)
 def add_studio(request):
   if request.method == 'POST' :
     
@@ -191,6 +203,7 @@ def add_studio(request):
 
 
 
+@user_passes_test(is_superadmin)
 def add_stars(request):
   if request.method == 'POST' :
       
@@ -207,3 +220,13 @@ def add_stars(request):
 
       return render(request,'owner/add_stars.html')
   return render(request,'owner/add_stars.html')
+
+
+
+
+# def total_amount(request):
+#   # payment=Payment.objects.all()
+#   total_price =Payment.objects.aggregate(total_price=Sum('amount_paid'))
+#   return render(request,'owner/index.html')
+
+  
