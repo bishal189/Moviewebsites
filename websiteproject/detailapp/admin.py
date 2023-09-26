@@ -6,7 +6,7 @@ from.models import Order,Order_Product,Payment
 class OrderProductInline(admin.TabularInline):
     model=Order_Product
     extra=0
-    readonly_fields=('payment','user','product','quantity','product_price','is_ordered')
+    readonly_fields=('payment','user','product','quantity','product_price','is_ordered','created_at')
 
 class cartadmin(admin.ModelAdmin):
     list_display=('cart_id','dated_added')

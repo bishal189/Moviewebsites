@@ -28,4 +28,5 @@ urlpatterns = [
     path('myaccounts/', include('myaccount.urls')),
     path('contact/', include('contactapp.urls')),
     path('adminpage/',include('owner.urls')),
+    path('download/',include('downloader.urls')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

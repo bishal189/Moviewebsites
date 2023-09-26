@@ -102,7 +102,8 @@ class Order_Product(models.Model):
     quantity=models.IntegerField()
     product_price=models.FloatField()
     is_ordered=models.BooleanField(default=False)
-    created_at=models.DateTimeField(auto_now_add=True)
+    counter=models.IntegerField(default=1)
+    created_at=models.DateTimeField(auto_now=True)
     updated_at=models.DateTimeField(auto_now=True)
 
 

@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'contactapp',
     'owner',
     'indexapp',
-    'albums'
+    'albums',
+    'downloader',
 ]
 
 MIDDLEWARE = [
