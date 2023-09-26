@@ -38,7 +38,12 @@ def dashboard(request):
 
 
 def  add_item(request):
-    
+    star=StarsModel.objects.all().order_by('-id')
+    studio=StudioModel.objects.all().order_by('-id')
+    context={
+      'star':star,
+      'studio':studio,
+    }
     if request.method == 'POST' and request.FILES.get('form__img-upload'):
       images_list=[]
       
@@ -55,31 +60,23 @@ def  add_item(request):
         movie=request.FILES['movie']
       else:
         movie=None
-      starimage=request.FILES['starimage']
-      starname=request.POST['starname']
-      starheight=request.POST['starheight']
-      starhaircolor=request.POST['starhaircolor']
-      starage=request.POST['starage']
+
       studioname=request.POST['studio']
-      
-      star,created=StarsModel.objects.get_or_create(name=starname.title())
-      
-      star.height=starheight
-      star.haircolor=starhaircolor.title()
-      star.age=starage
-      star.image=starimage
-      star.save()
-      studio,created=StudioModel.objects.get_or_create(name=studioname.title())
+     
+      studio=StudioModel.objects.get(id=studioname)
       form=MovieDetail.objects.create(movie_name=title,studio=studio,year=releasedyear,type=type,quality=quality,coverphoto=cover_image,duration=length,short_description=text,trailer=movie,price=price)
-      form.images.clear()
-      form.genre.clear()
-      form.stars.add(star)
+      
       for uploaded_file in request.FILES.getlist('image'):
         image_instance=ImagesModel.objects.create(image=uploaded_file)
         images_list.append(image_instance)
 
 
       form.images.set(images_list)
+
+
+      for star in request.POST.getlist('stars'):
+        star=StarsModel.objects.get(id=star)
+        form.stars.add(star)
 
       for gen in request.POST.getlist('genre'):
         category,created=Category.objects.get_or_create(category_name=gen)
@@ -88,8 +85,8 @@ def  add_item(request):
 
       form.save()
       messages.error(request,'please check a details')
-      return render(request,'owner/add-item.html')
-    return render(request,'owner/add-item.html')
+      return render(request,'owner/add-item.html',context)
+    return render(request,'owner/add-item.html',context)
 
   
   
@@ -100,6 +97,10 @@ def add_album(request):
       limit=request.POST['limit']
       price=request.POST['price']
       creator=Albums.objects.create(coverphoto=coverphoto,album_name=title,limit=limit,price=price,counter=0)
+      for gen in request.POST.getlist('genre'):
+
+        category,created=Category.objects.get_or_create(category_name=gen)
+        creator.genre.add(category)
 
       
       creator.save()
@@ -176,3 +177,33 @@ def comments_list(request):
 def user_list(request):
     return render(request,'owner/users.html')
 
+
+
+def add_studio(request):
+  if request.method == 'POST' :
+    
+      studioname=request.POST['studio']
+      
+     
+      studio,created=StudioModel.objects.get_or_create(name=studioname.title())
+      return render(request,'owner/add_studio.html')
+  return render(request,'owner/add_studio.html')
+
+
+
+def add_stars(request):
+  if request.method == 'POST' :
+      
+      
+      starimage=request.FILES['starimage']
+      starname=request.POST['starname']
+      starheight=request.POST['starheight']
+      starhaircolor=request.POST['starhaircolor']
+      starage=request.POST['starage']
+      
+      star,created=StarsModel.objects.get_or_create(name=starname.title(),height=starheight,haircolor=starhaircolor.title(),age=starage,image=starimage)
+      
+      
+
+      return render(request,'owner/add_stars.html')
+  return render(request,'owner/add_stars.html')

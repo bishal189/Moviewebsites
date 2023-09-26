@@ -14,7 +14,7 @@ def album(request):
 
 def album_detail(request,id):
     album=Albums.objects.get(id=id)
-    movies=MovieDetail.objects.all()
+    movies=MovieDetail.objects.filter(genre__in=album.genre.all())
     li=[]
     user=request.user
     if request.user.is_authenticated:

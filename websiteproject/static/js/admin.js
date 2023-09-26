@@ -72,6 +72,14 @@ $(document).ready(function () {
 	 	placeholder: "Choose genre / genres"
 	});
 
+	$('#stars').select2({
+		placeholder: "Choose Stars"
+   });
+
+   $('#studio').select2({
+	placeholder: "Choose Studio"
+});
+
 $('#movie').select2({
 	placeholder:"Choose Movies for Albums"
 });

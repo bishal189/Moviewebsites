@@ -11,11 +11,15 @@ def category(request):
      genres=Category.objects.all()
      data=MovieDetail.objects.all()[:20]
      stardata=StarsModel.objects.all()
+     haircolor=StarsModel.objects.values('haircolor').distinct()
+
      context={
           'genres':genres,
           'data':data,
           'star':stardata,
+          'haircolor':haircolor,
      }
+
      return render(request,"category.html",context)
 
 def category_filter(request):
@@ -96,7 +100,6 @@ def category_filter(request):
 
 
     elif filters_category:
-        print(category)
         movies=MovieDetail.objects.filter(genre=category)
     elif filters_star:
 
@@ -114,11 +117,14 @@ def category_filter(request):
         
 
     stardata=StarsModel.objects.all()
+    haircolor=StarsModel.objects.values('haircolor').distinct()
+
     context={
           'genres':genres,
           'data':movies,
           'star':stardata,
-          'current':current
+          'current':current,
+          'haircolor':haircolor
      }
     return render(request,"category.html",context)
 
@@ -127,12 +133,14 @@ def category_by_genre(request,genrename):
      genres=Category.objects.all()#get all genre to show as options
      datatoshow=MovieDetail.objects.all().filter(genre=category)[:20]#finally get movie based on category
      stardata=StarsModel.objects.all()
-
+     current={}
+     current['genre']=genrename
      context={
           'genres':genres,
           'data':datatoshow,
           'genre':genrename,
           'star':stardata,
+          'current':current,
 
      }
 

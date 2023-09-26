@@ -1,6 +1,7 @@
 from django.db import models
 from indexapp.models import MovieDetail
 # Create your models here.
+from category.models import Category
 
 class Albums(models.Model):
     coverphoto=models.ImageField(upload_to='albums/')
@@ -9,6 +10,8 @@ class Albums(models.Model):
     limit=models.IntegerField(blank=True,null=True)
     counter=models.IntegerField(blank=True,null=True)
     price=models.IntegerField(blank=True,null=True)
+    genre=models.ManyToManyField(Category)
+
     
 
 

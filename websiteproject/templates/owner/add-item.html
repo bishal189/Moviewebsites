@@ -77,15 +77,24 @@
 									<div class="col-12 col-lg-6 ">
 										<div class="form__group">
 											<select class="js-example-basic-multiple" name='genre' id="genre" multiple="multiple">
+												<option value="18+">18+</option>
+												<option value="Teen">Teen </option>
+												<option value="4k">4k</option>
+												<option value="Amateur">Amateur</option>
+												<option value="Anal">Anal</option>
 												<option value="Asian">Asian</option>
-												<option value="Animation">Animation</option>
-												<option value="Black">Black</option>
-												<option value="couple">couple</option>
-												<option value="facesex">Face sex</option>
-												<option value="Romance">Romance</option>
-												<option value="Thriller">Thriller</option>
-												<option value="Western">Western</option>
-												<option value="Other">Other</option>
+												<option value="Babysitter">Babysitter</option>
+												<option value="Auditions">Auditions</option>
+												<option value="Beach">Beach</option>
+												<option value="Behind The Scenes">Behind The Scenes</option>
+												<option value="Bisexual">Bisexual</option>
+												<option value="Bigass">Big Ass</option>
+												<option value="Big Dick">Big Dick</option>
+												<option value="Big Tits">Big Tits</option>
+												<option value="Carwash">Beach</option>
+												<option value="Bondage">Bondage</option>
+												<option value="Cashier">Cashier</option>
+												<option value="Doctor">Doctor</option>
 											</select>
 										</div>
 									</div> 
@@ -119,54 +128,27 @@
 											</select>
 										</div>
 									</div>
-									<div class="col-12">
+									<div class="col-12 col-lg-6 ">
 										<div class="form__group">
-											<input type="text"  class="form__input" name='starname' placeholder="Star Name ">
+											<select class="js-example-basic-multiple" name='stars' id="stars" multiple="multiple">
+												{% for item in star %}
+												<option value="{{item.id}}">{{item.name}}</option>
+												{% endfor %}
+												
+											</select>
+										</div>
+									</div> 
+
+									
+									<div class="col-12 col-sm-6 col-lg-3">
+										<div class="form__group">
+											<select class="js-example-basic-single" id="studio" name='studio'>
+												{% for item in studio %}
+												<option value="{{item.id}}">{{item.name}}</option>
+												{% endfor %}
+											</select>
 										</div>
 									</div>
-				
-
-									<div class="col-12">
-										<div class="form__gallery">
-											<label id="starimage" for="form__star-upload">Upload Star Coverphoto</label>
-											<input data-name="#starimage"  id="form__star-upload" name='starimage' class="form__star-upload" type="file" accept=".png, .jpg, .jpeg" >
-										</div>
-									</div>
-										<script>
-											$('#form__star-upload').on('change',function(){
-	var videoLabel  = $(this).attr('data-name');
-
-		if ($(this).val() != '') {
-			$(videoLabel).text($(this)[0].files[0].name);
-		} else {
-			$(videoLabel).text('Upload Star image');
-		}
-
-											})
-										</script>
-
-										<div class="col-12 col-lg-3 col-sm-6">
-											<div class="form__group">
-												<input type="text"  class="form__input" name='starheight' placeholder="Star Height(Feet) ">
-											</div>
-										</div>
-										
-										<div class="col-12 col-lg-3 col-sm-6">
-											<div class="form__group">
-												<input type="text"  class="form__input" name='starage' placeholder="Star Age ">
-											</div>
-										</div>
-										<div class="col-12 col-lg-3 col-sm-6">
-											<div class="form__group">
-												<input type="text"  class="form__input" name='starhaircolor' placeholder="Star hair Color ">
-											</div>
-										</div>
-
-										<div class="col-12  col-sm-6">
-											<div class="form__group">
-												<input type="text"  class="form__input" name='studio' placeholder="Studio Name ">
-											</div>
-										</div>
 
 
 									

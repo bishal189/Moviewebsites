@@ -21,6 +21,19 @@
 													</div>
 						<!-- end article content -->
 					</div>
+
+					<div class="col-12 col-xl-8">
+						<!-- categories -->
+						<div class="categories">
+							<h3 class="categories__title">Genres</h3>
+							{% for gen in product.genre.all  %}
+							<a href="{% url 'categorybygenre' gen.category_name %}" class="categories__item">{{ gen.category_name }}</a>
+							{% endfor %}
+						</div>
+						<!-- end categories -->
+
+					
+					</div>
 <div id='counter' style="color:white;margin-top:25px;font-size:20px;"></div>
 				
 						<div class="row row--grid">

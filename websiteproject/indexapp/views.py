@@ -15,6 +15,7 @@ def home(request):
     allalbums=Albums.objects.all()
     stardata=StarsModel.objects.all()
     genres=Category.objects.all()
+    haircolor=StarsModel.objects.values('haircolor').distinct()
 
     # count1=paged_products.count()
     context={
@@ -24,6 +25,7 @@ def home(request):
         'count':count,
         'allalbums':allalbums,
         'star':stardata,
+        'haircolor':haircolor
 
 
         

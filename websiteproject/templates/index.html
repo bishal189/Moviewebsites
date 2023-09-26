@@ -136,9 +136,10 @@
 				{% if current.hair %}<option value="{{current.hair}}">{{current.hair}}</option>{% endif %}
 				
 				<option value="all">All Hair Color</option>
-			{% for item in star%}
+				{% for item_group in haircolor %}
+					
 			
-				<option value="{{item.haircolor}}">{{item.haircolor}}</option>
+				<option value="{{item_group.haircolor}}">{{item_group.haircolor}}</option>
 			
 				{% endfor %}
 			</select>

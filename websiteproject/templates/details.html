@@ -104,7 +104,7 @@
 						<div class="categories">
 							<h3 class="categories__title">Genres</h3>
 							{% for gen in product.genre.all  %}
-							<a href="category.html" class="categories__item">{{ gen.category_name }}</a>
+							<a href="{% url 'categorybygenre' gen.category_name %}" class="categories__item">{{ gen.category_name }}</a>
 							{% endfor %}
 						</div>
 						<!-- end categories -->
@@ -196,7 +196,7 @@
 						<div class="categories">
 							<h3 class="categories__title">Genres</h3>
 							{% for gen in product.genre.all  %}
-							<a href="category.html" class="categories__item">{{ gen.category_name }}</a>
+							<a href="{% url 'categorybygenre' gen.category_name %}" class="categories__item">{{ gen.category_name }}</a>
 							{% endfor %}
 						</div>
 						<!-- end categories -->
