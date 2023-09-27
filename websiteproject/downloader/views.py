@@ -55,7 +55,7 @@ def file_download(request,filename):
         remote_file = host.open(source_path, 'rb')
         remote_file_size = host.path.getsize(source_path)
 
-        chunk_size = 10000# You can adjust this value as needed
+        chunk_size = 8192 # You can adjust this value as needed
 
             # Create a response with a custom file wrapper that limits download speed
         
@@ -64,7 +64,7 @@ def file_download(request,filename):
         response['Content-Length'] = remote_file_size  # Set the total file size
 
         # Set Accept-Ranges header to enable partial content requests
-        # response['Accept-Ranges'] = 'bytes'
+        response['Accept-Ranges'] = 'bytes'
 
             # Limit the download speed to 1 MB/s (adjust as needed)
         # response['X-Accel-Buffering'] = 'no'
