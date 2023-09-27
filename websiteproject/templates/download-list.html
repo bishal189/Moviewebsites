@@ -38,7 +38,7 @@
                             <span class="card__rating">{{item.product.price}} $</span>
                             <h3 class="card__title"><a href="{% url 'details' slug=item.product.slug%}">{{item.product.movie_name}}</a></h3>
                             <ul class="card__list">
-                                <li>{{item.created_at}}</li>
+                                <li>{{item.product.type}}</li>
                                 <li>{{item.product.year}}</li>
                                 <li>{{item.product.duration}} min</li>
                             </ul>
@@ -48,7 +48,7 @@
         <button class="sign__btn" disbled>Disabled<br>(Time limit reached)</button>
 
         {% else %}
-        {% if item.counter > 3 %}
+        {% if item.counter > 300 %}
         <button class="sign__btn" disbled>Disabled<br>( limit reached)</button>
 
         {% else %}
@@ -74,15 +74,18 @@
 </section>
 <script>
 function download__click(event,id,item){
+    inc_url=item.getAttribute('inc-url')
+    url=(item.getAttribute('data-url'))
+
+
     event.preventDefault()
     item.textContent="In Progress"
+    item.href="#"
 
-    inc_url=item.getAttribute('inc-url')
     var counter
     fetch(inc_url).then(response=>response.json()).then(data=>counter=data.counter)
 
      // Construct the URL with the movieName parameter
-        url=(item.getAttribute('data-url'))
      // Perform a Fetch API request to initiate the file download
 
      var anchor = document.createElement('a');
@@ -101,6 +104,7 @@ function download__click(event,id,item){
         document.body.removeChild(anchor);
         setTimeout(() => {
             item.innerHTML = "Download<br>("+counter+"of 3 Remaining )";
+            item.href=url
             if (counter>3){
                 location.reload()
             }

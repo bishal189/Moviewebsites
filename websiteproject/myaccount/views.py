@@ -41,7 +41,6 @@ def Register(request):
             username = form.cleaned_data['username']
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
-            username = email.split("@")[0]
 
             user = Account.objects.create_user(
                 email=email, username=username, password=password)
@@ -61,7 +60,7 @@ def Register(request):
             # send_email.send()
 
             messages.success(request, 'Registration successful')
-            return redirect('signup')
+            return redirect('login')
 
     else:
        form = ResitrationForm()
