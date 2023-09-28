@@ -10,9 +10,7 @@ class Albums(models.Model):
     limit=models.IntegerField(blank=True,null=True)
     counter=models.IntegerField(blank=True,null=True)
     price=models.IntegerField(blank=True,null=True)
-    genre=models.ManyToManyField(Category)
-
-    
+    genre=models.ManyToManyField(Category)    
 
 
     def __str__(self):
