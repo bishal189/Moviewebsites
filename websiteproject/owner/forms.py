@@ -31,7 +31,7 @@ class movie_form(forms.ModelForm):
 class MovieDetailForm(forms.ModelForm):
     class Meta:
         model = MovieDetail
-        fields = ['movie_name', 'year', 'quality', 'coverphoto', 'duration', 'short_description', 'trailer', 'price', 'link']
+        fields = ['movie_name', 'year', 'quality', 'coverphoto', 'duration', 'short_description', 'trailer', 'price']
 
 
     def __init__(self,*args,**kwargs):
@@ -45,8 +45,6 @@ class MovieDetailForm(forms.ModelForm):
         self.fields ['price'].widget.attrs['class']='form__input'      
         self.fields ['year'].widget.attrs['class']='form__input'      
         self.fields ['duration'].widget.attrs['class']='form__input'      
-        self.fields ['link'].widget.attrs['class']='form__input'      
-        self.fields ['link'].widget.attrs['type']='link'      
         # self.fields ['images'].widget.attrs['type']='file'      
         # self.fields ['images'].widget.attrs['id']='form__gallery-upload'      
         # self.fields ['images'].widget.attrs['class']='form__gallery-upload'   

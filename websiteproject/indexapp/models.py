@@ -29,10 +29,9 @@ class MovieDetail(models.Model):
     images=models.ManyToManyField(ImagesModel,related_name='related_images')
     trailer=models.FileField(upload_to='trailer/',blank=True,null=True)
     price=models.FloatField()
-    genre=models.ManyToManyField(Category)
+    genre=models.ManyToManyField(Category,blank=True)
     studio=models.ForeignKey(StudioModel,on_delete=models.CASCADE,blank=True,null=True)
     slug=models.SlugField(unique=True,blank=False)
-    link=models.URLField(unique=False,blank=True, default=False)
     created_at=models.DateField(auto_now=True,null=True)
 
     def save(self, *args, **kwargs):
