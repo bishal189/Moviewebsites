@@ -42,7 +42,6 @@ def file_download(request,filename):
         host.chdir(source_folder)
         source_path = os.path.join(source_folder, filename)  # define the extension yourself mainly mp4
 
-
     # Print the items
         
         # Check if the file exists on the FTP server
