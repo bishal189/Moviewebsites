@@ -7,8 +7,11 @@ from django.contrib.auth.decorators import login_required
 from .forms import Order,OrderForm
 from .models import Order,Order_Product,Payment
 import json
-from django.http import JsonResponse
+from django.http import JsonResponse,HttpResponse
 import datetime
+from django.template import loader
+import pdfkit
+
 # Create your views here.
 
 
@@ -645,3 +648,38 @@ def order_complete(request):
 
 
 
+def download_pdf(request,order_number,transId):
+    order=Order.objects.get(order_number=order_number,is_ordered=True)
+    ordered_products=Order_Product.objects.filter(order_id=order.id)
+    payement=Payment.objects.get(payment_id=transId)
+        
+
+    subtotal=0
+    for i in ordered_products:
+        subtotal+=i.product_price*i.quantity;
+
+
+    context={
+        'order':order,
+        'ordered_products':ordered_products,
+        'order_number':order.order_number,
+        'transID':transId,
+        'payment':payement,
+        'subtotal':subtotal,
+          
+        }
+
+    template = loader.get_template('cart/include/invoice.html')
+    html_content = template.render(context)
+
+    # Generate PDF from the HTML content
+    pdf_file = pdfkit.from_string(html_content, False)
+
+    # Create a response with the PDF content
+    response = HttpResponse(pdf_file, content_type='application/pdf')
+
+    # Set the filename for download
+    response['Content-Disposition'] = f'attachment; filename="invoice_{order.order_number}.pdf"'
+
+    return response
+    
