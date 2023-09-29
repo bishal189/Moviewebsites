@@ -2,11 +2,12 @@ from django.shortcuts import render,get_object_or_404,redirect,HttpResponse
 from indexapp.models import MovieDetail,ImagesModel,StarsModel,StudioModel
 from albums.models import Albums
 from django. contrib import messages
+from django.core.paginator import Paginator
 from django.core.exceptions import PermissionDenied
-from django.http import HttpResponseNotFound
 from detailapp.models import Payment 
 from django.db.models import Sum
 # from .models import Product  # Replace `.models` with the actual path to your model
+from datetime import datetime, timedelta
 
 # from .forms import movie_form
 from .forms import MovieDetailForm
@@ -127,9 +128,14 @@ def add_album(request):
 @user_passes_test(is_superadmin)
 def catalog(request):
     movie_details=MovieDetail.objects.all().order_by('-id')
-    # category=movie_details.genre.all()
+    count=movie_details.count()
+    paginator=Paginator(movie_details,10)
+    page=request.GET.get('page')
+    paged_products=paginator.get_page(page)
     context={
-      'item':movie_details
+      'item':paged_products,
+      'all_products':paged_products,
+      'count':count
     }
     return render(request,'owner/catalog.html',context)
 
@@ -182,11 +188,34 @@ def remove_movie(request,id):
 def edit_user(request):
     return render(request,"owner/edit-user.html")
 
-def comments_list(request):
-    return render(request,'owner/comments.html')
 
 def user_list(request):
-    return render(request,'owner/users.html')
+    userlist=Account.objects.all().order_by('-id')
+    payment=Payment.objects.all().order_by('-id')
+    count=userlist.count()
+    paginator=Paginator(userlist,2)
+    page=request.GET.get('page')
+    paged_products=paginator.get_page(page)  
+    user_totals = {}
+    
+    # Calculate the total amount paid by each user
+    for payment_record in payment:
+        user = payment_record.user
+        amount_paid = payment_record.amount_paid
+        if user in user_totals:
+            user_totals[user]['total_paid'] += amount_paid
+        else:
+            user_totals[user] = {'user': user, 'total_paid': amount_paid}
+
+    user_totals_list = user_totals.values()
+    context={
+'users': paged_products,
+'count':count,
+ 'user_totals_list': user_totals_list,
+ 'all_products':paged_products
+    }
+
+    return render(request, 'owner/users.html', context)
 
 
 
@@ -230,3 +259,35 @@ def add_stars(request):
 #   return render(request,'owner/index.html')
 
   
+
+def show_transactions(request):
+  if request.method=="POST":
+    selected_time_range=request.POST['time_range']
+    today = datetime.now().date()
+    if selected_time_range == '1_month':
+        start_date = today - timedelta(days=30)
+    elif selected_time_range == '2_months':
+        start_date = today - timedelta(days=60)
+    elif selected_time_range == '3_months':
+        start_date = today - timedelta(days=90)
+    elif selected_time_range == '6_months':
+        start_date = today - timedelta(days=180)
+    elif selected_time_range == '1_week':
+        start_date = today - timedelta(days=7)
+    payments = Payment.objects.filter(created_at__gte=start_date).order_by('-id')
+
+    return render(request, 'owner/transaction.html', {'payments': payments, 'selected_time_range': selected_time_range})
+
+
+
+
+  payments=Payment.objects.all().order_by('-id')
+  paginator=Paginator(payments,1)
+  page=request.GET.get('page')
+  paged_products=paginator.get_page(page)
+  context={
+    'payments':paged_products,
+    'all_products':paged_products
+  }
+
+  return render(request,'owner/transaction.html',context)

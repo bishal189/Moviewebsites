@@ -7,7 +7,7 @@ from albums.models import Albums
 
 def home(request):
    
-    all_product=MovieDetail.objects.all().order_by('id')
+    all_product=MovieDetail.objects.all().order_by('-id')
     paginator=Paginator(all_product,10)
     page=request.GET.get('page')
     paged_products=paginator.get_page(page)
