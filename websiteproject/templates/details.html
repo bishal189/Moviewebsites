@@ -41,9 +41,10 @@
 								<li>{{product.type}}</li>
 							</ul>
 							<div style="color:white;margin-bottom:10px;">Studio: <a style="display:inline" href="{% url 'studio_detail' product.studio.id %}">{{product.studio.name}}</a></div>
+						
+							<div style="color:white;margin-bottom:10px;">Stars: </div>
 							{% for star in product.stars.all %}
-							
-							<div style="color:white;margin-bottom:10px;">Stars: <a href="{% url 'star_detail' star.id %}"style="display:inline" >{{star.name}}</a></div>
+							<a href="{% url 'star_detail' star.id %}"style="display:inline" >{{star.name}}</a>
 {% endfor %}
 							<p>Description:{{product.short_description}}</p>
 						</div>
