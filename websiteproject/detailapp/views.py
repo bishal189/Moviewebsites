@@ -329,6 +329,10 @@ def cart(request,total=0,quantity=0,cart_items=None,album_price=None,album_name=
             cart_items=Cartitem.objects.filter(cart=cart,is_active=True)
             cart_items1=Album_item.objects.filter(cart=cart,is_active=True)
        
+        for cart_item in cart_items:
+            cart_item.item_type = 'cartitem'
+        for cart_album in cart_items1:
+            cart_album.item_type = 'albumitem'
 
         for cart_item in cart_items:
             total+=(cart_item.product.price*cart_item.quantity)
@@ -364,35 +368,32 @@ def cart(request,total=0,quantity=0,cart_items=None,album_price=None,album_name=
 
 
 
-# def cart(request):
-#     return render(request,'cart/cart.html')
+from django.shortcuts import get_object_or_404, redirect
+from .models import Cartitem, Album_item
 
+def remove_cart_item(request):
+    if request.method == 'POST':
+        item_id = request.POST.get('item_id')
+        item_type = request.POST.get('item_type')
+        print('hello world')
+        print('hello world',item_id)
+        print('hello world',item_type)
 
+        try:
+            if item_type == 'cartitem':
+                item = get_object_or_404(Cartitem, id=item_id, user=request.user, is_active=True)
+            elif item_type == 'albumitem':
+                item = get_object_or_404(Album_item, id=item_id, user=request.user, is_active=True)
+            else:
+                item = None
 
+            if item:
+                item.delete()
+        except:
+            pass
 
+    return redirect('cart')  # Redirect back to the cart page after removal
 
-
-
-def remove_cart_item(request,product_id):
-   
-    product=Albums.objects.get(id=product_id)
-    try:
-        if request.user.is_authenticated:
-            cart_item=Album_item.objects.get(product=product,user=request.user)
-        else:
-            cart=Cart.objects.get(cart_id=_cart_id(request))   
-            cart_item=Album_item.objects.get(product=product,cart=cart) 
-        if cart_item.quantity>1:
-           cart_item.quantity-=1;
-           cart_item.save()
-
-        else:    
-            cart_item.delete()
-
-
-    except:
-        pass
-    return redirect('cart')  
 
 
 
@@ -400,15 +401,18 @@ def remove_cart_item(request,product_id):
 def checkout(request,total=0,quantity=0,cart_items=None,album_price=None):
     tax=0
     grand_total=0
+    album_sum=0
     try:
      
         if request.user.is_authenticated:
             cart_items=Cartitem.objects.filter(user=request.user,is_active=True)
+            cart_items1=Album_item.objects.filter(user=request.user,is_active=True)
         
 
         else:
             cart=Cart.objects.get(cart_id=_cart_id(request))
             cart_items=Cartitem.objects.filter(cart=cart,is_active=True)
+            cart_items1=Album_item.objects.filter(cart=cart,is_active=True)
        
 
 
@@ -416,10 +420,14 @@ def checkout(request,total=0,quantity=0,cart_items=None,album_price=None):
             total+=(cart_item.product.price*cart_item.quantity)
             quantity+=cart_item.quantity
           # Concatenate the two QuerySets into a single iterable
-        
+        for album_item in cart_items1:
+            album_sum+=(album_item.product.price*album_item.quantity)
+            quantity+=album_item.quantity
         tax=(2*total)/100
-        grand_total=total+tax;    
-
+        all_cart_items = list(chain(cart_items, cart_items1))
+        print(all_cart_items)
+        grand_total=total+tax+album_sum;    
+        print(grand_total)
 
     except ObjectDoesNotExist:
         pass    
@@ -471,10 +479,10 @@ def checkout(request,total=0,quantity=0,cart_items=None,album_price=None):
                 context={
                 'album':True,
                 'order':order,
-                'cart_items':cart_items,
-                'grand_total':album_price,
+                'cart_items':all_cart_items,
+                'grand_total':grand_total,
                  'tax':0,
-                 'total':album_price,
+                 'total':grand_total,
 
             }
             else:
@@ -483,10 +491,10 @@ def checkout(request,total=0,quantity=0,cart_items=None,album_price=None):
                 context={
                     'album':False,
                     'order':order,
-                    'cart_items':cart_items,
+                    'cart_items':all_cart_items,
                     'grand_total':grand_total,
                     'tax':tax,
-                    'total':total,
+                    'total':grand_total,
 
                 }
 
@@ -505,9 +513,9 @@ def checkout(request,total=0,quantity=0,cart_items=None,album_price=None):
         'album':True,
         'total':album_price,
         'quantity':quantity,
-        'cart_items':cart_items,
+        'cart_items':all_cart_items,
         'tax':0,
-        'grand_total':album_price,
+        'grand_total':grand_total,
         'form':form
     }
     else:
@@ -515,7 +523,7 @@ def checkout(request,total=0,quantity=0,cart_items=None,album_price=None):
             'album':False,
             'total':total,
             'quantity':quantity,
-            'cart_items':cart_items,
+            'cart_items':all_cart_items,
             'tax':tax,
             'grand_total':grand_total,
             'form':form
@@ -597,32 +605,6 @@ def payement(request):
 
 
 
-
-# send order recived email to customer
-# now sending the email to the user after the transactions sucessful
-    # mail_subject='Thank you for your order!'
-    # message=render_to_string('orders/order_recieved_email.html', {
-    #     'user':request.user,
-    #     'order':order
-    # })
-
-
-    # to_email=request.user.email
-    # send_email=EmailMessage(mail_subject,message,to=[to_email])
-    # send_email.send()
-
-
-
-
-
-
-
-
-
-
-
-
-# send order number and transcation id back to senddata method via json response
 
     data={
         'order_number':order.order_number,
@@ -709,3 +691,5 @@ def download_pdf(request,order_number,transId):
 
     return response
     
+def remove_album_item(request,product_id):
+    pass

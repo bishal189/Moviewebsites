@@ -87,7 +87,7 @@
 								{% else %}
 								<button inc-url=""data-url="{% url 'add_album' product.id  %}" id="item_add_{{item.id}}" onclick="add_item({{item.id}})"  class="sign__btn">Add to Packages</button>
 								{% endif %}
-								<button dec-url="" style="display:none" data-url={% url 'remove_item' item.id %} id="item_remove_{{item.id}}" onclick="remove_item({{item.id}})"  class="sign__btn">Added</button>
+								<button dec-url="" style="display:none" data-url={% url 'remove_item'  %} id="item_remove_{{item.id}}" onclick="remove_item({{item.id}})"  class="sign__btn">Added</button>
 
 								<button inc-url="" style="display:none" data-url="{% url 'add_album' product.id %}" id="item_add_{{item.id}}" onclick="add_item({{item.id}})"  class="sign__btn">Add to Packages</button>
 

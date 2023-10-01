@@ -30,7 +30,7 @@
                         <tbody>
 
                             
-                            {% for cart_item in cart_items %}
+                        {% for cart_item in cart_items %}
                             <tr>
                                 <td>
                                    
@@ -61,20 +61,13 @@
                                             </div>
                                             <input type="text" class="form-control" value="{{ cart_item.quantity }}">
                                             <div class="input-group-append">
-                                                <form action="{% url 'add_cart' cart_item.product.id %}" method="POST">
-                                                    {% csrf_token %}
-                                                    {% for item in cart_item.variations.all %}
-                                                    <input type="hidden" name="{{item.variation_category| lower}}"
-                                                        value="{{item.variation_value | capfirst}}">
-                                                    {% endfor %}
+                                                
 
 
-                                                    {% comment %} <button class="btn btn-light" type="submit" id="button-minus"> <i
-                                                            class="fa fa-plus"></i>
-                                                    </button> {% endcomment %}
+                 
 
 
-                                                </form>
+                                               
 
                                             </div>
                                         </div> <!-- input-group.// -->
@@ -87,15 +80,17 @@
                                     </div> <!-- price-wrap .// -->
                                 </td>
                                 <td class="text-right">
-                                    {% if album %}
                                     
-                                    {% else %}
-                                    <a href="{% url 'remove_item' cart_item.product.id %}" onclick="return confirm('Are you sure want to delete this item?') " class="btn btn-danger">
-                                        Remove</a>
-                                        {% endif %}
+                                    <form action="{% url 'remove_item' %}" method="post">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="item_id" value="{{ cart_item.id }}">
+                                        <input type="hidden" name="item_type" value="{{ cart_item.item_type }}">
+                                    <button type='submit' onclick="return confirm('Are you sure want to delete this item?') " class="btn btn-danger"> Remove</button>
+                                     
+                                    </form>
                                 </td>
                             </tr>
-                            {% endfor %}
+                        {% endfor %}
 
 
                         </tbody>
