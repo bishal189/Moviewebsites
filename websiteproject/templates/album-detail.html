@@ -83,13 +83,13 @@
 										}
 									add_item({{item.id}})
 								</script>
-								<button dec-url="{% url 'dec_counter' album_id=product.id movie_id=item.id %}"data-url={% url 'remove_item' item.id %} id="item_remove_{{item.id}}" onclick="remove_item({{item.id}})"  class="sign__btn">Added</button>
+								<button dec-url="" onclick="remove_item({{item.id}})"  class="sign__btn">Added</button>
 								{% else %}
-								<button inc-url="{% url 'inc_counter' album_id=product.id movie_id=item.id %}"data-url="{% url 'add_cart_album' product_id=item.id album_price=product.price %}" id="item_add_{{item.id}}" onclick="add_item({{item.id}})"  class="sign__btn">Add to Packages</button>
+								<button inc-url=""data-url="{% url 'add_album' product.id  %}" id="item_add_{{item.id}}" onclick="add_item({{item.id}})"  class="sign__btn">Add to Packages</button>
 								{% endif %}
-								<button dec-url="{% url 'dec_counter' album_id=product.id movie_id=item.id  %}" style="display:none" data-url={% url 'remove_item' item.id %} id="item_remove_{{item.id}}" onclick="remove_item({{item.id}})"  class="sign__btn">Added</button>
+								<button dec-url="" style="display:none" data-url={% url 'remove_item' item.id %} id="item_remove_{{item.id}}" onclick="remove_item({{item.id}})"  class="sign__btn">Added</button>
 
-								<button inc-url="{% url 'inc_counter' album_id=product.id movie_id=item.id %}" style="display:none" data-url="{% url 'add_cart_album' item.id product.price %}" id="item_add_{{item.id}}" onclick="add_item({{item.id}})"  class="sign__btn">Add to Packages</button>
+								<button inc-url="" style="display:none" data-url="{% url 'add_album' product.id %}" id="item_add_{{item.id}}" onclick="add_item({{item.id}})"  class="sign__btn">Add to Packages</button>
 
 
 	     {% else %}		

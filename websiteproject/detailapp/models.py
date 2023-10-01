@@ -1,6 +1,7 @@
 from django.db import models
 from myaccount.models import Account
 from indexapp.models import MovieDetail
+from albums.models import Albums
 
 
 
@@ -13,6 +14,21 @@ class Cart(models.Model):
 
     def __str__(self):
         return self.cart_id
+
+class Album_item(models.Model):
+    user=models.ForeignKey(Account,on_delete=models.CASCADE,null=True)
+    product=models.ForeignKey(Albums,on_delete=models.CASCADE,null=True)
+    cart=models.ForeignKey(Cart,on_delete=models.CASCADE,null=True)
+    quantity=models.IntegerField()
+
+    is_active=models.BooleanField(default=True)
+
+    def subtotal(self):
+        return self.product.price*self.quantity;
+
+    def __str__(self):
+        return str(self.product)
+
 
 
 class Cartitem(models.Model):
@@ -29,7 +45,6 @@ class Cartitem(models.Model):
 
     def __str__(self):
         return str(self.product)
-
 
 class Payment (models.Model):
     user =models.ForeignKey(Account,on_delete=models.CASCADE)

@@ -12,8 +12,10 @@ urlpatterns=[
     path('payement/',views.payement,name='payement'),
     path('<slug:slug>/',views.details,name="details"),
     path('add_cart/<int:product_id>/',views.add_cart,name='add_cart'),
-    path('remove_item/<int:product_id>/',views.remove_cart_item,name='remove_item'),
-    path('remove_album/<int:album_id>',views.remove_album,name='remove_album'),
+    path('add_album/<int:album_id>/',views.add_album_to_cart,name='add_album'),
+    path('remove_item/<int:item_id>/',views.remove_cart_item,name='remove_item'),
+    # path('remove_album/<int:product_id>/',views.remove_album_item,name='remove_album'),
+    # path('remove_album/<int:album_id>',views.remove_album,name='remove_album'),
     path('add_cart/<int:product_id>/<int:album_price>/',views.add_cart,name='add_cart_album'),
     path('generate_invoice/<order_number>/<transId>',views.download_pdf,name='download_pdf'),
 ]   

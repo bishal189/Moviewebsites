@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import Cart,Cartitem
 from.models import Order,Order_Product,Payment
+from.models import *
 
 # Register your models here.
 class OrderProductInline(admin.TabularInline):
@@ -16,6 +17,9 @@ class cartadmin(admin.ModelAdmin):
 class cartitemAadmin(admin.ModelAdmin):
     list_display=('product','cart','quantity','is_active')
 
+class albumAadmin(admin.ModelAdmin):
+    list_display=('product','cart','quantity','is_active')
+
 class orderAadmin(admin.ModelAdmin):
    
    list_display=('order_number','full_name','phone','email','city','total','tax','status','is_ordered','created_at')
@@ -29,3 +33,4 @@ admin.site.register(Cartitem,cartitemAadmin)
 admin.site.register(Order,orderAadmin)
 
 admin.site.register([Payment,Order_Product])
+admin.site.register(Album_item,albumAadmin)

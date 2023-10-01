@@ -1,7 +1,10 @@
 from django.shortcuts import render,redirect
+from django.shortcuts import get_object_or_404, redirect
+from .models import Cart, Album_item, Albums
 from .models import Cart,Cartitem
 from indexapp.models import MovieDetail
 from albums.models import Albums
+from .models import Album_item
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
 from .forms import Order,OrderForm
@@ -11,7 +14,7 @@ from django.http import JsonResponse,HttpResponse
 import datetime
 from django.template import loader
 import pdfkit
-
+from itertools import chain
 # Create your views here.
 
 
@@ -283,54 +286,77 @@ def add_cart(request,product_id,album_price=None):
 
 
 
-
-
+def add_album_to_cart(request, album_id):
    
+    # Assuming you have a way to identify the current user (e.g., through authentication)
+    user = request.user
+
+    # Get the album and the user's cart
+    album = get_object_or_404(Albums, id=album_id)
+    cart, created = Cart.objects.get_or_create(cart_id=user.id)
+
+    # Check if the album is already in the cart
+    existing_item = Album_item.objects.filter(user=user, product=album, cart=cart).first()
+
+    if existing_item:
+        # If the album is already in the cart, you can update the quantity or take other actions.
+        existing_item.quantity = 1
+        existing_item.save()
+    else:
+        # If the album is not in the cart, create a new Album_item object and add it to the cart.
+        album_item = Album_item(user=user, product=album, cart=cart, quantity=1)
+        album_item.save()
+
+    return redirect('cart') # Redirect to the cart view after adding the album
+
+
+
+
 def cart(request,total=0,quantity=0,cart_items=None,album_price=None,album_name=None):
-    print("price",album_price)
+ 
    
     try:
         tax=0
         grand_total=0
+        total1=0
         if request.user.is_authenticated:
             cart_items=Cartitem.objects.filter(user=request.user,is_active=True)
+            cart_items1=Album_item.objects.filter(user=request.user,is_active=True)
         
 
         else:
             cart=Cart.objects.get(cart_id=_cart_id(request))
             cart_items=Cartitem.objects.filter(cart=cart,is_active=True)
+            cart_items1=Album_item.objects.filter(cart=cart,is_active=True)
        
 
         for cart_item in cart_items:
             total+=(cart_item.product.price*cart_item.quantity)
             quantity+=cart_item.quantity
 
+        for cart_album in cart_items1:
+            total1+= (cart_album.product.price*cart_album.quantity)   
+
         tax=(2*total)/100
-        grand_total=total+tax;    
+        grand_total=total+tax+total1;  
+        all_cart_items = list(chain(cart_items, cart_items1))
+       
+
+        print(grand_total)
+        print(all_cart_items)
 
 
     except ObjectDoesNotExist:
         pass    
     
-    if album_price:
-        album=Albums.objects.get(album_name=album_name)
-        context={
-        'album_id':album.id,
-        'album':True,
-        'total':album_price,
-        'quantity':quantity,
-        'cart_items':cart_items,
-        'album_name':album_name,
-        'tax':0,
-        'grand_total':album_price
-    }
-    else:
+ 
 
-        context={
+
+    context={
             'album':False,
             'total':total,
             'quantity':quantity,
-            'cart_items':cart_items,
+            'cart_items':all_cart_items,
             'tax':tax,
             'grand_total':grand_total
         }
@@ -346,15 +372,16 @@ def cart(request,total=0,quantity=0,cart_items=None,album_price=None,album_name=
 
 
 
+
 def remove_cart_item(request,product_id):
    
-    product=MovieDetail.objects.get(id=product_id)
+    product=Albums.objects.get(id=product_id)
     try:
         if request.user.is_authenticated:
-            cart_item=Cartitem.objects.get(product=product,user=request.user)
+            cart_item=Album_item.objects.get(product=product,user=request.user)
         else:
             cart=Cart.objects.get(cart_id=_cart_id(request))   
-            cart_item=Cartitem.objects.get(product=product,cart=cart) 
+            cart_item=Album_item.objects.get(product=product,cart=cart) 
         if cart_item.quantity>1:
            cart_item.quantity-=1;
            cart_item.save()
@@ -365,9 +392,7 @@ def remove_cart_item(request,product_id):
 
     except:
         pass
-    return redirect('cart')    
-
-
+    return redirect('cart')  
 
 
 
@@ -390,7 +415,8 @@ def checkout(request,total=0,quantity=0,cart_items=None,album_price=None):
         for cart_item in cart_items:
             total+=(cart_item.product.price*cart_item.quantity)
             quantity+=cart_item.quantity
-
+          # Concatenate the two QuerySets into a single iterable
+        
         tax=(2*total)/100
         grand_total=total+tax;    
 
