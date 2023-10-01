@@ -129,8 +129,16 @@ def add_album(request):
 def catalog(request):
     if request.method=="POST":
        type=request.POST['type']
+       toSearch=None
+       if request.POST['toSearch']:
+          toSearch=request.POST['toSearch']
+
        if type=="videos":
-           movie_details=MovieDetail.objects.all().order_by('-id')
+           if toSearch is not None:
+              movie_details=MovieDetail.objects.filter(movie_name__icontains=toSearch).order_by('-id')
+           else:
+              movie_details=MovieDetail.objects.all().order_by('-id')
+
            count=movie_details.count()
            paginator=Paginator(movie_details,10)
            page=request.GET.get('page')
@@ -143,7 +151,11 @@ def catalog(request):
            }
            return render(request,'owner/catalog.html',context)
        if type=="albums":
-          albums=Albums.objects.all().order_by('-id')
+          if toSearch is not None:
+             albums=Albums.objects.filter(album_name__icontains=toSearch).order_by('-id')
+          else:
+             
+            albums=Albums.objects.all().order_by('-id')
           count=albums.count()
           paginator=Paginator(albums,10)
           page=request.GET.get('page')
