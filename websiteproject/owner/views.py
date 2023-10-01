@@ -127,6 +127,36 @@ def add_album(request):
 
 @user_passes_test(is_superadmin)
 def catalog(request):
+    if request.method=="POST":
+       type=request.POST['type']
+       if type=="videos":
+           movie_details=MovieDetail.objects.all().order_by('-id')
+           count=movie_details.count()
+           paginator=Paginator(movie_details,10)
+           page=request.GET.get('page')
+           paged_products=paginator.get_page(page)
+           context={
+            'item':paged_products,
+            'all_products':paged_products,
+            'count':count,
+            'selected':type
+           }
+           return render(request,'owner/catalog.html',context)
+       if type=="albums":
+          albums=Albums.objects.all().order_by('-id')
+          count=albums.count()
+          paginator=Paginator(albums,10)
+          page=request.GET.get('page')
+          paged_products=paginator.get_page(page)
+          context={
+            'item':paged_products,
+            'all_products':paged_products,
+            'count':count,
+            'selected':type
+           }
+          return render(request,'owner/catalog.html',context)
+          
+          
     movie_details=MovieDetail.objects.all().order_by('-id')
     count=movie_details.count()
     paginator=Paginator(movie_details,10)
@@ -135,7 +165,8 @@ def catalog(request):
     context={
       'item':paged_products,
       'all_products':paged_products,
-      'count':count
+      'count':count,
+      'selected':"videos"
     }
     return render(request,'owner/catalog.html',context)
 
@@ -165,8 +196,6 @@ def edit_movie(request,id):
 
 
 
-
-
 @user_passes_test(is_superadmin)
 def remove_movie(request,id):
   movie=MovieDetail.objects.get(id=id)
@@ -175,13 +204,15 @@ def remove_movie(request,id):
   movie.images.clear()
   movie.delete()
   return redirect('catalog')
+
+
+
+@user_passes_test(is_superadmin)
+def remove_album(request,id):
+  movie=Albums.objects.get(id=id)
+  movie.delete()
+  return redirect('catalog')
  
-
-
-
-
-
-
 
 
 
@@ -190,10 +221,18 @@ def edit_user(request):
 
 
 def user_list(request):
-    userlist=Account.objects.all().order_by('-id')
+    if request.method=="POST":
+      toSearch=request.POST['toSearch']
+      print(toSearch)
+      userlist=Account.objects.filter(username__icontains=toSearch).order_by('-id')
+
+    else:
+         
+      userlist=Account.objects.all().order_by('-id')
+
     payment=Payment.objects.all().order_by('-id')
     count=userlist.count()
-    paginator=Paginator(userlist,2)
+    paginator=Paginator(userlist,20)
     page=request.GET.get('page')
     paged_products=paginator.get_page(page)  
     user_totals = {}
@@ -216,6 +255,9 @@ def user_list(request):
     }
 
     return render(request, 'owner/users.html', context)
+
+
+
 
 
 
@@ -282,7 +324,7 @@ def show_transactions(request):
 
 
   payments=Payment.objects.all().order_by('-id')
-  paginator=Paginator(payments,1)
+  paginator=Paginator(payments,20)
   page=request.GET.get('page')
   paged_products=paginator.get_page(page)
   context={
@@ -291,3 +333,5 @@ def show_transactions(request):
   }
 
   return render(request,'owner/transaction.html',context)
+
+
