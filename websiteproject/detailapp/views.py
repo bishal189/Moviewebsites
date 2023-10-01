@@ -23,6 +23,8 @@ def _cart_id(request):
 
 def details(request,slug=None):
     product =MovieDetail.objects.get(slug=slug)
+    product.view_count=product.view_count+1
+    product.save()
     user=request.user
     newmovies=MovieDetail.objects.all().order_by('-id')[:5]
     similar=MovieDetail.objects.all().order_by('?')[:20]
@@ -75,6 +77,8 @@ def add_cart(request,product_id,album_price=None):
     current_user=request.user
      
     product=MovieDetail.objects.get(id=product_id) #get the particular product
+    product.cart_count=product.cart_count+1
+    product.save()
     if current_user.is_authenticated:
         product_variation=[]
         if request.method == "POST":

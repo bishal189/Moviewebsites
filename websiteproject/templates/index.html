@@ -74,6 +74,18 @@
 											{% endfor %}
 											
 										</select>
+										<select class="catalog__select" name="popularity" id="popularity">
+											{%  if current.popularity %}
+											<option value="{{current.popularity}}">{{current.popularity}}</option>{% endif %}
+											<option value="all">Popularity</option>
+			
+											
+											<option value="Videos">Videos</option>
+											<option value="Genres">Genres</option>
+											<option value="Stars">Stars</option>
+											
+											
+										</select>
 			
 										<select class="catalog__select" name="type" id="type">
 											{%  if current.type %}<option value="{{current.type}}">{{current.type}}</option>{% endif %}
