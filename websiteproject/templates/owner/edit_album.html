@@ -1,0 +1,108 @@
+{% extends 'owner/base.html' %}
+{% load static %}
+{% block content %}
+	<!-- main content -->
+	<main class="main">
+		<div class="container-fluid">
+			<div class="row">
+				<!-- main title -->
+				<div class="col-12">
+					<div class="main__title">
+						<h2>Edit new Album</h2>
+					</div>
+				</div>
+				<!-- end main title -->
+
+				<!-- form -->
+				<div class="col-12">
+					<form action="{% url 'edit_album' movie.id %}" method='POST' enctype="multipart/form-data" class="form">
+						
+						 {% csrf_token %}
+						<div class="row">
+							<div class="col-12 col-md-5 form__cover">
+								<div class="row">
+									<div class="col-12 col-sm-6 col-md-12">
+										<div class="form__img">
+											<label for="form__img-upload">Upload album cover (190 x 270)</label>
+											{% comment %} <input type="file" id="form__img-upload" required name="form__img-upload" type="file" accept=".png, .jpg, .jpeg">
+											<img id="form__img" src="#" alt=" "> {% endcomment %}
+                                            {{form.coverphoto}}
+                                            <img
+                                              id="form__img"
+                                              src="{{movie.coverphoto.url}}"
+                                              alt=" "
+                                            />
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-12 col-md-7 form__content">
+								<div class="row">
+									<div class="col-12">
+										<div class="form__group">
+											{% comment %} <input type="text" required class="form__input" name='title' placeholder="Title"> {% endcomment %}
+										
+                                        {{form.album_name}}
+                                        </div>
+									</div>
+
+
+									
+
+ 
+	
+									<div class="col-12 col-sm-6 col-lg-3">
+										<div class="form__group">
+
+											{{form.limit}}
+										</div>
+									</div>
+									<div class="col-12 col-sm-6 col-lg-3">
+										<div class="form__group">
+
+											{% comment %} <input type="text" required class="form__input" placeholder="Price of Album" name='price'> {% endcomment %}
+										{{form.price}}
+                                        </div>
+									</div>
+	
+									<div class="col-12  ">
+										<div class="form__group">
+											<select class="js-example-basic-multiple" name='genre' id="genre" multiple="multiple">
+												<option value="18+">18+</option>
+												<option value="Teen">Teen </option>
+												<option value="4k">4k</option>
+												<option value="Amateur">Amateur</option>
+												<option value="Anal">Anal</option>
+												<option value="Asian">Asian</option>
+												<option value="Babysitter">Babysitter</option>
+												<option value="Auditions">Auditions</option>
+												<option value="Beach">Beach</option>
+												<option value="Behind The Scenes">Behind The Scenes</option>
+												<option value="Bisexual">Bisexual</option>
+												<option value="Bigass">Big Ass</option>
+												<option value="Big Dick">Big Dick</option>
+												<option value="Big Tits">Big Tits</option>
+												<option value="Carwash">Beach</option>
+												<option value="Bondage">Bondage</option>
+												<option value="Cashier">Cashier</option>
+												<option value="Doctor">Doctor</option>
+											</select>
+										</div>
+									</div> 
+
+
+									<div style="mt-5"class="col-12">
+										<button type="submit" class="form__btn">publish</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+				<!-- end form -->
+			</div>
+		</div>
+	</main>
+	<!-- end main content -->
+{% endblock %}

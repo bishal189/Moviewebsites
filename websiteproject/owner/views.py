@@ -453,3 +453,30 @@ def show_transactions_product(request):
   }
 
   return render(request,'owner/transaction-product.html',context)
+
+
+
+
+
+from .forms import Album_form
+@user_passes_test(is_superadmin)
+def edit_album(request,id):
+    album = get_object_or_404(Albums, pk=id)
+    if request.method == 'POST':
+        form =Album_form(request.POST, request.FILES, instance=album)
+        print('hello world')
+        if form.is_valid():
+            print('hello world')
+            form.save()
+            return redirect('catalog')  # Redirect to the movie detail page after editing
+        else:
+          print(form.errors)
+    else:
+        form = Album_form(instance=album)
+
+    context = {
+        'form': form,
+        'movie': album,
+    }
+
+    return render(request, 'owner/edit_album.html', context)

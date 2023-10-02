@@ -1,5 +1,6 @@
 from indexapp.models import MovieDetail
 from django import forms
+from albums.models import Albums
 class movie_form(forms.ModelForm):
     class Meta:
         model = MovieDetail
@@ -45,14 +46,27 @@ class MovieDetailForm(forms.ModelForm):
         self.fields ['price'].widget.attrs['class']='form__input'      
         self.fields ['year'].widget.attrs['class']='form__input'      
         self.fields ['duration'].widget.attrs['class']='form__input'      
-        # self.fields ['images'].widget.attrs['type']='file'      
-        # self.fields ['images'].widget.attrs['id']='form__gallery-upload'      
-        # self.fields ['images'].widget.attrs['class']='form__gallery-upload'   
-        # self.fields ['images'].widget.attrs['accept']=".png, .jpg, .jpeg" 
 
-        # self.fields ['price'].widget.attrs['placeholder']='Enter a price'      
-             
-     
-#         for field in self.fields:
-#             pass
-#             # self.fields [field].widget.attrs['class']='sign__input' 
+
+
+class Album_form(forms.ModelForm):
+    class Meta:
+        model = Albums
+        fields = ['coverphoto', 'album_name', 'limit',  'price', 'genre']
+
+    def __init__(self,*args,**kwargs):
+        super(Album_form,self).__init__(*args,**kwargs)     
+        # self.fields ['trailer'].widget.attrs['class']='form__video-upload'      
+        # self.fields ['trailer'].widget.attrs['id']='form__video-upload'      
+        # self.fields ['trailer'].widget.attrs['type']='file'      
+        self.fields ['coverphoto'].widget.attrs['id']='form__img-upload'      
+        self.fields ['album_name'].widget.attrs['class']='form__input'      
+        self.fields ['limit'].widget.attrs['class']='form__input'      
+        self.fields ['price'].widget.attrs['class']='form__input'      
+        self.fields ['genre'].widget.attrs['class']='form__input'      
+        # self.fields ['short_description'].widget.attrs['class']='form__textarea'      
+        # self.fields ['price'].widget.attrs['class']='form__input'      
+        # self.fields ['year'].widget.attrs['class']='form__input'      
+        # self.fields ['duration'].widget.attrs['class']='form__input'  
+
+    

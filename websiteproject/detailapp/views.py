@@ -344,16 +344,10 @@ def cart(request,total=0,quantity=0,cart_items=None,album_price=None,album_name=
 
         for cart_album in cart_items1:
             total1+= (cart_album.product.price*cart_album.quantity)   
-
+        total=total+total1
         tax=(2*total)/100
-        grand_total=total+tax+total1;  
+        grand_total=tax+total1;  
         all_cart_items = list(chain(cart_items, cart_items1))
-       
-
-        print(grand_total)
-        print(all_cart_items)
-
-
     except ObjectDoesNotExist:
         pass    
     
@@ -372,17 +366,12 @@ def cart(request,total=0,quantity=0,cart_items=None,album_price=None,album_name=
 
 
 
-from django.shortcuts import get_object_or_404, redirect
-from .models import Cartitem, Album_item
 
 def remove_cart_item(request):
     if request.method == 'POST':
         item_id = request.POST.get('item_id')
         item_type = request.POST.get('item_type')
-        print('hello world')
-        print('hello world',item_id)
-        print('hello world',item_type)
-
+      
         try:
             if item_type == 'cartitem':
                 item = get_object_or_404(Cartitem, id=item_id, user=request.user, is_active=True)
