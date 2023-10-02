@@ -22,7 +22,7 @@ from django.contrib.auth.views import PasswordResetConfirmView
 from django.shortcuts import render, HttpResponse, redirect
 from .forms import ResitrationForm
 from .models import Account
-
+from detailapp.models import Order_Product
 # from django.utils.encoding import force_text
 from django.contrib import messages, auth
 # verification email module import
@@ -226,7 +226,12 @@ def reset_password(request):
 
 
 def profile(request):
-    return render(request,'profile.html')
+    orders=Order_Product.objects.filter(user=request.user)
+    
+    
+
+
+    return render(request,'profile.html',{'orders':orders})
 
 
 

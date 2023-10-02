@@ -10,6 +10,7 @@ class StarsModel(models.Model):
     image=models.ImageField(upload_to='stars/',null=True)
     haircolor=models.CharField(max_length=100,blank=True,null=True)
     height=models.FloatField(null=True,blank=True)
+    view_count=models.IntegerField(default=0)
     age=models.IntegerField(null=True,blank=True)
 
 
@@ -33,6 +34,8 @@ class MovieDetail(models.Model):
     studio=models.ForeignKey(StudioModel,on_delete=models.CASCADE,blank=True,null=True)
     slug=models.SlugField(unique=True,blank=False)
     created_at=models.DateField(auto_now=True,null=True)
+    view_count=models.IntegerField(default=0)
+    cart_count=models.IntegerField(default=0)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.movie_name)

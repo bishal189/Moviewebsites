@@ -2,8 +2,8 @@ from django.shortcuts import render
 from .models import Category
 from indexapp.models import MovieDetail,StarsModel
 # Create your views here.
-
-
+from detailapp.models import Order_Product,Order,Payment
+from django.db.models import Count, Sum
 def category(request):
 
      # category_count=Category.values.all().count()
@@ -31,6 +31,7 @@ def category_filter(request):
     height=request.POST['starheight']
     price=request.POST['price']
     type=request.POST['type']
+    popularity=request.POST['popularity']
     star=None
     filters_movie={}
     filters_category={}
@@ -43,6 +44,7 @@ def category_filter(request):
         'height':None,
         'price':None,
         'type':None,
+        'popularity':None,
 
     }
     if genre != "all":
@@ -52,6 +54,9 @@ def category_filter(request):
     if year != "all":
         filters_movie['year']=year
         current['year']=year
+    
+    if popularity!="all":
+        current['popularity']=popularity
 
     if age != "all":
         current['age']=age
@@ -81,6 +86,7 @@ def category_filter(request):
         filters_movie['type']=type
 
     category=None
+    star=None
     if filters_category:
         category=Category.objects.get(**filters_category)
     if filters_star:
@@ -108,16 +114,65 @@ def category_filter(request):
         movies=MovieDetail.objects.filter(**filters_movie)
 
     else:
-        movies=MovieDetail.objects.all()
-
-
-
-
-
-        
+        movies=MovieDetail.objects.all().order_by('-id')
 
     stardata=StarsModel.objects.all()
     haircolor=StarsModel.objects.values('haircolor').distinct()
+    
+    if popularity == "Videos":
+        movies=movies.order_by('-view_count','-cart_count','-id')
+
+    if popularity=="Genres":
+        categories_with_counts = Category.objects.annotate(
+        total_view_count=Sum('moviedetail__view_count'),
+        total_cart_count=Sum('moviedetail__cart_count')
+        )
+    
+
+# Order the categories by total_view_count and total_cart_count
+        sorted_categories = categories_with_counts.order_by('-total_view_count', '-total_cart_count')
+        context={
+          'genres':genres,
+          'sort_category':True,
+          'categories':sorted_categories,
+          'data':movies,
+          'star':stardata,
+          'current':current,
+          'haircolor':haircolor
+
+        } 
+        return render(request,"category.html",context)
+    
+    if popularity=='Stars':
+        if star is None:
+
+
+            stars_with_count = StarsModel.objects.annotate(
+            total_view_count=Sum('stars__view_count'),
+            total_cart_count=Sum('stars__cart_count')
+            )
+        else:
+            stars_with_count = star.annotate(
+            total_view_count=Sum('stars__view_count'),
+            total_cart_count=Sum('stars__cart_count')
+            )
+            
+    
+
+# Order the categories by total_view_count and total_cart_count
+        sorted_stars = stars_with_count.order_by('-view_count','-total_view_count', '-total_cart_count')
+        context={
+          'genres':genres,
+          'sort_stars':True,
+          'data':movies,
+          'star':sorted_stars,
+          'current':current,
+          'haircolor':haircolor
+
+        } 
+        return render(request,"category.html",context)
+
+
 
     context={
           'genres':genres,
@@ -146,44 +201,3 @@ def category_by_genre(request,genrename):
 
 
      return render(request,"category.html",context)
-
-def category_by_year(request,year):
-    genres=Category.objects.all()
-    datatoshow=None
-    stardata=StarsModel.objects.all()
-    if year == 2016:
-        datatoshow=MovieDetail.objects.all().filter(year__lt=year)[:20]
-    else:
-        datatoshow=MovieDetail.objects.all().filter(year=year)[:20]
-    context={
-        'year':year,
-        'data':datatoshow,
-        'genres':genres,
-        'star':stardata,
-
-    }
-    return render(request,"category.html",context)
-
-def combined_year_genre(request,year,genrename):
-
-    category=Category.objects.get(category_name=genrename)#first gets category
-    genres=Category.objects.all()
-    datatoshow=None
-
-    stardata=StarsModel.objects.all()
-
-    if year==2016:
-        datatoshow=MovieDetail.objects.all().filter(year__lt=year,genre=category)
-    else:
-        datatoshow=MovieDetail.objects.all().filter(year=year,genre=category)
-
-    context={
-        'genres':genres,
-        'data':datatoshow,
-        'genre':genrename,
-        'year':year,
-        'star':stardata,
-
-    }
-    return render(request,"category.html",context)
-

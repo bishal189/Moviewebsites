@@ -116,6 +116,8 @@ def stars(request):
     return render(request,'stars.html',context)
 def star_detail(request,id):
     star=StarsModel.objects.get(id=id)
+    star.view_count=star.view_count+1
+    star.save()
     movies=MovieDetail.objects.filter(stars=star)
     print(star.name,movies)
     context={

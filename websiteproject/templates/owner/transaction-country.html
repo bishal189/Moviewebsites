@@ -12,7 +12,7 @@
 				<!-- main title -->
 				<div class="col-12">
 					<div class="main__title">
-						<h2>User Transactions</h2>
+						<h2>Country Transactions</h2>
 						{% with item_count=payments|length %}
 						<span class="main__title-stat">{{item_count}} total Transactions</span>
 						{% endwith %}
@@ -67,64 +67,34 @@
 						<table class="main__table">
 							<thead>
 								<tr>
-									<th>ID</th>
-									<th>USERNAME</th>
+									
+									<th>Country</th>
+									<th>Total transactions</th>
 									<th>Money Spent</th>
-									<th>Items</th>
 
-									<th>Payment Method</th>
-									<th>CREATED DATE</th>
 								</tr>
 							</thead>
 
 							<tbody>
 								{% for payment in payments %}
 								<tr>
-									<td>
-										<div class="main__table-text">{{payment.id}}</div>
-									</td>
-									<td>
-										<div class="main__user">
-											<div class="main__avatar">
-												<img src="img/user.svg" alt="">
-											</div>
-											<div class="main__meta">
-												<span>{{payment.user.email}}</span>
-											</div>
-										</div>
-									</td>
+									
 									
 									<td>
-										
-										<div class="main__table-text">{{payment.amount_paid|floatformat:2}} $</div>
-										
+										<div class="main__table-text">{{payment.country}}</div>
 									</td>
+								
+								
 									<td>
-										
-										<div class="main__table-text">
-											 <div class="filter" id="filter__sort">
-				
-												<div class="filter__item-btn dropdown-toggle" role="navigation" id="filter-sort" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-													<input type="button" value="Movies Bought">
-													<span></span>
-												</div>
-				
-												<ul class="filter__item-menu dropdown-menu scrollbar-dropdown" aria-labelledby="filter-sort">
-													{% for order_product in payment.order_product_set.all %}
-															<li>{{ order_product.product }} ( {{order_product.product_price}} $)</li>
-												{% endfor %}
+										<div class="main__table-text">{{payment.total_count}}</div>
 
-												</ul>
-											</div> 
-										</div>
+										
 										
 									</td>
 									<td>
-										<div class="main__table-text">{{payment.payment_method}}</div>
+										<div class="main__table-text">{{payment.total_price|floatformat:2}}</div>
 									</td>
-									<td>
-										<div class="main__table-text">{{payment.created_at|date:"Y-m-d"}}</div>
-									</td>
+									
 									
 								</tr>
 								{% endfor %}
