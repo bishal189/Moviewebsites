@@ -312,21 +312,58 @@ def add_stars(request):
 
 def show_transactions(request):
   if request.method=="POST":
-    selected_time_range=request.POST['time_range']
-    today = datetime.now().date()
-    if selected_time_range == '1_month':
-        start_date = today - timedelta(days=30)
-    elif selected_time_range == '2_months':
-        start_date = today - timedelta(days=60)
-    elif selected_time_range == '3_months':
-        start_date = today - timedelta(days=90)
-    elif selected_time_range == '6_months':
-        start_date = today - timedelta(days=180)
-    elif selected_time_range == '1_week':
-        start_date = today - timedelta(days=7)
-    payments = Payment.objects.filter(created_at__gte=start_date).order_by('-id')
+    payments=None
+    context=None
+    if request.POST['time_range']:
 
-    return render(request, 'owner/transaction.html', {'payments': payments, 'selected_time_range': selected_time_range})
+      selected_time_range=request.POST['time_range']
+      today = datetime.now().date()
+      if selected_time_range == '1_month':
+          start_date = today - timedelta(days=30)
+      elif selected_time_range == '2_months':
+          start_date = today - timedelta(days=60)
+      elif selected_time_range == '3_months':
+          start_date = today - timedelta(days=90)
+      elif selected_time_range == '6_months':
+          start_date = today - timedelta(days=180)
+      elif selected_time_range == '1_week':
+          start_date = today - timedelta(days=7)
+      payments = Payment.objects.filter(created_at__gte=start_date).order_by('-id')
+      paginator=Paginator(payments,20)
+      page=request.GET.get('page')
+      paged_products=paginator.get_page(page)
+
+      context={
+        'payments':paged_products,
+        'selected_time_range':selected_time_range,
+      }
+
+    if request.POST['item_count']:
+      item_count=request.POST['item_count']
+      if payments is None:
+
+        payments=Payment.objects.all().order_by('-id')
+
+      paginator=Paginator(payments,item_count)
+      page=request.GET.get('page')
+      paged_products=paginator.get_page(page)
+
+      if context is None:
+        context={
+        'payments':paged_products,
+        'all_products':paged_products,
+        'selected_item_count':item_count
+    
+      }
+      else:
+        context={
+        'payments':paged_products,
+        'all_products':paged_products,
+        'selected_item_count':item_count,
+        'selected_time_range':selected_time_range,    
+        }
+
+    return render(request, 'owner/transaction.html', context)
 
 
   payments=Payment.objects.all().order_by('-id')
@@ -342,35 +379,72 @@ def show_transactions(request):
 
 def show_transactions_country(request):
   if request.method=="POST":
-    selected_time_range=request.POST['time_range']
-    today = datetime.now().date()
-    if selected_time_range == '1_month':
-        start_date = today - timedelta(days=30)
-    elif selected_time_range == '2_months':
-        start_date = today - timedelta(days=60)
-    elif selected_time_range == '3_months':
-        start_date = today - timedelta(days=90)
-    elif selected_time_range == '6_months':
-        start_date = today - timedelta(days=180)
-    elif selected_time_range == '1_week':
-        start_date = today - timedelta(days=7)
-    payments = Payment.objects.filter(created_at__gte=start_date).order_by('-id')
+    payments=None
+    context=None
+    if request.POST['time_range']:
+      selected_time_range=request.POST['time_range']
+      today = datetime.now().date()
+      if selected_time_range == '1_month':
+          start_date = today - timedelta(days=30)
+      elif selected_time_range == '2_months':
+          start_date = today - timedelta(days=60)
+      elif selected_time_range == '3_months':
+          start_date = today - timedelta(days=90)
+      elif selected_time_range == '6_months':
+          start_date = today - timedelta(days=180)
+      elif selected_time_range == '1_week':
+          start_date = today - timedelta(days=7)
+      payments = Payment.objects.filter(created_at__gte=start_date).order_by('-id')
 
-    orders_by_country = (
-        Order.objects.filter(payment__in=payments)
-                    .values('country')
-                    .annotate(total_price=Sum('total'))
-                    .annotate(total_count=Count('id'))
-                    .order_by('country')
-    )
-    paginator=Paginator(orders_by_country,20)
-    page=request.GET.get('page')
-    paged_products=paginator.get_page(page)
-    context={
-    'payments':paged_products,
-    'all_products':paged_products,
-    'selected_time_range': selected_time_range
-  }
+      orders_by_country = (
+          Order.objects.filter(payment__in=payments)
+                      .values('country')
+                      .annotate(total_price=Sum('total'))
+                      .annotate(total_count=Count('id'))
+                      .order_by('country')
+      )
+      paginator=Paginator(orders_by_country,20)
+      page=request.GET.get('page')
+      paged_products=paginator.get_page(page)
+      context={
+      'payments':paged_products,
+      'all_products':paged_products,
+      'selected_time_range': selected_time_range
+      }
+
+
+    if request.POST['item_count']:
+      item_count=request.POST['item_count']
+      if payments is None:
+
+        payments=Payment.objects.all().order_by('-id')
+
+      orders_by_country = (
+          Order.objects.filter(payment__in=payments)
+                      .values('country')
+                      .annotate(total_price=Sum('total'))
+                      .annotate(total_count=Count('id'))
+                      .order_by('country')
+      )
+
+      paginator=Paginator(orders_by_country,item_count)
+      page=request.GET.get('page')
+      paged_products=paginator.get_page(page)
+
+      if context is None:
+        context={
+        'payments':paged_products,
+        'all_products':paged_products,
+        'selected_item_count':item_count
+    
+      }
+      else:
+        context={
+        'payments':paged_products,
+        'all_products':paged_products,
+        'selected_item_count':item_count,
+        'selected_time_range':selected_time_range,    
+        }
 
     return render(request, 'owner/transaction-country.html',context)
 
@@ -396,37 +470,73 @@ def show_transactions_country(request):
 
 def show_transactions_product(request):
   if request.method=="POST":
-    selected_time_range=request.POST['time_range']
-    today = datetime.now().date()
-    if selected_time_range == '1_month':
-        start_date = today - timedelta(days=30)
-    elif selected_time_range == '2_months':
-        start_date = today - timedelta(days=60)
-    elif selected_time_range == '3_months':
-        start_date = today - timedelta(days=90)
-    elif selected_time_range == '6_months':
-        s4art_date = today - timedelta(days=180)
-    elif selected_time_range == '1_week':
-        start_date = today - timedelta(days=7)
-    payments = Payment.objects.filter(created_at__gte=start_date).order_by('-id')
-    orders_by_product = (
-        Order_Product.objects.filter(payment__in=payments)
-                    .values('product__movie_name')
-                    .annotate(total_price=Sum('product_price'))
-                    .annotate(total_count=Count('id'))
-                    .order_by('product__id')
-                    .values('product__movie_name','total_price','total_count','product__view_count')
-                    
-    )
-    print(orders_by_product)
-    paginator=Paginator(orders_by_product,20)
-    page=request.GET.get('page')
-    paged_products=paginator.get_page(page)
-    context={
-    'payments':paged_products,
-    'all_products':paged_products,
-    'selected_time_range': selected_time_range,
-    }
+    if request.method=="POST":
+      payments=None
+      context=None
+      selected_time_range=request.POST['time_range']
+      today = datetime.now().date()
+      if selected_time_range == '1_month':
+          start_date = today - timedelta(days=30)
+      elif selected_time_range == '2_months':
+          start_date = today - timedelta(days=60)
+      elif selected_time_range == '3_months':
+          start_date = today - timedelta(days=90)
+      elif selected_time_range == '6_months':
+          s4art_date = today - timedelta(days=180)
+      elif selected_time_range == '1_week':
+          start_date = today - timedelta(days=7)
+      payments = Payment.objects.filter(created_at__gte=start_date).order_by('-id')
+      orders_by_product = (
+          Order_Product.objects.filter(payment__in=payments)
+                      .values('product__movie_name')
+                      .annotate(total_price=Sum('product_price'))
+                      .annotate(total_count=Count('id'))
+                      .order_by('product__id')
+                      .values('product__movie_name','total_price','total_count','product__view_count')
+                      
+      )
+      paginator=Paginator(orders_by_product,20)
+      page=request.GET.get('page')
+      paged_products=paginator.get_page(page)
+      context={
+      'payments':paged_products,
+      'all_products':paged_products,
+      'selected_time_range': selected_time_range,
+      }
+    if request.POST['item_count']:
+      item_count=request.POST['item_count']
+      if payments is None:
+
+        payments=Payment.objects.all().order_by('-id')
+
+      orders_by_product = (
+          Order_Product.objects.filter(payment__in=payments)
+                      .values('product__movie_name')
+                      .annotate(total_price=Sum('product_price'))
+                      .annotate(total_count=Count('id'))
+                      .order_by('product__id')
+                      .values('product__movie_name','total_price','total_count','product__view_count')
+                      
+      )
+
+      paginator=Paginator(orders_by_product,item_count)
+      page=request.GET.get('page')
+      paged_products=paginator.get_page(page)
+
+      if context is None:
+        context={
+        'payments':paged_products,
+        'all_products':paged_products,
+        'selected_item_count':item_count
+    
+      }
+      else:
+        context={
+        'payments':paged_products,
+        'all_products':paged_products,
+        'selected_item_count':item_count,
+        'selected_time_range':selected_time_range,    
+        }
       
 
 
@@ -443,7 +553,6 @@ def show_transactions_product(request):
                     .values('product__movie_name','total_price','total_count','product__view_count')
                     
     )
-  print(orders_by_product)
   paginator=Paginator(orders_by_product,20)
   page=request.GET.get('page')
   paged_products=paginator.get_page(page)

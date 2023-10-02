@@ -36,7 +36,7 @@
 							<!-- end filter sort -->
 
 							<!-- search -->
-							<form method="post" class="main__title-form" >
+							<form style="width:400px;" method="post" class="main__title-form" >
 								{% csrf_token %}
 								<select style="background-color:#151f30;padding:10px;color:white;border-radius:10%;" class="dropdown-menu scrollbar-dropdown" name="time_range">
 									<option value="1_week" {% if selected_time_range == "1_week" %}selected{% endif %}>This Week</option>
@@ -46,6 +46,12 @@
 
 									<option value="3_months" {% if selected_time_range == "3_months" %}selected{% endif %}>Before 3 months</option>
 									<option value="6_months" {% if selected_time_range == "6_months" %}selected{% endif %}>Before 6 months</option>
+								</select>
+								<select style="margin-left:20px;background-color:#151f30;padding:10px;color:white;border-radius:10%;" class="dropdown-menu scrollbar-dropdown" name="item_count">
+									<option value="20" {% if selected_item_count == "20" %}selected{% endif %}>20 Items</option>
+									<option value="40" {% if selected_item_count == "40" %}selected{% endif %}>40 Items</option>
+									<option value="60" {% if selected_item_count == "60" %}selected{% endif %}>60 Items</option>
+									<option value="80" {% if selected_item_count == "100" %}selected{% endif %}>100 Items</option>	
 								</select>
 								<button style="width:100px;height:45px;border-radius:0%;" class="sign__btn" type="submit">Filter</button>
 							</form>
@@ -139,8 +145,9 @@
 				<!-- paginator -->
 				<div class="col-12">
 					<div class="paginator">
-						<span class="paginator__pages">10 from {{count}}</span>
-
+						{% with item_count=payments|length %}
+						<span class="paginator__pages">10 from {{item_count}}</span>
+						{% endwith %}
 						<ul class="catalog__paginator">
 							<nav class="mt-4" aria-label="Page navigation sample">
 								{% if all_products.has_other_pages %}

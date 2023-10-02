@@ -122,6 +122,4 @@ class Order_Product(models.Model):
     updated_at=models.DateTimeField(auto_now=True)
 
 
-
-   
-        # return self.product.product_name
+    # return self.product.product_name
