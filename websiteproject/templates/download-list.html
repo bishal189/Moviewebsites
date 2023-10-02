@@ -16,7 +16,7 @@
             <div class="row">
                     <div class="article__content">
                             
-                        <h1>Download(Limit:(Time:2 days,Number:3 times))</h1>
+                        <h1>Download</h1>
                         
                                                 </div>
                     <!-- end article content -->
@@ -43,21 +43,16 @@
                                 <li>{{item.product.duration}} min</li>
                             </ul>
                             
-                            {% with time_difference=timezone.now|timesince:item.created_at %}
-        {% if time_difference > '2 days' %}
-        <button class="sign__btn" disbled>Disabled<br>(Time limit reached)</button>
-
-        {% else %}
-        {% if item.counter > 300 %}
+                          
+        {% if item.counter > 3 %}
         <button class="sign__btn" disbled>Disabled<br>( limit reached)</button>
 
         {% else %}
-        <a inc-url={% url 'inc_counter' item.id %} data-url={% url 'file_download' item.product.movie_name %} onclick="download__click(event, {{ item.product.id }}, this)" class="sign__btn" href="{% url 'file_download' item.product.movie_name %}">
+        <a inc-url="{% url 'inc_counter' item.id %}" data-url="{% url 'file_download' item.product.movie_name %}" onclick="download__click(event, this)" class="sign__btn" href="{% url 'file_download' item.product.movie_name %}">
             <button id="item_add_{{ item.product.id }}" class="sign__btn">Download<br>({{ item.counter }} of 3 Remaining )</button>
         </a>  
     {% endif %}
-        {% endif %}
-    {% endwith %}
+        
 
                           
                         </div>
@@ -73,7 +68,17 @@
     </div>
 </section>
 <script>
-function download__click(event,id,item){
+    window.onpageshow = function(event) {
+        if (event.persisted) {
+            // Force a page reload
+            window.location.reload();
+        }
+    };
+    </script>
+
+<script>
+    
+function download__click(event,item){
     inc_url=item.getAttribute('inc-url')
     url=(item.getAttribute('data-url'))
 
@@ -103,11 +108,11 @@ function download__click(event,id,item){
         document.body.removeChild(anchor);
         setTimeout(() => {
             item.innerHTML = "Download<br>("+counter+"of 3 Remaining )";
-            if (counter>300){
+            if (counter>3){
                 location.reload()
             }
             // Trigger a click event on the anchor to initiate the download (if needed)
-          }, 8000);
+          }, 20000);
 }
 </script>
 {% endblock %}
