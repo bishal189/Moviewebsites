@@ -22,6 +22,7 @@ from django.contrib.auth.views import PasswordResetConfirmView
 from django.shortcuts import render, HttpResponse, redirect
 from .forms import ResitrationForm
 from .models import Account
+from indexapp.models import FavouritesModel
 from detailapp.models import Order_Product,Payment,Order
 # from django.utils.encoding import force_text
 from django.contrib import messages, auth
@@ -228,10 +229,10 @@ def reset_password(request):
 def profile(request):
     orders=Order_Product.objects.filter(user=request.user)
     payments=Payment.objects.filter(user=request.user).order_by('-id')
-
+    favourites=FavouritesModel.objects.get(user=request.user)
     orders_product = Order.objects.filter(payment__in=payments).order_by('-id')
- 
-    return render(request,'profile.html',{'orders':orders,'orders_product':orders_product})
+    print(favourites)
+    return render(request,'profile.html',{'orders':orders,'favourites':favourites,'orders_product':orders_product})
 
 
 
