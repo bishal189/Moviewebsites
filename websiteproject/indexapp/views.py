@@ -1,8 +1,9 @@
 from django.shortcuts import render,get_object_or_404
 from .models import MovieDetail,StarsModel,StudioModel
-from indexapp.models import Category
+from indexapp.models import Category,FavouritesModel
 from django.core.paginator import EmptyPage,PageNotAnInteger,Paginator
 # Create your views here.
+from django.http import JsonResponse
 from albums.models import Albums
 from datetime import datetime
 
@@ -17,6 +18,8 @@ def home(request):
     stardata=StarsModel.objects.all()
     genres=Category.objects.all()
     haircolor=StarsModel.objects.values('haircolor').distinct()
+    user_favorite_movies = FavouritesModel.objects.filter(user=request.user).values_list('favourite_movies__id', flat=True)
+
 
     # count1=paged_products.count()
     context={
@@ -26,7 +29,8 @@ def home(request):
         'count':count,
         'allalbums':allalbums,
         'star':stardata,
-        'haircolor':haircolor
+        'haircolor':haircolor,
+        'user_favourite_movie':user_favorite_movies,
 
 
         
@@ -144,6 +148,22 @@ def photosets(request):
 
     return render(request,'photosets.html',context)
 
+
+def add_favourites(request,id):
+    user=request.user
+    favourite,created=FavouritesModel.objects.get_or_create(user=user)
+    movie=MovieDetail.objects.get(id=id)
+    favourite.favourite_movies.add(movie)
+    favourite.save()
+    return JsonResponse({"status":"done"})
+
+def remove_favourites(request,id):
+    user=request.user
+    favourite=FavouritesModel.objects.get(user=user)
+    movie=MovieDetail.objects.get(id=id)
+    favourite.favourite_movies.remove(movie)
+    favourite.save()
+    return JsonResponse({"status":"done"})
 
 
 
