@@ -628,10 +628,18 @@ def delete_user(request,id):
 
 
 def suspended_user(request,id):
-  print('hello world')
+
   user=Account.objects.get(id=id)
   if user is not None:
     user.is_suspended=True
+    user.save()
+    return redirect('user_list')
+    
+def active_user(request,id):
+
+  user=Account.objects.get(id=id)
+  if user is not None:
+    user.is_suspended=False
     user.save()
     return redirect('user_list')
     
