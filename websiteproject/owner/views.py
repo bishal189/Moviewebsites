@@ -187,7 +187,9 @@ def edit_movie(request,id):
     if request.method == 'POST':
         form = MovieDetailForm(request.POST, request.FILES, instance=movie)
         if form.is_valid():
-            print('hello world')
+            if not form.cleaned_data['images']:
+              form.cleaned_data['images'] = movie.images.all()
+              print('hello world')
             form.save()
             return redirect('catalog')  # Redirect to the movie detail page after editing
         else:
@@ -600,9 +602,7 @@ def edit_album(request,id):
     album = get_object_or_404(Albums, pk=id)
     if request.method == 'POST':
         form =Album_form(request.POST, request.FILES, instance=album)
-        print('hello world')
         if form.is_valid():
-            print('hello world')
             form.save()
             return redirect('catalog')  # Redirect to the movie detail page after editing
         else:

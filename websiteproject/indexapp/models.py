@@ -39,7 +39,7 @@ class MovieDetail(models.Model):
     coverphoto=models.ImageField(upload_to='coverphoto/',null=True)
     duration=models.IntegerField(null=True,blank=True)
     short_description=models.TextField(max_length=100000)
-    images=models.ManyToManyField(ImagesModel,related_name='related_images')
+    images=models.ManyToManyField(ImagesModel,related_name='related_images',blank=True)
     trailer=models.FileField(upload_to='trailer/',blank=True,null=True)
     price=models.FloatField()
     genre=models.ManyToManyField(Category,blank=True)
