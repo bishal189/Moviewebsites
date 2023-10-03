@@ -7,12 +7,12 @@ from .models import Account
 # Register your models here.
 
 class Account_admin(admin.ModelAdmin):
-    list_display=('email','username','last_login','is_active','is_superadmin')
+    list_display=('email','username','last_login','is_active','is_superadmin','is_suspended')
     ordering=('-date_joined',)
     readonly_fields=('last_login','date_joined')
     filter_horizontal=()
     list_filter=()
     fieldsets=()
     
-    list_display_links=('email','username','last_login','is_active','is_superadmin')
+    list_display_links=('email','username','last_login','is_active','is_superadmin','is_suspended')
 admin.site.register(Account,Account_admin)

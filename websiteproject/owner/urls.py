@@ -16,7 +16,8 @@ urlpatterns = [
 
 
     path('add_album/',views.add_album,name='add_album'),
-    # path('total_amount/',views.total_amount,name='total_amount'),
+    path('suspend_user/<int:id>/',views.suspended_user,name='suspend_user'),
+    path('delete_user/<int:id>/',views.delete_user,name='delete_user'),
     path('edit_movie/<int:id>',views.edit_movie,name='edit_movie'),
     path('edit_album/<int:id>',views.edit_album,name='edit_album'),
     path('remove_movie/<int:id>',views.remove_movie,name='remove_movie'),

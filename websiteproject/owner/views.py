@@ -616,3 +616,23 @@ def edit_album(request,id):
     }
 
     return render(request, 'owner/edit_album.html', context)
+
+
+
+
+def delete_user(request,id):
+  user=Account.objects.get(id=id)
+  user.delete()
+  return redirect('user_list')
+
+
+
+def suspended_user(request,id):
+  print('hello world')
+  user=Account.objects.get(id=id)
+  if user is not None:
+    user.is_suspended=True
+    user.save()
+    return redirect('user_list')
+    
+

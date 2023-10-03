@@ -77,20 +77,22 @@ def Login(request):
     if request.method == 'POST':
         email = request.POST['email']
         password = request.POST['password']
-
         user = auth.authenticate(email=email, password=password)
-        print(user)
-        if user is not None:
-            if Account.objects.filter(email=email, is_superadmin=True).exists():
-                auth.login(request, user)
-                return redirect('home')
-            else:
-               auth.login(request, user)
-               return redirect('home')
-
-        else:
-            messages.error(request, 'login credintials errors!')
+        if user.is_suspended:
+            messages.error(request, 'You have been suspended by the admin!')
             return redirect('login')
+        else:
+            if user is not None:
+                if Account.objects.filter(email=email, is_superadmin=True).exists():
+                    auth.login(request, user)
+                    return redirect('home')
+                else:
+                    auth.login(request, user)
+                    return redirect('home')
+
+            else:
+                messages.error(request, 'login credintials errors!')
+                return redirect('login')
 
     else:
         return render(request, 'signin.html')
