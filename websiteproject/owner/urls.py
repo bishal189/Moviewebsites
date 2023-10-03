@@ -19,6 +19,8 @@ urlpatterns = [
     path('suspend_user/<int:id>/',views.suspended_user,name='suspend_user'),
     path('active_user/<int:id>/',views.active_user,name='active_user'),
     path('delete_user/<int:id>/',views.delete_user,name='delete_user'),
+    path('delete_user/<int:id>/',views.user_delete_user,name='user_delete_user'),
+
     path('edit_movie/<int:id>',views.edit_movie,name='edit_movie'),
     path('edit_album/<int:id>',views.edit_album,name='edit_album'),
     path('remove_movie/<int:id>',views.remove_movie,name='remove_movie'),

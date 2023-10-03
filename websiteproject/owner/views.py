@@ -625,6 +625,11 @@ def delete_user(request,id):
   user.delete()
   return redirect('user_list')
 
+def user_delete_user(request,id):
+  user=Account.objects.get(id=id)
+  user.delete()
+  return redirect('home')
+
 
 
 def suspended_user(request,id):
