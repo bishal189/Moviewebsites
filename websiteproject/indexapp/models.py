@@ -1,7 +1,11 @@
 from django.db import models
 from category.models import Category
+from myaccount.models import Account
 # Create your models here.
 from django.utils.text import slugify 
+
+
+
 class ImagesModel(models.Model):
     image=models.ImageField(upload_to='images/')
 
@@ -57,13 +61,8 @@ class MovieDetail(models.Model):
 
     def __str__(self):
         return self.movie_name   
+    
 
-
-'''
-
-
-class MovieCategory(models.Model):
-    movie_foreign=models.ForeignKey(MovieDetail,on_delete=models.CASCADE,null=False)
-    category_foreign=models.ForeignKey(Category,on_delete=models.CASCADE,null=False)
-
-'''
+class FavouritesModel(models.Model):
+    user=models.ForeignKey(Account,blank=True,null=True,on_delete=models.CASCADE)
+    favourite_movies=models.ManyToManyField(MovieDetail)

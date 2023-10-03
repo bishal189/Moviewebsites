@@ -9,11 +9,13 @@ urlpatterns = [
     path('users/',views.user_list,name='user_list'),
     path('add_stars/',views.add_stars,name='add_stars'),
     path('add_studio/',views.add_studio,name='add_studio'),
+    path('add_genre/',views.add_genre,name='add_genre'),
+
     path('edit_user/',views.edit_user,name='edit_user'),
     path('show_transactions/',views.show_transactions,name='transactions'),
     path('show_transactions/country',views.show_transactions_country,name='transactions_country'),
     path('show_transactions/product',views.show_transactions_product,name='transactions_product'),
-
+    
 
     path('add_album/',views.add_album,name='add_album'),
     path('suspend_user/<int:id>/',views.suspended_user,name='suspend_user'),

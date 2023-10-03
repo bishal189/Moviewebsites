@@ -39,18 +39,19 @@
 
 						<!-- tabs nav -->
 						 <ul class="nav nav-tabs profile__tabs" id="profile__tabs" role="tablist">
+							
 							<li class="nav-item">
-								{% comment %} <a class="nav-link active" data-toggle="tab" href="#tab-1" role="tab" aria-controls="tab-1" aria-selected="true">Profile</a> {% endcomment %}
-							</li>
-							<li class="nav-item">
-								<a class="nav-link active" data-toggle="tab" href="#tab-3" role="tab" aria-controls="tab-1" aria-selected="true">Settings</a>
+								<a class="nav-link active" data-toggle="tab" href="#tab-3" role="tab" aria-controls="tab-3" aria-selected="true">Settings</a>
 							</li>
 
 							<li class="nav-item">
-								 <a class="nav-link" data-toggle="tab" href="#tab-2" role="tab" aria-controls="tab-2" aria-selected="false">All Movies Bought</a> 
+								 <a class="nav-link" data-toggle="tab" href="#tab-2" role="tab" aria-controls="tab-2" aria-selected="false">Your Movies</a> 
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" data-toggle="tab" href="#tab-4" role="tab" aria-controls="tab-4" aria-selected="false">Download your Files</a> 
+								<a class="nav-link" data-toggle="tab" href="#tab-1" role="tab" aria-controls="tab-1" aria-selected="false">Favourites</a> 
+						   </li>
+							<li class="nav-item">
+								<a class="nav-link" data-toggle="tab" href="#tab-4" role="tab" aria-controls="tab-4" aria-selected="false">Download  Files</a> 
 						   </li>
 						   <li class="nav-item">
 							<a class="nav-link" data-toggle="tab" href="#tab-5" role="tab" aria-controls="tab-5" aria-selected="false">Download Invoice</a> 
@@ -89,6 +90,37 @@
 									<li>{{order.product.type}}</li>
 									<li>{{order.product.duration}} min</li>
 									<li>{{order.product.price}} $</li>
+								</ul>
+							</div>
+						</div>
+						{% endfor %}
+						
+
+						
+					</div>
+					<!-- end favorites -->
+
+					
+					<!-- end paginator -->
+				</div> 
+
+				<div class="tab-pane fade" id="tab-1" role="tabpanel">
+					<!-- favorites -->
+					<div class="row row--grid">
+						{% for order in favourites.favourite_movies.all %}
+						<div>order</div>
+						<div class="col-6 col-sm-4 col-lg-3 col-xl-2">
+							<div class="card card--favorites">
+								<a href="{% url 'details' order.slug %}" class="card__cover">
+									<img src="{{order.coverphoto.url}}" alt="">
+								</a>
+								
+								
+								<h3 class="card__title"><a href="details.html">{{order.movie_name}}</a></h3>
+								<ul class="card__list">
+									<li>{{order.type}}</li>
+									<li>{{order.duration}} min</li>
+									<li>{{order.price}} $</li>
 								</ul>
 							</div>
 						</div>

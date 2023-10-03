@@ -6,7 +6,8 @@ urlpatterns = [
     path('about/',views.about,name='about'),
     path('privacy/',views.privacy,name='privacy'),
     path('search/<str:tosearch>',views.search_pagination,name='search_pagination'),
-    
+    path('add_favourites/<int:id>',views.add_favourites,name='add_favourites'),
+    path('remove_favourites/<int:id>',views.remove_favourites,name='remove_favourites'),
     path('pagination/',views.pagination,name='pagination'),
     path('scenes/',views.scenes,name='scenes'),
     path('DVD/',views.dvd,name='dvd'),

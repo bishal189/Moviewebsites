@@ -180,34 +180,7 @@
 										<input type="radio" name="grade" id="newest"><label for="newest">Newest</label>
 									</div>-->
 								</div>
-									 {%if genre %}
-										<div style="color:white;font-size:22px;margin-top:10px; ">{{genre}} Movies: </div>
-										{% endif %}
-			
-										<div style="justify-content:center;" class="row row--grid">
-			
-										{% for item in data %}
-			
-								
-									<div  style="margin-right:18px;"class="col-6 col-sm-4 col-lg-3 col-xl-2">
-										<div class="card">
-											<a href="{% url 'details' slug=item.slug %}" class="card__cover">
-												<img src="{{item.coverphoto.url}}" alt="">
-											</a>
-											<span class="card__rating">{{item.price}} $</span>
-											<h3 class="card__title"><a href="{% url 'details' slug=item.slug%}">{{item.movie_name}}</a></h3>
-											<ul class="card__list">
-												<li>{{item.type}}</li>
-												<li>{{item.year}}</li>
-												<li>{{item.duration}} min</li>
-											</ul>
-										</div>
-									</div>
-								
-								
-									{% endfor %}</div>
-			
-								</div>
+									
 						</div>		
 			
 						{% comment %} <div class="row">
@@ -221,16 +194,45 @@
 						{% for item in  all_products %}
 						<div  style="margin-right:18px;"class="col-6 col-sm-4 col-lg-3 col-xl-2">
 							<div class="card">
-								<a href="{% url 'details' slug=item.slug %}" class="card__cover">
-									<img src="{{item.coverphoto.url}}" alt="">
-								</a>
-								<span class="card__rating">{{item.price}} $</span>
+								<a style="border-radius:0px;filter:blur(0);" href="{% url 'details' slug=item.slug %}" class="card__cover">
+									<img style="filter:blur(0);" src="{{item.coverphoto.url}}" alt="">
+																		</a>
+									{% if user.is_authenticated %}
+									{% if item.id in user_favourite_movie %}
+									<button fetch-url="{% url 'remove_favourites' item.id %}" data-context="{{item.id}}" onclick="remove_favourites(this)"  id="remove_favourites_{{item.id}}" class="card__add" type="button">
+										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="100" height="100">
+											<path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z" fill="blue"/>
+										</svg>
+										
+										</button>
+									{% else %}
+									<button data-context="{{item.id}}" fetch-url="{% url 'add_favourites' item.id %}"onclick="add_favourites(this)"  id="add_favourites_{{item.id}}" class="card__add" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z"/></svg></button>
+									{% endif %}
+									<button style="display:none" fetch-url="{% url 'remove_favourites' item.id %}" data-context="{{item.id}}" onclick="remove_favourites(this)"  id="remove_favourites_{{item.id}}" class="card__add" type="button">
+										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="100" height="100">
+											<path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z" fill="blue"/>
+										</svg>
+										
+										</button>
+										<button style="display:none;" data-context="{{item.id}}" fetch-url="{% url 'add_favourites' item.id %}"onclick="add_favourites(this)"  id="add_favourites_{{item.id}}" class="card__add" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z"/></svg></button>
+
+
+										{% else %}
+										<a href="{% url 'login' %}"><button class="card__add" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z"/></svg></button></a>
+										{% endif %}
+									
+
+									
+									<!-- <span class="card__rating"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z"/></svg> 8.3</span>
+										 -->
+								
 								<h3 class="card__title"><a href="{% url 'details' slug=item.slug%}">{{item.movie_name}}</a></h3>
 								<ul class="card__list">
 									<li>{{item.type}}</li>
 									<li>{{item.duration}} min</li>
 									<li>{{item.price}} $</li>
 								</ul>
+								
 							</div>
 						</div>
 						{% endfor %}	
@@ -335,6 +337,30 @@ window.onpageshow = function(event) {
 		window.location.reload();
 	}
 };
+
+function add_favourites(current){
+id=current.getAttribute('data-context')
+add=document.getElementById('add_favourites_'+id)
+remove=document.getElementById('remove_favourites_'+id)
+url=current.getAttribute('fetch-url')
+fetch(url)
+remove.style.display="block"
+add.style.display="none"
+
+}
+function remove_favourites(current){
+id=current.getAttribute('data-context')
+add=document.getElementById('add_favourites_'+id)
+remove=document.getElementById('remove_favourites_'+id)
+url=current.getAttribute('fetch-url')
+fetch(url)
+
+remove.style.display="none"
+add.style.display="block"
+
+
+
+}
 </script>
 	<!-- end footer -->
 
