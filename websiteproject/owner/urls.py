@@ -17,7 +17,7 @@ urlpatterns = [
     path('show_transactions/product',views.show_transactions_product,name='transactions_product'),
     
 
-    path('add_album/',views.add_album,name='add_album'),
+    path('add_packages/',views.add_album,name='add_album'),
     path('suspend_user/<int:id>/',views.suspended_user,name='suspend_user'),
     path('active_user/<int:id>/',views.active_user,name='active_user'),
     path('delete_user/<int:id>/',views.delete_user,name='delete_user'),

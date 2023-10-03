@@ -79,7 +79,7 @@ def Login(request):
         email = request.POST['email']
         password = request.POST['password']
         user = auth.authenticate(email=email, password=password)
-        if user.is_suspended:
+        if user is not None and user.is_suspended:
             messages.error(request, 'You have been suspended by the admin!')
             return redirect('login')
         else:
