@@ -6,6 +6,7 @@ from django.core.paginator import EmptyPage,PageNotAnInteger,Paginator
 from django.http import JsonResponse
 from albums.models import Albums
 from datetime import datetime
+from django.contrib.auth.models import AnonymousUser
 
 def home(request):
    
@@ -18,7 +19,9 @@ def home(request):
     stardata=StarsModel.objects.all()
     genres=Category.objects.all()
     haircolor=StarsModel.objects.values('haircolor').distinct()
-    user_favorite_movies = FavouritesModel.objects.filter(user=request.user).values_list('favourite_movies__id', flat=True)
+    user_favorite_movies=None
+    if  not isinstance(request.user, AnonymousUser):
+        user_favorite_movies = FavouritesModel.objects.filter(user=request.user).values_list('favourite_movies__id', flat=True)
 
 
     # count1=paged_products.count()

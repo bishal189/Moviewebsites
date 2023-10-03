@@ -48,9 +48,11 @@ def dashboard(request):
 def  add_item(request):
     star=StarsModel.objects.all().order_by('-id')
     studio=StudioModel.objects.all().order_by('-id')
+    genres=Category.objects.all().order_by('-id')
     context={
       'star':star,
       'studio':studio,
+      'genres':genres,
     }
     if request.method == 'POST' and request.FILES.get('form__img-upload'):
       images_list=[]
@@ -89,7 +91,7 @@ def  add_item(request):
         
       form.studio=studio
       for gen in request.POST.getlist('genre'):
-        category,created=Category.objects.get_or_create(category_name=gen)
+        category=Category.objects.get(id=gen)
         form.genre.add(category)
 
 
@@ -110,15 +112,15 @@ def add_album(request):
       creator=Albums.objects.create(coverphoto=coverphoto,album_name=title,limit=limit,price=price,counter=0)
       for gen in request.POST.getlist('genre'):
 
-        category,created=Category.objects.get_or_create(category_name=gen)
+        category=Category.objects.get(id=gen)
         creator.genre.add(category)
 
       
       creator.save()
+   genres=Category.objects.all().order_by('-id')
 
-   movies=MovieDetail.objects.all()
    context={
-      'movies':movies
+      'genres':genres
    }
    return render(request,"owner/add-album.html",context)
    
@@ -274,13 +276,17 @@ def user_list(request):
 @user_passes_test(is_superadmin)
 def add_studio(request):
   if request.method == 'POST' :
-    
       studioname=request.POST['studio']
-      
-     
-      studio,created=StudioModel.objects.get_or_create(name=studioname.title())
+      studio,created=StudioModel.objects.get_or_create(category_name=studioname.title())
       return render(request,'owner/add_studio.html')
   return render(request,'owner/add_studio.html')
+
+def add_genre(request):
+  if request.method == 'POST' :
+      genrename=request.POST['genre']
+      category,created=Category.objects.get_or_create(category_name=genrename.title())
+      return render(request,'owner/add-genre.html')
+  return render(request,'owner/add-genre.html')
 
 
 

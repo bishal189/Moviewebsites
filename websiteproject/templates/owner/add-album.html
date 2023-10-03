@@ -60,30 +60,15 @@
 									<div class="col-12  ">
 										<div class="form__group">
 											<select class="js-example-basic-multiple" name='genre' id="genre" multiple="multiple">
-												<option value="18+">18+</option>
-												<option value="Teen">Teen </option>
-												<option value="4k">4k</option>
-												<option value="Amateur">Amateur</option>
-												<option value="Anal">Anal</option>
-												<option value="Asian">Asian</option>
-												<option value="Babysitter">Babysitter</option>
-												<option value="Auditions">Auditions</option>
-												<option value="Beach">Beach</option>
-												<option value="Behind The Scenes">Behind The Scenes</option>
-												<option value="Bisexual">Bisexual</option>
-												<option value="Bigass">Big Ass</option>
-												<option value="Big Dick">Big Dick</option>
-												<option value="Big Tits">Big Tits</option>
-												<option value="Carwash">Beach</option>
-												<option value="Bondage">Bondage</option>
-												<option value="Cashier">Cashier</option>
-												<option value="Doctor">Doctor</option>
+												{% for genre in genres %}
+												<option value="{{genre.id}}">{{genre.category_name}}</option>
+												{% endfor %}
 											</select>
 										</div>
 									</div> 
 
 
-									<div style="mt-5"class="col-12">
+									<div class="col-12">
 										<button type="submit" class="form__btn">publish</button>
 									</div>
 								</div>
