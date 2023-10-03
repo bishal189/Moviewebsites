@@ -69,10 +69,8 @@ def  add_item(request):
       else:
         movie=None
 
-      studioname=request.POST['studio']
      
-      studio=StudioModel.objects.get(id=studioname)
-      form=MovieDetail.objects.create(movie_name=title,studio=studio,year=releasedyear,type=type,quality=quality,coverphoto=cover_image,duration=length,short_description=text,trailer=movie,price=price)
+      form=MovieDetail.objects.create(movie_name=title,year=releasedyear,type=type,quality=quality,coverphoto=cover_image,duration=length,short_description=text,trailer=movie,price=price)
       
       for uploaded_file in request.FILES.getlist('image'):
         image_instance=ImagesModel.objects.create(image=uploaded_file)
@@ -86,6 +84,10 @@ def  add_item(request):
         star=StarsModel.objects.get(id=star)
         form.stars.add(star)
 
+      for studio in request.POST.getlist('studio'):
+        studio=StudioModel.objects.get(id=studio)
+        
+      form.studio=studio
       for gen in request.POST.getlist('genre'):
         category,created=Category.objects.get_or_create(category_name=gen)
         form.genre.add(category)

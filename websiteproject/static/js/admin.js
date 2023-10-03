@@ -80,9 +80,8 @@ $(document).ready(function () {
 	placeholder: "Choose Studio"
 });
 
-$('#movie').select2({
-	placeholder:"Choose Movies for Albums"
-});
+
+
 
 	$('#subscription, #rights').select2();
 

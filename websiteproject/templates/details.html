@@ -42,10 +42,11 @@
 							</ul>
 							<div style="color:white;margin-bottom:10px;">Studio: <a style="display:inline" href="{% url 'studio_detail' product.studio.id %}">{{product.studio.name}}</a></div>
 						
-							<div style="color:white;margin-bottom:10px;">Stars: </div>
+							<div style="color:white;margin-bottom:10px;display:inline-block;">Stars: </div>
 							{% for star in product.stars.all %}
 							<a href="{% url 'star_detail' star.id %}"style="display:inline" >{{star.name}}</a>
-{% endfor %}
+								<span style="color:blue">,</span>
+							{% endfor %}
 							<p>Description:{{product.short_description}}</p>
 						</div>
 						<!-- end article content -->
@@ -274,7 +275,6 @@
 				</div>
 					<div style="justify-content:center;" class="row row--grid">
 						{% for item in  newmovies %}
-						{% if item.type == "PhotoSets"%}
 						<div  style="margin-right:18px;"class="col-6 col-sm-4 col-lg-3 col-xl-2">
 							<div class="card">
 								<a href="{% url 'details' slug=item.slug %}" class="card__cover">
@@ -290,7 +290,6 @@
 								</ul>
 							</div>
 						</div>
-						{% endif %}
 						{% endfor %}	
 
 					
@@ -314,7 +313,6 @@
 					<div class="section__carousel-wrap">
 						<div class="section__carousel owl-carousel" id="similar">
 							{% for item in similar %}
-							{% if item.type == "PhotoSets" %}
 							<div class="card">
 								<a href="{% url 'details' slug=item.slug %}" class="card__cover">
 									<img src="{{item.coverphoto.url}}" alt="">
@@ -328,7 +326,6 @@
 									<li>{{item.price}} $</li>
 								</ul>
 							</div>
-							{% endif %}
 							{% endfor %}
 
 							

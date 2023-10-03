@@ -121,10 +121,12 @@ def star_detail(request,id):
     star.view_count=star.view_count+1
 
     star.save()
-    dob=star.dob
-    current_date = datetime.now()
-    age = current_date.year - dob.year - ((current_date.month, current_date.day) < (dob.month, dob.day))
-
+    if star.dob is not None:
+        dob=star.dob
+        current_date = datetime.now()
+        age = current_date.year - dob.year - ((current_date.month, current_date.day) < (dob.month, dob.day))
+    else:
+        age=None
     movies=MovieDetail.objects.filter(stars=star)
     context={
         'star':star,
