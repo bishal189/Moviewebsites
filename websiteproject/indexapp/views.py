@@ -4,6 +4,7 @@ from indexapp.models import Category
 from django.core.paginator import EmptyPage,PageNotAnInteger,Paginator
 # Create your views here.
 from albums.models import Albums
+from datetime import datetime
 
 def home(request):
    
@@ -114,15 +115,21 @@ def stars(request):
         'stars':allstars,
     }
     return render(request,'stars.html',context)
+    
 def star_detail(request,id):
     star=StarsModel.objects.get(id=id)
     star.view_count=star.view_count+1
+
     star.save()
+    dob=star.dob
+    current_date = datetime.now()
+    age = current_date.year - dob.year - ((current_date.month, current_date.day) < (dob.month, dob.day))
+
     movies=MovieDetail.objects.filter(stars=star)
-    print(star.name,movies)
     context={
         'star':star,
         'movies':movies,
+        'age':age,
     }
     return render(request,'stardetail.html',context)
 

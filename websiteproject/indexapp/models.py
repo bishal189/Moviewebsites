@@ -11,7 +11,19 @@ class StarsModel(models.Model):
     haircolor=models.CharField(max_length=100,blank=True,null=True)
     height=models.FloatField(null=True,blank=True)
     view_count=models.IntegerField(default=0)
-    age=models.IntegerField(null=True,blank=True)
+    dob=models.DateField(blank=True,null=True)
+
+    birthplace=models.CharField(max_length=200,blank=True,null=True)
+    ethnicity=models.CharField(max_length=200,blank=True,null=True)
+    nationality=models.CharField(max_length=200,blank=True,null=True)
+    weight=models.IntegerField(blank=True,null=True)
+    eyecolor=models.CharField(max_length=200,blank=True,null=True)
+    bodytype=models.CharField(max_length=200,blank=True,null=True)
+    tatoo=models.CharField(max_length=600,blank=True,null=True)
+    piercing=models.CharField(max_length=200,blank=True,null=True)
+    breast=models.CharField(max_length=100,null=True,blank=True)
+
+
 
 
 class StudioModel(models.Model):

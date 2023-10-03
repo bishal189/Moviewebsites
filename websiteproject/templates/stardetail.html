@@ -7,50 +7,123 @@
 {% block content %}
 	<!-- header (hidden style) -->
 {% include 'include/header.html' %}	
-
+<style>
+	.text_title{
+		color:white;
+		font-size:20px;
+	}
+	.text_data{
+		color:white;
+		font-size:20px;
+	}
+</style>
 	<!-- details -->
 	<section style="padding:0px;" class="section section--head section--head-fixed section--gradient section--details-bg">
 		<div class="container">
 			<!-- article -->
 			<div class="article">
-				<div class="row">
-					{% comment %} <div class="col-12 col-xl-8">
-						<!-- trailer -->
-						{% comment %}  
-						
-					
-						<!-- end trailer --> {% endcomment %}
-
-						<!-- article content -->
-						<div style="margin-bottom:20px;" class="article__content">
-							<h1>{{ star.name }}</h1>
-
-	
-						</div>
-						<!-- end article content -->
-					</div>
+			
 					<!-- video player -->
 					<div  class="col-12 col-xl-8">
 						
 						
 
 						<div class="article__actions article__actions--details">
-							<div>
+							<div style="width:30%;">
                                 <a href="{{star.image.url}}" class="card__cover">
                                     <img src="{{star.image.url}}" alt="">
                                 </a>	
                                 
                             </div>
+							<div style=" margin-top:10px;" class="row">
+								
+									<div style="margin-bottom:20px;" class="article__content">
+										<h1>{{ star.name }}</h1>							
+									</div>
+							</div>
+							
 
-							<!-- add .active class -->
-							<!--		<button class="article__favorites" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16,2H8A3,3,0,0,0,5,5V21a1,1,0,0,0,.5.87,1,1,0,0,0,1,0L12,18.69l5.5,3.18A1,1,0,0,0,18,22a1,1,0,0,0,.5-.13A1,1,0,0,0,19,21V5A3,3,0,0,0,16,2Zm1,17.27-4.5-2.6a1,1,0,0,0-1,0L7,19.27V5A1,1,0,0,1,8,4h8a1,1,0,0,1,1,1Z"></path></svg> Add to favorites</button> -->
+							
+
 						</div>
 					</div>
-					<!-- end video player -->
+					<div style="border-top:2px solid white;" class="row ">
+					{% if star.dob %}
+								<div class="col-12"  style="margin-top:8px;display:flex;">
+								<div class="text_title">Current Age:</div>
+								<span class="text_data ">{{age}}(Born {{star.dob}})</span>
+								</div>
+							{% endif %}
+							{% if star.birthplace %}
+								<div class=" col-12"  style="margin-top:8px;display:flex;">
+								<div class="text_title">Birth Place:</div>
+								<span class="text_data ">{{star.birthplace}}</span>
+								</div>
+							{% endif %}
+							{% if star.ethnicity %}
+								<div class="col-12"  style="margin-top:8px;display:flex;">
+								<div class="text_title">Ethnicity:</div>
+								<span class="text_data ">{{star.ethnicity}}</span>
+								</div>
+							{% endif %}
+							{% if star.nationality %}
+								<div class="col-lg-6 col-12"  style="margin-top:8px;display:flex;">
+								<div class="text_title">Nationality:</div>
+								<span class="text_data ">{{star.nationality}}</span>
+								</div>
+							{% endif %}
+							{% if star.breast %}
+								<div class="col-lg-6 col-12"  style="margin-top:8px;display:flex;">
+								<div class="text_title">Breast:</div>
+								<span class="text_data ">{{star.breast}}</span>
+								</div>
+							{% endif %}
+							{% if star.weight %}
+								<div class="col-lg-6 col-12"  style="margin-top:8px;display:flex;">
+								<div class="text_title">Weight:</div>
+								<span class="text_data ">{{star.weight}} lbs</span>
+								</div>
+							{% endif %}
+							
+							{% if star.height %}
+								<div class="col-lg-6 col-12"  style="margin-top:8px;display:flex;">
+								<div class="text_title">Height:</div>
+								<span class="text_data ">{{star.height}} ft</span>
+								</div>
+							{% endif %}
+							{% if star.eyecolor %}
+								<div class="col-lg-6 col-12"  style="margin-top:8px;display:flex;">
+								<div class="text_title">Eye Color:</div>
+								<span class="text_data ">{{star.eyecolor}}</span>
+								</div>
+							{% endif %}
+							{% if star.haircolor %}
+								<div class="col-lg-6 col-12"  style="margin-top:8px;display:flex;">
+								<div class="text_title">Hair Color:</div>
+								<span class="text_data ">{{star.haircolor}}</span>
+								</div>
+							{% endif %}
+							{% if star.bodytype %}
+								<div class=" col-12"  style="margin-top:8px;display:flex;">
+								<div class="text_title">Body Type:</div>
+								<span class="text_data ">{{star.bodytype}}</span>
+								</div>
+							{% endif %}
+							{% if star.tatoo %}
+								<div class="col-12"  style="margin-top:8px;display:flex;">
+								<div class="text_title">Tatoo:</div>
+								<span class="text_data ">{{star.tatoo}}</span>
+								</div>
+							{% endif %}
+							{% if star.piercing %}
+								<div class=" col-12"  style="margin-top:8px;display:flex;">
+								<div class="text_title">Piercing:</div>
+								<span class="text_data ">{{star.piercing}}</span>
+								</div>
+							{% endif %}
 
-					<!-- series -->
-			
-					<!-- end series -->
+						</div>
+							
 
 					
 				</div>

@@ -652,13 +652,10 @@ def order_complete(request):
 def download_pdf(request,order_number,transId):
     order=Order.objects.get(order_number=order_number,is_ordered=True)
     ordered_products=Order_Product.objects.filter(order_id=order.id)
-    payement=Payment.objects.get(payment_id=transId)
-        
-
+    payement=Payment.objects.get(payment_id=transId)        
     subtotal=0
     for i in ordered_products:
         subtotal+=i.product_price*i.quantity;
-
 
     context={
         'order':order,
@@ -667,7 +664,6 @@ def download_pdf(request,order_number,transId):
         'transID':transId,
         'payment':payement,
         'subtotal':subtotal,
-          
         }
 
     template = loader.get_template('cart/include/invoice.html')

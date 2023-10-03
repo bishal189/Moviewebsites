@@ -292,9 +292,34 @@ def add_stars(request):
       starheight=request.POST['starheight']
       starhaircolor=request.POST['starhaircolor']
       starage=request.POST['starage']
+      starbirthplace=request.POST['starbirthplace']
+      starethnicity=request.POST['starethnicity']
+      starnationality=request.POST['starnationality']
+      starweight=request.POST['starweight']
+      stareyecolor=request.POST['stareyecolor']
+      starbodytype=request.POST['starbodytype']
+      starpiercing=request.POST['starpiercing']
+      startatoo=request.POST['startatoo']
+      starbreast=request.POST['starbreast']
+
       
-      star,created=StarsModel.objects.get_or_create(name=starname.title(),height=starheight,haircolor=starhaircolor.title(),age=starage,image=starimage)
-      
+      star = StarsModel.objects.create(
+        name=starname.title(),
+        height=float(starheight) if starheight else None,
+        haircolor=starhaircolor.title() if starhaircolor else None,
+        dob=starage if starage else None,
+        image=starimage if starimage else None,
+        birthplace=starbirthplace.title() if starbirthplace else None,
+        ethnicity=starethnicity.title() if starethnicity else None,
+        nationality=starnationality.title() if starnationality else None,
+        weight=int(starweight) if starweight else None,
+        eyecolor=stareyecolor.title() if stareyecolor else None,
+        bodytype=starbodytype.title() if starbodytype else None,
+        piercing=starpiercing.title() if starpiercing else None,
+        tatoo=startatoo.title() if startatoo else None,
+        breast=starbreast.title() if starbreast else None,
+        )
+      star.save()
       
 
       return render(request,'owner/add_stars.html')
@@ -482,7 +507,7 @@ def show_transactions_product(request):
       elif selected_time_range == '3_months':
           start_date = today - timedelta(days=90)
       elif selected_time_range == '6_months':
-          s4art_date = today - timedelta(days=180)
+          start_date = today - timedelta(days=180)
       elif selected_time_range == '1_week':
           start_date = today - timedelta(days=7)
       payments = Payment.objects.filter(created_at__gte=start_date).order_by('-id')
@@ -503,7 +528,7 @@ def show_transactions_product(request):
       'all_products':paged_products,
       'selected_time_range': selected_time_range,
       }
-    if request.POST['item_count']:
+    if request.POST['item_count'] != 20:
       item_count=request.POST['item_count']
       if payments is None:
 
