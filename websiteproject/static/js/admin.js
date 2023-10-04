@@ -69,11 +69,15 @@ $(document).ready(function () {
 	
 
  $('#genre').select2({
-	 	placeholder: "Choose genre / genres"
+	 	placeholder: "Choose genre / genres",
+		closeOnSelect: false // Add this line to keep the dropdown open after selecting an item
+
 	});
 
 	$('#stars').select2({
-		placeholder: "Choose Stars"
+		placeholder: "Choose Stars",
+		closeOnSelect: false // Add this line to keep the dropdown open after selecting an item
+
    });
 
    $('#studio').select2({
