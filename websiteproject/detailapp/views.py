@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404, redirect
 from .models import Cart, Album_item, Albums,Order_Product_album
 from .models import Cart,Cartitem
 from indexapp.models import MovieDetail
-from albums.models import Albums
+from albums.models import Albums,AlbumMovie
 from .models import Album_item
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
@@ -345,7 +345,6 @@ def cart(request,total=0,quantity=0,cart_items=None,album_price=None,album_name=
         for cart_album in cart_items1:
             total1+= (cart_album.product.price*cart_album.quantity)   
         total=total+total1
-        tax=(2*total)/100
         grand_total=tax+total1;  
         all_cart_items = list(chain(cart_items, cart_items1))
     except ObjectDoesNotExist:
@@ -592,11 +591,12 @@ def payement(request):
         product_item.save()
     
     for item in cart_items1:
+        albummovie=AlbumMovie.objects.get(user=request.user,album=item.product)
         orderproduct=Order_Product_album()
         orderproduct.order_id=order.id
         orderproduct.payment=payment
         orderproduct.user_id=request.user.id
-        orderproduct.product_id=item.product.id
+        orderproduct.product=albummovie
         orderproduct.quantity=item.quantity
         orderproduct.product_price=item.product.price
         orderproduct.is_ordered=True
