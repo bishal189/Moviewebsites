@@ -104,16 +104,16 @@
                     <div class="card-body" style="margin-left:17px">
                         <dl class="dlist-align">
                             <dt>Total price:</dt>
-                            <dd class="text-right">${{total}}</dd>
+                            <dd class="text-right"><strong>${{total}}</strong></dd>
                         </dl>
-                        <dl class="dlist-align">
+                        {% comment %} <dl class="dlist-align">
                             <dt>Tax:</dt>
                             <dd class="text-right"> ${{tax}}</dd>
-                        </dl>
-                        <dl class="dlist-align">
+                        </dl> {% endcomment %}
+                        {% comment %} <dl class="dlist-align">
                             <dt>Total:</dt>
                             <dd class="text-right text-dark b"><strong>${{grand_total}}</strong></dd>
-                        </dl>
+                        </dl> {% endcomment %}
                         <hr>
                         <p class="text-center mb-3">
                             <img src="{% static 'cart/images/misc/payments.png' %}" height="26">

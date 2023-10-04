@@ -345,7 +345,10 @@ def cart(request,total=0,quantity=0,cart_items=None,album_price=None,album_name=
         for cart_album in cart_items1:
             total1+= (cart_album.product.price*cart_album.quantity)   
         total=total+total1
-        grand_total=tax+total1;  
+        grand_total=total+total1;
+        print(total)
+        print(grand_total)
+
         all_cart_items = list(chain(cart_items, cart_items1))
     except ObjectDoesNotExist:
         pass    
