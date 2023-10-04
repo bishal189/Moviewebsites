@@ -146,7 +146,7 @@ clickyes()
 			{% if item.type != "PhotoSets" %}
 			<div class="home__card" style="width:255px;">
 				<a href="{% url 'details' slug=item.slug %}">
-					<img src="{{item.coverphoto.url}}" width='300'height='300'  alt="">
+					<img style="height:240px;width:165px;" src="{{item.coverphoto.url}}" width='300'height='300'  alt="">
 				</a>
 				<div>
 
