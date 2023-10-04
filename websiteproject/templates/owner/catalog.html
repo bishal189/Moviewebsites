@@ -40,7 +40,7 @@
 
 							<form style="width:500px;" method="POST" class="main__title-form">
 								{% csrf_token %}
-								<select style="background-color:#151f30;padding:10px;color:white;border-radius:10%;" class="dropdown-menu scrollbar-dropdown" name="type">
+								<select style="background-color:#151f30;padding:10px 20px;color:white;border-radius:10%;" class="custom-select dropdown-menu scrollbar-dropdown" name="type">
 									<option value="videos" {% if selected == "videos" %}selected{% endif %}>Videos</option>
 			
 									<option value="albums" {% if selected == "albums" %}selected{% endif %}>Albums</option>
