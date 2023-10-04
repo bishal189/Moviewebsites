@@ -231,7 +231,10 @@ def reset_password(request):
 def profile(request):
     orders=Order_Product.objects.filter(user=request.user)
     payments=Payment.objects.filter(user=request.user).order_by('-id')
-    favourites=FavouritesModel.objects.get(user=request.user)
+    try:
+        favourites=FavouritesModel.objects.get(user=request.user)
+    except:
+        favourites=None
     orders_product = Order.objects.filter(payment__in=payments).order_by('-id')
     print(favourites)
     return render(request,'profile.html',{'orders':orders,'favourites':favourites,'orders_product':orders_product})

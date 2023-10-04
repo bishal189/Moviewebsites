@@ -88,6 +88,12 @@
     </div>
 </div>
 	<script>
+		window.onpageshow = function(event) {
+			if (event.persisted) {
+				// Force a page reload
+				window.location.reload();
+			}
+		};
 		// Get modal and site content elements by their IDs
 // Get modal and site content elements by their IDs
 const ageModal = document.getElementById("ageModal");
