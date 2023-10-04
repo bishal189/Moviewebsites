@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.shortcuts import get_object_or_404, redirect
-from .models import Cart, Album_item, Albums
+from .models import Cart, Album_item, Albums,Order_Product_album
 from .models import Cart,Cartitem
 from indexapp.models import MovieDetail
 from albums.models import Albums
@@ -423,7 +423,7 @@ def checkout(request,total=0,quantity=0,cart_items=None,album_price=None):
         for album_item in cart_items1:
             album_sum+=(album_item.product.price*album_item.quantity)
             quantity+=album_item.quantity
-        tax=(2*total)/100
+        tax=0
         all_cart_items = list(chain(cart_items, cart_items1))
         print(all_cart_items)
         grand_total=total+tax+album_sum;    
@@ -561,6 +561,7 @@ def payement(request):
 # move the cart items to order product
 
     cart_items=Cartitem.objects.filter(user=request.user)
+    cart_items1=Album_item.objects.filter(user=request.user)
     
     for item in cart_items:
         orderproduct=Order_Product()
@@ -589,6 +590,34 @@ def payement(request):
         product_item=MovieDetail.objects.get(id=item.product.id)
         # product_item.stock-=item.quantity
         product_item.save()
+    
+    for item in cart_items1:
+        orderproduct=Order_Product_album()
+        orderproduct.order_id=order.id
+        orderproduct.payment=payment
+        orderproduct.user_id=request.user.id
+        orderproduct.product_id=item.product.id
+        orderproduct.quantity=item.quantity
+        orderproduct.product_price=item.product.price
+        orderproduct.is_ordered=True
+        orderproduct.save()
+        
+
+
+        # for adding variation in that  particular item
+
+        cart_item1=Album_item.objects.get(id=item.id)
+        # product_variation=cart_item.variations.all()
+        orderproduct=Order_Product_album.objects.get(id=orderproduct.id)
+        # orderproduct.variations.set(product_variation)
+        orderproduct.save()
+
+
+# reduce the quantity of sold products
+       
+        product_item=Albums.objects.get(id=item.product.id)
+        # product_item.stock-=item.quantity
+        product_item.save()
 
 
 
@@ -600,6 +629,7 @@ def payement(request):
 
 #  after payement sucessfull the cartitem in the cart should be clear
     Cartitem.objects.filter(user=request.user).delete()
+    Album_item.objects.filter(user=request.user).delete()
 
 
 

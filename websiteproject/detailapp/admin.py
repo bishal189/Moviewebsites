@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import Cart,Cartitem
-from.models import Order,Order_Product,Payment
+from.models import Order,Order_Product,Payment,Order_Product_album
 from.models import *
 
 # Register your models here.
@@ -33,4 +33,5 @@ admin.site.register(Cartitem,cartitemAadmin)
 admin.site.register(Order,orderAadmin)
 
 admin.site.register([Payment,Order_Product])
+admin.site.register(Order_Product_album)
 admin.site.register(Album_item,albumAadmin)

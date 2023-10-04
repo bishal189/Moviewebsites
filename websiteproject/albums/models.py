@@ -2,13 +2,13 @@ from django.db import models
 from indexapp.models import MovieDetail
 # Create your models here.
 from category.models import Category
+from myaccount.models import Account
+
 
 class Albums(models.Model):
     coverphoto=models.ImageField(upload_to='albums/')
     album_name=models.CharField(max_length=100)
-    movies=models.ManyToManyField(MovieDetail,related_name='albums',blank=True)
     limit=models.IntegerField(blank=True,null=True)
-    counter=models.IntegerField(blank=True,null=True)
     price=models.IntegerField(blank=True,null=True)
     genre=models.ManyToManyField(Category,blank=True)  
     created_at=models.DateField(auto_now=True,blank=True)  
@@ -16,3 +16,14 @@ class Albums(models.Model):
 
     def __str__(self):
         return self.album_name
+
+
+
+class AlbumMovie(models.Model):
+    user=models.ForeignKey(Account,on_delete=models.CASCADE)
+    album=models.ForeignKey(Albums,on_delete=models.CASCADE)
+    movies=models.ManyToManyField(MovieDetail)
+    counter=models.IntegerField(blank=True,null=True)
+
+
+    

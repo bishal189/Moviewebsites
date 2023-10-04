@@ -34,6 +34,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-12 col-lg-7 col-xl-8">
+					
 					<form action="{% url 'contact' %}" method='POST' class="sign__form sign__form--contacts">
 						{% csrf_token %}
 						{% include 'include/alert.html' %}

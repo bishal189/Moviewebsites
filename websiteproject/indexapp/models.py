@@ -5,7 +5,6 @@ from myaccount.models import Account
 from django.utils.text import slugify 
 
 
-
 class ImagesModel(models.Model):
     image=models.ImageField(upload_to='images/')
 
@@ -66,3 +65,4 @@ class MovieDetail(models.Model):
 class FavouritesModel(models.Model):
     user=models.ForeignKey(Account,blank=True,null=True,on_delete=models.CASCADE)
     favourite_movies=models.ManyToManyField(MovieDetail)
+

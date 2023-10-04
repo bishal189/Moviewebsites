@@ -5,3 +5,4 @@ from .models import *
 class AlbumAdmin(admin.ModelAdmin):
     form=AlbumForm
 admin.site.register(Albums,AlbumAdmin)
+admin.site.register(AlbumMovie)

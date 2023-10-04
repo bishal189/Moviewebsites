@@ -1,7 +1,7 @@
 from django.db import models
 from myaccount.models import Account
 from indexapp.models import MovieDetail
-from albums.models import Albums
+from albums.models import Albums,AlbumMovie
 
 
 
@@ -113,6 +113,19 @@ class Order_Product(models.Model):
     payment =models.ForeignKey(Payment,on_delete=models.SET_NULL,null=True,blank=True)
     user =models.ForeignKey(Account,on_delete=models.CASCADE)
     product=models.ForeignKey(MovieDetail,on_delete=models.CASCADE)
+    # variations=models.ManyToManyField(Variation,blank=True)
+    quantity=models.IntegerField()
+    product_price=models.FloatField()
+    is_ordered=models.BooleanField(default=False)
+    counter=models.IntegerField(default=1)
+    created_at=models.DateTimeField(auto_now=True)
+    updated_at=models.DateTimeField(auto_now=True)
+
+class Order_Product_album(models.Model):
+    order=models.ForeignKey(Order,on_delete=models.CASCADE)
+    payment =models.ForeignKey(Payment,on_delete=models.SET_NULL,null=True,blank=True)
+    user =models.ForeignKey(Account,on_delete=models.CASCADE)
+    product=models.ForeignKey(AlbumMovie,on_delete=models.CASCADE)
     # variations=models.ManyToManyField(Variation,blank=True)
     quantity=models.IntegerField()
     product_price=models.FloatField()
