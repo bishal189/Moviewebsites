@@ -146,7 +146,7 @@ clickyes()
 			{% if item.type != "PhotoSets" %}
 			<div class="home__card" style="width:255px;">
 				<a href="{% url 'details' slug=item.slug %}">
-					<img style="height:240px;width:165px;" src="{{item.coverphoto.url}}" width='300'height='300'  alt="">
+					<img src="{{item.coverphoto.url}}" width='300'height='300'  alt="">
 				</a>
 				<div>
 
@@ -317,7 +317,7 @@ clickyes()
 						<div  style="margin-right:18px;"class="col-6 col-sm-4 col-lg-3 col-xl-2">
 							<div class="card">
 								<a style="border-radius:0px;filter:blur(0);" href="{% url 'details' slug=item.slug %}" class="card__cover">
-									<img style="filter:blur(0);" src="{{item.coverphoto.url}}" alt="">
+									<img style="height:240px;width:165px;filter:blur(0);" src="{{item.coverphoto.url}}" alt="">
 																		</a>
 									{% if user.is_authenticated %}
 									{% if item.id in user_favourite_movie %}
