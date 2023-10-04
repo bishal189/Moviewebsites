@@ -105,25 +105,25 @@
 									<td>
 										{% if user.is_suspended %}
 										<div class="main__table-btns">
-											<a href="{% url 'active_user' user.id %}" onclick='alert("do you want to active it?")' class="main__table-btn main__table-btn--banned ">
+											<a href="{% url 'active_user' user.id %}" onclick='return confirm("do you want to active it?");' class="main__table-btn main__table-btn--banned ">
 												<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
 													<path d="M12,13a1.49,1.49,0,0,0-1,2.61V17a1,1,0,0,0,2,0V15.61A1.49,1.49,0,0,0,12,13Zm5-4V7A5,5,0,0,0,7,7V9a3,3,0,0,0-3,3v7a3,3,0,0,0,3,3H17a3,3,0,0,0,3-3V12A3,3,0,0,0,17,9ZM9,7a3,3,0,0,1,6,0V9H9Zm9,12a1,1,0,0,1-1,1H7a1,1,0,0,1-1-1V12a1,1,0,0,1,1-1H17a1,1,0,0,1,1,1Z"/>
 												</svg>
 											</a>
 											
-											<a href="{% url 'delete_user' user.id %}" onclick='alert("do you want to delete it?")' class="main__table-btn main__table-btn--delete ">
+											<a href="{% url 'delete_user' user.id %}" onclick='return confirm("do you want to delete it?");' class="main__table-btn main__table-btn--delete ">
 												<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10,18a1,1,0,0,0,1-1V11a1,1,0,0,0-2,0v6A1,1,0,0,0,10,18ZM20,6H16V5a3,3,0,0,0-3-3H11A3,3,0,0,0,8,5V6H4A1,1,0,0,0,4,8H5V19a3,3,0,0,0,3,3h8a3,3,0,0,0,3-3V8h1a1,1,0,0,0,0-2ZM10,5a1,1,0,0,1,1-1h2a1,1,0,0,1,1,1V6H10Zm7,14a1,1,0,0,1-1,1H8a1,1,0,0,1-1-1V8H17Zm-3-1a1,1,0,0,0,1-1V11a1,1,0,0,0-2,0v6A1,1,0,0,0,14,18Z"/></svg>
 											</a>
 										</div>
 										{% else %}
 										<div class="main__table-btns">
-											<a href="{% url 'suspend_user' user.id %}" onclick='alert("do you want to suspend it?")' class="main__table-btn main__table-btn--banned ">
+											<a href="{% url 'suspend_user' user.id %}" onclick='return confirm("do you want to suspend it?");' class="main__table-btn main__table-btn--banned ">
 												<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
 													<path d="M12,13a1.49,1.49,0,0,0-1,2.61V17a1,1,0,0,0,2,0V15.61A1.49,1.49,0,0,0,12,13Zm5-4V7A5,5,0,0,0,7,7V9a3,3,0,0,0-3,3v7a3,3,0,0,0,3,3H17a3,3,0,0,0,3-3V12A3,3,0,0,0,17,9ZM9,7a3,3,0,0,1,6,0V9H9Zm9,12a1,1,0,0,1-1,1H7a1,1,0,0,1-1-1V12a1,1,0,0,1,1-1H17a1,1,0,0,1,1,1Z"/>
 												</svg>
 											</a>
 											
-											<a href="{% url 'delete_user' user.id %}" onclick='alert("do you want to delete it?")' class="main__table-btn main__table-btn--delete ">
+											<a href="{% url 'delete_user' user.id %}" onclick='return confirm("do you want to delete it?");' class="main__table-btn main__table-btn--delete ">
 												<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10,18a1,1,0,0,0,1-1V11a1,1,0,0,0-2,0v6A1,1,0,0,0,10,18ZM20,6H16V5a3,3,0,0,0-3-3H11A3,3,0,0,0,8,5V6H4A1,1,0,0,0,4,8H5V19a3,3,0,0,0,3,3h8a3,3,0,0,0,3-3V8h1a1,1,0,0,0,0-2ZM10,5a1,1,0,0,1,1-1h2a1,1,0,0,1,1,1V6H10Zm7,14a1,1,0,0,1-1,1H8a1,1,0,0,1-1-1V8H17Zm-3-1a1,1,0,0,0,1-1V11a1,1,0,0,0-2,0v6A1,1,0,0,0,14,18Z"/></svg>
 											</a>
 										</div>

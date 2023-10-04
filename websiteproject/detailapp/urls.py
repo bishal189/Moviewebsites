@@ -7,6 +7,8 @@ urlpatterns=[
 
     path('checkout/',views.checkout,name='checkout'),
     path('remove_item/',views.remove_cart_item,name='remove_item'),
+    path('remove_cart/<int:id>',views.remove_cart,name='remove_cart'),
+
     path('order_complete/',views.order_complete,name='order_complete'),
     path('checkout/<int:album_price>',views.checkout,name='checkout_album'),
 
