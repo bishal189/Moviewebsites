@@ -19,7 +19,7 @@
 		width: 100vw;
 		height: 100vh;
 		{% comment %} background-color: rgba(8,11,14,.7); {% endcomment %}
-		z-index: 1000000;
+		z-index: 10000;
 		backdrop-filter: blur(20px);
 		-webkit-backdrop-filter: blur(20px);
 		display: flex;
@@ -39,9 +39,7 @@
     border: 1px solid #233140;
 	}
 	
-	.modal-content {
-		text-align: center;
-	}
+
 	.modal1 h3{
 		color:#f08e84;
 		font-size: 1.5em;
@@ -104,6 +102,8 @@ function clickyes(){
 	ageModal.style.display = "none";
 	agecheck.style.backdropFilter="none"
 	localStorage.setItem('age-check',true)
+	agecheck.style.zIndex='0'
+	ageModal.style.zIndex='0'
 }
 // Event listener for the Yes button
 yesButton.addEventListener("click", () => {
@@ -502,12 +502,7 @@ clickyes()
 	
 {% include 'include/footer.html' %}
 <script>
-window.onpageshow = function(event) {
-	if (event.persisted) {
-		// Force a page reload
-		window.location.reload();
-	}
-};
+
 
 function add_favourites(current){
 id=current.getAttribute('data-context')
