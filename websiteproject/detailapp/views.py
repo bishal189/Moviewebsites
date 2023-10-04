@@ -388,12 +388,10 @@ def remove_cart_item(request):
     return redirect('cart')  # Redirect back to the cart page after removal
 
 
-def remove_cart(request,id):
-    
+def remove_cart(request,id):  
     product=MovieDetail.objects.get(id=id)
     item = get_object_or_404(Cartitem, product=product, user=request.user, is_active=True)  
     item.delete()
-
     return   # Redirect back to the cart page after removal
 
 
