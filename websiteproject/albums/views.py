@@ -20,7 +20,7 @@ def album_detail(request,id):
     counter=0
     already_in_album=None
     if request.user.is_authenticated:
-         albummovie=AlbumMovie.objects.get(user=request.user,album=album)
+         albummovie,created=AlbumMovie.objects.get_or_create(user=request.user,album=album)
          counter=albummovie.movies.count()
          already_in_album=albummovie.movies.all()
 
