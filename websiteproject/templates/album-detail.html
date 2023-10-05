@@ -77,10 +77,17 @@
 
 
           {% if user.is_authenticated %}
-		  <button id="disable_cart" disabled style="display:none;width:40%;" class="sign__btn">Insert More Items</button>
+		  
+				{% if product.id in albums_bought %}
+				<button  disabled style="width:40%;" class="sign__btn">Album already Bought</button>
+
+			{% else %}
+		<button id="disable_cart" disabled style="display:none;width:40%;" class="sign__btn">Insert More Items</button>
 		<a id="enable_cart" href='{% url 'cart_album' album_price=product.price album_name=product.album_name %}' style="display:none;width:40%;" class="sign__btn">Show Cart</a>
-	     {% else %}		
+	    {% endif %} 
+		{% else %}		
 		 <a href='{% url 'login' %}' style="width:40%;" class="sign__btn">Show Cart</a>
+		 
 		 {% endif %}
 
 

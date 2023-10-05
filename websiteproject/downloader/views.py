@@ -31,9 +31,7 @@ def inc_counter(request,id):
 
 
 def file_download(request,filename):
-
     try:
-
         host = ftputil.FTPHost(FTP_SERVER, FTP_USERNAME, FTP_PASSWORD)
         # Define source path (FTP server's home folder) and destination path (user's local download folder)
         source_folder = "."  # Replace with the actual path on the FTP server
@@ -41,15 +39,6 @@ def file_download(request,filename):
         # Change to the source path on the FTP server
         host.chdir(source_folder)
         source_path = os.path.join(source_folder, filename)  # define the extension yourself mainly mp4
-
-    # Print the items
-        
-        # Check if the file exists on the FTP server
-        # if not host.download_if_newer(source_path, filename):
-        #     return render(request, '404.html')
-            # Serve the downloaded file
-
-     
 
         remote_file = host.open(source_path, 'rb')
         remote_file_size = host.path.getsize(source_path)

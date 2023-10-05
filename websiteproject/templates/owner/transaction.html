@@ -119,6 +119,9 @@
 													{% for order_product in payment.order_product_set.all %}
 															<li>{{ order_product.product }} ( {{order_product.product_price}} $)</li>
 												{% endfor %}
+												{% for order_product in payment.order_product_album_set.all %}
+															<li>{{ order_product.product.album }} ( {{order_product.product_price}} $)</li>
+												{% endfor %}
 
 												</ul>
 											</div> 

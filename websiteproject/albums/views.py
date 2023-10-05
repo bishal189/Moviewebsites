@@ -5,9 +5,7 @@ from django.http import JsonResponse
 # Create your views here.
 from django.core.paginator import Paginator
 from django.core import serializers
-
-
-from detailapp.models import Cartitem
+from detailapp.models import Cartitem,Order_Product_album
 def album(request):
     albums=Albums.objects.all()
     context={
@@ -26,7 +24,6 @@ def album_detail(request,id):
          counter=albummovie.movies.count()
          already_in_album=albummovie.movies.all()
 
-    print(already_in_album)
 
     count=movies.count()
     items_per_page = 10 # Adjust this to your preferred value
@@ -39,19 +36,28 @@ def album_detail(request,id):
 
     # Get the Page object for the current page
     movies = paginator.get_page(page_number)
+    albums_bought=[]
+    if request.user.is_authenticated:
+        album_bought=Order_Product_album.objects.filter(user=request.user)
+        for item in album_bought:
+            albums_bought.append(item.product.album.id)
 
     li=[]
-    user=request.user
     if request.user.is_authenticated:
+        user=request.user
+
 
         cart_item=Cartitem.objects.filter(user=user)
 
         for item in cart_item:
                 li.append(item.product)
+
+   
     
-        
+        print(albums_bought)
 
         context={
+            'albums_bought':albums_bought,
             'product':album,
             'movies':movies,
             'already_in_album':already_in_album,

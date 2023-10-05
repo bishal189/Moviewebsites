@@ -588,6 +588,7 @@ def show_transactions_product(request):
                     .values('product__movie_name','total_price','total_count','product__view_count')
                     
     )
+    
   paginator=Paginator(orders_by_product,20)
   page=request.GET.get('page')
   paged_products=paginator.get_page(page)
