@@ -165,9 +165,12 @@ EMAIL_HOST_PASSWORD = 'xuut nezi fuhn hrfl'
 
 # settings.py
 # Session configuration
+# settings.py
+
+# Session configuration
 SESSION_ENGINE = 'django.contrib.sessions.backends.cache'  # or 'django.contrib.sessions.backends.db' or other backends
 SESSION_COOKIE_NAME = 'my_session_cookie'
-SESSION_COOKIE_AGE = 3600  # Session timeout in seconds (1 hour)
+SESSION_COOKIE_AGE = 172800  # Session timeout in seconds (2 days)
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 
 

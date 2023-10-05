@@ -5,6 +5,7 @@
 
 <section class="section-content padding-y bg">
     <div class="container">
+        
 
         <!-- ============================ COMPONENT 1 ================================= -->
         {% if not cart_items %}
@@ -35,10 +36,24 @@
                                 <td>
                                    
                                     
-                                    <figure class="itemside align-items-center">
-                                        <div class="aside"><img src="{{cart_item.product.coverphoto.url}}" class="img-sm">
+                                    <figure  class="itemside align-items-center">
+                                       
+                                       
+
+                                        <div class="aside">
+                                            {% if cart_item.item_type == "albumitem" %}
+
+                                            <svg onclick="showalbumdata(this)" fetch-url="{% url 'get_movies_in_album' cart_item.product.id%}" data-id={{cart_item.id}} id="left_icon_{{cart_item.id}}" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" style="width: 24px; height: 24px;">
+                                            <path fill="currentColor" d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"></path>
+                                          </svg>
+                                          <svg onclick="hidealbumdata(this)" data-id={{cart_item.id}} id="down_icon_{{cart_item.id}}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" style="display:none;width: 24px; height: 24px;">
+                                            <path fill="currentColor" d="M299.5 209.5l-11.2-11.2c-4.7-4.7-12.3-4.7-17 0L160 306.8 49.7 198.3c-4.7-4.7-12.3-4.7-17 0l-11.2 11.2c-4.7 4.7-4.7 12.3 0 17l144 144c4.7 4.7 12.3 4.7 17 0l144-144c4.7-4.7 4.7-12.3 0-17z"></path>
+                                          </svg>
+                                          {% endif %}
+                                          <img src="{{cart_item.product.coverphoto.url}}" class="img-sm">
                                         </div>
                                         <figcaption class="info">
+                                            
                                             <a href="{{ cart_item.product.get_url }}"
                                                 class="title text-dark">{{cart_item.product}}</a>
                                             <p class="text-muted small">
@@ -48,27 +63,17 @@
                                             </p>
                                         </figcaption>
                                     </figure>
+                                    
                                 </td>
                                 <td>
                                     <!-- col.// -->
                                     <div class="col">
                                         <div class="input-group input-spinner">
                                             <div class="input-group-prepend">
-
-                                                {% comment %} <a href="" {% endcomment %}
-                                                    {% comment %} class="btn btn-light" type="button" id="button-plus"> <i {% endcomment %}
-                                                        {% comment %} class="fa fa-minus"></i> </a> {% endcomment %}
                                             </div>
                                             <input type="text" class="form-control" value="{{ cart_item.quantity }}">
                                             <div class="input-group-append">
-                                                
-
-
-                 
-
-
-                                               
-
+  
                                             </div>
                                         </div> <!-- input-group.// -->
                                     </div> <!-- col.// -->
@@ -90,8 +95,16 @@
                                     </form>
                                 </td>
                             </tr>
-                        {% endfor %}
 
+                            <tr>
+                                <tr>
+                                    <td colspan="4">
+                                        <div class="movie-data-container" data-id="{{ cart_item.id }}" style="display: none;"></div>
+                                    </td>
+                                </tr>
+                                
+                        {% endfor %}
+                       
 
                         </tbody>
                     </table>
@@ -106,14 +119,7 @@
                             <dt>Total price:</dt>
                             <dd class="text-right"><strong>${{total}}</strong></dd>
                         </dl>
-                        {% comment %} <dl class="dlist-align">
-                            <dt>Tax:</dt>
-                            <dd class="text-right"> ${{tax}}</dd>
-                        </dl> {% endcomment %}
-                        {% comment %} <dl class="dlist-align">
-                            <dt>Total:</dt>
-                            <dd class="text-right text-dark b"><strong>${{grand_total}}</strong></dd>
-                        </dl> {% endcomment %}
+                      
                         <hr>
                         <p class="text-center mb-3">
                             <img src="{% static 'cart/images/misc/payments.png' %}" height="26">
@@ -138,8 +144,57 @@
 </section>
 
 <script>
-    localStorage.removeItem('pageReloaded');
+function showalbumdata(item){
+item_id=item.getAttribute('data-id')
+left_icon=document.getElementById('left_icon_'+item_id)
+down_icon=document.getElementById('down_icon_'+item_id)
+fetch_url=item.getAttribute('fetch-url')
 
+const movieDataContainer = document.querySelector(`.movie-data-container[data-id="${item_id}"]`);
+
+
+
+{% comment %} alert(fetch_url) {% endcomment %}
+fetch(fetch_url).then((response)=>response.json()).then((data)=>{
+    console.log(data)
+    let movieDataHTML = "";
+    data.movies.forEach((movie) => {
+        movieDataHTML += `
+        <figure style="margin-left:50px;margin-bottom:20px;"  class="itemside align-items-center">                      
+
+            <div class="aside"> 
+              <img src="${movie.coverphoto}" class="img-sm">
+            </div>
+            <figcaption  class="info">
+                
+                
+                <p style="margin-left:100px;;font-size:18px;font-weight:600;text-align:center;">
+
+                  ${movie.movie_name}
+
+                </p>
+            </figcaption>
+        </figure>
+        
+    
+        `;
+})
+
+movieDataContainer.innerHTML = movieDataHTML;
+movieDataContainer.style.display = "block";
+});
+left_icon.style.display='none'
+down_icon.style.display='inline-block'
+
+}
+function hidealbumdata(item){
+    item_id=item.getAttribute('data-id')
+    const movieDataContainer = document.querySelector(`.movie-data-container[data-id="${item_id}"]`);
+    left_icon.style.display="inline-block"
+    down_icon.style.display="none"
+    movieDataContainer.style.display = "none";
+
+}
 </script>
 <!-- ========================= SECTION CONTENT END// ========================= -->
 

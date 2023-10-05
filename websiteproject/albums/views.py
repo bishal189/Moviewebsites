@@ -4,6 +4,8 @@ from .models import Albums,AlbumMovie
 from django.http import JsonResponse
 # Create your views here.
 from django.core.paginator import Paginator
+from django.core import serializers
+
 
 from detailapp.models import Cartitem
 def album(request):
@@ -17,8 +19,17 @@ def album(request):
 def album_detail(request,id):
     album=Albums.objects.get(id=id)
     movies=MovieDetail.objects.filter(genre__in=album.genre.all()).order_by('-id')
+    counter=0
+    already_in_album=None
+    if request.user.is_authenticated:
+         albummovie=AlbumMovie.objects.get(user=request.user,album=album)
+         counter=albummovie.movies.count()
+         already_in_album=albummovie.movies.all()
+
+    print(already_in_album)
+
     count=movies.count()
-    items_per_page = 5 # Adjust this to your preferred value
+    items_per_page = 10 # Adjust this to your preferred value
 
     # Create a Paginator object with the movies queryset
     paginator = Paginator(movies, items_per_page)
@@ -43,9 +54,10 @@ def album_detail(request,id):
         context={
             'product':album,
             'movies':movies,
+            'already_in_album':already_in_album,
             'itemsincart':li,
             # 'counter':album.counter,
-            'counter':0,
+            'counter':counter,
             'all_products':movies,
             'count':count
         }
@@ -88,3 +100,31 @@ def dec_counter(request,album_id,movie_id):
         'status': 'success'
     }
   return JsonResponse(data)
+def get_movies_in_album(request,album_id):
+    album=Albums.objects.get(id=album_id)
+    print(album)
+    albummovie=AlbumMovie.objects.get(user=request.user,album=album)
+    print(albummovie.movies.all())
+
+    movie_data_list = []
+
+    # Iterate through the movies and construct the full image URL for each
+    for movie in albummovie.movies.all():
+        if movie.coverphoto:
+            coverphoto_url = request.build_absolute_uri(movie.coverphoto.url)
+        else:
+            coverphoto_url = None
+
+        movie_data = {
+            'movie_name': movie.movie_name,
+            'coverphoto': coverphoto_url,
+            # Add other movie data as needed
+        }
+
+        # Append the movie data to the list
+        movie_data_list.append(movie_data)
+
+
+
+
+    return JsonResponse({'status':"true","movies":movie_data_list})

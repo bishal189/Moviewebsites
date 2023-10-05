@@ -26,4 +26,3 @@ class AlbumMovie(models.Model):
     counter=models.IntegerField(blank=True,null=True)
 
 
-    

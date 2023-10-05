@@ -34,12 +34,13 @@
 
 					
 					</div>
-<div id='counter' style="color:white;margin-top:25px;font-size:20px;"></div>
+<div id='counter' style="color:white;margin-top:25px;font-size:20px;">{{counter}} items added in album</div>
 				
 						<div class="row row--grid">
 
 							{% for item in movies %}
-							
+							{% if item in itemsincart %}
+							{% else %}
 						<div  style="margin-right:18px;"class="col-6 col-sm-4 col-lg-3 col-xl-2">
 							<div class="card">
 								<a href="{% url 'details' slug=item.slug %}" class="card__cover">
@@ -54,60 +55,30 @@
 								</ul>
 								{% if user.is_authenticated %}
 								
-								{% if item in itemsincart %}
+								{%if item in already_in_album %}
+								<button dec-url="{% url 'dec_counter' product.id item.id %}"  data-url={% url 'remove_item'  %} id="item_remove_{{item.id}}" onclick="remove_item({{item.id}})"  class="sign__btn">Added</button>
+									{% else %}
+								<button inc-url="{% url 'inc_counter' product.id item.id %}"data-url="{% url 'add_album' product.id %}" id="item_add_{{item.id}}" onclick="add_item({{item.id}})"  class="sign__btn">Add to Packages</button>
 
-								<script>
-									counterlocal=0
-									ct=document.getElementById('counter')
-
-									function add_item(id){
-										if (counterlocal>={{product.limit}}){
-											alert('limit reached')
-											return
-										}
-										//url="{% url 'add_cart_album' product_id=item.id album_price=product.price %}"
-										//alert(url)
-										addurl="{% url 'inc_counter' album_id=product.id movie_id=item.id %}"
-										//alert(url)
-										//fetch(url)
-										fetch(addurl).then(response=>response.json()).then(data=>{
-											ct.textContent=data.count+" Items in Packages"
-
-										}).catch(error => {
-											// Handle any errors here
-											console.error(error);
-							
-																		})
-											
-																	
-										}
-									add_item({{item.id}})
-								</script>
-								<button dec-url="{% url 'dec_counter' product.id item.id %}" onclick="remove_item({{item.id}})"  class="sign__btn">Added</button>
-								{% else %}
-								<button inc-url="{% url 'inc_counter' product.id item.id %}"data-url="{% url 'add_album' product.id  %}" id="item_add_{{item.id}}" onclick="add_item({{item.id}})"  class="sign__btn">Add to Packages</button>
 								{% endif %}
-								<button dec-url="{% url 'dec_counter' product.id item.id %}" style="display:none" data-url={% url 'remove_item'  %} id="item_remove_{{item.id}}" onclick="remove_item({{item.id}})"  class="sign__btn">Added</button>
+								<button dec-url="{% url 'dec_counter' product.id item.id %}" style="display:none;" data-url={% url 'remove_item'  %} id="item_remove_{{item.id}}" onclick="remove_item({{item.id}})"  class="sign__btn">Added</button>
 
-								<button inc-url="{% url 'inc_counter' product.id item.id %}" style="display:none" data-url="{% url 'add_album' product.id %}" id="item_add_{{item.id}}" onclick="add_item({{item.id}})"  class="sign__btn">Add to Packages</button>
-
+								<button inc-url="{% url 'inc_counter' product.id item.id %}" style="display:none;" data-url="{% url 'add_album' product.id %}" id="item_add_{{item.id}}" onclick="add_item({{item.id}})"  class="sign__btn">Add to Packages</button>
 
 	     {% else %}		
 		<a href="{% url 'login' %}" <button   class="sign__btn">Add to Packages</button></button></a>
-		<a href="{% url 'login' %}" <button  style="display:none;" class="sign__btn">Added</button></a>
-{% endif %}
+		{% endif %}
 							</div>
 						</div>
-					
-					
-						{% endfor %}</div>
+					{% endif %}
+					{% endfor %}</div>
 					
 				</div>
 
 
           {% if user.is_authenticated %}
 		  <button id="disable_cart" disabled style="display:none;width:40%;" class="sign__btn">Insert More Items</button>
-	<a id="enable_cart" href='{% url 'cart_album' album_price=product.price album_name=product.album_name %}' style="display:none;width:40%;" class="sign__btn">Show Cart</a>
+		<a id="enable_cart" href='{% url 'cart_album' album_price=product.price album_name=product.album_name %}' style="display:none;width:40%;" class="sign__btn">Show Cart</a>
 	     {% else %}		
 		 <a href='{% url 'login' %}' style="width:40%;" class="sign__btn">Show Cart</a>
 		 {% endif %}
@@ -170,9 +141,6 @@
 <script>
 
 
-// Check if the page has a stored flag indicating it has been reloaded
-
-// If the flag is not set, reload the page and set the flag
 
 window.onpageshow = function(event) {
 	if (event.persisted) {
@@ -183,6 +151,7 @@ window.onpageshow = function(event) {
 
 disable_cart=document.getElementById('disable_cart')
 enable_cart=document.getElementById('enable_cart')
+
 if ({{counter}}>={{product.limit}}){
 enable_cart.style.display="flex"
 }else{
@@ -191,8 +160,8 @@ enable_cart.style.display="flex"
 	disable_cart.style.display="block"
 	disable_cart.textContent="Insert More Items("+remaining+" remaining)"
 }
+
 var	counterlocal={{counter}}
- cart=document.getElementById('cart-value')
 ct=document.getElementById('counter')
 
 
@@ -217,7 +186,6 @@ ct=document.getElementById('counter')
 
 		}
 		ct.textContent=counterlocal+" items added in album"
-		cart.textContent=parseInt(cart.textContent)+1
 		add.style.display="none"
 		remove.style.display="block"
 	}
@@ -243,7 +211,6 @@ ct=document.getElementById('counter')
 			counterlocal=0
 		}
 		ct.textContent=counterlocal+" items added in album"
-		cart.textContent=parseInt(cart.textContent)-1
 		add.style.display="block"
 		remove.style.display="none"	
 }
