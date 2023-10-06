@@ -130,9 +130,10 @@ def pagination(request):
 
 def scenes(request):
     alldata=MovieDetail.objects.filter(type='Scene')
-    paginator_dvd=Paginator(alldata,4)
+    paginator_scene=Paginator(alldata,4)
     page_scene=request.GET.get('page')
-    paged_scene=paginator_dvd.get_page(page_scene)
+    paged_scene=paginator_scene.get_page(page_scene)
+    print(paged_scene)
     
     return render(request,'scenes.html',{'scenes':paged_scene})
 
