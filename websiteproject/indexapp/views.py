@@ -140,12 +140,27 @@ def scenes(request):
 
 def dvd(request):
     alldata=MovieDetail.objects.filter(type='DVD')
-    return render(request,'dvd.html',{'alldata':alldata})
+    paginator_scene=Paginator(alldata,4)
+    page_scene=request.GET.get('paged_dvd')
+    paged_scene=paginator_scene.get_page(page_scene)
+    user_favorite_movies=None
+    if  not isinstance(request.user, AnonymousUser):
+        user_favorite_movies = FavouritesModel.objects.filter(user=request.user).values_list('favourite_movies__id', flat=True)
+    user_added_cart=None
+    if not isinstance(request.user,AnonymousUser):
+        user_added_cart=Cartitem.objects.filter(user=request.user).values_list('product__id',flat=True)
+    # count1=paged_products.count()
+    return render(request,'dvd.html',{'alldata':alldata,'paged_dvd':paged_scene ,'user_favourite_movie':user_favorite_movies,
+        'user_added_cart':user_added_cart,
+})
 
 def stars(request):
     allstars=StarsModel.objects.all().order_by('-id')
+    paginator_scene=Paginator(allstars,4)
+    page_scene=request.GET.get('stars')
+    paged_scene=paginator_scene.get_page(page_scene)
     context={
-        'stars':allstars,
+        'stars':paged_scene,
     }
     return render(request,'stars.html',context)
     
@@ -171,8 +186,12 @@ def star_detail(request,id):
 
 def photosets(request):
     movies=MovieDetail.objects.filter(type="PhotoSets")
+   
+    paginator_scene=Paginator(movies,4)
+    page_scene=request.GET.get('photosets')
+    paged_scene=paginator_scene.get_page(page_scene)
     context={
-        'movies':movies
+        'movies':paged_scene
     }
 
     return render(request,'photosets.html',context)

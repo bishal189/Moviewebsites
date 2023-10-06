@@ -306,7 +306,7 @@ clickyes()
 						{% for item in  all_dvd %}
 						<div   style="margin-right:2px"class="col-6 col-sm-4 col-lg-3 col-xl-2">
 							<div class="card">
-								<a style="border-radius:0px;filter:blur(0);hover:none;" href="{% url 'details' slug=item.slug %}" class="card__cover">
+								<a style="border-radius:0px;" href="{% url 'details' slug=item.slug %}" class="card__cover">
 									<img style="height:240px;width:165px;filter:blur(0);" src="{{item.coverphoto.url}}" alt="">
 																		</a>
 									{% if user.is_authenticated %}
@@ -721,61 +721,7 @@ clickyes()
 
 	
 {% include 'include/footer.html' %}
-<script>
-	counter={{cart_count}}
-	cartValue=document.getElementById('cart-value')
-	function add_cart(item){
-			id=item.getAttribute('data-context')
-			add=document.getElementById('add_cart_'+id)
-			remove=document.getElementById('remove_cart_'+id)
-			url=item.getAttribute('fetch-url')
-			fetch(url)
-			counter++
-			cartValue.textContent=counter
-			add.style.display="none"
-			remove.style.display="block"
-
-	}
-	function remove_cart(item){
-		id=item.getAttribute('data-context')
-		add=document.getElementById('add_cart_'+id)
-		remove=document.getElementById('remove_cart_'+id)
-		url=item.getAttribute('fetch-url')
-		fetch(url)
-		counter--
-		cartValue.textContent=counter
-		remove.style.display="none";
-		add.style.display="block"
-
-
-	}
-
-
-
-function add_favourites(current){
-id=current.getAttribute('data-context')
-add=document.getElementById('add_favourites_'+id)
-remove=document.getElementById('remove_favourites_'+id)
-url=current.getAttribute('fetch-url')
-fetch(url)
-remove.style.display="block"
-add.style.display="none"
-
-}
-function remove_favourites(current){
-id=current.getAttribute('data-context')
-add=document.getElementById('add_favourites_'+id)
-remove=document.getElementById('remove_favourites_'+id)
-url=current.getAttribute('fetch-url')
-fetch(url)
-
-remove.style.display="none"
-add.style.display="block"
-
-
-
-}
-</script>
+{% include 'include/script.html' %}
 	<!-- end footer -->
 
 	{% endblock %}

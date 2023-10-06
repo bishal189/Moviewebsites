@@ -8,8 +8,11 @@ from django.core import serializers
 from detailapp.models import Cartitem,Order_Product_album
 def album(request):
     albums=Albums.objects.all()
+    paginator_scene=Paginator(albums,1)
+    page_scene=request.GET.get('albums')
+    paged_scene=paginator_scene.get_page(page_scene)
     context={
-        'albums':albums
+        'albums':paged_scene
     }
     return render(request,'album.html',context)
 
