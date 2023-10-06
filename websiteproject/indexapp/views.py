@@ -11,14 +11,33 @@ from detailapp.models import Cartitem
 
 def home(request):
    
-    all_product=MovieDetail.objects.all().order_by('-id')
-    paginator=Paginator(all_product,10)
-    page=request.GET.get('page')
-    paged_products=paginator.get_page(page)
-    count=all_product.count()
-    allalbums=Albums.objects.all()
-    stardata=StarsModel.objects.all()
-    genres=Category.objects.all()
+    all_dvd=MovieDetail.objects.filter(type="DVD").order_by('-id')
+    all_scene=MovieDetail.objects.filter(type="Scene").order_by('-id')
+    all_photosets=MovieDetail.objects.filter(type="PhotoSets").order_by('-id')
+
+    paginator_dvd=Paginator(all_dvd,5)
+    page_dvd=request.GET.get('page_dvd')
+    paged_dvd=paginator_dvd.get_page(page_dvd)
+
+    paginator_dvd=Paginator(all_scene,3)
+    page_scene=request.GET.get('page_scene')
+    paged_scene=paginator_dvd.get_page(page_scene)
+
+    paginator_dvd=Paginator(all_photosets,5)
+    page_photo=request.GET.get('page_photo')
+    paged_photo=paginator_dvd.get_page(page_photo)
+
+    # paginator_dvd=Paginator(all_dvd,5)
+    # page_dvd=request.GET.get('page')
+    # paged_dvd=paginator_dvd.get_page(page_dvd)
+    
+
+
+
+    count_dvd=all_dvd.count()
+    allalbums=Albums.objects.all().order_by('-id')
+    stardata=StarsModel.objects.all().order_by('-view_count')
+    genres=Category.objects.all().order_by('-id')
     haircolor=StarsModel.objects.values('haircolor').distinct()
 
     user_favorite_movies=None
@@ -27,13 +46,13 @@ def home(request):
     user_added_cart=None
     if not isinstance(request.user,AnonymousUser):
         user_added_cart=Cartitem.objects.filter(user=request.user).values_list('product__id',flat=True)
-    print(user_added_cart)
     # count1=paged_products.count()
     context={
         'genres':genres,
-        'all_products':paged_products,
-        'get_data':all_product,
-        'count':count,
+        'all_dvd':paged_dvd,
+        'all_scene':paged_scene,
+        'all_photoset':paged_photo,
+        'count':count_dvd,
         'allalbums':allalbums,
         'star':stardata,
         'haircolor':haircolor,
@@ -111,8 +130,11 @@ def pagination(request):
 
 def scenes(request):
     alldata=MovieDetail.objects.filter(type='Scene')
+    paginator_dvd=Paginator(alldata,4)
+    page_scene=request.GET.get('page')
+    paged_scene=paginator_dvd.get_page(page_scene)
     
-    return render(request,'scenes.html',{'alldata':alldata})
+    return render(request,'scenes.html',{'scenes':paged_scene})
 
 
 def dvd(request):

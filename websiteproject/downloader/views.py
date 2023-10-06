@@ -43,7 +43,7 @@ def file_download(request,filename):
         remote_file = host.open(source_path, 'rb')
         remote_file_size = host.path.getsize(source_path)
 
-        chunk_size = 8192 # You can adjust this value as needed
+        chunk_size = 36192 # You can adjust this value as needed
 
             # Create a response with a custom file wrapper that limits download speed
         

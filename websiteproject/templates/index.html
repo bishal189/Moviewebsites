@@ -139,40 +139,160 @@ clickyes()
 
 	
 	<!-- home -->
-	<div class="home home--title">
-		<div class="container">
-			<div class="row">
-				<div class="col-12">
-					<h1 class="home__title"><b>Best </b> of this season</h1>
-				</div>
-			</div>
-		</div>
-		<div class="home__carousel owl-carousel " id="flixtv-hero">
-			{% for item in get_data %}
-			{% if item.type != "PhotoSets" %}
-			<div class="home__card" style="width:255px;">
-				<a href="{% url 'details' slug=item.slug %}">
-					<img src="{{item.coverphoto.url}}" width='300'height='300'  alt="">
-				</a>
-				<div>
-
-					<h2>{{item.movie_name}}</h2>
-					<ul>
-						<li>{{item.type}}</li>
-						<li>{{item.duration}} min</li>
-						<li>{{item.price}} $</li>
-						<li>{{item.year}}</li>
-					</ul>
-				</div>
-			</div>
-			{% endif %}
-			{% endfor %}
-		</div>
-		<button class="home__nav home__nav--prev" data-nav="#flixtv-hero" type="button"><svg width="17" height="15" viewBox="0 0 17 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1.25 7.72559L16.25 7.72559" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M7.2998 1.70124L1.2498 7.72524L7.2998 13.7502" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-
-		<button class="home__nav home__nav--next" data-nav="#flixtv-hero" type="button"></button>
-	</div>
+	
 	<!-- end home -->
+	<div style="margin-top:150px;"class="container">
+		<div class="row">
+			<div class="col-12">
+				<div class="catalog__nav">
+					<div  class="catalog__select-wrap">
+					<form method="POST" action="{% url 'category_filter' %}">
+								{% csrf_token %}
+						<select class="catalog__select" name="genre" id="genre">
+
+							{%  if current.genre %}<option value="{{current.genre}}">{{current.genre}}</option>{% endif %}
+							<option value="all">All genres</option>
+
+							{% for gen in genres %}
+							{% if gen.category_name == current.genre %}
+							{% else %}
+							<option value="{{gen.category_name}}">{{gen.category_name}}</option>
+								{%  endif %}
+							{% endfor %}
+							
+						</select>
+						<select class="catalog__select" name="popularity" id="popularity">
+							{%  if current.popularity %}
+							<option value="{{current.popularity}}">{{current.popularity}}</option>{% endif %}
+							<option value="all">Popularity</option>
+
+							
+							<option value="Videos">Videos</option>
+							<option value="Genres">Genres</option>
+							<option value="Stars">Stars</option>
+							
+							
+						</select>
+
+						<select class="catalog__select" name="type" id="type">
+							{%  if current.type %}<option value="{{current.type}}">{{current.type}}</option>{% endif %}
+							<option value="all">All Types</option>
+
+							<option value="PhotoSets">PhotoSets</option>
+							<option value="DVD">DVD</option>
+							<option value="Scene">Scene</option>
+								
+						</select>
+
+						
+						<select class="catalog__select" name="price" id="price">
+							{%  if current.price %}<option value="{{current.price}}">{{current.price}}</option>{% endif %}
+							<option value="all">All Prices</option>
+							<option value="0-10">0$-10$</option>
+							<option value="10-20">10$-20$</option>
+							<option value="20-30">20$-30$</option>
+							<option value="30-40">30$-40$</option>
+							<option value="40-50">40$-50$</option>
+							<option value="50-1000">50+</option>
+							
+								
+						</select>
+
+						<select class="catalog__select" name="year" id ="year" >
+							{% if current.year %}<option value="{{current.year}}">{{current.year}}</option>{% endif %}
+							
+							<option value="all">All the years</option>
+								
+							<option value="2023">2023</option>
+							<option value="2022">2022</option>
+							<option value="2021">2021</option>
+							<option value="2020">2020</option>
+							<option value="2019">2019</option>
+							<option value="2018">2018</option>
+							<option value="2017">2017</option>
+							<option value="2016">2016 and before</option>
+					</select>
+
+	<select class="catalog__select" name="starage" id ="starage">
+	{% if current.age %}<option value="{{current.age}}">{{current.age}}</option>{% endif %}
+
+<option value="all">All Ages</option>
+	
+<option value="18-20">18-20</option>
+<option value="20-25">20-25</option>
+<option value="25-30">25-30</option>
+<option value="30-35">30-35</option>
+<option value="35-40">35-40</option>
+<option value="40-45">40-45</option>
+<option value="45-50">45-50</option>
+<option value="50-100">50+<option>
+</select>
+
+
+
+
+<select class="catalog__select" name="starhaircolor" id ="starhaircolor">
+{% if current.hair %}<option value="{{current.hair}}">{{current.hair}}</option>{% endif %}
+
+<option value="all">All Hair Color</option>
+{% for item_group in haircolor %}
+	
+
+<option value="{{item_group.haircolor}}">{{item_group.haircolor}}</option>
+
+{% endfor %}
+</select>
+
+
+<select class="catalog__select" name="starheight" id ="starheight">
+{% if current.height %}<option value="{{current.height}}">{{current.height}}</option>{% endif %}
+
+<option value="all">All Heights</option>
+	
+<option value="4-4.5">4ft-4.5ft</option>
+<option value="4.5-5">4.5ft-5ft</option>
+<option value="5-5.5">5ft-5.5ft</option>
+<option value="5.5-6">5.5ft-6ft</option>
+<option value="6-10">6+ft</option>
+</select>
+
+
+<button style="text-align:center;width:150px;display:inline-block;" type="submit" class="sign__btn">Filter</button>
+</form>
+					</div>
+<!--
+					<div class="slider-radio">
+						<input type="radio" name="grade" id="featured" checked="checked"><label for="featured">Featured</label>
+						<input type="radio" name="grade" id="popular"><label for="popular">Popular</label>
+						<input type="radio" name="grade" id="newest"><label for="newest">Newest</label>
+					</div>-->
+				</div>
+					
+		</div>		
+
+		{% comment %} <div class="row">
+			<div class="col-12">
+				<button class="catalog__more" type="button">Load more</button>
+			</div>
+		</div> {% endcomment %}
+	</div>
+</div>
+
+<style>
+	.page-item{
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+		width: 30px;
+		height: 30px;
+		border-radius: 12px;
+		background-color: #131720;
+		font-size: 14px;
+		color: #e0e0e0;
+		font-weight: 500;
+	}
+</style>
 
 	<!-- catalog -->
 	<div  class="catalog catalog--list">
@@ -180,149 +300,13 @@ clickyes()
 			
 			<div class="row">
 				<div class="col-12">
-					<h1 class="home__title">Movies</h1><F5>
-				</div>
-					<div class="container">
-						<div class="row">
-							<div class="col-12">
-								<div class="catalog__nav">
-									<div  class="catalog__select-wrap">
-									<form method="POST" action="{% url 'category_filter' %}">
-												{% csrf_token %}
-										<select class="catalog__select" name="genre" id="genre">
-			
-											{%  if current.genre %}<option value="{{current.genre}}">{{current.genre}}</option>{% endif %}
-											<option value="all">All genres</option>
-			
-											{% for gen in genres %}
-											{% if gen.category_name == current.genre %}
-											{% else %}
-											<option value="{{gen.category_name}}">{{gen.category_name}}</option>
-												{%  endif %}
-											{% endfor %}
-											
-										</select>
-										<select class="catalog__select" name="popularity" id="popularity">
-											{%  if current.popularity %}
-											<option value="{{current.popularity}}">{{current.popularity}}</option>{% endif %}
-											<option value="all">Popularity</option>
-			
-											
-											<option value="Videos">Videos</option>
-											<option value="Genres">Genres</option>
-											<option value="Stars">Stars</option>
-											
-											
-										</select>
-			
-										<select class="catalog__select" name="type" id="type">
-											{%  if current.type %}<option value="{{current.type}}">{{current.type}}</option>{% endif %}
-											<option value="all">All Types</option>
-			
-											<option value="PhotoSets">PhotoSets</option>
-											<option value="DVD">DVD</option>
-											<option value="Scene">Scene</option>
-												
-										</select>
-			
-										
-										<select class="catalog__select" name="price" id="price">
-											{%  if current.price %}<option value="{{current.price}}">{{current.price}}</option>{% endif %}
-											<option value="all">All Prices</option>
-											<option value="0-10">0$-10$</option>
-											<option value="10-20">10$-20$</option>
-											<option value="20-30">20$-30$</option>
-											<option value="30-40">30$-40$</option>
-											<option value="40-50">40$-50$</option>
-											<option value="50-1000">50+</option>
-											
-												
-										</select>
-			
-										<select class="catalog__select" name="year" id ="year" >
-											{% if current.year %}<option value="{{current.year}}">{{current.year}}</option>{% endif %}
-											
-											<option value="all">All the years</option>
-												
-											<option value="2023">2023</option>
-											<option value="2022">2022</option>
-											<option value="2021">2021</option>
-											<option value="2020">2020</option>
-											<option value="2019">2019</option>
-											<option value="2018">2018</option>
-											<option value="2017">2017</option>
-											<option value="2016">2016 and before</option>
-									</select>
-			
-					<select class="catalog__select" name="starage" id ="starage">
-					{% if current.age %}<option value="{{current.age}}">{{current.age}}</option>{% endif %}
-				
-				<option value="all">All Ages</option>
-					
-				<option value="18-20">18-20</option>
-				<option value="20-25">20-25</option>
-				<option value="25-30">25-30</option>
-				<option value="30-35">30-35</option>
-				<option value="35-40">35-40</option>
-				<option value="40-45">40-45</option>
-				<option value="45-50">45-50</option>
-				<option value="50-100">50+<option>
-			</select>
-			
-			
-			
-			
-			<select class="catalog__select" name="starhaircolor" id ="starhaircolor">
-				{% if current.hair %}<option value="{{current.hair}}">{{current.hair}}</option>{% endif %}
-				
-				<option value="all">All Hair Color</option>
-				{% for item_group in haircolor %}
-					
-			
-				<option value="{{item_group.haircolor}}">{{item_group.haircolor}}</option>
-			
-				{% endfor %}
-			</select>
-			
-			
-			<select class="catalog__select" name="starheight" id ="starheight">
-				{% if current.height %}<option value="{{current.height}}">{{current.height}}</option>{% endif %}
-				
-				<option value="all">All Heights</option>
-					
-				<option value="4-4.5">4ft-4.5ft</option>
-				<option value="4.5-5">4.5ft-5ft</option>
-				<option value="5-5.5">5ft-5.5ft</option>
-				<option value="5.5-6">5.5ft-6ft</option>
-				<option value="6-10">6+ft</option>
-			</select>
-			
-			
-			<button style="text-align:center;width:150px;display:inline-block;" type="submit" class="sign__btn">Filter</button>
-			</form>
-									</div>
-			<!--
-									<div class="slider-radio">
-										<input type="radio" name="grade" id="featured" checked="checked"><label for="featured">Featured</label>
-										<input type="radio" name="grade" id="popular"><label for="popular">Popular</label>
-										<input type="radio" name="grade" id="newest"><label for="newest">Newest</label>
-									</div>-->
-								</div>
-									
-						</div>		
-			
-						{% comment %} <div class="row">
-							<div class="col-12">
-								<button class="catalog__more" type="button">Load more</button>
-							</div>
-						</div> {% endcomment %}
-					</div>
+					<h1 class="home__title">Recently Added Dvds </h1><F5>
 				</div>
 					<div style="justify-content:center;" class="row row--grid">
-						{% for item in  all_products %}
-						<div  style="margin-right:18px;"class="col-6 col-sm-4 col-lg-3 col-xl-2">
+						{% for item in  all_dvd %}
+						<div   style="margin-right:2px"class="col-6 col-sm-4 col-lg-3 col-xl-2">
 							<div class="card">
-								<a style="border-radius:0px;filter:blur(0);" href="{% url 'details' slug=item.slug %}" class="card__cover">
+								<a style="border-radius:0px;filter:blur(0);hover:none;" href="{% url 'details' slug=item.slug %}" class="card__cover">
 									<img style="height:240px;width:165px;filter:blur(0);" src="{{item.coverphoto.url}}" alt="">
 																		</a>
 									{% if user.is_authenticated %}
@@ -374,35 +358,7 @@ clickyes()
 									</button> 
 									{% endif %}
 
-									<script>
-										counter={{cart_count}}
-										cartValue=document.getElementById('cart-value')
-										function add_cart(item){
-												id=item.getAttribute('data-context')
-												add=document.getElementById('add_cart_'+id)
-												remove=document.getElementById('remove_cart_'+id)
-												url=item.getAttribute('fetch-url')
-												fetch(url)
-												counter++
-												cartValue.textContent=counter
-												add.style.display="none"
-												remove.style.display="block"
-		
-										}
-										function remove_cart(item){
-											id=item.getAttribute('data-context')
-											add=document.getElementById('add_cart_'+id)
-											remove=document.getElementById('remove_cart_'+id)
-											url=item.getAttribute('fetch-url')
-											fetch(url)
-											counter--
-											cartValue.textContent=counter
-											remove.style.display="none";
-											add.style.display="block"
-
-		
-										}
-									</script>
+									
 								<h3 class="card__title"><a href="{% url 'details' slug=item.slug%}">{{item.movie_name}}</a></h3>
 								<ul class="card__list">
 									<li>{{item.type}}</li>
@@ -418,37 +374,36 @@ clickyes()
 					</div>
 
 				</div>
-			</div>	
-	
-
+			</div>
+			
 		 <div class="row">
 				<div class="col-12">
-					<div class="catalog__paginator-wrap">
-						<span class="catalog__pages">10 from {{count}}</span>
+					<div style="justify-content:center;" class="catalog__paginator-wrap">
+						{% comment %} <span style="position:absolute;left:25px;" class="catalog__pages">10 from {{count}}</span> {% endcomment %}
 
 						<ul class="catalog__paginator">
 							<nav class="mt-4" aria-label="Page navigation sample">
-								{% if all_products.has_other_pages %}
+								{% if all_dvd.has_other_pages %}
 								<ul class="pagination" style='display: flex;
 								margin-bottom: 13px;'>
-									{% if all_products.has_previous %}
+									{% if all_dvd.has_previous %}
 									<li class="page-item "><a class="page-link"
-											href="?page={{all_products.previous_page_number}}">Previous</a></li>
+											href="?page_dvd={{all_dvd.previous_page_number}}"><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.75 5.36475L13.1992 5.36475" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M5.771 10.1271L0.749878 5.36496L5.771 0.602051" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
 									{% else %}
-									<li class="page-item disabled"><a class="page-link" href="">Previous</a></li>
+									<li class="page-item disabled"><a class="page-link" href=""><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.75 5.36475L13.1992 5.36475" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M5.771 10.1271L0.749878 5.36496L5.771 0.602051" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
 									{% endif %}
 			
-									{% for i in all_products.paginator.page_range %}
-									{% if all_products.number == i %}
-									<li class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
+									{% for i in all_dvd.paginator.page_range %}
+									{% if all_dvd.number == i %}
+									<li style="margin-right:15px;" class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
 									{% else %}
-									<li class="page-item "><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+									<li class="page-item"><a class="page-link" href="?page_dvd={{i}}">{{i}}</a></li>
 									{% endif %}
 									{% endfor %}
-									{% if all_products.has_next %}
-									<li class="page-item"><a class="page-link active" href="?page={{all_products.next_page_number}}">Next</a></li>
+									{% if all_dvd.has_next %}
+									<li class="page-item"><a class="page-link active" href="?page_dvd={{all_dvd.next_page_number}}"><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.1992 5.3645L0.75 5.3645" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M8.17822 0.602051L13.1993 5.36417L8.17822 10.1271" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
 									{% else %}
-									<li class="page-item disabled"><a class="page-link " href="#">Next</a></li>
+									<li class="page-item disabled"><a class="page-link " href="#"><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.1992 5.3645L0.75 5.3645" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M8.17822 0.602051L13.1993 5.36417L8.17822 10.1271" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
 									{% endif %}
 								</ul>
 								{% endif %}
@@ -457,9 +412,268 @@ clickyes()
 					</div>
 				</div>
 			</div>
+
+
+		</div>
+	</div>
+	{% comment %} <!-- end catalog -->      ------------------------------------- {% endcomment %}
+
+	<div style="margin-top:-100px;" class="catalog catalog--list">
+		<div class="container">
+			
+			<div class="row">
+				<div class="col-12">
+					<h1 class="home__title">Recently Added Scenes </h1><F5>
+				</div>
+					<div style="justify-content:center;" class="row row--grid">
+						{% for item in  all_scene %}
+						<div  class="col-6 col-sm-4 col-lg-3 col-xxl-2 ">
+							<div class="card">
+								<a style="border-radius:0px;filter:blur(0);hover:none;" href="{% url 'details' slug=item.slug %}" class="card__cover">
+									<img  style='height: 150px;width:250px;border-radius: 0px;filter:blur(0px);'src="{{item.coverphoto.url}}" alt="">
+								</a>
+									{% if user.is_authenticated %}
+									{% if item.id in user_favourite_movie %}
+									<button fetch-url="{% url 'remove_favourites' item.id %}" data-context="{{item.id}}" onclick="remove_favourites(this)"  id="remove_favourites_{{item.id}}" class="card__add" type="button">
+										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="100" height="100">
+											<path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z" fill="blue"/>
+										</svg>
+										
+										</button>
+									{% else %}
+									<button data-context="{{item.id}}" fetch-url="{% url 'add_favourites' item.id %}"onclick="add_favourites(this)"  id="add_favourites_{{item.id}}" class="card__add" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z"/></svg></button>
+									{% endif %}
+									<button style="display:none" fetch-url="{% url 'remove_favourites' item.id %}" data-context="{{item.id}}" onclick="remove_favourites(this)"  id="remove_favourites_{{item.id}}" class="card__add" type="button">
+										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="100" height="100">
+											<path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z" fill="blue"/>
+										</svg>
+										
+										</button>
+										<button style="display:none;" data-context="{{item.id}}" fetch-url="{% url 'add_favourites' item.id %}"onclick="add_favourites(this)"  id="add_favourites_{{item.id}}" class="card__add" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z"/></svg></button>
+
+
+										{% else %}
+										<a href="{% url 'login' %}"><button class="card__add" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z"/></svg></button></a>
+										{% endif %}
+									
+										{% if user.is_authenticated %}
+										{% if item.id in user_added_cart %}
+										<button onclick="remove_cart(this);" fetch-url={% url 'remove_cart' item.id %} id="remove_cart_{{item.id}}" data-context={{item.id}} style="position:absolute;margin-left:auto;right:10px;top:10px;" class="card__add">
+											<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>
+											</button>
+										{% else %}
+										<button onclick="add_cart(this);" fetch-url={% url 'add_cart' item.id %} id="add_cart_{{item.id}}" data-context={{item.id}}  style="position:absolute;margin-left:auto;right:10px;top:10px;" class="card__add">
+											<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/></svg>
+										</button> 
+										{% endif %}
+										<button onclick="add_cart(this);" fetch-url={% url 'add_cart' item.id %} id="add_cart_{{item.id}}" data-context={{item.id}}  style="display:none;position:absolute;margin-left:auto;right:10px;top:10px;" class="card__add">
+											<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/></svg>
+										</button> 
+
+										<button onclick="remove_cart(this);" fetch-url={% url 'remove_cart' item.id %} id="remove_cart_{{item.id}}" data-context={{item.id}} style="display:none;position:absolute;margin-left:auto;right:10px;top:10px;" class="card__add">
+											<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>
+											</button>
+										
+										{% else %}
+
+									<button style="position:absolute;margin-left:auto;right:10px;top:10px;" class="card__add">
+									<a href={% url 'login' %} > <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/></svg></a>
+									</button> 
+									{% endif %}
+
+									
+								<h3 class="card__title"><a href="{% url 'details' slug=item.slug%}">{{item.movie_name}}</a></h3>
+								<ul class="card__list">
+									<li>{{item.type}}</li>
+									<li>{{item.duration}} min</li>
+									<li>{{item.price}} $</li>
+								</ul>
+								
+							</div>
+						</div>
+						{% endfor %}	
+
+					
+					</div>
+
+				</div>
+			</div>
+			
+			
+	
+			
+=		 <div class="row">
+				<div class="col-12">
+					<div style="justify-content:center;" class="catalog__paginator-wrap">
+						{% comment %} <span style="position:absolute;left:25px;" class="catalog__pages">10 from {{count}}</span> {% endcomment %}
+
+						<ul class="catalog__paginator">
+							<nav class="mt-4" aria-label="Page navigation sample">
+								{% if all_scene.has_other_pages %}
+								<ul class="pagination" style='display: flex;
+								margin-bottom: 13px;'>
+									{% if all_scene.has_previous %}
+									<li class="page-item "><a class="page-link"
+											href="?page_scene={{all_scene.previous_page_number}}"><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.75 5.36475L13.1992 5.36475" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M5.771 10.1271L0.749878 5.36496L5.771 0.602051" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
+									{% else %}
+									<li class="page-item disabled"><a class="page-link" href=""><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.75 5.36475L13.1992 5.36475" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M5.771 10.1271L0.749878 5.36496L5.771 0.602051" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
+									{% endif %}
+			
+									{% for i in all_scene.paginator.page_range %}
+									{% if all_scene.number == i %}
+									<li style="margin-right:15px;" class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
+									{% else %}
+									<li class="page-item"><a class="page-link" href="?page_scene={{i}}">{{i}}</a></li>
+									{% endif %}
+									{% endfor %}
+									{% if all_scene.has_next %}
+									<li class="page-item"><a class="page-link active" href="?page_scene={{all_scene.next_page_number}}"><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.1992 5.3645L0.75 5.3645" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M8.17822 0.602051L13.1993 5.36417L8.17822 10.1271" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
+									{% else %}
+									<li class="page-item disabled"><a class="page-link " href="#"><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.1992 5.3645L0.75 5.3645" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M8.17822 0.602051L13.1993 5.36417L8.17822 10.1271" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
+									{% endif %}
+								</ul>
+								{% endif %}
+							</nav>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+
 		</div>
 	</div>
 	<!-- end catalog -->
+
+
+	<div style="margin-top:-100px;" class="catalog catalog--list">
+		<div class="container">
+			
+			<div class="row">
+				<div class="col-12">
+					<h1 class="home__title">Recently Added Photosets </h1><F5>
+				</div>
+					<div style="justify-content:center;" class="row row--grid">
+						{% for item in  all_photoset %}
+						<div   style="margin-right:2px"class="col-6 col-sm-4 col-lg-3 col-xl-2">
+							<div class="card">
+								<a style="border-radius:0px;filter:blur(0);hover:none;" href="{% url 'details' slug=item.slug %}" class="card__cover">
+									<img style="height:240px;width:165px;filter:blur(0);" src="{{item.coverphoto.url}}" alt="">
+																		</a>
+									{% if user.is_authenticated %}
+									{% if item.id in user_favourite_movie %}
+									<button fetch-url="{% url 'remove_favourites' item.id %}" data-context="{{item.id}}" onclick="remove_favourites(this)"  id="remove_favourites_{{item.id}}" class="card__add" type="button">
+										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="100" height="100">
+											<path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z" fill="blue"/>
+										</svg>
+										
+										</button>
+									{% else %}
+									<button data-context="{{item.id}}" fetch-url="{% url 'add_favourites' item.id %}"onclick="add_favourites(this)"  id="add_favourites_{{item.id}}" class="card__add" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z"/></svg></button>
+									{% endif %}
+									<button style="display:none" fetch-url="{% url 'remove_favourites' item.id %}" data-context="{{item.id}}" onclick="remove_favourites(this)"  id="remove_favourites_{{item.id}}" class="card__add" type="button">
+										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="100" height="100">
+											<path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z" fill="blue"/>
+										</svg>
+										
+										</button>
+										<button style="display:none;" data-context="{{item.id}}" fetch-url="{% url 'add_favourites' item.id %}"onclick="add_favourites(this)"  id="add_favourites_{{item.id}}" class="card__add" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z"/></svg></button>
+
+
+										{% else %}
+										<a href="{% url 'login' %}"><button class="card__add" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z"/></svg></button></a>
+										{% endif %}
+									
+										{% if user.is_authenticated %}
+										{% if item.id in user_added_cart %}
+										<button onclick="remove_cart(this);" fetch-url={% url 'remove_cart' item.id %} id="remove_cart_{{item.id}}" data-context={{item.id}} style="position:absolute;margin-left:auto;right:10px;top:10px;" class="card__add">
+											<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>
+											</button>
+										{% else %}
+										<button onclick="add_cart(this);" fetch-url={% url 'add_cart' item.id %} id="add_cart_{{item.id}}" data-context={{item.id}}  style="position:absolute;margin-left:auto;right:10px;top:10px;" class="card__add">
+											<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/></svg>
+										</button> 
+										{% endif %}
+										<button onclick="add_cart(this);" fetch-url={% url 'add_cart' item.id %} id="add_cart_{{item.id}}" data-context={{item.id}}  style="display:none;position:absolute;margin-left:auto;right:10px;top:10px;" class="card__add">
+											<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/></svg>
+										</button> 
+
+										<button onclick="remove_cart(this);" fetch-url={% url 'remove_cart' item.id %} id="remove_cart_{{item.id}}" data-context={{item.id}} style="display:none;position:absolute;margin-left:auto;right:10px;top:10px;" class="card__add">
+											<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>
+											</button>
+										
+										{% else %}
+
+									<button style="position:absolute;margin-left:auto;right:10px;top:10px;" class="card__add">
+									<a href={% url 'login' %} > <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/></svg></a>
+									</button> 
+									{% endif %}
+
+									
+								<h3 class="card__title"><a href="{% url 'details' slug=item.slug%}">{{item.movie_name}}</a></h3>
+								<ul class="card__list">
+									<li>{{item.type}}</li>
+									<li>{{item.duration}} min</li>
+									<li>{{item.price}} $</li>
+								</ul>
+								
+							</div>
+						</div>
+						{% endfor %}	
+
+					
+					</div>
+
+				</div>
+			</div>
+			
+			
+	
+			
+		 <div class="row">
+				<div class="col-12">
+					<div style="justify-content:center;" class="catalog__paginator-wrap">
+						{% comment %} <span style="position:absolute;left:25px;" class="catalog__pages">10 from {{count}}</span> {% endcomment %}
+
+						<ul class="catalog__paginator">
+							<nav class="mt-4" aria-label="Page navigation sample">
+								{% if all_photoset.has_other_pages %}
+								<ul class="pagination" style='display: flex;
+								margin-bottom: 13px;'>
+									{% if all_photoset.has_previous %}
+									<li class="page-item "><a class="page-link"
+											href="?page_photo={{all_photoset.previous_page_number}}"><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.75 5.36475L13.1992 5.36475" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M5.771 10.1271L0.749878 5.36496L5.771 0.602051" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
+									{% else %}
+									<li class="page-item disabled"><a class="page-link" href=""><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.75 5.36475L13.1992 5.36475" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M5.771 10.1271L0.749878 5.36496L5.771 0.602051" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
+									{% endif %}
+			
+									{% for i in all_photoset.paginator.page_range %}
+									{% if all_photoset.number == i %}
+									<li style="margin-right:15px;" class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
+									{% else %}
+									<li class="page-item"><a class="page-link" href="?page_photo={{i}}">{{i}}</a></li>
+									{% endif %}
+									{% endfor %}
+									{% if all_photoset.has_next %}
+									<li class="page-item"><a class="page-link active" href="?page_photo={{all_photoset.next_page_number}}"><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.1992 5.3645L0.75 5.3645" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M8.17822 0.602051L13.1993 5.36417L8.17822 10.1271" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
+									{% else %}
+									<li class="page-item disabled"><a class="page-link" href="#"><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.1992 5.3645L0.75 5.3645" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M8.17822 0.602051L13.1993 5.36417L8.17822 10.1271" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
+									{% endif %}
+								</ul>
+								{% endif %}
+							</nav>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+
+		</div>
+	</div>
+	<!-- end catalog -->
+
+	
+
+
 
 	<!-- subscriptions -->
 	<section class="section section--pb0">
@@ -475,13 +689,13 @@ clickyes()
 							{% for album in allalbums %}
 							<div class="card">
 								<a href="{% url 'album_detail' album.id %}" class="card__cover">
-									<img src="{{album.coverphoto.url}}" alt="">
+									<img style="filter:blur(0);" src="{{album.coverphoto.url}}" alt="">
 								</a>
 								<span class="card__rating">{{album.price}} $</span>
 
 								<h3 class="card__title card__title--subs"><a href="{% url 'album_detail' album.id %}">{{album.album_name}}</a></h3>
 								<ul class="card__list">
-												<li>{{album.movies.count}} items added</li>
+												{% comment %} <li>{{album.movies.count}} items added</li> {% endcomment %}
 												<li>{{album.price}} $</li>
 												
 											</ul>
@@ -508,6 +722,34 @@ clickyes()
 	
 {% include 'include/footer.html' %}
 <script>
+	counter={{cart_count}}
+	cartValue=document.getElementById('cart-value')
+	function add_cart(item){
+			id=item.getAttribute('data-context')
+			add=document.getElementById('add_cart_'+id)
+			remove=document.getElementById('remove_cart_'+id)
+			url=item.getAttribute('fetch-url')
+			fetch(url)
+			counter++
+			cartValue.textContent=counter
+			add.style.display="none"
+			remove.style.display="block"
+
+	}
+	function remove_cart(item){
+		id=item.getAttribute('data-context')
+		add=document.getElementById('add_cart_'+id)
+		remove=document.getElementById('remove_cart_'+id)
+		url=item.getAttribute('fetch-url')
+		fetch(url)
+		counter--
+		cartValue.textContent=counter
+		remove.style.display="none";
+		add.style.display="block"
+
+
+	}
+
 
 
 function add_favourites(current){

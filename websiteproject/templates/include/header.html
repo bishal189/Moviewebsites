@@ -1,6 +1,6 @@
 {% load static %}
 
-<header class="header header--hidden">
+<header style="z-index:100" class="header header--hidden">
   <div style="max-width:100%;" class="container">
     <div class="row">
       <div class="col-12">
@@ -29,16 +29,7 @@
                 >Home
                
             </li>
-            <li class="header__nav-item">
-              <a
-                class="header__nav-link"
-                href="{% url 'category' %}"
-                role="button"
-                aria-haspopup="true"
-                aria-expanded="false"
-                >Category</a>
-            </li>
-            <!-- <li class="header__nav-item">
+                    <!-- <li class="header__nav-item">
               <a
                 class="header__nav-link"
                 href="{% url 'album' %}"

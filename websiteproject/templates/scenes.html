@@ -11,7 +11,7 @@
 {% include 'include/header.html' %}
 
 	<!-- head -->
-	<section class="section section--head mt-5">
+	<section class="section section--head mt-5" style='    margin-bottom: -101px;'>
 		<div class="container">
 			<div class="row">
 				<div style="margin-bottom:30px;" class="col-12 col-xl-6">
@@ -39,13 +39,13 @@
 
 							<div style="justify-content:center;" class="row row--grid">
 
-								{% for item in alldata %}
+								{% for item in scenes %}
 
 					
-								<div  style="margin-right:18px;"class="col-6 col-sm-4 col-lg-3 col-xl-2">
+								<div  class="col-6 col-sm-4 col-lg-3 col-xxl-2 ">
 									<div class="card">
-										<a href="{% url 'details' slug=item.slug %}" class="card__cover">
-											<img src="{{item.coverphoto.url}}" alt="">
+										<a href="{% url 'details' slug=item.slug %}" style='border-radius:none;!important' class="card__cover">
+											<img  style='height: 150px;width:250px;border-radius: 0px;filter:blur(0px);'src="{{item.coverphoto.url}}" alt="">
 										</a>
 										<span class="card__rating">{{item.price}} $</span>
 										<h3 class="card__title"><a href="{% url 'details' slug=item.slug%}">{{item.movie_name}}</a></h3>
@@ -64,7 +64,45 @@
 				</div>
 			</div>		
 
+			<div class="row">
+				<div class="col-12">
+					<div style="justify-content:center;" class="catalog__paginator-wrap">
+						{% comment %} <span style="position:absolute;left:25px;" class="catalog__pages">10 from {{count}}</span> {% endcomment %}
+
+						<ul class="catalog__paginator">
+							<nav class="mt-4" aria-label="Page navigation sample">
+								{% if scenes.has_other_pages %}
+								<ul class="pagination" style='display: flex;
+								margin-bottom: 13px;'>
+									{% if scenes.has_previous %}
+									<li class="page-item "><a class="page-link"
+											href="?page_photo={{scenes.previous_page_number}}"><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.75 5.36475L13.1992 5.36475" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M5.771 10.1271L0.749878 5.36496L5.771 0.602051" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
+									{% else %}
+									<li class="page-item disabled"><a class="page-link" href=""><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.75 5.36475L13.1992 5.36475" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M5.771 10.1271L0.749878 5.36496L5.771 0.602051" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
+									{% endif %}
 			
+									{% for i in scenes.paginator.page_range %}
+									{% if scenes.number == i %}
+									<li style="margin-right:15px;" class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
+									{% else %}
+									<li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+									{% endif %}
+									{% endfor %}
+									{% if scenes.has_next %}
+									<li class="page-item"><a class="page-link active" href="?page={{scenes.next_page_number}}"><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.1992 5.3645L0.75 5.3645" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M8.17822 0.602051L13.1993 5.36417L8.17822 10.1271" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
+									{% else %}
+									<li class="page-item disabled"><a class="page-link" href="#"><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.1992 5.3645L0.75 5.3645" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M8.17822 0.602051L13.1993 5.36417L8.17822 10.1271" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
+									{% endif %}
+								</ul>
+								{% endif %}
+							</nav>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+
+		</div>
 		</div>
 	<!-- end catalog -->
 

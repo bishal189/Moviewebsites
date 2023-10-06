@@ -44,7 +44,7 @@
                             </ul>
                             
                           
-        {% if item.counter > 3 %}
+        {% if item.counter > 300 %}
         <button class="sign__btn" disbled>Disabled<br>( limit reached)</button>
 
         {% else %}
@@ -108,7 +108,7 @@ function download__click(event,item){
         document.body.removeChild(anchor);
         setTimeout(() => {
             item.innerHTML = "Download<br>("+counter+"of 3 Remaining )";
-            if (counter>3){
+            if (counter>300){
                 location.reload()
             }
             // Trigger a click event on the anchor to initiate the download (if needed)
