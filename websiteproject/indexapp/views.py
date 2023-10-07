@@ -71,9 +71,25 @@ def home(request):
 def studio_detail(request,id):
     studio=StudioModel.objects.get(id=id)
     movies=MovieDetail.objects.filter(studio=studio)
+    dvd=movies.filter(type='DVD').order_by('-id')
+    photo_sets=movies.filter(type='PhotoSets').order_by('-id')
+    scene=movies.filter(type='Scene').order_by('-id')
+    user_favorite_movies=None
+    if  not isinstance(request.user, AnonymousUser):
+        user_favorite_movies = FavouritesModel.objects.filter(user=request.user).values_list('favourite_movies__id', flat=True)
+    user_added_cart=None
+    if not isinstance(request.user,AnonymousUser):
+        user_added_cart=Cartitem.objects.filter(user=request.user).values_list('product__id',flat=True)
+
     context={
         'product':studio,
         'movies':movies,
+        'dvd':dvd,
+        'photoset':photo_sets,
+        'scene':scene,
+        'user_favourite_movie':user_favorite_movies,
+        'user_added_cart':user_added_cart,
+
     }
     return render(request,'studio-detail.html',context)
 def search(request):
