@@ -74,9 +74,15 @@
 							{% if val %}
 							<div class="article__download">
 								
+								<a style="padding:10px;" class="sign__btn" href="{% url 'cart' %}">Already Added</a>
 								
-								<a style="padding:10px;" class="sign__btn" href="{% url 'cart' %}">Already added</a>
+							</div>
+							{% elif already_bought %}
+							<div style="display:flex;flex-direction:column;" class="article__download">
 								
+								<a style="padding:10px;" class="sign__btn" href="{% url 'cart' %}">Already Bought</a>
+								<a style="padding:10px;" class="sign__btn" href="{% url 'download_list' %}">Download From Here</a>
+
 							</div>
 							{% else %}
 

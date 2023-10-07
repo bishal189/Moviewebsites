@@ -40,9 +40,18 @@ def details(request,slug=None):
                 li.append(item.product)
         
         val=product in li
-     
+
+        order_item=Order_Product.objects.filter(user=user)
+        order_li=[]
+        for item in order_item:
+            order_li.append(item.product)
+
+        print(order_li,product,"a")
+        already_bought=product in order_li
+        print(already_bought)
         context={
             'val':val,
+            'already_bought':already_bought,
             'product':product,
             'notlogin':False,
             'newmovies':newmovies,
