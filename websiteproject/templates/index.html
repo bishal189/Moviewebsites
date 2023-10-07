@@ -308,11 +308,17 @@ clickyes()
 	  .large_screen{
 		margin-right:-40px;
 	}
+		.large_scene{
+			margin-right:-70px;
+	}
 }
 	@media screen and (max-width: 1600px){
 		
 	  .large_screen{
 		margin-right:-13px;
+	}
+	.large_scene{
+		margin-right:-20px;
 	}
 }
 </style>
@@ -324,14 +330,8 @@ clickyes()
 			<div class="row">
 				<div class="col-12">
 					<h1 style="background-color:#151f30;margin-bottom:0px;padding:20px;" class="home__title">Recently Added Dvds <span style="font-size:14px;position:absolute;right:10%;"><a href="{% url 'dvd' %}">View All</a></span></h1><F5>
-				</div>
-
-
-
-			
+				</div>			
 {% comment %} view all here  {% endcomment %}
-
-
 
 					<div style="justify-content:center;" class="row row--grid">
 						{% for item in  all_dvd %}
@@ -458,7 +458,7 @@ clickyes()
 					</div>
 					<div style="justify-content:center;" class="row row--grid">
 						{% for item in  all_scene %}
-						<div style="margin-right:-20px;" class="col-6 col-sm-6 col-lg-3 col-xxl-2 ">
+						<div  class="large_scene col-6 col-sm-6 col-lg-3 col-xxl-2 ">
 							<div class="card">
 								<a style="border-radius:0px;filter:blur(0);hover:none;" href="{% url 'details' slug=item.slug %}" class="card__cover">
 									<img  style='height: 150px;width:250px;border-radius: 0px;filter:blur(0px);'src="{{item.coverphoto.url}}" alt="">
@@ -513,7 +513,7 @@ clickyes()
 									{% endif %}
 
 									
-								<h3 class="card__title"><a href="{% url 'details' slug=item.slug%}">{{item.movie_name}}</a></h3>
+								<h3 class="card__title"><a href="{% url 'details' slug=item.slug%}">{{item.movie_name|truncatewords:2}}</a></h3>
 								<ul class="card__list">
 									<li>{{item.type}}</li>
 									<li>{{item.duration}} min</li>
@@ -796,7 +796,7 @@ clickyes()
 					<div class="section__carousel-wrap">
 						<div class="section__carousel owl-carousel" id="subscriptions">
 							{% for album in allalbums %}
-							<div style="margin-right:-13px;" class="card">
+							<div  class="large_screen card">
 								<a href="{% url 'album_detail' album.id %}" class="card__cover">
 									<img style="filter:blur(0);" src="{{album.coverphoto.url}}" alt="">
 								</a>

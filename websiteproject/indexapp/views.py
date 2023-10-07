@@ -19,7 +19,7 @@ def home(request):
     page_dvd=request.GET.get('page_dvd')
     paged_dvd=paginator_dvd.get_page(page_dvd)
 
-    paginator_scene=Paginator(all_scene,4)
+    paginator_scene=Paginator(all_scene,6)
     page_scene=request.GET.get('page_scene')
     paged_scene=paginator_scene.get_page(page_scene)
 
@@ -77,22 +77,35 @@ def studio_detail(request,id):
     }
     return render(request,'studio-detail.html',context)
 def search(request):
-   
     tosearch=request.POST['searchtext']
-    get_dvd=MovieDetail.objects.filter(movie_name__icontains=tosearch,type="DVD")
-    get_scene=MovieDetail.objects.filter(movie_name__icontains=tosearch,type="Scene")
-   
-    paginator = Paginator(get_dvd, per_page=1)
-    paginator1=Paginator(get_scene,per_page=1)  # Set the number of items per page (e.g., 10 items per page)
-    page_number = request.GET.get('page') 
-    page_number1=request.GET.get('page') # Get the current page number from the request
-    paged_products = paginator.get_page(page_number)  # Get the Page object for the current page
-    paged_products1 = paginator1.get_page(page_number1)  # Get the Page object for the current page
+    get_dvd=MovieDetail.objects.filter(movie_name__icontains=tosearch,type="DVD").order_by('-id')
+    get_scene=MovieDetail.objects.filter(movie_name__icontains=tosearch,type="Scene").order_by('-id')
+    get_photoset=MovieDetail.objects.filter(movie_name__icontains=tosearch,type="PhotoSets").order_by('-id')
+    get_album=Albums.objects.filter(album_name__icontains=tosearch).order_by('-id')
+    # paginator_dvd = Paginator(get_dvd, per_page=10)
+    # paginator_scene=Paginator(get_scene,per_page=10)  # Set the number of items per page (e.g., 10 items per page)
+    # page_number_dvd = request.GET.get('page_dvd') 
+    # page_number_scene=request.GET.get('page_scene') # Get the current page number from the request
+    # paged_products_dvd = paginator_dvd.get_page(page_number_dvd)  # Get the Page object for the current page
+    # paged_products_scene = paginator_scene.get_page(page_number_scene)  # Get the Page object for the current page
+    user_favorite_movies=None
+    if  not isinstance(request.user, AnonymousUser):
+        user_favorite_movies = FavouritesModel.objects.filter(user=request.user).values_list('favourite_movies__id', flat=True)
+    user_added_cart=None
+    if not isinstance(request.user,AnonymousUser):
+        user_added_cart=Cartitem.objects.filter(user=request.user).values_list('product__id',flat=True)
+    # count1=paged_products.count()
+
+    
     context={
-        'data1':get_scene,
-        'all_products':paged_products,
+        'all_products_dvd':get_dvd,
+        'photo_set':get_photoset,
+        'album':get_album,
         'tosearch':tosearch,
-        'all_products1':paged_products1
+        'all_products_scene':get_scene,
+        'user_favourite_movie':user_favorite_movies,
+        'user_added_cart':user_added_cart,
+
         
         
     }
@@ -240,3 +253,5 @@ def about(request):
     return render(request,'about.html')
 def privacy(request):
     return render(request,'privacy.html')
+
+
