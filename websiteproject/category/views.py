@@ -1,9 +1,11 @@
 from django.shortcuts import render
 from .models import Category
-from indexapp.models import MovieDetail,StarsModel
+from indexapp.models import MovieDetail,StarsModel,FavouritesModel
 # Create your views here.
-from detailapp.models import Order_Product,Order,Payment
+from detailapp.models import Order_Product,Order,Payment,Cartitem
 from django.db.models import Count, Sum
+from django.contrib.auth.models import AnonymousUser
+
 def category(request):
 
      # category_count=Category.values.all().count()
@@ -115,30 +117,48 @@ def category_filter(request):
 
     else:
         movies=MovieDetail.objects.all().order_by('-id')
+    
+    # now getting data based on type
+    get_dvd=movies.filter(type="DVD")
+    get_scene=movies.filter(type="Scene")
+    get_photoset=movies.filter(type="PhotoSets")
 
     stardata=StarsModel.objects.all()
     haircolor=StarsModel.objects.values('haircolor').distinct()
     
     if popularity == "Videos":
         movies=movies.order_by('-view_count','-cart_count','-id')
+    
+    user_favorite_movies=None
+    if  not isinstance(request.user, AnonymousUser):
+        user_favorite_movies = FavouritesModel.objects.filter(user=request.user).values_list('favourite_movies__id', flat=True)
+    user_added_cart=None
+    if not isinstance(request.user,AnonymousUser):
+        user_added_cart=Cartitem.objects.filter(user=request.user).values_list('product__id',flat=True)
+
 
     if popularity=="Genres":
         categories_with_counts = Category.objects.annotate(
         total_view_count=Sum('moviedetail__view_count'),
         total_cart_count=Sum('moviedetail__cart_count')
         )
-    
-
-# Order the categories by total_view_count and total_cart_count
         sorted_categories = categories_with_counts.order_by('-total_view_count', '-total_cart_count')
+
+    
+# Order the categories by total_view_count and total_cart_count
         context={
           'genres':genres,
           'sort_category':True,
           'categories':sorted_categories,
-          'data':movies,
+          'data_dvd':get_dvd,
+          'data_scene':get_scene,
+          'data_photoset':get_photoset,
           'star':stardata,
           'current':current,
-          'haircolor':haircolor
+          'haircolor':haircolor,
+          'user_favourite_movie':user_favorite_movies,
+          'user_added_cart':user_added_cart,
+
 
         } 
         return render(request,"category.html",context)
@@ -164,22 +184,31 @@ def category_filter(request):
         context={
           'genres':genres,
           'sort_stars':True,
-          'data':movies,
+          'data_dvd':get_dvd,
+          'data_scene':get_scene,
+          'data_photoset':get_photoset,
           'star':sorted_stars,
           'current':current,
-          'haircolor':haircolor
+          'haircolor':haircolor,
+          'user_favourite_movie':user_favorite_movies,
+          'user_added_cart':user_added_cart,
+
+
 
         } 
         return render(request,"category.html",context)
-
-
-
     context={
           'genres':genres,
-          'data':movies,
+          'data_dvd':get_dvd,
+          'data_scene':get_scene,
+          'data_photoset':get_photoset,
           'star':stardata,
           'current':current,
-          'haircolor':haircolor
+          'haircolor':haircolor,
+          'user_favourite_movie':user_favorite_movies,
+          'user_added_cart':user_added_cart,
+
+
      }
     return render(request,"category.html",context)
 
