@@ -23,7 +23,7 @@ from django.shortcuts import render, HttpResponse, redirect
 from .forms import ResitrationForm
 from .models import Account
 from indexapp.models import FavouritesModel
-from detailapp.models import Order_Product,Payment,Order,Order_Product_album
+from detailapp.models import Order_Product,Payment,Order,Order_Product_album,Cartitem
 # from django.utils.encoding import force_text
 from django.contrib import messages, auth
 # verification email module import
@@ -284,7 +284,6 @@ def profile(request):
     orders_dvd=Order_Product.objects.filter(user=request.user,product__type="DVD")
     
     
-    print(orders_dvd)
     orders_scene=Order_Product.objects.filter(user=request.user,product__type="Scene")
     orders_album=Order_Product_album.objects.filter(user=request.user)
     orders_photosets=Order_Product.objects.filter(user=request.user,product__type="PhotoSets")
@@ -295,14 +294,29 @@ def profile(request):
     except:
         favourites=None
     orders_product = Order.objects.filter(payment__in=payments).order_by('-id')
-    print(favourites)
+    print()
+    favourite_dvd=favourites.favourite_movies.all().filter(type="DVD")
+    favourite_scene=favourites.favourite_movies.all().filter(type="Scene")
+    favourite_photoset=favourites.favourite_movies.all().filter(type="PhotoSets")
+    user_favorite_movies=None
+    if request.user.is_authenticated:
+        user_favorite_movies = FavouritesModel.objects.filter(user=request.user).values_list('favourite_movies__id', flat=True)
+    user_added_cart=None
+    if request.user.is_authenticated:
+        user_added_cart=Cartitem.objects.filter(user=request.user).values_list('product__id',flat=True)
+
+
     return render(request,'profile.html',{
         'orders_dvd':orders_dvd,
         'orders_scene':orders_scene,
         'orders_photoset':orders_photosets,
         'orders_album':orders_album,
-        'favourites':favourites,
-        'orders_product':orders_product
+        'favourite_dvd':favourite_dvd,
+        'favourite_scene':favourite_scene,
+        'favourite_photoset':favourite_photoset,
+        'orders_product':orders_product,
+        'user_favourite_movie':user_favorite_movies,
+        'user_added_cart':user_added_cart
         })
 
 
