@@ -27,13 +27,6 @@ def home(request):
     page_photo=request.GET.get('page_photo')
     paged_photo=paginator_photo.get_page(page_photo)
 
-    # paginator_dvd=Paginator(all_dvd,5)
-    # page_dvd=request.GET.get('page')
-    # paged_dvd=paginator_dvd.get_page(page_dvd)
-    
-
-
-
     count_dvd=all_dvd.count()
     allalbums=Albums.objects.all().order_by('-id')
     stardata=StarsModel.objects.all().order_by('-view_count')
@@ -67,6 +60,8 @@ def home(request):
         
     }
     return render(request,'index.html',context)
+
+
     
 def studio_detail(request,id):
     studio=StudioModel.objects.get(id=id)
@@ -92,6 +87,8 @@ def studio_detail(request,id):
 
     }
     return render(request,'studio-detail.html',context)
+
+
 def search(request):
     tosearch=request.POST['searchtext']
     get_dvd=MovieDetail.objects.filter(movie_name__icontains=tosearch,type="DVD").order_by('-id')
@@ -216,10 +213,26 @@ def star_detail(request,id):
     else:
         age=None
     movies=MovieDetail.objects.filter(stars=star)
+    data_dvd=movies.filter(type="DVD").order_by('-id')
+    data_scene=movies.filter(type="Scene").order_by('-id')
+
+    data_photoset=movies.filter(type="PhotoSets").order_by('-id')
+
+    if  not isinstance(request.user, AnonymousUser):
+        user_favorite_movies = FavouritesModel.objects.filter(user=request.user).values_list('favourite_movies__id', flat=True)
+    user_added_cart=None
+    if not isinstance(request.user,AnonymousUser):
+        user_added_cart=Cartitem.objects.filter(user=request.user).values_list('product__id',flat=True)
+
     context={
         'star':star,
-        'movies':movies,
+        'data_dvd':data_dvd,
+        'data_scene':data_scene,
+        'data_photoset':data_photoset,
         'age':age,
+        'user_favourite_movie':user_favorite_movies,
+        'user_added_cart':user_added_cart,
+
     }
     return render(request,'stardetail.html',context)
 
