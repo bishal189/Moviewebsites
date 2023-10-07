@@ -15,17 +15,17 @@ def home(request):
     all_scene=MovieDetail.objects.filter(type="Scene").order_by('-id')
     all_photosets=MovieDetail.objects.filter(type="PhotoSets").order_by('-id')
 
-    paginator_dvd=Paginator(all_dvd,5)
+    paginator_dvd=Paginator(all_dvd,20)
     page_dvd=request.GET.get('page_dvd')
     paged_dvd=paginator_dvd.get_page(page_dvd)
 
-    paginator_dvd=Paginator(all_scene,3)
+    paginator_scene=Paginator(all_scene,4)
     page_scene=request.GET.get('page_scene')
-    paged_scene=paginator_dvd.get_page(page_scene)
+    paged_scene=paginator_scene.get_page(page_scene)
 
-    paginator_dvd=Paginator(all_photosets,5)
+    paginator_photo=Paginator(all_photosets,5)
     page_photo=request.GET.get('page_photo')
-    paged_photo=paginator_dvd.get_page(page_photo)
+    paged_photo=paginator_photo.get_page(page_photo)
 
     # paginator_dvd=Paginator(all_dvd,5)
     # page_dvd=request.GET.get('page')
@@ -37,6 +37,11 @@ def home(request):
     count_dvd=all_dvd.count()
     allalbums=Albums.objects.all().order_by('-id')
     stardata=StarsModel.objects.all().order_by('-view_count')
+    paginator_star=Paginator(stardata,5)
+    page_star=request.GET.get('page_star')
+    paged_star=paginator_star.get_page(page_star)
+
+
     genres=Category.objects.all().order_by('-id')
     haircolor=StarsModel.objects.values('haircolor').distinct()
 
@@ -54,7 +59,8 @@ def home(request):
         'all_photoset':paged_photo,
         'count':count_dvd,
         'allalbums':allalbums,
-        'star':stardata,
+        'star':paged_star,
+        
         'haircolor':haircolor,
         'user_favourite_movie':user_favorite_movies,
         'user_added_cart':user_added_cart,
@@ -133,9 +139,14 @@ def scenes(request):
     paginator_scene=Paginator(alldata,4)
     page_scene=request.GET.get('page')
     paged_scene=paginator_scene.get_page(page_scene)
-    print(paged_scene)
+    user_favorite_movies=None
+    if  not isinstance(request.user, AnonymousUser):
+        user_favorite_movies = FavouritesModel.objects.filter(user=request.user).values_list('favourite_movies__id', flat=True)
+    user_added_cart=None
+    if not isinstance(request.user,AnonymousUser):
+        user_added_cart=Cartitem.objects.filter(user=request.user).values_list('product__id',flat=True)
     
-    return render(request,'scenes.html',{'scenes':paged_scene})
+    return render(request,'scenes.html',{'scenes':paged_scene,'user_favourite_movie':user_favorite_movies,'user_added_cart':user_added_cart})
 
 
 def dvd(request):
@@ -151,7 +162,7 @@ def dvd(request):
         user_added_cart=Cartitem.objects.filter(user=request.user).values_list('product__id',flat=True)
     # count1=paged_products.count()
     return render(request,'dvd.html',{'alldata':alldata,'paged_dvd':paged_scene ,'user_favourite_movie':user_favorite_movies,
-        'user_added_cart':user_added_cart,
+        'user_added_cart':user_added_cart
 })
 
 def stars(request):
@@ -190,8 +201,18 @@ def photosets(request):
     paginator_scene=Paginator(movies,4)
     page_scene=request.GET.get('photosets')
     paged_scene=paginator_scene.get_page(page_scene)
+    user_favorite_movies=None
+    if  not isinstance(request.user, AnonymousUser):
+        user_favorite_movies = FavouritesModel.objects.filter(user=request.user).values_list('favourite_movies__id', flat=True)
+    user_added_cart=None
+    if not isinstance(request.user,AnonymousUser):
+        user_added_cart=Cartitem.objects.filter(user=request.user).values_list('product__id',flat=True)
+
     context={
-        'movies':paged_scene
+        'movies':paged_scene,
+        'user_favourite_movie':user_favorite_movies,
+        'user_added_cart':user_added_cart,
+        
     }
 
     return render(request,'photosets.html',context)

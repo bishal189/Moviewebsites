@@ -109,7 +109,7 @@
 
 					</div>
 				</div>
-				<div class="row">
+				<div style="margin:0" class="row">
 					<div class="col-12">
 						<div style="justify-content:center;" class="catalog__paginator-wrap">
 							{% comment %} <span style="position:absolute;left:25px;" class="catalog__pages">10 from {{count}}</span> {% endcomment %}
@@ -250,42 +250,4 @@
 		</div>
 	</footer> {% endcomment %}
 	<!-- end footer -->
-<script>
-
-	function genrePost(){
-		genre=document.getElementById('genre')
-
-		const selectedGenre=genre.value
-		if (selectedGenre=="all"){
-			{% if year %}
-			window.location.replace('/category/year/{{year}}')
-			{% else %}
-			window.location.replace('/category')
-			{% endif %}
-			return
-		}
-		{% if year %}
-		window.location.replace('/category/year_genre/'+{{year}}+'/'+selectedGenre)
-		return 
-		{% endif %}
-	window.location.replace('/category/genre/'+selectedGenre)
-		
-	}
-	function yearPost(){
-		year=document.getElementById('year').value
-		if (year=="all"){
-			{% if genre %}
-			window.location.replace('/category/genre/{{genre}}')
-			{% else %}
-			window.location.replace('/category')
-			{% endif %}
-			return 
-		}
-		{% if genre %}
-		window.location.replace('/category/year_genre/'+year+'/{{genre}}')
-		return 
-		{% endif %}
-		window.location.replace('/category/year/'+year)
-	}
-</script>
 	{% endblock %}

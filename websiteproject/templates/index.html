@@ -304,7 +304,7 @@ clickyes()
 				</div>
 					<div style="justify-content:center;" class="row row--grid">
 						{% for item in  all_dvd %}
-						<div   style="margin-right:2px"class="col-6 col-sm-4 col-lg-3 col-xl-2">
+						<div   style="margin-right:-13px"class="col-6 col-sm-4 col-lg-3 col-xl-2 ">
 							<div class="card">
 								<a style="border-radius:0px;" href="{% url 'details' slug=item.slug %}" class="card__cover">
 									<img style="height:240px;width:165px;filter:blur(0);" src="{{item.coverphoto.url}}" alt="">
@@ -427,7 +427,7 @@ clickyes()
 				</div>
 					<div style="justify-content:center;" class="row row--grid">
 						{% for item in  all_scene %}
-						<div  class="col-6 col-sm-4 col-lg-3 col-xxl-2 ">
+						<div style="margin-right:-20px;" class="col-6 col-sm-6 col-lg-3 col-xxl-2 ">
 							<div class="card">
 								<a style="border-radius:0px;filter:blur(0);hover:none;" href="{% url 'details' slug=item.slug %}" class="card__cover">
 									<img  style='height: 150px;width:250px;border-radius: 0px;filter:blur(0px);'src="{{item.coverphoto.url}}" alt="">
@@ -554,7 +554,7 @@ clickyes()
 				</div>
 					<div style="justify-content:center;" class="row row--grid">
 						{% for item in  all_photoset %}
-						<div   style="margin-right:2px"class="col-6 col-sm-4 col-lg-3 col-xl-2">
+						<div   style="margin-right:-13px"class="col-6 col-sm-4 col-lg-3 col-xl-2">
 							<div class="card">
 								<a style="border-radius:0px;filter:blur(0);hover:none;" href="{% url 'details' slug=item.slug %}" class="card__cover">
 									<img style="height:240px;width:165px;filter:blur(0);" src="{{item.coverphoto.url}}" alt="">
@@ -672,6 +672,84 @@ clickyes()
 	<!-- end catalog -->
 
 	
+	<div style="margin-top:-100px;" class="catalog catalog--list">
+		<div class="container">
+			
+			<div class="row">
+				<div class="col-12">
+					<h1 class="home__title">Trending Stars </h1><F5>
+				</div>
+					<div style="justify-content:center;" class="row row--grid">
+						{% for item in  star %}
+						<div   style="margin-right:-13px"class="col-6 col-sm-4 col-lg-3 col-xl-2">
+							<div class="card">
+								<a style="border-radius:0px;" href="{% url 'star_detail' item.id %}" class="card__cover">
+									<img style="height:240px;width:165px;filter:blur(0);" src="{{item.image.url}}" alt="">
+																		</a>
+									
+
+									
+								<h3 class="card__title"><a href="{% url 'star_detail' item.id%}">{{item.name}}</a></h3>
+								{% comment %} <ul class="card__list">
+									<li>{{item.age}} yrs</li>
+									<li>{{item.duration}} min</li>
+									<li>{{item.price}} $</li>
+								</ul> {% endcomment %}
+								
+							</div>
+						</div>
+						{% endfor %}	
+
+					
+					</div>
+
+				</div>
+			</div>
+			
+			
+	
+			
+		 <div class="row">
+				<div class="col-12">
+					<div style="justify-content:center;" class="catalog__paginator-wrap">
+						{% comment %} <span style="position:absolute;left:25px;" class="catalog__pages">10 from {{count}}</span> {% endcomment %}
+
+						<ul class="catalog__paginator">
+							<nav class="mt-4" aria-label="Page navigation sample">
+								{% if all_photoset.has_other_pages %}
+								<ul class="pagination" style='display: flex;
+								margin-bottom: 13px;'>
+									{% if all_photoset.has_previous %}
+									<li class="page-item "><a class="page-link"
+											href="?page_photo={{all_photoset.previous_page_number}}"><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.75 5.36475L13.1992 5.36475" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M5.771 10.1271L0.749878 5.36496L5.771 0.602051" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
+									{% else %}
+									<li class="page-item disabled"><a class="page-link" href=""><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.75 5.36475L13.1992 5.36475" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M5.771 10.1271L0.749878 5.36496L5.771 0.602051" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
+									{% endif %}
+			
+									{% for i in all_photoset.paginator.page_range %}
+									{% if all_photoset.number == i %}
+									<li style="margin-right:15px;" class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
+									{% else %}
+									<li class="page-item"><a class="page-link" href="?page_photo={{i}}">{{i}}</a></li>
+									{% endif %}
+									{% endfor %}
+									{% if all_photoset.has_next %}
+									<li class="page-item"><a class="page-link active" href="?page_photo={{all_photoset.next_page_number}}"><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.1992 5.3645L0.75 5.3645" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M8.17822 0.602051L13.1993 5.36417L8.17822 10.1271" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
+									{% else %}
+									<li class="page-item disabled"><a class="page-link" href="#"><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.1992 5.3645L0.75 5.3645" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M8.17822 0.602051L13.1993 5.36417L8.17822 10.1271" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
+									{% endif %}
+								</ul>
+								{% endif %}
+							</nav>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+
+		</div>
+	</div>
+	<!-- end catalog -->
 
 
 
@@ -687,7 +765,7 @@ clickyes()
 					<div class="section__carousel-wrap">
 						<div class="section__carousel owl-carousel" id="subscriptions">
 							{% for album in allalbums %}
-							<div class="card">
+							<div style="margin-right:-13px;" class="card">
 								<a href="{% url 'album_detail' album.id %}" class="card__cover">
 									<img style="filter:blur(0);" src="{{album.coverphoto.url}}" alt="">
 								</a>
