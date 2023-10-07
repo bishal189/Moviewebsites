@@ -137,7 +137,7 @@
 								<a class="nav-link" data-toggle="tab" href="#tab-4" role="tab" aria-controls="tab-4" aria-selected="false">Download  Files</a> 
 						   </li>
 						   <li class="nav-item">
-							<a class="nav-link" data-toggle="tab" href="#tab-5" role="tab" aria-controls="tab-5" aria-selected="false">Download Invoice</a> 
+							<a class="nav-link" data-toggle="tab" href="#tab-5" role="tab" aria-controls="tab-5" aria-selected="false">Orders</a> 
 					   </li>
 
 							
@@ -153,27 +153,58 @@
 			</div>
 		</div>
 
+		<!-- your movies-->
 		<div class="container">
 			<!-- content tabs -->
 			<div class="tab-content">
 				
 				<div class="tab-pane fade" id="tab-2" role="tabpanel">
 					<!-- favorites -->
+				<div style="margin-top:5px;margin-bottom:-50px;" class="col-12">
+					<h1 class="home__title">DVD </h1><F5>
+				</div>
+				<!--dvd-->
 					<div class="row row--grid">
-						{% for order in orders %}
-						<div class="col-6 col-sm-4 col-lg-3 col-xl-2">
-							<div class="card card--favorites">
-								<a href="{% url 'details' order.product.slug %}" class="card__cover">
-									<img src="{{order.product.coverphoto.url}}" alt="">
-								</a>
-								
-								
-								<h3 class="card__title"><a href="details.html">{{order.product.movie_name}}</a></h3>
+						{% for item in orders_dvd %}
+						<div   style="margin-right:-13px"class="col-6 col-sm-4 col-lg-3 col-xl-2 ">
+							<div class="card">
+								<a style="border-radius:0px;" href="{% url 'details' slug=item.product.slug %}" class="card__cover">
+									<img style="height:240px;width:165px;filter:blur(0);" src="{{item.product.coverphoto.url}}" alt="">
+																		</a>
+									{% if user.is_authenticated %}
+									{% if item.product.id in user_favourite_movie %}
+									<button fetch-url="{% url 'remove_favourites' item.product.id %}" data-context="{{item.product.id}}" onclick="remove_favourites(this)"  id="remove_favourites_{{item.product.id}}" class="card__add" type="button">
+										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="100" height="100">
+											<path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z" fill="blue"/>
+										</svg>
+										
+										</button>
+									{% else %}
+									<button data-context="{{item.product.id}}" fetch-url="{% url 'add_favourites' item.product.id %}"onclick="add_favourites(this)"  id="add_favourites_{{item.product.id}}" class="card__add" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z"/></svg></button>
+									{% endif %}
+									<button style="display:none" fetch-url="{% url 'remove_favourites' item.product.id %}" data-context="{{item.product.id}}" onclick="remove_favourites(this)"  id="remove_favourites_{{item.product.id}}" class="card__add" type="button">
+										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="100" height="100">
+											<path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z" fill="blue"/>
+										</svg>
+										
+										</button>
+										<button style="display:none;" data-context="{{item.product.id}}" fetch-url="{% url 'add_favourites' item.id %}"onclick="add_favourites(this)"  id="add_favourites_{{item.product.id}}" class="card__add" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z"/></svg></button>
+
+
+										{% else %}
+										<a href="{% url 'login' %}"><button class="card__add" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z"/></svg></button></a>
+										{% endif %}
+									
+										
+
+									
+								<h3 class="card__title"><a href="{% url 'details' slug=item.product.slug%}">{{item.product.movie_name}}</a></h3>
 								<ul class="card__list">
-									<li>{{order.product.type}}</li>
-									<li>{{order.product.duration}} min</li>
-									<li>{{order.product.price}} $</li>
+									<li>{{item.product.type}}</li>
+									<li>{{item.product.duration}} min</li>
+									<li>{{item.product.price}} $</li>
 								</ul>
+								
 							</div>
 						</div>
 						{% endfor %}
@@ -181,11 +212,135 @@
 
 						
 					</div>
-					<!-- end favorites -->
+					<!--end dvd-->
+					<!--scene-->
+					<div  style="margin-top:35px;margin-bottom:-50px;" class="col-12">
+						<h1 class="home__title">Scene </h1><F5>
+					</div>
+					<div class="row row--grid">
+						{% for item in orders_scene %}
+						<div style="margin-right:-20px;" class="col-6 col-sm-6 col-lg-3 col-xxl-2 ">
+							<div class="card">
+								<a style="border-radius:0px;" href="{% url 'details' slug=item.product.slug %}" class="card__cover">
+									<img  style='height: 150px;width:250px;border-radius: 0px;filter:blur(0px);'src="{{item.product.coverphoto.url}}" alt="">
+																		</a>
+									{% if user.is_authenticated %}
+									{% if item.product.id in user_favourite_movie %}
+									<button fetch-url="{% url 'remove_favourites' item.product.id %}" data-context="{{item.product.id}}" onclick="remove_favourites(this)"  id="remove_favourites_{{item.product.id}}" class="card__add" type="button">
+										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="100" height="100">
+											<path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z" fill="blue"/>
+										</svg>
+										
+										</button>
+									{% else %}
+									<button data-context="{{item.product.id}}" fetch-url="{% url 'add_favourites' item.product.id %}"onclick="add_favourites(this)"  id="add_favourites_{{item.product.id}}" class="card__add" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z"/></svg></button>
+									{% endif %}
+									<button style="display:none" fetch-url="{% url 'remove_favourites' item.product.id %}" data-context="{{item.product.id}}" onclick="remove_favourites(this)"  id="remove_favourites_{{item.product.id}}" class="card__add" type="button">
+										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="100" height="100">
+											<path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z" fill="blue"/>
+										</svg>
+										
+										</button>
+										<button style="display:none;" data-context="{{item.product.id}}" fetch-url="{% url 'add_favourites' item.id %}"onclick="add_favourites(this)"  id="add_favourites_{{item.product.id}}" class="card__add" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z"/></svg></button>
 
-					
-					<!-- end paginator -->
+
+										{% else %}
+										<a href="{% url 'login' %}"><button class="card__add" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z"/></svg></button></a>
+										{% endif %}
+									
+										
+
+									
+								<h3 class="card__title"><a href="{% url 'details' slug=item.product.slug%}">{{item.product.movie_name}}</a></h3>
+								<ul class="card__list">
+									<li>{{item.product.type}}</li>
+									<li>{{item.product.duration}} min</li>
+									<li>{{item.product.price}}$</li>
+								</ul>
+								
+							</div>
+						</div>
+						{% endfor %}
+					</div>
+				<!--End Scene-->
+				<!-- Photosets-->
+				<div  style="margin-top:35px;margin-bottom:-50px;" class="col-12">
+					<h1 class="home__title">Photosets </h1><F5>
+				</div>
+				<div class="row row--grid">
+					{% for item in orders_photoset %}
+					<div   style="margin-right:-13px"class="col-6 col-sm-4 col-lg-3 col-xl-2 ">
+						<div class="card">
+							<a style="border-radius:0px;" href="{% url 'details' slug=item.product.slug %}" class="card__cover">
+								<img style="height:240px;width:165px;filter:blur(0);" src="{{item.product.coverphoto.url}}" alt="">
+							</a>
+								{% if user.is_authenticated %}
+								{% if item.product.id in user_favourite_movie %}
+								<button fetch-url="{% url 'remove_favourites' item.product.id %}" data-context="{{item.product.id}}" onclick="remove_favourites(this)"  id="remove_favourites_{{item.product.id}}" class="card__add" type="button">
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="100" height="100">
+										<path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z" fill="blue"/>
+									</svg>
+									
+									</button>
+								{% else %}
+								<button data-context="{{item.product.id}}" fetch-url="{% url 'add_favourites' item.product.id %}"onclick="add_favourites(this)"  id="add_favourites_{{item.product.id}}" class="card__add" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z"/></svg></button>
+								{% endif %}
+								<button style="display:none" fetch-url="{% url 'remove_favourites' item.product.id %}" data-context="{{item.product.id}}" onclick="remove_favourites(this)"  id="remove_favourites_{{item.product.id}}" class="card__add" type="button">
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="100" height="100">
+										<path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z" fill="blue"/>
+									</svg>
+									
+									</button>
+									<button style="display:none;" data-context="{{item.product.id}}" fetch-url="{% url 'add_favourites' item.id %}"onclick="add_favourites(this)"  id="add_favourites_{{item.product.id}}" class="card__add" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z"/></svg></button>
+
+
+									{% else %}
+									<a href="{% url 'login' %}"><button class="card__add" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z"/></svg></button></a>
+									{% endif %}
+								
+									
+
+								
+							<h3 class="card__title"><a href="{% url 'details' slug=item.product.slug%}">{{item.product.movie_name}}</a></h3>
+							<ul class="card__list">
+								<li>{{item.product.type}}</li>
+								<li>{{item.product.duration}} min</li>
+								<li>{{item.product.price}} $</li>
+							</ul>
+							
+						</div>
+					</div>
+					{% endfor %}
+				</div>
+				<!--End photosets-->
+				<div  style="margin-top:35px;margin-bottom:-50px;" class="col-12">
+					<h1 class="home__title">Album </h1><F5>
+				</div>
+				<div class="row row--grid">
+					{% for item in orders_album %}
+					<div   style="margin-right:-13px"class="col-6 col-sm-4 col-lg-3 col-xl-2 ">
+						<div class="card">
+							<a style="border-radius:0px;" href="{% url 'album_detail' item.product.album.id %}" class="card__cover">
+								<img style="height:240px;width:165px;filter:blur(0);" src="{{item.product.album.coverphoto.url}}" alt="">
+							</a>
+							<span class="card__rating">{{item.product.album.price}} $</span>	
+							<h3 class="card__title card__title--subs"><a href="{% url 'album_detail' item.product.album.id %}">{{item.product.album.album_name}}</a></h3>
+							<ul class="card__list">
+											{% comment %} <li>{{album.movies.count}} items added</li> {% endcomment %}
+											<li>{{item.product.album.price}} $</li>
+											
+										</ul>
+						</div>
+					</div>
+					{% endfor %}
+				</div>
+
+				<!--end album-->
+
 				</div> 
+
+
+				<!--end your movies-->
 
 				<div class="tab-pane fade" id="tab-1" role="tabpanel">
 					<!-- favorites -->
@@ -346,7 +501,9 @@
 									<thead>
 										<tr>
 											<th>Order_number</th>
+
 											<th>Payment_Id</th>
+											<th>Date</th>
 											<th>Download Invoice</th>
 										</tr>
 										
@@ -363,6 +520,10 @@
 											
 											<td>
 												<div class="main__table-text">{{data.payment.payment_id}}</div>
+											</td>
+
+											<td>
+												<div class="main__table-text">{{data.payment.created_at|date:"M d, Y"}}</div>
 											</td>
 											<td>
 												<div class="main__table-text"><a class="sign__btn" href="{% url 'download_pdf' data.order_number data.payment.payment_id %}">Download Invoice</a></div>

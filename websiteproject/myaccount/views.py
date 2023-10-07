@@ -23,7 +23,7 @@ from django.shortcuts import render, HttpResponse, redirect
 from .forms import ResitrationForm
 from .models import Account
 from indexapp.models import FavouritesModel
-from detailapp.models import Order_Product,Payment,Order
+from detailapp.models import Order_Product,Payment,Order,Order_Product_album
 # from django.utils.encoding import force_text
 from django.contrib import messages, auth
 # verification email module import
@@ -140,7 +140,6 @@ def forget_password(request):
     
 
 def reset_password_validate(request,uidb64,token):
-    print('hello','*******************')
     # validate the user by decoding the token and user primary key
     try:
         uid=urlsafe_base64_decode(uidb64).decode() 
@@ -229,7 +228,14 @@ def reset_password(request):
 
 
 def profile(request):
-    orders=Order_Product.objects.filter(user=request.user)
+    orders_dvd=Order_Product.objects.filter(user=request.user,product__type="DVD")
+    
+    
+    print(orders_dvd)
+    orders_scene=Order_Product.objects.filter(user=request.user,product__type="Scene")
+    orders_album=Order_Product_album.objects.filter(user=request.user)
+    orders_photosets=Order_Product.objects.filter(user=request.user,product__type="PhotoSets")
+
     payments=Payment.objects.filter(user=request.user).order_by('-id')
     try:
         favourites=FavouritesModel.objects.get(user=request.user)
@@ -237,7 +243,14 @@ def profile(request):
         favourites=None
     orders_product = Order.objects.filter(payment__in=payments).order_by('-id')
     print(favourites)
-    return render(request,'profile.html',{'orders':orders,'favourites':favourites,'orders_product':orders_product})
+    return render(request,'profile.html',{
+        'orders_dvd':orders_dvd,
+        'orders_scene':orders_scene,
+        'orders_photoset':orders_photosets,
+        'orders_album':orders_album,
+        'favourites':favourites,
+        'orders_product':orders_product
+        })
 
 
 
