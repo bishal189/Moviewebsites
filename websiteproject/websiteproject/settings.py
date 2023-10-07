@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'indexapp',
     'albums',
     'downloader',
+    'captcha',
 ]
 
 MIDDLEWARE = [
@@ -181,3 +182,9 @@ SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR /'media'
 
+
+
+
+# for api captcha
+RECAPTCHA_PUBLIC_KEY ='6Leoo4EoAAAAAHju_KuQXnCjsoBw6usehRFl6kbU'
+RECAPTCHA_PRIVATE_KEY = '6Leoo4EoAAAAABQHnI6KsMz7EZLzKyAg9rv3zMCH'

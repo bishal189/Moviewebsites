@@ -20,7 +20,7 @@ class OrderForm(forms.ModelForm):
         self.fields ['state'].widget.attrs['placeholder']='Enter state'      
         self.fields ['city'].widget.attrs['placeholder']='Enter city'      
         self.fields ['order_note'].widget.attrs['placeholder']='Enter order note'      
-        self.fields ['company_name'].widget.attrs['placeholder']='Enter company name'      
+        self.fields ['company_name'].widget.attrs['placeholder']='Enter company_name'      
         
         for field in self.fields:
             self.fields [field].widget.attrs['class']='form-control'

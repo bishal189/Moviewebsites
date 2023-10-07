@@ -1,5 +1,8 @@
 from django import forms
 from .models import Account
+from captcha.fields import ReCaptchaField 
+from captcha.widgets import ReCaptchaV2Checkbox
+
 
 
 class ResitrationForm(forms.ModelForm):
@@ -11,7 +14,8 @@ class ResitrationForm(forms.ModelForm):
     }))
     class Meta:
         model=Account
-        fields=['username','email','password']
+        fields=['username','email','password',]
+        # captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox) 
 
     def __init__(self,*args,**kwargs):
         super(ResitrationForm,self).__init__(*args,**kwargs)

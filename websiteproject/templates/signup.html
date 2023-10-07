@@ -8,6 +8,8 @@
 
 
 	{% block content %}
+	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
 	<!-- sign in -->
 	<div class="sign section--full-bg" data-bg="img/bg.jpg">
 		<div class="container">
@@ -43,7 +45,8 @@
 								<input id="remember" name="remember" type="checkbox" checked="checked">
 								<label for="remember">I agree to the <a href="privacy.html">Privacy Policy</a></label>
 							</div>
-							
+							<div style="color:white;" class="g-recaptcha" data-sitekey="6Lc-44YmAAAAADulNejvxUPsr2wclqNrGfGHNGY8">  </div>
+
 							<button class="sign__btn" type="submit">Sign up</button>
 
 							<span class="sign__delimiter">or</span>

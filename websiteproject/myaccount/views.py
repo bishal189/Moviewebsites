@@ -37,32 +37,42 @@ django.utils.encoding.force_text = force_str
 
 def Register(request):
     if request.method == 'POST':
-        form = ResitrationForm(request.POST)
-        if form.is_valid():
-            username = form.cleaned_data['username']
-            email = form.cleaned_data['email']
-            password = form.cleaned_data['password']
+        recaptcha_response = request.POST.get('g-recaptcha-response')
+        secret_key = '6Lc-44YmAAAAAMummGaU9yWtpf5GUtlbcz2QDdYn'  
 
-            user = Account.objects.create_user(
-                email=email, username=username, password=password)
-            user.save()
+        data = {
+            'secret': secret_key,
+            'response': recaptcha_response,
+        }
 
-            # user activation
-            # current_site=get_current_site(request)
-            # mail_subject='Please activate your account'
-            # message=render_to_string('accounts/account_verfication_email.html',{
-            #     'user':user,
-            #     'domain':current_site,
-            #     'uid':urlsafe_base64_encode(force_bytes(user.pk)),
-            #     'token':default_token_generator.make_token(user),
-            # })
-            # to_email=email
-            # send_email=EmailMessage(mail_subject,message,to=[to_email])
-            # send_email.send()
+        response = requests.post('https://www.google.com/recaptcha/api/siteverify', data=data)
+        result = response.json()
 
-            messages.success(request, 'Registration successful')
-            return redirect('login')
+        if result['success']:
+            form = ResitrationForm(request.POST)
+            if form.is_valid():
+                username = form.cleaned_data['username']
+                email = form.cleaned_data['email']
+                password = form.cleaned_data['password']
 
+                user = Account.objects.create_user(
+                    email=email, username=username, password=password)
+                user.save()
+
+                
+                user = auth.authenticate(email=email, password=password)
+                auth.login(request, user)
+            
+                return redirect('home')
+            else:
+                messages.error(request,"UNIQUE Contraint failed for Username or Email")
+                return redirect('signup')
+
+
+        else:
+            # CAPTCHA verification failed
+            messages.error(request, 'CAPTCHA verification failed.')
+            return redirect('signup')
     else:
        form = ResitrationForm()
     context = {
@@ -73,30 +83,73 @@ def Register(request):
 
 # the login function
 
+# def Login(request):
+#     url=request.META.get('HTTP_REFERER')
+#     if request.method == 'POST':
+#         email = request.POST['email']
+#         password = request.POST['password']
+#         user = auth.authenticate(email=email, password=password)
+#         if user is not None and user.is_suspended:
+#             messages.error(request, 'You have been suspended by the admin!')
+#             return redirect('login')
+#         else:
+#             if user is not None:
+#                 if Account.objects.filter(email=email, is_superadmin=True).exists():
+#                     auth.login(request, user)
+#                     return redirect('home')
+#                 else:
+#                     auth.login(request, user)
+#                     return redirect('home')
+
+#             else:
+#                 messages.error(request, 'login credintials errors!')
+#                 return redirect('login')
+
+#     else:
+#         return render(request, 'signin.html')
+
+import requests
+
 def Login(request):
-    url=request.META.get('HTTP_REFERER')
     if request.method == 'POST':
-        email = request.POST['email']
-        password = request.POST['password']
-        user = auth.authenticate(email=email, password=password)
-        if user is not None and user.is_suspended:
-            messages.error(request, 'You have been suspended by the admin!')
-            return redirect('login')
-        else:
+        # Validate reCAPTCHA
+        recaptcha_response = request.POST.get('g-recaptcha-response')
+        secret_key = '6Lc-44YmAAAAAMummGaU9yWtpf5GUtlbcz2QDdYn'  
+
+        data = {
+            'secret': secret_key,
+            'response': recaptcha_response,
+        }
+
+        response = requests.post('https://www.google.com/recaptcha/api/siteverify', data=data)
+        result = response.json()
+
+        if result['success']:
+            # CAPTCHA verification passed
+            email = request.POST['email']
+            password = request.POST['password']
+
+            # Authenticate the user and perform other login logic
+            user = auth.authenticate(email=email, password=password)
             if user is not None:
-                if Account.objects.filter(email=email, is_superadmin=True).exists():
+                if user.is_suspended:
+                    messages.error(request, 'You have been suspended by the admin!')
+                    return redirect('login')
+                elif Account.objects.filter(email=email, is_superadmin=True).exists():
                     auth.login(request, user)
                     return redirect('home')
                 else:
                     auth.login(request, user)
                     return redirect('home')
-
             else:
-                messages.error(request, 'login credintials errors!')
+                messages.error(request, 'Login credentials are incorrect!')
                 return redirect('login')
+        else:
+            # CAPTCHA verification failed
+            messages.error(request, 'CAPTCHA verification failed.')
+            return redirect('login')
 
-    else:
-        return render(request, 'signin.html')
+    return render(request, 'signin.html')
 
 
 # logout function is here
