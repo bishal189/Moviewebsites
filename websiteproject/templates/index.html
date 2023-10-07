@@ -323,8 +323,16 @@ clickyes()
 			
 			<div class="row">
 				<div class="col-12">
-					<h1 class="home__title">Recently Added Dvds </h1><F5>
+					<h1 style="background-color:#151f30;margin-bottom:0px;padding:20px;" class="home__title">Recently Added Dvds <span style="font-size:14px;position:absolute;right:10%;"><a href="{% url 'dvd' %}">View All</a></span></h1><F5>
 				</div>
+
+
+
+			
+{% comment %} view all here  {% endcomment %}
+
+
+
 					<div style="justify-content:center;" class="row row--grid">
 						{% for item in  all_dvd %}
 						<div class="large_screen col-6 col-sm-4 col-lg-3 col-xl-2 col-xxl-2">
@@ -446,8 +454,8 @@ clickyes()
 			
 			<div class="row">
 				<div class="col-12">
-					<h1 class="home__title">Recently Added Scenes </h1><F5>
-				</div>
+					<h1 style="background-color:#151f30;margin-bottom:0px;padding:20px;" class="home__title">Recently Added Scenes <span style="font-size:14px;position:absolute;right:10%;"><a href="{% url 'scenes' %}">View All</a></span></h1><F5>
+					</div>
 					<div style="justify-content:center;" class="row row--grid">
 						{% for item in  all_scene %}
 						<div style="margin-right:-20px;" class="col-6 col-sm-6 col-lg-3 col-xxl-2 ">
@@ -573,8 +581,8 @@ clickyes()
 			
 			<div class="row">
 				<div class="col-12">
-					<h1 class="home__title">Recently Added Photosets </h1><F5>
-				</div>
+					<h1 style="background-color:#151f30;margin-bottom:0px;padding:20px;" class="home__title">Recently Added PhotoSets <span style="font-size:14px;position:absolute;right:10%;"><a href="{% url 'photosets' %}">View All</a></span></h1><F5>
+					</div>
 					<div style="justify-content:center;" class="row row--grid">
 						{% for item in  all_photoset %}
 						<div   class="large_screen col-6 col-sm-4 col-lg-3 col-xl-2">
@@ -700,8 +708,8 @@ clickyes()
 			
 			<div class="row">
 				<div class="col-12">
-					<h1 class="home__title">Trending Stars </h1><F5>
-				</div>
+					<h1 style="background-color:#151f30;margin-bottom:0px;padding:20px;" class="home__title">Trending Stars <span style="font-size:14px;position:absolute;right:10%;"><a href="{% url 'stars' %}">View All</a></span></h1><F5>
+					</div>
 					<div style="justify-content:center;" class="row row--grid">
 						{% for item in  star %}
 						<div  class=" large_screen col-6 col-sm-4 col-lg-3 col-xl-2 col-xxl-2">
