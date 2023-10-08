@@ -346,8 +346,8 @@ clickyes()
 				</div>			
 {% comment %} view all here  {% endcomment %}
 
-					<div style="justify-content:center;" class="row row--grid">
-						{% for item in  all_dvd %}
+					<div id="paginator_data_dvd" style="justify-content:center;" class="row row--grid">
+						{% for item in  dvd %}
 						<div class="large_screen col-6 col-sm-4 col-lg-3 col-xl-2 col-xxl-2">
 							<div class="card">
 								<a style="border-radius:0px;" href="{% url 'details' slug=item.slug %}" class="card__cover">
@@ -425,27 +425,27 @@ clickyes()
 					<div style="justify-content:center;" class="catalog__paginator-wrap">
 						{% comment %} <span style="position:absolute;left:25px;" class="catalog__pages">10 from {{count}}</span> {% endcomment %}
 
-						<ul class="catalog__paginator">
+						<ul class="catalog__paginator" data-content="paginator_data_dvd" id="pagination_click">
 							<nav class="mt-4" aria-label="Page navigation sample">
-								{% if all_dvd.has_other_pages %}
-								<ul class="pagination" style='display: flex;
+								{% if dvd.has_other_pages %}
+								<ul id="pagination_click"  class="pagination" style='display: flex;
 								margin-bottom: 13px;'>
-									{% if all_dvd.has_previous %}
+									{% if dvd.has_previous %}
 									<li class="page-item "><a class="page-link"
-											href="?page_dvd={{all_dvd.previous_page_number}}"><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.75 5.36475L13.1992 5.36475" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M5.771 10.1271L0.749878 5.36496L5.771 0.602051" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
+											href="?page_dvd={{dvd.previous_page_number}}"><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.75 5.36475L13.1992 5.36475" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M5.771 10.1271L0.749878 5.36496L5.771 0.602051" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
 									{% else %}
 									<li class="page-item disabled"><a class="page-link" href=""><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.75 5.36475L13.1992 5.36475" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M5.771 10.1271L0.749878 5.36496L5.771 0.602051" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
 									{% endif %}
 			
-									{% for i in all_dvd.paginator.page_range %}
-									{% if all_dvd.number == i %}
+									{% for i in dvd.paginator.page_range %}
+									{% if dvd.number == i %}
 									<li style="margin-right:15px;" class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
 									{% else %}
 									<li class="page-item"><a class="page-link" href="?page_dvd={{i}}">{{i}}</a></li>
 									{% endif %}
 									{% endfor %}
-									{% if all_dvd.has_next %}
-									<li class="page-item"><a class="page-link active" href="?page_dvd={{all_dvd.next_page_number}}"><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.1992 5.3645L0.75 5.3645" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M8.17822 0.602051L13.1993 5.36417L8.17822 10.1271" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
+									{% if dvd.has_next %}
+									<li class="page-item"><a class="page-link active" href="?page_dvd={{dvd.next_page_number}}"><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.1992 5.3645L0.75 5.3645" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M8.17822 0.602051L13.1993 5.36417L8.17822 10.1271" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
 									{% else %}
 									<li class="page-item disabled"><a class="page-link " href="#"><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.1992 5.3645L0.75 5.3645" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M8.17822 0.602051L13.1993 5.36417L8.17822 10.1271" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
 									{% endif %}
@@ -469,8 +469,8 @@ clickyes()
 				<div class="col-12">
 					<h1 style="background-color:#151f30;margin-bottom:0px;padding:20px;" class="home__title">Recently Added Scenes <span style="font-size:14px;position:absolute;right:10%;"><a href="{% url 'scenes' %}">View All</a></span></h1><F5>
 					</div>
-					<div style="justify-content:center;" class="row row--grid">
-						{% for item in  all_scene %}
+					<div id="paginator_data_scene" style="justify-content:center;" class="row row--grid">
+						{% for item in  scenes %}
 						<div  class="large_scene col-6 col-sm-6 col-lg-3 col-xxl-2 ">
 							<div class="card">
 								<a style="border-radius:0px;filter:blur(0);hover:none;" href="{% url 'details' slug=item.slug %}" class="card__cover">
@@ -546,32 +546,31 @@ clickyes()
 			
 	
 			
-=		 <div class="row">
+		 <div class="row">
 				<div class="col-12">
 					<div style="justify-content:center;" class="catalog__paginator-wrap">
 						{% comment %} <span style="position:absolute;left:25px;" class="catalog__pages">10 from {{count}}</span> {% endcomment %}
 
-						<ul class="catalog__paginator">
+						<ul class="catalog__paginator" data-content="paginator_data_scene" id="pagination_click">
 							<nav class="mt-4" aria-label="Page navigation sample">
-								{% if all_scene.has_other_pages %}
-								<ul class="pagination" style='display: flex;
-								margin-bottom: 13px;'>
-									{% if all_scene.has_previous %}
+								{% if scenes.has_other_pages %}
+								<ul class="pagination" style='display: flex;margin-bottom: 13px;'>
+									{% if scenes.has_previous %}
 									<li class="page-item "><a class="page-link"
-											href="?page_scene={{all_scene.previous_page_number}}"><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.75 5.36475L13.1992 5.36475" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M5.771 10.1271L0.749878 5.36496L5.771 0.602051" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
+											href="?page_scene={{scenes.previous_page_number}}"><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.75 5.36475L13.1992 5.36475" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M5.771 10.1271L0.749878 5.36496L5.771 0.602051" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
 									{% else %}
 									<li class="page-item disabled"><a class="page-link" href=""><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.75 5.36475L13.1992 5.36475" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M5.771 10.1271L0.749878 5.36496L5.771 0.602051" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
 									{% endif %}
 			
-									{% for i in all_scene.paginator.page_range %}
-									{% if all_scene.number == i %}
+									{% for i in scenes.paginator.page_range %}
+									{% if scenes.number == i %}
 									<li style="margin-right:15px;" class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
 									{% else %}
 									<li class="page-item"><a class="page-link" href="?page_scene={{i}}">{{i}}</a></li>
 									{% endif %}
 									{% endfor %}
-									{% if all_scene.has_next %}
-									<li class="page-item"><a class="page-link active" href="?page_scene={{all_scene.next_page_number}}"><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.1992 5.3645L0.75 5.3645" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M8.17822 0.602051L13.1993 5.36417L8.17822 10.1271" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
+									{% if scenes.has_next %}
+									<li class="page-item"><a class="page-link active" href="?page_scene={{scenes.next_page_number}}"><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.1992 5.3645L0.75 5.3645" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M8.17822 0.602051L13.1993 5.36417L8.17822 10.1271" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
 									{% else %}
 									<li class="page-item disabled"><a class="page-link " href="#"><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.1992 5.3645L0.75 5.3645" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M8.17822 0.602051L13.1993 5.36417L8.17822 10.1271" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
 									{% endif %}
@@ -596,8 +595,8 @@ clickyes()
 				<div class="col-12">
 					<h1 style="background-color:#151f30;margin-bottom:0px;padding:20px;" class="home__title">Recently Added PhotoSets <span style="font-size:14px;position:absolute;right:10%;"><a href="{% url 'photosets' %}">View All</a></span></h1><F5>
 					</div>
-					<div style="justify-content:center;" class="row row--grid">
-						{% for item in  all_photoset %}
+					<div id="paginator_data_photoset" style="justify-content:center;" class="row row--grid">
+						{% for item in  photoset %}
 						<div   class="large_screen col-6 col-sm-4 col-lg-3 col-xl-2">
 							<div class="card">
 								<a style="border-radius:0px;filter:blur(0);hover:none;" href="{% url 'details' slug=item.slug %}" class="card__cover">
@@ -678,27 +677,27 @@ clickyes()
 					<div style="justify-content:center;" class="catalog__paginator-wrap">
 						{% comment %} <span style="position:absolute;left:25px;" class="catalog__pages">10 from {{count}}</span> {% endcomment %}
 
-						<ul class="catalog__paginator">
+						<ul class="catalog__paginator" data-content="paginator_data_photoset" id="pagination_click">
 							<nav class="mt-4" aria-label="Page navigation sample">
-								{% if all_photoset.has_other_pages %}
-								<ul class="pagination" style='display: flex;
+								{% if photoset.has_other_pages %}
+								<ul id="pagination_click" class="pagination_click" style='display: flex;
 								margin-bottom: 13px;'>
-									{% if all_photoset.has_previous %}
+									{% if photoset.has_previous %}
 									<li class="page-item "><a class="page-link"
-											href="?page_photo={{all_photoset.previous_page_number}}"><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.75 5.36475L13.1992 5.36475" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M5.771 10.1271L0.749878 5.36496L5.771 0.602051" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
+											href="?page_photo={{photoset.previous_page_number}}"><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.75 5.36475L13.1992 5.36475" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M5.771 10.1271L0.749878 5.36496L5.771 0.602051" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
 									{% else %}
 									<li class="page-item disabled"><a class="page-link" href=""><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.75 5.36475L13.1992 5.36475" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M5.771 10.1271L0.749878 5.36496L5.771 0.602051" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
 									{% endif %}
 			
-									{% for i in all_photoset.paginator.page_range %}
-									{% if all_photoset.number == i %}
+									{% for i in photoset.paginator.page_range %}
+									{% if photoset.number == i %}
 									<li style="margin-right:15px;" class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
 									{% else %}
 									<li class="page-item"><a class="page-link" href="?page_photo={{i}}">{{i}}</a></li>
 									{% endif %}
 									{% endfor %}
-									{% if all_photoset.has_next %}
-									<li class="page-item"><a class="page-link active" href="?page_photo={{all_photoset.next_page_number}}"><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.1992 5.3645L0.75 5.3645" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M8.17822 0.602051L13.1993 5.36417L8.17822 10.1271" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
+									{% if photoset.has_next %}
+									<li class="page-item"><a class="page-link active" href="?page_photo={{photoset.next_page_number}}"><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.1992 5.3645L0.75 5.3645" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M8.17822 0.602051L13.1993 5.36417L8.17822 10.1271" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
 									{% else %}
 									<li class="page-item disabled"><a class="page-link" href="#"><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.1992 5.3645L0.75 5.3645" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M8.17822 0.602051L13.1993 5.36417L8.17822 10.1271" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
 									{% endif %}
@@ -723,7 +722,7 @@ clickyes()
 				<div class="col-12">
 					<h1 style="background-color:#151f30;margin-bottom:0px;padding:20px;" class="home__title">Trending Stars <span style="font-size:14px;position:absolute;right:10%;"><a href="{% url 'stars' %}">View All</a></span></h1><F5>
 					</div>
-					<div style="justify-content:center;" class="row row--grid">
+					<div id="paginator_data_star" style="justify-content:center;" class="row row--grid">
 						{% for item in  star %}
 						<div  class=" large_screen col-6 col-sm-4 col-lg-3 col-xl-2 col-xxl-2">
 							<div class="card">
@@ -758,27 +757,27 @@ clickyes()
 					<div style="justify-content:center;" class="catalog__paginator-wrap">
 						{% comment %} <span style="position:absolute;left:25px;" class="catalog__pages">10 from {{count}}</span> {% endcomment %}
 
-						<ul class="catalog__paginator">
+						<ul class="catalog__paginator" data-content="paginator_data_star" id="pagination_click">
 							<nav class="mt-4" aria-label="Page navigation sample">
-								{% if all_photoset.has_other_pages %}
-								<ul class="pagination" style='display: flex;
+								{% if star.has_other_pages %}
+								<ul id="pagination_click" data-paginator="paginator_star" class="pagination" style='display: flex;
 								margin-bottom: 13px;'>
-									{% if all_photoset.has_previous %}
+									{% if star.has_previous %}
 									<li class="page-item "><a class="page-link"
-											href="?page_photo={{all_photoset.previous_page_number}}"><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.75 5.36475L13.1992 5.36475" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M5.771 10.1271L0.749878 5.36496L5.771 0.602051" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
+											href="?page_star={{star.previous_page_number}}"><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.75 5.36475L13.1992 5.36475" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M5.771 10.1271L0.749878 5.36496L5.771 0.602051" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
 									{% else %}
 									<li class="page-item disabled"><a class="page-link" href=""><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.75 5.36475L13.1992 5.36475" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M5.771 10.1271L0.749878 5.36496L5.771 0.602051" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
 									{% endif %}
 			
-									{% for i in all_photoset.paginator.page_range %}
-									{% if all_photoset.number == i %}
+									{% for i in star.paginator.page_range %}
+									{% if star.number == i %}
 									<li style="margin-right:15px;" class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
 									{% else %}
-									<li class="page-item"><a class="page-link" href="?page_photo={{i}}">{{i}}</a></li>
+									<li class="page-item"><a class="page-link" href="?page_star={{i}}">{{i}}</a></li>
 									{% endif %}
 									{% endfor %}
-									{% if all_photoset.has_next %}
-									<li class="page-item"><a class="page-link active" href="?page_photo={{all_photoset.next_page_number}}"><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.1992 5.3645L0.75 5.3645" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M8.17822 0.602051L13.1993 5.36417L8.17822 10.1271" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
+									{% if star.has_next %}
+									<li class="page-item"><a class="page-link active" href="?page_star={{star.next_page_number}}"><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.1992 5.3645L0.75 5.3645" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M8.17822 0.602051L13.1993 5.36417L8.17822 10.1271" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
 									{% else %}
 									<li class="page-item disabled"><a class="page-link" href="#"><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.1992 5.3645L0.75 5.3645" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M8.17822 0.602051L13.1993 5.36417L8.17822 10.1271" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
 									{% endif %}
@@ -845,5 +844,41 @@ clickyes()
 {% include 'include/footer.html' %}
 {% include 'include/script.html' %}
 	<!-- end footer -->
+<script>
+	const paginator=document.querySelectorAll('#pagination_click');
 
+	paginator.forEach(function(element){	
+	element.addEventListener('click', (e) => {
+		if (e.target.tagName === 'A' || e.target.parentNode.tagName === 'A'||e.target.parentNode.parentNode.tagName==='A') {
+			e.preventDefault();
+
+			var targetElement
+			if (e.target.tagName==='A'){
+				
+				targetElement=e.target
+			}else if (e.target.parentNode.tagName=='A'){
+				targetElement=e.target.parentNode
+			}else if(e.target.parentNode.tagName=='svg'){
+				targetElement=e.target.parentNode.parentNode
+			}
+			data_content=element.getAttribute('data-content')
+			data_content=document.getElementById(data_content)
+			const nextPageHref = targetElement.getAttribute('href');
+
+			fetch('/'+nextPageHref,{
+				method: 'GET',  
+				headers: {
+					'X-Requested-With': 'Fetch'
+				},
+			}).then(response=>response.json()).then(data=>{
+				data_content.innerHTML=data.content
+				element.innerHTML=data.pagination
+			})			
+		}
+	});
+})
+	
+</script>
+
+</script>
 	{% endblock %}
