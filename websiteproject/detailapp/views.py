@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404, redirect
 from .models import Cart, Album_item, Albums,Order_Product_album
 from .models import Cart,Cartitem
 from indexapp.models import MovieDetail
-from albums.models import Albums,AlbumMovie
+from albums.models import Albums,AlbumMovie,Separator
 from .models import Album_item
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
@@ -454,10 +454,11 @@ def checkout(request,total=0,quantity=0,cart_items=None,album_price=None):
             data.phone=form.cleaned_data['phone']
             data.email=form.cleaned_data['email']
             data.address_line_1=form.cleaned_data['address_line_1']
-            data.address_line_2=form.cleaned_data['address_line_2']
+            data.zip_code=form.cleaned_data['zip_code']
             data.country=form.cleaned_data['country']
             data.city=form.cleaned_data['city']
             data.state=form.cleaned_data['state']
+            data.company_name=form.cleaned_data['company_name']
             data.order_note=form.cleaned_data['order_note']
             if album_price:
 
@@ -573,7 +574,8 @@ def payement(request):
 
     cart_items=Cartitem.objects.filter(user=request.user)
     cart_items1=Album_item.objects.filter(user=request.user)
-    
+    globaldata=Separator.objects.get(user=request.user)
+
     for item in cart_items:
         orderproduct=Order_Product()
         orderproduct.order_id=order.id
@@ -601,9 +603,9 @@ def payement(request):
         product_item=MovieDetail.objects.get(id=item.product.id)
         # product_item.stock-=item.quantity
         product_item.save()
-    
     for item in cart_items1:
-        albummovie=AlbumMovie.objects.get(user=request.user,album=item.product)
+       
+        albummovie=AlbumMovie.objects.get(user=request.user,album=item.product,separator=globaldata.separator)
         orderproduct=Order_Product_album()
         orderproduct.order_id=order.id
         orderproduct.payment=payment
@@ -642,11 +644,9 @@ def payement(request):
 #  after payement sucessfull the cartitem in the cart should be clear
     Cartitem.objects.filter(user=request.user).delete()
     Album_item.objects.filter(user=request.user).delete()
-
-
-
-
-
+    if cart_items1.count()>0:
+        globaldata.separator=globaldata.separator+1
+        globaldata.save()
 
     data={
         'order_number':order.order_number,
@@ -665,6 +665,7 @@ def payement(request):
 
 
 def order_complete(request):
+    
     order_number=request.GET.get('order_number')
     transID=request.GET.get('payment_id')
    
@@ -696,11 +697,14 @@ def order_complete(request):
    
 
 
+from django.db.models import Value, CharField
 
 
 def download_pdf(request,order_number,transId):
     order=Order.objects.get(order_number=order_number,is_ordered=True)
     ordered_products=Order_Product.objects.filter(order_id=order.id)
+    ordered_products_album=Order_Product_album.objects.filter(order_id=order.id)
+    order_products = list(chain(ordered_products, ordered_products_album))
     payement=Payment.objects.get(payment_id=transId)        
     subtotal=0
     for i in ordered_products:
@@ -708,7 +712,7 @@ def download_pdf(request,order_number,transId):
 
     context={
         'order':order,
-        'ordered_products':ordered_products,
+        'ordered_products':order_products,
         'order_number':order.order_number,
         'transID':transId,
         'payment':payement,

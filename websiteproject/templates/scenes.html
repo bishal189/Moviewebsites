@@ -9,13 +9,46 @@
 
 	<!-- header (relative style) -->
 {% include 'include/header.html' %}
+<style>
+	.top{
+		margin-bottom:-101px;
+	}
+	@media screen and (max-width:1200px){
+		.top{
+			margin-top:130px!important;
+			margin-bottom:0px;
+		}
+		.scene_padding{
+			margin-bottom:-80px;
+		}
+	}
+	@media screen and (min-width: 1600px){
+	
+		.large_screen{
+		  margin-right:-40px;
+	  }
+		  .large_scene{
+			  margin-right:-70px;
+	  }
+  }
+	  @media screen and (max-width: 1600px){
+		  
+		.large_screen{
+		  margin-right:-13px;
+	  }
+	  .large_scene{
+		  margin-right:-20px;
+	  }
+	}
+	
+</style>
 
 	<!-- head -->
-	<section class="section section--head mt-5" style='    margin-bottom: -101px;'>
+	<section class="top section section--head mt-5" >
 		<div class="container">
 			<div class="row">
 				<div style="margin-bottom:60px;" class="col-12 col-xl-6">
-					<h1 class="section__title section__title--head">Scenes</h1>
+					<h1 class="scene_padding section__title section__title--head">Scenes</h1>
 				</div>
 
 				<div class="col-12 col-xl-6">
@@ -42,7 +75,7 @@
 								{% for item in scenes %}
 
 					
-								<div style="margin-right:-15px;" class="col-6 col-sm-6 col-lg-3 col-xxl-2 ">
+								<div class="large_scene col-12 col-sm-6 col-lg-3 col-xxl-2 ">
 									<div class="card">
 										<a style="border-radius:0px;filter:blur(0);hover:none;" href="{% url 'details' slug=item.slug %}" class="card__cover">
 											<img  style='height: 150px;width:250px;border-radius: 0px;filter:blur(0px);'src="{{item.coverphoto.url}}" alt="">

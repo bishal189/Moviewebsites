@@ -1,11 +1,11 @@
 from django.shortcuts import render
 from indexapp.models import MovieDetail
-from .models import Albums,AlbumMovie
+from .models import Albums,AlbumMovie,Separator
 from django.http import JsonResponse
 # Create your views here.
 from django.core.paginator import Paginator
 from django.core import serializers
-from detailapp.models import Cartitem,Order_Product_album
+from detailapp.models import Cartitem,Order_Product_album,Order_Product
 def album(request):
     albums=Albums.objects.all()
     paginator_scene=Paginator(albums,10)
@@ -17,16 +17,26 @@ def album(request):
     return render(request,'album.html',context)
 
 
+
 def album_detail(request,id):
     album=Albums.objects.get(id=id)
     
     movies=MovieDetail.objects.filter(genre__in=album.genre.all(),type=album.type).order_by('-id').distinct()
     counter=0
+    previous_movies_in_albums_bought=[]
+    if request.user.is_authenticated:
+        previous_album=Order_Product_album.objects.filter(user=request.user)
+        for item in previous_album:
+            previous_movies=item.product.movies.all()
+            previous_movies_in_albums_bought.append(previous_movies)
+
+
     already_in_album=None
     if request.user.is_authenticated:
-         albummovie,created=AlbumMovie.objects.get_or_create(user=request.user,album=album)
-         counter=albummovie.movies.count()
-         already_in_album=albummovie.movies.all()
+        globaldata,created=Separator.objects.get_or_create(user=request.user)
+        albummovie,created=AlbumMovie.objects.get_or_create(user=request.user,album=album,separator=globaldata.separator)
+        counter=albummovie.movies.count()
+        already_in_album=albummovie.movies.all()
 
     count=movies.count()
     items_per_page = 20 # Adjust this to your preferred value
@@ -39,13 +49,9 @@ def album_detail(request,id):
 
     # Get the Page object for the current page
     movies = paginator.get_page(page_number)
-    albums_bought=[]
-    if request.user.is_authenticated:
-        album_bought=Order_Product_album.objects.filter(user=request.user)
-        for item in album_bought:
-            albums_bought.append(item.product.album.id)
 
     li=[]
+
     #type checker is used to check for scene in index page
     typeChecker=False
     if album.type=="Scene":
@@ -54,12 +60,22 @@ def album_detail(request,id):
         user=request.user
         cart_item=Cartitem.objects.filter(user=user)
 
+
+
         for item in cart_item:
                 li.append(item.product)
 
+        for item in previous_movies_in_albums_bought:
+                for itemdata in item:
+                    li.append(itemdata)
+        previous_items=Order_Product.objects.filter(user=user)
+    
+        for item in previous_items:
+            li.append(item.product)
+
+
         context={
 
-            'albums_bought':albums_bought,
             'product':album,
             'movies':movies,
             'already_in_album':already_in_album,
@@ -83,8 +99,9 @@ def album_detail(request,id):
 
 def inc_counter(request,album_id,movie_id):
   album=Albums.objects.get(id=album_id)
-  movie=MovieDetail.objects.get(id=movie_id)  
-  album_movie,created=AlbumMovie.objects.get_or_create(user=request.user,album=album)
+  movie=MovieDetail.objects.get(id=movie_id)
+  globaldata=Separator.objects.get(user=request.user)  
+  album_movie,created=AlbumMovie.objects.get_or_create(user=request.user,album=album,separator=globaldata.separator)
   album_movie.movies.add(movie)
   album_movie.counter=album_movie.movies.count()
   album_movie.save()
@@ -97,7 +114,8 @@ def inc_counter(request,album_id,movie_id):
 def dec_counter(request,album_id,movie_id):
   album=Albums.objects.get(id=album_id)
   movie=MovieDetail.objects.get(id=movie_id)
-  album_movie=AlbumMovie.objects.get(user=request.user,album=album)
+  globaldata=Separator.objects.get(user=request.user)
+  album_movie=AlbumMovie.objects.get(user=request.user,album=album,separator=globaldata.separator)
   album_movie.movies.remove(movie)
 
   album_movie.counter=album.movies.count()
@@ -109,14 +127,13 @@ def dec_counter(request,album_id,movie_id):
         'status': 'success'
     }
   return JsonResponse(data)
+
 def get_movies_in_album(request,album_id):
     album=Albums.objects.get(id=album_id)
-    print(album)
-    albummovie=AlbumMovie.objects.get(user=request.user,album=album)
-    print(albummovie.movies.all())
+    globaldata=Separator.objects.get(user=request.user)
+    albummovie=AlbumMovie.objects.get(user=request.user,album=album,separator=globaldata.separator)
 
     movie_data_list = []
-
     # Iterate through the movies and construct the full image URL for each
     for movie in albummovie.movies.all():
         if movie.coverphoto:

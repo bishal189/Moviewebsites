@@ -112,9 +112,10 @@
                                             {% for order in ordered_products %}
                                             <tr>
                                                 <td>{{order.product.movie_name}}
-                                                    
+                                                {{order.product.album.album_name}}
 
                                                 </td>
+
                                                 <td class="text-center">{{order.quantity}}</td>
                                                 <td class="text-center">${{order.product_price}}</td>
                                                 <td class="text-center">${{order.product_price}}</td>

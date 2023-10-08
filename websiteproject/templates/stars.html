@@ -6,14 +6,41 @@
 
 
 {% block content %}
-
+<style>
+	@media screen and (max-width:1200px){
+		.top{
+			margin-top:150px!important;
+		}
+		.dvd_padding{
+			padding-bottom:15px;
+		}
+	}
+	@media screen and (min-width: 1600px){
+	
+		.large_screen{
+		  margin-right:-40px;
+	  }
+		  .large_scene{
+			  margin-right:-70px;
+	  }
+  }
+	  @media screen and (max-width: 1600px){
+		  
+		.large_screen{
+		  margin-right:-13px;
+	  }
+	  .large_scene{
+		  margin-right:-20px;
+	  }
+	
+</style>
 	<!-- header (relative style) -->
 {% include 'include/header.html' %}
-<section class="section section--head mt-5">
+<section class="top section section--head mt-5">
     <div class="container">
         <div class="row">
             <div class="col-12 col-xl-6">
-                <h1 style="margin-bottom:70px;    margin-bottom: -13px;" class="section__title section__title--head">Stars</h1>
+                <h1 style="margin-bottom:70px;    margin-bottom: -13px;" class="dvd_padding section__title section__title--head">Stars</h1>
             </div>
 
             <div class="col-12 col-xl-6">

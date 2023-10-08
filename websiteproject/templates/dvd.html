@@ -9,13 +9,40 @@
 
 	<!-- header (relative style) -->
 {% include 'include/header.html' %}
-
+<style>
+	@media screen and (max-width:1200px){
+		.top{
+			margin-top:150px!important;
+		}
+		.dvd_padding{
+			padding-bottom:15px;
+		}
+	}
+	@media screen and (min-width: 1600px){
+	
+		.large_screen{
+		  margin-right:-40px;
+	  }
+		  .large_scene{
+			  margin-right:-70px;
+	  }
+  }
+	  @media screen and (max-width: 1600px){
+		  
+		.large_screen{
+		  margin-right:-13px;
+	  }
+	  .large_scene{
+		  margin-right:-20px;
+	  }
+	  }
+</style>
 	<!-- head -->
-	<section class="section section--head mt-5" style='    margin-bottom: -7px;'>
+	<section class="top section section--head mt-5" >
 		<div class="container">
 			<div class="row"style='margin-bottom: -64px;'>
 				<div style="margin-bottom:30px;" class="col-12 col-xl-6">
-					<h1  class="section__title section__title--head">DVD</h1>
+					<h1   class="dvd_padding section__title section__title--head">DVD</h1>
 				</div>
 
 				<div class="col-12 col-xl-6">
@@ -40,7 +67,7 @@
 								{% for item in paged_dvd %}
 
 					
-								<div   style="margin-right:-13px"class="col-6 col-sm-4 col-lg-3 col-xl-2">
+								<div   class="large_screen col-6 col-sm-4 col-lg-3 col-xl-2">
 									<div class="card">
 										<a style="border-radius:0px;" href="{% url 'details' slug=item.slug %}" class="card__cover">
 											<img style="height:240px;width:165px;filter:blur(0);" src="{{item.coverphoto.url}}" alt="">

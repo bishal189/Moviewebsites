@@ -154,7 +154,6 @@ const movieDataContainer = document.querySelector(`.movie-data-container[data-id
 
 
 
-{% comment %} alert(fetch_url) {% endcomment %}
 fetch(fetch_url).then((response)=>response.json()).then((data)=>{
     console.log(data)
     let movieDataHTML = "";

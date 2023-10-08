@@ -197,7 +197,7 @@ body::-webkit-scrollbar-thumb {
   transition: 0.5s, margin 0s;
 }
 .header--menu {
-  top: 250px;
+  top: 280px;
 }
 .header__content {
   display: flex;

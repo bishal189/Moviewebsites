@@ -15,6 +15,7 @@ class Albums(models.Model):
     type=models.CharField(max_length=20,blank=True)
 
 
+
     def __str__(self):
         return self.album_name
 
@@ -25,5 +26,11 @@ class AlbumMovie(models.Model):
     album=models.ForeignKey(Albums,on_delete=models.CASCADE)
     movies=models.ManyToManyField(MovieDetail)
     counter=models.IntegerField(blank=True,null=True)
+    separator=models.IntegerField(null=True)
 
+
+
+class Separator(models.Model):
+    user=models.ForeignKey(Account,on_delete=models.CASCADE)
+    separator=models.IntegerField(default=0)
 
