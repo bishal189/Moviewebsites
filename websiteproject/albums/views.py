@@ -19,7 +19,8 @@ def album(request):
 
 def album_detail(request,id):
     album=Albums.objects.get(id=id)
-    movies=MovieDetail.objects.filter(genre__in=album.genre.all()).order_by('-id')
+    
+    movies=MovieDetail.objects.filter(genre__in=album.genre.all(),type=album.type).order_by('-id').distinct()
     counter=0
     already_in_album=None
     if request.user.is_authenticated:
@@ -27,9 +28,8 @@ def album_detail(request,id):
          counter=albummovie.movies.count()
          already_in_album=albummovie.movies.all()
 
-
     count=movies.count()
-    items_per_page = 10 # Adjust this to your preferred value
+    items_per_page = 20 # Adjust this to your preferred value
 
     # Create a Paginator object with the movies queryset
     paginator = Paginator(movies, items_per_page)
@@ -46,20 +46,19 @@ def album_detail(request,id):
             albums_bought.append(item.product.album.id)
 
     li=[]
+    #type checker is used to check for scene in index page
+    typeChecker=False
+    if album.type=="Scene":
+        typeChecker=True
     if request.user.is_authenticated:
         user=request.user
-
-
         cart_item=Cartitem.objects.filter(user=user)
 
         for item in cart_item:
                 li.append(item.product)
 
-   
-    
-        print(albums_bought)
-
         context={
+
             'albums_bought':albums_bought,
             'product':album,
             'movies':movies,
@@ -68,6 +67,7 @@ def album_detail(request,id):
             # 'counter':album.counter,
             'counter':counter,
             'all_products':movies,
+            'typeChecker':typeChecker,
             'count':count
         }
     else:

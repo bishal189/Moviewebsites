@@ -109,7 +109,9 @@ def add_album(request):
       title=request.POST['title']
       limit=request.POST['limit']
       price=request.POST['price']
-      creator=Albums.objects.create(coverphoto=coverphoto,album_name=title,limit=limit,price=price,counter=0)
+      type=request.POST['type']
+
+      creator=Albums.objects.create(coverphoto=coverphoto,album_name=title,type=type,limit=limit,price=price)
       for gen in request.POST.getlist('genre'):
 
         category=Category.objects.get(id=gen)

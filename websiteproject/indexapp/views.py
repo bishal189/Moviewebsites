@@ -176,8 +176,8 @@ def scenes(request):
 
 
 def dvd(request):
-    alldata=MovieDetail.objects.filter(type='DVD')
-    paginator_scene=Paginator(alldata,4)
+    alldata=MovieDetail.objects.filter(type='DVD').order_by('-id')
+    paginator_scene=Paginator(alldata,10)
     page_scene=request.GET.get('paged_dvd')
     paged_scene=paginator_scene.get_page(page_scene)
     user_favorite_movies=None
@@ -217,7 +217,7 @@ def star_detail(request,id):
     data_scene=movies.filter(type="Scene").order_by('-id')
 
     data_photoset=movies.filter(type="PhotoSets").order_by('-id')
-
+    user_favorite_movies=None
     if  not isinstance(request.user, AnonymousUser):
         user_favorite_movies = FavouritesModel.objects.filter(user=request.user).values_list('favourite_movies__id', flat=True)
     user_added_cart=None

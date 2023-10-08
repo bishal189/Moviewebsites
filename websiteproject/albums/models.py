@@ -12,6 +12,7 @@ class Albums(models.Model):
     price=models.IntegerField(blank=True,null=True)
     genre=models.ManyToManyField(Category,blank=True)  
     created_at=models.DateField(auto_now=True,blank=True)  
+    type=models.CharField(max_length=20,blank=True)
 
 
     def __str__(self):
