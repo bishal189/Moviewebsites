@@ -29,8 +29,7 @@ def details(request,slug=None):
     product.view_count=product.view_count+1
     product.save()
     user=request.user
-    newmovies=MovieDetail.objects.all().order_by('-id')[:5]
-    similar=MovieDetail.objects.all().order_by('?')[:20]
+    similar=MovieDetail.objects.filter(type=product.type).order_by('?')[:20]
     li=[]
     if request.user.is_authenticated:
 
@@ -46,15 +45,13 @@ def details(request,slug=None):
         for item in order_item:
             order_li.append(item.product)
 
-        print(order_li,product,"a")
         already_bought=product in order_li
-        print(already_bought)
+
         context={
             'val':val,
             'already_bought':already_bought,
             'product':product,
             'notlogin':False,
-            'newmovies':newmovies,
             'similar':similar,
         }
         
@@ -422,9 +419,7 @@ def checkout(request,total=0,quantity=0,cart_items=None,album_price=None):
             quantity+=album_item.quantity
         tax=0
         all_cart_items = list(chain(cart_items, cart_items1))
-        print(all_cart_items)
         grand_total=total+tax+album_sum;    
-        print(grand_total)
 
     except ObjectDoesNotExist:
         pass    
