@@ -4,16 +4,29 @@ from .models import Albums,AlbumMovie,Separator
 from django.http import JsonResponse
 from django.core.paginator import Paginator
 from detailapp.models import Cartitem,Order_Product_album,Order_Product
-
+from django.template.loader import render_to_string
 
 #for getting the list of albums in album page
 def album(request):
     albums=Albums.objects.all()
-    paginator_scene=Paginator(albums,10)
-    page_scene=request.GET.get('albums')
-    paged_scene=paginator_scene.get_page(page_scene)
+    paginator_album=Paginator(albums,2)
+    page_album=request.GET.get('page_albums')
+    paged_album=paginator_album.get_page(page_album)
+    if request.META.get('HTTP_X_REQUESTED_WITH') == 'Fetch':
+        response_data=None
+        page_album=request.GET.get('page_albums')
+        if page_album is not None:
+            paged_album= paginator_album.get_page(page_album)
+            album_html = render_to_string('partial/album_partial.html', {'albums': paged_album}, request=request)
+            pagination_html = render_to_string('partial/pagination_partial.html', {'data': paged_album,'type':"albums",}, request=request)
+            response_data = {
+        'content': album_html,
+        'pagination': pagination_html,
+            }
+        return JsonResponse(response_data)
+
     context={
-        'albums':paged_scene
+        'albums':paged_album
     }
     return render(request,'album.html',context)
 

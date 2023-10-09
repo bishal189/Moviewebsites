@@ -1,0 +1,21 @@
+{% for item in albums %}
+
+					
+						<div  class="large_screen col-6 col-sm-4 col-lg-3 col-xl-2">
+							<div class="card">
+								<a href="{% url 'album_detail' item.id %}" class="card__cover">
+									<img style="filter:blur(0)" src="{{item.coverphoto.url}}" alt="">
+								</a>
+								<span class="card__rating">{{item.price}} $</span>
+
+								<h3 class="card__title card__title--subs"><a href="{% url 'album_detail' item.id %}">{{item.album_name}}</a></h3>
+								<ul class="card__list">
+												{% comment %} <li>{{album.movies.count}} items added</li> {% endcomment %}
+												<li>{{item.price}} $</li>
+												
+											</ul>
+							</div>
+						</div>
+					
+					
+						{% endfor %}

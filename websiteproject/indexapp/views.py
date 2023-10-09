@@ -245,7 +245,6 @@ def dvd(request):
         user_added_cart=Cartitem.objects.filter(user=request.user).values_list('product__id',flat=True)
     # count1=paged_products.count()
     if request.META.get('HTTP_X_REQUESTED_WITH') == 'Fetch':
-
         response_data=None
         page_dvd=request.GET.get('page_dvd')
         if page_dvd is not None:
@@ -268,8 +267,21 @@ def stars(request):
     paginator_star=Paginator(allstars,4)
     page_star=request.GET.get('page_star')
     paged_star=paginator_star.get_page(page_star)
+    if request.META.get('HTTP_X_REQUESTED_WITH') == 'Fetch':
+        response_data=None
+        page_stars=request.GET.get('page_star')
+        if page_stars is not None:
+            paged_star= paginator_star.get_page(page_star)
+            star_html = render_to_string('partial/star_partial.html', {'star': paged_star}, request=request)
+            pagination_html = render_to_string('partial/pagination_partial.html', {'data': paged_star,'type':"star",}, request=request)
+            response_data = {
+        'content': star_html,
+        'pagination': pagination_html,
+            }
+        return JsonResponse(response_data)
+
     context={
-        'stars':paged_star,
+        'star':paged_star,
     }
     return render(request,'stars.html',context)
     
@@ -311,18 +323,32 @@ def star_detail(request,id):
 
 def photosets(request):
     movies=MovieDetail.objects.filter(type="PhotoSets")
-    paginator_scene=Paginator(movies,4)
+    paginator_photo=Paginator(movies,3)
     page_photo=request.GET.get('page_photo')
-    paged_photo=paginator_scene.get_page(page_photo)
+    paged_photo=paginator_photo.get_page(page_photo)
     user_favorite_movies=None
     if  not isinstance(request.user, AnonymousUser):
         user_favorite_movies = FavouritesModel.objects.filter(user=request.user).values_list('favourite_movies__id', flat=True)
     user_added_cart=None
     if not isinstance(request.user,AnonymousUser):
         user_added_cart=Cartitem.objects.filter(user=request.user).values_list('product__id',flat=True)
+  
+    if request.META.get('HTTP_X_REQUESTED_WITH') == 'Fetch':
+        response_data=None
+        page_photo=request.GET.get('page_photo')
+        if page_photo is not None:
+            paged_photo= paginator_photo.get_page(page_photo)
+            photo_html = render_to_string('partial/photo_partial.html', {'photoset': paged_photo}, request=request)
+            pagination_html = render_to_string('partial/pagination_partial.html', {'data': paged_photo,'type':"photo",}, request=request)
+            response_data = {
+        'content': photo_html,
+        'pagination': pagination_html,
+            }
+        return JsonResponse(response_data)
+
 
     context={
-        'movies':paged_photo,
+        'photoset':paged_photo,
         'user_favourite_movie':user_favorite_movies,
         'user_added_cart':user_added_cart,
         

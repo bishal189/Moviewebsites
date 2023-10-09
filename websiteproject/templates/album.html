@@ -64,12 +64,12 @@
 				
 	                    
 
-							<div style="justify-content:center;" class="row row--grid">
+							<div id="paginator_data" style="justify-content:center;" class="row row--grid">
 
 							{% for item in albums %}
 
 					
-						<div  style="margin-right:-13px;"class="col-6 col-sm-4 col-lg-3 col-xl-2">
+						<div  class="large_screen col-6 col-sm-4 col-lg-3 col-xl-2">
 							<div class="card">
 								<a href="{% url 'album_detail' item.id %}" class="card__cover">
 									<img style="filter:blur(0)" src="{{item.coverphoto.url}}" alt="">
@@ -114,13 +114,13 @@
 				<div  style="justify-content:center;" class="catalog__paginator-wrap">
 					{% comment %} <span style="position:absolute;left:25px;" class="catalog__pages">10 from {{count}}</span> {% endcomment %}
 
-					<ul class="catalog__paginator">
+					<ul id="pagination_click" data-content="paginator_data" class="catalog__paginator">
 						<nav class="mt-4" aria-label="Page navigation sample">
 							{% if albums.has_other_pages %}
 							<ul class="pagination" style='display: flex;margin-bottom: 13px;'>
 								{% if albums.has_previous %}
 								<li class="page-item "><a class="page-link"
-										href="?albums={{albums.previous_page_number}}"><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.75 5.36475L13.1992 5.36475" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M5.771 10.1271L0.749878 5.36496L5.771 0.602051" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
+										href="?page_albums={{albums.previous_page_number}}"><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.75 5.36475L13.1992 5.36475" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M5.771 10.1271L0.749878 5.36496L5.771 0.602051" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
 								{% else %}
 								<li class="page-item disabled"><a class="page-link" href=""><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.75 5.36475L13.1992 5.36475" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M5.771 10.1271L0.749878 5.36496L5.771 0.602051" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
 								{% endif %}
@@ -129,11 +129,11 @@
 								{% if albums.number == i %}
 								<li style="margin-right:15px;" class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
 								{% else %}
-								<li class="page-item"><a class="page-link" href="?albums={{i}}">{{i}}</a></li>
+								<li class="page-item"><a class="page-link" href="?page_albums={{i}}">{{i}}</a></li>
 								{% endif %}
 								{% endfor %}
 								{% if albums.has_next %}
-								<li class="page-item"><a class="page-link active" href="?albums={{albums.next_page_number}}"><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.1992 5.3645L0.75 5.3645" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M8.17822 0.602051L13.1993 5.36417L8.17822 10.1271" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
+								<li class="page-item"><a class="page-link active" href="?page_albums={{albums.next_page_number}}"><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.1992 5.3645L0.75 5.3645" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M8.17822 0.602051L13.1993 5.36417L8.17822 10.1271" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
 								{% else %}
 								<li class="page-item disabled"><a class="page-link" href="#"><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.1992 5.3645L0.75 5.3645" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M8.17822 0.602051L13.1993 5.36417L8.17822 10.1271" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
 								{% endif %}
@@ -153,6 +153,7 @@
 
 	<!-- footer -->
 	{% include 'include/footer.html' %}
+	{% include 'include/script_pagination.html' %}
 	{% comment %} <footer class="footer">
 		<div class="container">
 			<div class="row">
