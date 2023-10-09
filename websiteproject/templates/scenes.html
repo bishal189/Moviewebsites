@@ -168,7 +168,7 @@
 				<div style="justify-content:center;" class="catalog__paginator-wrap">
 					{% comment %} <span style="position:absolute;left:25px;" class="catalog__pages">10 from {{count}}</span> {% endcomment %}
 
-					<ul id="pagination_click" class="catalog__paginator">
+					<ul id="pagination_click" data-content="paginator_data" class="catalog__paginator">
 						<nav class="mt-4" aria-label="Page navigation sample">
 							{% if scenes.has_other_pages %}
 							<ul class="pagination" style='display: flex;margin-bottom: 13px;'>
@@ -211,39 +211,10 @@
 	<!-- footer -->
 	{% include 'include/footer.html' %}
 	{% include 'include/script.html' %}
-	
+	{% include 'include/script_pagination.html' %}
 
 
-<script>
-const catalog__paginator=document.getElementById('pagination_click')
-	catalog__paginator.addEventListener('click', (e) => {
-		if (e.target.tagName === 'A' || e.target.parentNode.tagName === 'A'||e.target.parentNode.parentNode.tagName==='A') {
-			e.preventDefault();
-			var targetElement
-			if (e.target.tagName==='A'){
-				targetElement=e.target
-			}else if (e.target.parentNode.tagName=='A'){
-				targetElement=e.target.parentNode
-			}else if(e.target.parentNode.tagName=='svg'){
-				targetElement=e.target.parentNode.parentNode
-			}
-			const nextPageHref = targetElement.getAttribute('href');
-			const pageNumber=nextPageHref.split('=')[1]
-			const paginator_data=document.getElementById('paginator_data')
 
-			fetch('/scenes/'+nextPageHref,{
-				method: 'GET',  
-				headers: {
-					'X-Requested-With': 'Fetch'
-				},
-			}).then(response=>response.json()).then(data=>{
-				paginator_data.innerHTML=data.content
-				catalog__paginator.innerHTML=data.pagination
-			})			
-		}
-	});
-	
-</script>
 
 
 

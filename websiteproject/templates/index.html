@@ -844,41 +844,5 @@ clickyes()
 {% include 'include/footer.html' %}
 {% include 'include/script.html' %}
 	<!-- end footer -->
-<script>
-	const paginator=document.querySelectorAll('#pagination_click');
-
-	paginator.forEach(function(element){	
-	element.addEventListener('click', (e) => {
-		if (e.target.tagName === 'A' || e.target.parentNode.tagName === 'A'||e.target.parentNode.parentNode.tagName==='A') {
-			e.preventDefault();
-
-			var targetElement
-			if (e.target.tagName==='A'){
-				
-				targetElement=e.target
-			}else if (e.target.parentNode.tagName=='A'){
-				targetElement=e.target.parentNode
-			}else if(e.target.parentNode.tagName=='svg'){
-				targetElement=e.target.parentNode.parentNode
-			}
-			data_content=element.getAttribute('data-content')
-			data_content=document.getElementById(data_content)
-			const nextPageHref = targetElement.getAttribute('href');
-
-			fetch('/'+nextPageHref,{
-				method: 'GET',  
-				headers: {
-					'X-Requested-With': 'Fetch'
-				},
-			}).then(response=>response.json()).then(data=>{
-				data_content.innerHTML=data.content
-				element.innerHTML=data.pagination
-			})			
-		}
-	});
-})
-	
-</script>
-
-</script>
+{% include 'include/script_pagination.html' %}
 	{% endblock %}

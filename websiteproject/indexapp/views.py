@@ -234,7 +234,7 @@ def scenes(request):
 
 def dvd(request):
     alldata=MovieDetail.objects.filter(type='DVD').order_by('-id')
-    paginator_dvd=Paginator(alldata,10)
+    paginator_dvd=Paginator(alldata,4)
     page_dvd=request.GET.get('page_dvd')
     paged_dvd=paginator_dvd.get_page(page_dvd)
     user_favorite_movies=None
@@ -244,7 +244,22 @@ def dvd(request):
     if not isinstance(request.user,AnonymousUser):
         user_added_cart=Cartitem.objects.filter(user=request.user).values_list('product__id',flat=True)
     # count1=paged_products.count()
-    return render(request,'dvd.html',{'alldata':alldata,'paged_dvd':paged_dvd ,'user_favourite_movie':user_favorite_movies,
+    if request.META.get('HTTP_X_REQUESTED_WITH') == 'Fetch':
+
+        response_data=None
+        page_dvd=request.GET.get('page_dvd')
+        if page_dvd is not None:
+            paged_dvd= paginator_dvd.get_page(page_dvd)
+            dvd_html = render_to_string('partial/dvd_partial.html', {'dvd': paged_dvd}, request=request)
+            pagination_html = render_to_string('partial/pagination_partial.html', {'data': paged_dvd,'type':"dvd",}, request=request)
+            response_data = {
+        'content': dvd_html,
+        'pagination': pagination_html,
+            }
+        return JsonResponse(response_data)
+
+
+    return render(request,'dvd.html',{'dvd':paged_dvd ,'user_favourite_movie':user_favorite_movies,
         'user_added_cart':user_added_cart
 })
 
