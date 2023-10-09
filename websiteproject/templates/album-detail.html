@@ -21,6 +21,9 @@
 		color: #e0e0e0;
 		font-weight: 500;
 	}
+	.sign__btn{
+		max-width:70%;
+	}
 	@media screen and (min-width: 1600px){
 	
 	  .large_screen{
@@ -72,7 +75,6 @@
 
 							{% for item in movies %}
 							{% if item in itemsincart %}
-							<div>hello</div>
 							{% else %}
 							{% if typeChecker %}
 							<div  class="large_scene col-6 col-sm-6 col-lg-3 col-xxl-2 ">
@@ -99,14 +101,14 @@
 								{% if user.is_authenticated %}
 								
 								{%if item in already_in_album %}
-								<button dec-url="{% url 'dec_counter' product.id item.id %}"  data-url={% url 'remove_item'  %} id="item_remove_{{item.id}}" onclick="remove_item({{item.id}})"  class="sign__btn">Added</button>
+								<button dec-url="{% url 'dec_counter' product.id item.id %}"  id="item_remove_{{item.id}}" onclick="remove_item({{item.id}})"  class="sign__btn">Added</button>
 									{% else %}
-								<button inc-url="{% url 'inc_counter' product.id item.id %}"data-url="{% url 'add_album' product.id %}" id="item_add_{{item.id}}" onclick="add_item({{item.id}})"  class="sign__btn">Add to Packages</button>
+								<button inc-url="{% url 'inc_counter' product.id item.id %}" id="item_add_{{item.id}}" onclick="add_item({{item.id}})"  class="sign__btn">Add to Packages</button>
 
 								{% endif %}
-								<button dec-url="{% url 'dec_counter' product.id item.id %}" style="display:none;" data-url={% url 'remove_item'  %} id="item_remove_{{item.id}}" onclick="remove_item({{item.id}})"  class="sign__btn">Added</button>
+								<button dec-url="{% url 'dec_counter' product.id item.id %}" style="display:none;" id="item_remove_{{item.id}}" onclick="remove_item({{item.id}})"  class="sign__btn">Added</button>
 
-								<button inc-url="{% url 'inc_counter' product.id item.id %}" style="display:none;" data-url="{% url 'add_album' product.id %}" id="item_add_{{item.id}}" onclick="add_item({{item.id}})"  class="sign__btn">Add to Packages</button>
+								<button inc-url="{% url 'inc_counter' product.id item.id %}" style="display:none;" id="item_add_{{item.id}}" onclick="add_item({{item.id}})"  class="sign__btn">Add to Packages</button>
 
 	     {% else %}		
 		<a href="{% url 'login' %}" <button   class="sign__btn">Add to Packages</button></button></a>
@@ -121,13 +123,8 @@
 
           {% if user.is_authenticated %}
 		  
-				{% if product.id in albums_bought %}
-				<button  disabled style="width:40%;" class="sign__btn">Album already Bought</button>
-
-			{% else %}
-		<button id="disable_cart" disabled style="display:none;width:40%;" class="sign__btn">Insert More Items</button>
-		<a id="enable_cart" href='{% url 'cart_album' album_price=product.price album_name=product.album_name %}' style="display:none;width:40%;" class="sign__btn">Show Cart</a>
-	    {% endif %} 
+		<button id="disable_cart" disabled style="display:none;max-width:20%;" class="sign__btn">Insert More Items</button>
+		<a id="enable_cart" href='{% url 'add_album' product.id %}' style="display:none;max-width:20%;" class="sign__btn">Show Cart</a>
 		{% else %}		
 		 <a href='{% url 'login' %}' style="width:40%;" class="sign__btn">Show Cart</a>
 		 
@@ -222,9 +219,9 @@ ct=document.getElementById('counter')
 		}
 		add=document.getElementById('item_add_'+id)
 		remove=document.getElementById('item_remove_'+id)
-		url=add.getAttribute('data-url')
+		{% comment %} url=add.getAttribute('data-url') {% endcomment %}
 		addurl=add.getAttribute('inc-url')
-		fetch(url)
+		{% comment %} fetch(url) {% endcomment %}
 		fetch(addurl)
 		counterlocal++
 		if (counterlocal>={{product.limit}}){

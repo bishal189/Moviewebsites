@@ -1,15 +1,13 @@
 from django.shortcuts import render
 from .models import Category
 from indexapp.models import MovieDetail,StarsModel,FavouritesModel
-# Create your views here.
-from detailapp.models import Order_Product,Order,Payment,Cartitem
-from django.db.models import Count, Sum
+from detailapp.models import Cartitem
+from django.db.models import  Sum
 from django.contrib.auth.models import AnonymousUser
 
-def category(request):
 
-     # category_count=Category.values.all().count()
-     # print(category_count)
+#Request to category page can be removed now as no category page is available now 
+def category(request):
      genres=Category.objects.all()
      data=MovieDetail.objects.all()[:20]
      stardata=StarsModel.objects.all()
@@ -23,9 +21,13 @@ def category(request):
      }
 
      return render(request,"category.html",context)
+    
 
+#filtering mechanism which filters based on post data from index page
 def category_filter(request):
     genres=Category.objects.all()
+
+    ###Get all data from post
     genre=request.POST['genre']
     year=request.POST['year']
     age=request.POST['starage']
@@ -34,7 +36,9 @@ def category_filter(request):
     price=request.POST['price']
     type=request.POST['type']
     popularity=request.POST['popularity']
-    star=None
+    ####
+
+    ###To deterrmine which filters are applied
     filters_movie={}
     filters_category={}
     filters_star={}
@@ -130,7 +134,7 @@ def category_filter(request):
         movies=movies.order_by('-view_count','-cart_count','-id')
     
     user_favorite_movies=None
-    if  not isinstance(request.user, AnonymousUser):
+    if  not isinstance(request.user, AnonymousUser):# same as request.user.is_authenticated
         user_favorite_movies = FavouritesModel.objects.filter(user=request.user).values_list('favourite_movies__id', flat=True)
     user_added_cart=None
     if not isinstance(request.user,AnonymousUser):
@@ -165,8 +169,6 @@ def category_filter(request):
     
     if popularity=='Stars':
         if star is None:
-
-
             stars_with_count = StarsModel.objects.annotate(
             total_view_count=Sum('stars__view_count'),
             total_cart_count=Sum('stars__cart_count')
@@ -192,11 +194,10 @@ def category_filter(request):
           'haircolor':haircolor,
           'user_favourite_movie':user_favorite_movies,
           'user_added_cart':user_added_cart,
-
-
-
         } 
         return render(request,"category.html",context)
+
+
     context={
           'genres':genres,
           'data_dvd':get_dvd,
@@ -212,6 +213,7 @@ def category_filter(request):
      }
     return render(request,"category.html",context)
 
+#simple categoy for genre
 def category_by_genre(request,genrename):
      category=Category.objects.get(category_name=genrename)#first gets category
      genres=Category.objects.all()#get all genre to show as options

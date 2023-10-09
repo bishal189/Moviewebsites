@@ -1,28 +1,22 @@
 from django.shortcuts import render
 from .ftpsettings import FTP_SERVER,FTP_PASSWORD,FTP_USERNAME
-# Create your views here.
 from django.shortcuts import render
-
-from django.http import StreamingHttpResponse, HttpResponse,JsonResponse
-from wsgiref.util import FileWrapper
+from django.http import StreamingHttpResponse,JsonResponse
 from detailapp.models import Order_Product
 import ftputil
 import os
 
+#List all the downloads in download page 
 def download_list(request):
     try:
         user=request.user
         order_items=Order_Product.objects.filter(user=user)
-        
-        # Connect to the FTP server
-
-        # Define source path (FTP server's home folder) and destination path (user's local download folder)
-
         return render(request, 'download-list.html', {'orders': order_items})
     except Exception as e:
         # Handle FTP connection errors gracefully
         return e
 
+#increases the counter since one movie can only be downloaded 3 times 
 def inc_counter(request,id):
     order=Order_Product.objects.get(id=id)
     order.counter=order.counter+1
@@ -43,7 +37,7 @@ def file_download(request,filename):
         remote_file = host.open(source_path, 'rb')
         remote_file_size = host.path.getsize(source_path)
 
-        chunk_size = 36192 # You can adjust this value as needed
+        chunk_size = 36192 # You can adjust this value as needed default was 8192
 
             # Create a response with a custom file wrapper that limits download speed
         

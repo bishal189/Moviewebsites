@@ -15,7 +15,6 @@ class StarsModel(models.Model):
     height=models.FloatField(null=True,blank=True)
     view_count=models.IntegerField(default=0)
     dob=models.DateField(blank=True,null=True)
-
     birthplace=models.CharField(max_length=200,blank=True,null=True)
     ethnicity=models.CharField(max_length=200,blank=True,null=True)
     nationality=models.CharField(max_length=200,blank=True,null=True)

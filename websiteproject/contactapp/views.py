@@ -1,9 +1,9 @@
 from django.shortcuts import render
 from .models import Contact
-from django.contrib import messages,auth
+from django.contrib import messages
 
 # Create your views here.
-
+#Simple contact view  simply stores data in db 
 def contact(request):
     if request.method=='POST':
        print(request.POST)

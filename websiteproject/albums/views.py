@@ -2,10 +2,11 @@ from django.shortcuts import render
 from indexapp.models import MovieDetail
 from .models import Albums,AlbumMovie,Separator
 from django.http import JsonResponse
-# Create your views here.
 from django.core.paginator import Paginator
-from django.core import serializers
 from detailapp.models import Cartitem,Order_Product_album,Order_Product
+
+
+#for getting the list of albums in album page
 def album(request):
     albums=Albums.objects.all()
     paginator_scene=Paginator(albums,10)
@@ -17,12 +18,13 @@ def album(request):
     return render(request,'album.html',context)
 
 
-
+#for getting the particular album besed on id
 def album_detail(request,id):
-    album=Albums.objects.get(id=id)
-    
+    album=Albums.objects.get(id=id) 
     movies=MovieDetail.objects.filter(genre__in=album.genre.all(),type=album.type).order_by('-id').distinct()
     counter=0
+
+    #since previous movies which are alraedy bough should not be shown
     previous_movies_in_albums_bought=[]
     if request.user.is_authenticated:
         previous_album=Order_Product_album.objects.filter(user=request.user)
@@ -30,13 +32,14 @@ def album_detail(request,id):
             previous_movies=item.product.movies.all()
             previous_movies_in_albums_bought.append(previous_movies)
 
-
+    #alraedy in album should be shown added in button
     already_in_album=None
     if request.user.is_authenticated:
         globaldata,created=Separator.objects.get_or_create(user=request.user)
         albummovie,created=AlbumMovie.objects.get_or_create(user=request.user,album=album,separator=globaldata.separator)
         counter=albummovie.movies.count()
         already_in_album=albummovie.movies.all()
+
 
     count=movies.count()
     items_per_page = 20 # Adjust this to your preferred value
@@ -97,10 +100,12 @@ def album_detail(request,id):
         }
     return render(request,"album-detail.html",context)
 
+
+#everytime add to cart button is clicked this view is run which adds the particular movie to albummovie based on separator
 def inc_counter(request,album_id,movie_id):
   album=Albums.objects.get(id=album_id)
   movie=MovieDetail.objects.get(id=movie_id)
-  globaldata=Separator.objects.get(user=request.user)  
+  globaldata=Separator.objects.get(user=request.user)  #used so user can buy same album again and again
   album_movie,created=AlbumMovie.objects.get_or_create(user=request.user,album=album,separator=globaldata.separator)
   album_movie.movies.add(movie)
   album_movie.counter=album_movie.movies.count()
@@ -111,6 +116,8 @@ def inc_counter(request,album_id,movie_id):
     }
   return JsonResponse(data)
 
+
+#To remove the movie from package 
 def dec_counter(request,album_id,movie_id):
   album=Albums.objects.get(id=album_id)
   movie=MovieDetail.objects.get(id=movie_id)
@@ -118,9 +125,6 @@ def dec_counter(request,album_id,movie_id):
   album_movie=AlbumMovie.objects.get(user=request.user,album=album,separator=globaldata.separator)
   album_movie.movies.remove(movie)
 
-  album_movie.counter=album.movies.count()
-  if album_movie.counter<0:
-    album.counter=0
   
   album_movie.save()
   data = {
@@ -128,6 +132,8 @@ def dec_counter(request,album_id,movie_id):
     }
   return JsonResponse(data)
 
+
+#To create a dropdown in cart page
 def get_movies_in_album(request,album_id):
     album=Albums.objects.get(id=album_id)
     globaldata=Separator.objects.get(user=request.user)
@@ -149,8 +155,6 @@ def get_movies_in_album(request,album_id):
 
         # Append the movie data to the list
         movie_data_list.append(movie_data)
-
-
 
 
     return JsonResponse({'status':"true","movies":movie_data_list})

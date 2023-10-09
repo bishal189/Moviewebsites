@@ -194,16 +194,6 @@ def add_cart(request,product_id,album_price=None):
                     pass    
             
 
-            
-    
-
-
-
-
-
-
-
-    
         try:
             cart=Cart.objects.get(cart_id=_cart_id(request))# get the cart using the cart_id present in the session
 
@@ -335,8 +325,6 @@ def cart(request,total=0,quantity=0,cart_items=None,album_price=None,album_name=
         if request.user.is_authenticated:
             cart_items=Cartitem.objects.filter(user=request.user,is_active=True)
             cart_items1=Album_item.objects.filter(user=request.user,is_active=True)
-        
-
         else:
             cart=Cart.objects.get(cart_id=_cart_id(request))
             cart_items=Cartitem.objects.filter(cart=cart,is_active=True)
@@ -355,8 +343,6 @@ def cart(request,total=0,quantity=0,cart_items=None,album_price=None,album_name=
             total1+= (cart_album.product.price*cart_album.quantity)   
         total=total+total1
         grand_total=total+total1;
-        print(total)
-        print(grand_total)
 
         all_cart_items = list(chain(cart_items, cart_items1))
     except ObjectDoesNotExist:
