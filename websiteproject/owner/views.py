@@ -6,15 +6,14 @@ from django.core.paginator import Paginator
 from django.core.exceptions import PermissionDenied
 from detailapp.models import Payment ,Order,Order_Product
 from django.db.models import Sum,Count
-# from .models import Product  # Replace `.models` with the actual path to your model
 from datetime import datetime, timedelta
 
-# from .forms import movie_form
 from .forms import MovieDetailForm
 from myaccount.models import Account
-# Create your views here.
 from category.models import Category
 from django.contrib.auth.decorators import user_passes_test
+
+
 def is_superadmin(user):
     return user.is_authenticated and user.is_superadmin
 
@@ -41,9 +40,7 @@ def dashboard(request):
   except PermissionDenied:
         return HttpResponse('Page not found')
 
-
-
-
+#Adding new item from admin page
 @user_passes_test(is_superadmin)
 def  add_item(request):
     star=StarsModel.objects.all().order_by('-id')
@@ -69,19 +66,13 @@ def  add_item(request):
 
         movie=request.FILES['movie']
       else:
-        movie=None
-
-     
+        movie=None     
       form=MovieDetail.objects.create(movie_name=title,year=releasedyear,type=type,quality=quality,coverphoto=cover_image,duration=length,short_description=text,trailer=movie,price=price)
       
       for uploaded_file in request.FILES.getlist('image'):
         image_instance=ImagesModel.objects.create(image=uploaded_file)
         images_list.append(image_instance)
-
-
       form.images.set(images_list)
-
-
       for star in request.POST.getlist('stars'):
         star=StarsModel.objects.get(id=star)
         form.stars.add(star)

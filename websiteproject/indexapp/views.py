@@ -16,22 +16,22 @@ def home(request):
     all_scene=MovieDetail.objects.filter(type="Scene").order_by('-id')
     all_photosets=MovieDetail.objects.filter(type="PhotoSets").order_by('-id')
 
-    paginator_dvd=Paginator(all_dvd,2)
+    paginator_dvd=Paginator(all_dvd,12)
     page_dvd=request.GET.get('page_dvd')
     paged_dvd=paginator_dvd.get_page(page_dvd)
 
-    paginator_scene=Paginator(all_scene,2)
+    paginator_scene=Paginator(all_scene,10)
     page_scene=request.GET.get('page_scene')
     paged_scene=paginator_scene.get_page(page_scene)
 
-    paginator_photo=Paginator(all_photosets,2)
+    paginator_photo=Paginator(all_photosets,12)
     page_photo=request.GET.get('page_photo')
     paged_photo=paginator_photo.get_page(page_photo)
 
     count_dvd=all_dvd.count()
     allalbums=Albums.objects.all().order_by('-id')
     stardata=StarsModel.objects.all().order_by('-view_count')
-    paginator_star=Paginator(stardata,5)
+    paginator_star=Paginator(stardata,12)
     page_star=request.GET.get('page_star')
     paged_star=paginator_star.get_page(page_star)
 

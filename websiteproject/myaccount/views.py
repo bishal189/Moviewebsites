@@ -18,23 +18,19 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login
 from django.utils.http import urlsafe_base64_decode
 from django.contrib.auth.tokens import default_token_generator
-from django.contrib.auth.views import PasswordResetConfirmView
-from django.shortcuts import render, HttpResponse, redirect
+from django.shortcuts import render, redirect
 from .forms import ResitrationForm
 from .models import Account
 from indexapp.models import FavouritesModel
 from detailapp.models import Order_Product,Payment,Order,Order_Product_album,Cartitem
-# from django.utils.encoding import force_text
 from django.contrib import messages, auth
-# verification email module import
-# Create your views here.
-#
+
 django.utils.encoding.force_text = force_str
 #
 #
 # register page is here
 
-
+#for registering new user
 def Register(request):
     if request.method == 'POST':
         recaptcha_response = request.POST.get('g-recaptcha-response')
@@ -81,35 +77,9 @@ def Register(request):
     return render(request, 'signup.html', context)
 
 
-# the login function
-
-# def Login(request):
-#     url=request.META.get('HTTP_REFERER')
-#     if request.method == 'POST':
-#         email = request.POST['email']
-#         password = request.POST['password']
-#         user = auth.authenticate(email=email, password=password)
-#         if user is not None and user.is_suspended:
-#             messages.error(request, 'You have been suspended by the admin!')
-#             return redirect('login')
-#         else:
-#             if user is not None:
-#                 if Account.objects.filter(email=email, is_superadmin=True).exists():
-#                     auth.login(request, user)
-#                     return redirect('home')
-#                 else:
-#                     auth.login(request, user)
-#                     return redirect('home')
-
-#             else:
-#                 messages.error(request, 'login credintials errors!')
-#                 return redirect('login')
-
-#     else:
-#         return render(request, 'signin.html')
-
 import requests
 
+#For login 
 def Login(request):
     if request.method == 'POST':
         # Validate reCAPTCHA
@@ -215,33 +185,6 @@ def reset_password_validate(request,uidb64,token):
         return redirect('forgot')
 
 
-# def forget_password(request):
-#     if request.method == 'POST':
-#         email=request.POST['email']
-#         try:
-#             user=Account.objects.get(email=email)
-#         # user activation
-#             current_site=get_current_site(request)
-#             mail_subject='Please reset your account'
-#             message=render_to_string('reset/reset.html',{
-#                 'user':user,
-#                 'domain':current_site,
-#                 'uid':urlsafe_base64_encode(force_bytes(user.pk)),
-#                 'token':default_token_generator.make_token(user),
-#             })
-#             to_email=email
-#             send_email=EmailMessage(mail_subject,message,to=[to_email])
-#             send_email.send()
-#         except:
-#             messages.error(request,'no email matches!')
-#             return render(request,'forgot.html')
-
-#     return render(request,'forgot.html')    
-    
-
-
-
-
 def reset_password(request):
     if request.method == 'POST':
         password= request.POST['password']
@@ -264,20 +207,6 @@ def reset_password(request):
             return render(request,'reset.html')
   
     return render(request,'reset.html')
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 def profile(request):

@@ -29,7 +29,7 @@ def details(request,slug=None):
     product.view_count=product.view_count+1
     product.save()
     user=request.user
-    similar=MovieDetail.objects.filter(type=product.type).order_by('?')[:20]
+    similar=MovieDetail.objects.filter(type=product.type).order_by('?')[:10]
     li=[]
     if request.user.is_authenticated:
 
@@ -62,7 +62,6 @@ def details(request,slug=None):
             'val':False,
             'product':product,
             'notlogin':True,
-            'newmovies':newmovies,
             'similar':similar,
         }
        return render(request,'details.html',context)
@@ -75,8 +74,6 @@ def remove_album(request,album_id):
     albums.movies.clear()
     albums.counter=0
     albums.save()
-    
-
     return redirect('cart')
 
 
@@ -93,53 +90,24 @@ def add_cart(request,product_id,album_price=None):
         if request.method == "POST":
             for item in request.POST:
                 key=item;
-                value=request.POST[key]
-                
-                # try:
-                #     variation=Variation.objects.get(variation_category__iexact=key,variation_value__iexact=value)
-                #     # print(variation)
-                #     product_variation.append(variation)
-                # except:
-                #     pass    
-            
-
-        # now add the product in the cart   
-
+                value=request.POST[key]  
         is_cart_item_exist=Cartitem.objects.filter(product=product,user=current_user).exists()
 
         if is_cart_item_exist:
             cart_item=Cartitem.objects.filter(product=product,user=current_user)
-
-            # if that product exist than which variation exist of that product
-            # checking the variation of the quantity
-
-
-
-            # we need three things
-
-            #existiong variation->from database
-            #current variation_->from product variation
-            #item_id->database
             ex_var_list=[]
             id=[]
             for item in cart_item:
-                # existing_variation=item.variations.all()
-                # ex_var_list.append(list(existing_variation))
                 id.append(item.id)
 
             # print(ex_var_list)
             if product_variation in ex_var_list:
             #   increase the cart item quantity
                 index=ex_var_list.index(product_variation)
-                
-                item_id=id[index]
-                
-            
-
+                item_id=id[index]             
                 item=Cartitem.objects.get(product=product,id=item_id)
                 item.quantity+=1
                 item.save()
-
             else:
                 
                 item=Cartitem.objects.create(product=product,quantity=1,user=current_user)
@@ -148,16 +116,6 @@ def add_cart(request,product_id,album_price=None):
                   item.variations.clear()
                   item.variations.add(*product_variation)
                 item.save()    
-            
-            
-    
-
-
-
-        
-        
-            # cart_item.quantity=cart_item.quantity+1;
-            
 
         else :
 
@@ -171,8 +129,7 @@ def add_cart(request,product_id,album_price=None):
               cart_item.variations.add(*product_variation)
 
             cart_item.save()
-
-        # return HttpResponse(cart_item.quantity)
+                    # return HttpResponse(cart_item.quantity)
         return redirect('cart');   
     else:
         # if the user is not login
@@ -181,47 +138,20 @@ def add_cart(request,product_id,album_price=None):
             for item in request.POST:
                 key=item;
                 value=request.POST[key]
-                
-                try:
-                    pass
-                    # variation=Variation.objects.get(variation_category__iexact=key,variation_value__iexact=value)
-                    # print(variation)
-                    # product_variation.append(variation)
-                except:
-                    pass    
-            
-
+                  
         try:
             cart=Cart.objects.get(cart_id=_cart_id(request))# get the cart using the cart_id present in the session
-
-
         except Cart.DoesNotExist:
             cart=Cart.objects.create(
                 cart_id=_cart_id(request)
             )   
 
         cart.save()  
-
-
-
-
         # now add the product in the cart   
-
         is_cart_item_exist=Cartitem.objects.filter(product=product,cart=cart).exists()
-
         if is_cart_item_exist:
             cart_item=Cartitem.objects.filter(product=product,cart=cart)
 
-            # if that product exist than which variation exist of that product
-            # checking the variation of the quantity
-
-
-
-            # we need three things
-
-            #existiong variation->from database
-            #current variation_->from product variation
-            #item_id->database
             ex_var_list=[]
             id=[]
             for item in cart_item:
@@ -229,38 +159,22 @@ def add_cart(request,product_id,album_price=None):
                 ex_var_list.append(list(existing_variation))
                 id.append(item.id)
 
-            # print(ex_var_list)
             if product_variation in ex_var_list:
             #   increase the cart item quantity
                 index=ex_var_list.index(product_variation)
                 
                 item_id=id[index]
-                
-            
 
                 item=Cartitem.objects.get(product=product,id=item_id)
                 item.quantity+=1
                 item.save()
-
-            else:
-                
+            else: 
                 item=Cartitem.objects.create(product=product,quantity=1,cart=cart)
                 if(len(product_variation))>0:
                     
                   item.variations.clear()
                   item.variations.add(*product_variation)
                 item.save()    
-            
-            
-    
-
-
-
-        
-        
-            # cart_item.quantity=cart_item.quantity+1;
-            
-
         else :
 
             cart_item=Cartitem.objects.create(
@@ -279,12 +193,6 @@ def add_cart(request,product_id,album_price=None):
             return redirect('cart_album',album_price=album_price)
         else:
             return redirect('cart');   
-
-
-
-
-
-
 
 def add_album_to_cart(request, album_id):
    
@@ -310,10 +218,7 @@ def add_album_to_cart(request, album_id):
     return redirect('cart') # Redirect to the cart view after adding the album
 
 
-
-
 def cart(request,total=0,quantity=0,cart_items=None,album_price=None,album_name=None):
- 
    
     try:
         tax=0
@@ -343,11 +248,8 @@ def cart(request,total=0,quantity=0,cart_items=None,album_price=None,album_name=
 
         all_cart_items = list(chain(cart_items, cart_items1))
     except ObjectDoesNotExist:
-        pass    
-    
+        pass       
  
-
-
     context={
             'album':False,
             'total':total,
@@ -357,8 +259,6 @@ def cart(request,total=0,quantity=0,cart_items=None,album_price=None,album_name=
             'grand_total':grand_total
         }
     return render(request,'cart/cart.html',context)
-
-
 
 
 def remove_cart_item(request):
