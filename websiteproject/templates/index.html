@@ -309,8 +309,20 @@ clickyes()
 		color: #e0e0e0;
 		font-weight: 500;
 	}
+    .product_image{
+		height:290px;
+		width:220px;
+		filter:blur(0);
+		
 
-  
+	}
+	
+	.product_image_scene{
+		height: 190px;
+		width:290px!important;
+		border-radius: 0px;
+		filter:blur(0px);
+	}
 	@media screen and (min-width: 1600px){
 	
 	  .large_screen{
@@ -328,17 +340,36 @@ clickyes()
 	.large_scene{
 		margin-right:0px;
 	}
+}
 	@media screen and (min-width:765px) and (max-width:1200px){
 		.large_screen{
 			margin-right:20px;
 		}
 		.large_scene{
 			margin-right:-10px;
-			max-width:100%;
+			max-width:90%;
 		}
 	
+	
+
+}
+
+@media screen and (min-width:465px) and (max-width:600px){
+	.product_image{
+		height:265px;
+		width: 195px;
+	}
+	
+}
+@media screen and (max-width:585px){
+	.card__list{
+justify-content:center;
+	}
+	.card__title{
+		text-align:center;
 	}
 }
+
 </style>
 
 	<!-- catalog -->
@@ -348,15 +379,13 @@ clickyes()
 			<div class="row">
 				<div class="col-12">
 					<h1 style="background-color:#151f30;margin-bottom:0px;padding:20px;" class="home__title">Recently Added Dvds <span style="font-size:14px;position:absolute;right:10%;"><a href="{% url 'dvd' %}">View All</a></span></h1><F5>
-				</div>			
-{% comment %} view all here  {% endcomment %}
-
+				</div>		
 					<div id="paginator_data_dvd" style="justify-content:center;" class="row row--grid">
 						{% for item in  dvd %}
 						<div class="large_screen col-6 col-sm-4 col-md-4 col-lg-3 col-xl-2 col-xxl-2">
 							<div style="width:220px;" class="card">
 								<a style="border-radius:0px;" href="{% url 'details' slug=item.slug %}" class="card__cover">
-									<img style="height:290px;width:220px;filter:blur(0);" src="{{item.coverphoto.url}}" alt="">
+									<img style="filter:blur(0)" class="product_image"  src="{{item.coverphoto.url}}" alt="">
 								</a>
 									{% if user.is_authenticated %}
 									{% if item.id in user_favourite_movie %}
@@ -479,7 +508,7 @@ clickyes()
 						<div  class="large_scene col-12 col-sm-6 col-lg-3 col-md-4 col-xxl-2 ">
 							<div class="card">
 								<a style="border-radius:0px;filter:blur(0);hover:none;" href="{% url 'details' slug=item.slug %}" class="card__cover">
-									<img  style='height: 190px;width:290px;border-radius: 0px;filter:blur(0px);'src="{{item.coverphoto.url}}" alt="">
+									<img class="product_image_scene" src="{{item.coverphoto.url}}" alt="">
 								</a>
 									{% if user.is_authenticated %}
 									{% if item.id in user_favourite_movie %}
@@ -603,9 +632,9 @@ clickyes()
 					<div id="paginator_data_photoset" style="justify-content:center;" class="row row--grid">
 						{% for item in  photoset %}
 						<div   class="large_screen col-6 col-sm-4 col-lg-3 col-xl-2">
-							<div class="card">
+							<div style="width:220px;" class="card">
 								<a style="border-radius:0px;filter:blur(0);hover:none;" href="{% url 'details' slug=item.slug %}" class="card__cover">
-									<img style="height:260px;width:195px;filter:blur(0);" src="{{item.coverphoto.url}}" alt="">
+									<img style="filter:blur(0)" class="product_image" src="{{item.coverphoto.url}}" alt="">
 								</a>
 									{% if user.is_authenticated %}
 									{% if item.id in user_favourite_movie %}
@@ -730,9 +759,9 @@ clickyes()
 					<div id="paginator_data_star" style="justify-content:center;" class="row row--grid">
 						{% for item in  star %}
 						<div  class=" large_screen col-6 col-sm-4 col-lg-3 col-xl-2 col-xxl-2">
-							<div class="card">
+							<div style="width:220px;" class="card">
 								<a style="border-radius:0px;" href="{% url 'star_detail' item.id %}" class="card__cover">
-									<img style="height:260px;width:195px;filter:blur(0);" src="{{item.image.url}}" alt="">
+									<img class="product_image" style='filter:blur(0)' src="{{item.image.url}}" alt="">
 								</a>
 									
 
@@ -797,49 +826,94 @@ clickyes()
 
 		</div>
 	</div>
+
+
+
+
+
+
+
+	<!---------------- packages -->
+	<div style="margin-top:-100px;" class="catalog catalog--list">
+		<div class="container">
+			
+			<div class="row">
+				<div class="col-12">
+					<h1 style="background-color:#151f30;margin-bottom:0px;padding:20px;" class="home__title">Packages<span style="font-size:14px;position:absolute;right:10%;"><a href="{% url 'album' %}">View All</a></span></h1><F5>
+					</div>
+					<div id="paginator_data_star" style="justify-content:center;" class="row row--grid">
+						{% for item in  allalbums %}
+						<div  class=" large_screen col-6 col-sm-4 col-lg-3 col-xl-2 col-xxl-2">
+							<div style="width:220px;" class="card">
+								<a style="border-radius:0px;" href="{% url 'album_detail' item.id %}" class="card__cover">
+									<img class="product_image" style='filter:blur(0)' src="{{item.coverphoto.url}}" alt="">
+								</a>
+									
+
+									
+								<h3 class="card__title"><a href="{% url 'album_detail' item.id%}">{{item.album_name}}</a></h3>
+								<ul class="card__list">
+									<li>{{item.price}} $</li>
+								</ul>
+							</div>
+						</div>
+						{% endfor %}	
+
+					
+					</div>
+
+				</div>
+			</div>
+			
+			
+	
+			
+		 <div class="row">
+				<div class="col-12">
+					<div style="justify-content:center;" class="catalog__paginator-wrap">
+						{% comment %} <span style="position:absolute;left:25px;" class="catalog__pages">10 from {{count}}</span> {% endcomment %}
+
+						<ul class="catalog__paginator" data-content="paginator_data_star" id="pagination_click">
+							<nav class="mt-4" aria-label="Page navigation sample">
+								{% if star.has_other_pages %}
+								<ul id="pagination_click" data-paginator="paginator_star" class="pagination" style='display: flex;
+								margin-bottom: 13px;'>
+									{% if star.has_previous %}
+									<li class="page-item "><a class="page-link"
+											href="?page_star={{star.previous_page_number}}"><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.75 5.36475L13.1992 5.36475" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M5.771 10.1271L0.749878 5.36496L5.771 0.602051" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
+									{% else %}
+									<li class="page-item disabled"><a class="page-link" href=""><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.75 5.36475L13.1992 5.36475" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M5.771 10.1271L0.749878 5.36496L5.771 0.602051" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
+									{% endif %}
+			
+									{% for i in star.paginator.page_range %}
+									{% if star.number == i %}
+									<li style="margin-right:15px;" class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
+									{% else %}
+									<li class="page-item"><a class="page-link" href="?page_star={{i}}">{{i}}</a></li>
+									{% endif %}
+									{% endfor %}
+									{% if star.has_next %}
+									<li class="page-item"><a class="page-link active" href="?page_star={{star.next_page_number}}"><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.1992 5.3645L0.75 5.3645" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M8.17822 0.602051L13.1993 5.36417L8.17822 10.1271" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
+									{% else %}
+									<li class="page-item disabled"><a class="page-link" href="#"><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.1992 5.3645L0.75 5.3645" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M8.17822 0.602051L13.1993 5.36417L8.17822 10.1271" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
+									{% endif %}
+								</ul>
+								{% endif %}
+							</nav>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+
+		</div>
+	</div>
 	<!-- end catalog -->
 
 
 
 	<!-- subscriptions -->
-	<section class="section section--pb0">
-		<div class="container">
-			<div class="row">
-				<div class="col-12">
-					<h2 class="section__title">Packages</h2>
-				</div>
-
-				<div class="col-12">
-					<div class="section__carousel-wrap">
-						<div class="section__carousel owl-carousel" id="subscriptions">
-							{% for album in allalbums %}
-							<div  class="large_screen card">
-								<a href="{% url 'album_detail' album.id %}" class="card__cover">
-									<img style="filter:blur(0);" src="{{album.coverphoto.url}}" alt="">
-								</a>
-								<span class="card__rating">{{album.price}} $</span>
-
-								<h3 class="card__title card__title--subs"><a href="{% url 'album_detail' album.id %}">{{album.album_name}}</a></h3>
-								<ul class="card__list">
-												{% comment %} <li>{{album.movies.count}} items added</li> {% endcomment %}
-												<li>{{album.price}} $</li>
-												
-											</ul>
-								
-							</div>
-							{% endfor %}
-							
-
-						
-						</div>
-
-						<button class="section__nav section__nav--cards section__nav--prev" data-nav="#subscriptions" type="button"><svg width="17" height="15" viewBox="0 0 17 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1.25 7.72559L16.25 7.72559" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M7.2998 1.70124L1.2498 7.72524L7.2998 13.7502" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-						<button class="section__nav section__nav--cards section__nav--next" data-nav="#subscriptions" type="button"><svg width="17" height="15" viewBox="0 0 17 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15.75 7.72559L0.75 7.72559" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M9.7002 1.70124L15.7502 7.72524L9.7002 13.7502" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
+	
 	<!-- end subscriptions -->
 
 	<!-- plan -->

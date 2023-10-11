@@ -2,6 +2,46 @@
 {% block content %}
 {% include 'include/header.html' %}
 <style>
+.page-item{
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
+			align-items: center;
+			width: 30px;
+			height: 30px;
+			border-radius: 12px;
+			background-color: #131720;
+			font-size: 14px;
+			color: #e0e0e0;
+			font-weight: 500;
+		}
+		.product_image{
+			height:290px;
+			width:220px;
+			filter:blur(0);
+			
+	
+		}
+		
+		.product_image_scene{
+			height: 190px;
+			width:290px!important;
+			border-radius: 0px;
+			filter:blur(0px);
+		}
+		@media screen and (min-width: 1600px){
+		
+		  .large_screen{
+			margin-right:8px;
+		}
+			.large_scene{
+				margin-right:-30px;
+		}
+	}
+
+
+
+
 	#age_check {
 		position: fixed;
 		top: 0;
@@ -65,6 +105,50 @@
 		height: 20px; /* Adjust the height */
 		margin-top:5px;
 	  }
+
+		@media screen and (max-width: 1600px){
+			
+		  .large_screen{
+			margin-right:45px;
+		}
+		.large_scene{
+			margin-right:0px;
+		}
+	}
+		@media screen and (min-width:765px) and (max-width:1200px){
+			.large_screen{
+				margin-right:20px;
+			}
+			.large_scene{
+				margin-right:-10px;
+				max-width:90%;
+			}
+		
+		
+	
+	}
+	
+	@media screen and (min-width:465px) and (max-width:600px){
+		.product_image{
+			height:265px;
+			width: 195px;
+		}
+		
+	}
+	@media screen and (max-width:585px){
+		.card__list{
+	justify-content:center;
+		}
+		.card__title{
+			text-align:center;
+		}
+	}
+	
+
+
+
+
+
 	  @media screen and (max-width:768px){
 		.modal1{
 			   width:100%;
@@ -202,9 +286,9 @@
 					<div class="row row--grid">
 						{% for item in orders_dvd %}
 						<div   style="margin-right:-13px"class="col-6 col-sm-4 col-lg-3 col-xl-2 ">
-							<div class="card">
+							<div class="card" style='width:220px;'>
 								<a style="border-radius:0px;" href="{% url 'details' slug=item.product.slug %}" class="card__cover">
-									<img style="height:240px;width:165px;filter:blur(0);" src="{{item.product.coverphoto.url}}" alt="">
+									<img style="filter:blur(0);" class='product_image' src="{{item.product.coverphoto.url}}" alt="">
 																		</a>
 									{% if user.is_authenticated %}
 									{% if item.product.id in user_favourite_movie %}
@@ -305,9 +389,9 @@
 				<div class="row row--grid">
 					{% for item in orders_photoset %}
 					<div   style="margin-right:-13px"class="col-6 col-sm-4 col-lg-3 col-xl-2 ">
-						<div class="card">
+						<div class="card" style='width:220px'>
 							<a style="border-radius:0px;" href="{% url 'details' slug=item.product.slug %}" class="card__cover">
-								<img style="height:240px;width:165px;filter:blur(0);" src="{{item.product.coverphoto.url}}" alt="">
+								<img style="filter:blur(0);" class='product_image' src="{{item.product.coverphoto.url}}" alt="">
 							</a>
 								{% if user.is_authenticated %}
 								{% if item.product.id in user_favourite_movie %}
@@ -354,9 +438,9 @@
 				<div class="row row--grid">
 					{% for item in orders_album %}
 					<div   style="margin-right:-13px"class="col-6 col-sm-4 col-lg-3 col-xl-2 ">
-						<div class="card">
+						<div class="card" style='width:220px'>
 							<a style="border-radius:0px;" href="{% url 'album_detail' item.product.album.id %}" class="card__cover">
-								<img style="height:240px;width:165px;filter:blur(0);" src="{{item.product.album.coverphoto.url}}" alt="">
+								<img style="filter:blur(0);" class='product_image' src="{{item.product.album.coverphoto.url}}" alt="">
 							</a>
 							<span class="card__rating">{{item.product.album.price}} $</span>	
 							<h3 class="card__title card__title--subs"><a href="{% url 'album_detail' item.product.album.id %}">{{item.product.album.album_name}}</a></h3>
@@ -387,9 +471,9 @@
 					<div class="row row--grid">
 						{% for item in favourite_dvd %}
 						<div   style="margin-right:-13px"class="col-6 col-sm-4 col-lg-3 col-xl-2 ">
-							<div class="card">
+							<div class="card" style='width:220px;'>
 								<a style="border-radius:0px;" href="{% url 'details' slug=item.slug %}" class="card__cover">
-									<img style="height:240px;width:165px;filter:blur(0);" src="{{item.coverphoto.url}}" alt="">
+									<img style="filter:blur(0);" class='product_image' src="{{item.coverphoto.url}}" alt="">
 																		</a>
 									{% if user.is_authenticated %}
 									{% if item.id in user_favourite_movie %}
@@ -462,9 +546,9 @@
 						<div class="row row--grid">
 							{% for item in favourite_scene %}
 							<div style="margin-right:-20px;" class="col-6 col-sm-6 col-lg-3 col-xxl-2 ">
-								<div class="card">
+								<div class="card" style='width:220px;'>
 									<a style="border-radius:0px;" href="{% url 'details' slug=item.slug %}" class="card__cover">
-										<img  style='height: 150px;width:250px;border-radius: 0px;filter:blur(0px);'src="{{item.coverphoto.url}}" alt="">
+										<img class='product_image_scene' style='filter:blur(0px);'src="{{item.coverphoto.url}}" alt="">
 									</a>
 										{% if user.is_authenticated %}
 										{% if item.id in user_favourite_movie %}
@@ -539,9 +623,9 @@
 						<div class="row row--grid">
 							{% for item in favourite_photoset %}
 							<div   style="margin-right:-13px"class="col-6 col-sm-4 col-lg-3 col-xl-2 ">
-								<div class="card">
+								<div class="card" style='width:220px;'>
 									<a style="border-radius:0px;" href="{% url 'details' slug=item.slug %}" class="card__cover">
-										<img style="height:240px;width:165px;filter:blur(0);" src="{{item.coverphoto.url}}" alt="">
+										<img style="filter:blur(0);" class='product_image' src="{{item.coverphoto.url}}" alt="">
 																			</a>
 										{% if user.is_authenticated %}
 										{% if item.id in user_favourite_movie %}

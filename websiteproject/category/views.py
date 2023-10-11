@@ -12,7 +12,6 @@ def category(request):
      data=MovieDetail.objects.all()[:20]
      stardata=StarsModel.objects.all()
      haircolor=StarsModel.objects.values('haircolor').distinct()
-
      context={
           'genres':genres,
           'data':data,
@@ -22,7 +21,6 @@ def category(request):
 
      return render(request,"category.html",context)
     
-
 #filtering mechanism which filters based on post data from index page
 def category_filter(request):
     genres=Category.objects.all()

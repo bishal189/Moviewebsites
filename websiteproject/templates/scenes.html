@@ -9,38 +9,82 @@
 
 	<!-- header (relative style) -->
 {% include 'include/header.html' %}
+
 <style>
-	.top{
-		margin-bottom:-101px;
+	.page-item{
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+		width: 30px;
+		height: 30px;
+		border-radius: 12px;
+		background-color: #131720;
+		font-size: 14px;
+		color: #e0e0e0;
+		font-weight: 500;
 	}
-	@media screen and (max-width:1200px){
-		.top{
-			margin-top:130px!important;
-			margin-bottom:0px;
-		}
-		.scene_padding{
-			margin-bottom:-80px;
-		}
+    .product_image{
+		height:290px;
+		width:220px;
+		filter:blur(0);
+		
+
+	}
+	
+	.product_image_scene{
+		height: 190px;
+		width:290px!important;
+		border-radius: 0px;
+		filter:blur(0px);
 	}
 	@media screen and (min-width: 1600px){
 	
+	  .large_screen{
+		margin-right:8px;
+	}
+		.large_scene{
+			margin-right:-30px;
+	}
+}
+	@media screen and (max-width: 1600px){
+		
+	  .large_screen{
+		margin-right:45px;
+	}
+	.large_scene{
+		margin-right:0px;
+	}
+}
+	@media screen and (min-width:765px) and (max-width:1200px){
 		.large_screen{
-		  margin-right:-40px;
-	  }
-		  .large_scene{
-			  margin-right:-70px;
-	  }
-  }
-	  @media screen and (max-width: 1600px){
-		  
-		.large_screen{
-		  margin-right:-13px;
-	  }
-	  .large_scene{
-		  margin-right:-20px;
-	  }
+			margin-right:20px;
+		}
+		.large_scene{
+			margin-right:-10px;
+			max-width:90%;
+		}
+	
+	
+
+}
+
+@media screen and (min-width:465px) and (max-width:600px){
+	.product_image{
+		height:265px;
+		width: 195px;
 	}
 	
+}
+@media screen and (max-width:585px){
+	.card__list{
+justify-content:center;
+	}
+	.card__title{
+		text-align:center;
+	}
+}
+
 </style>
 
 	<!-- head -->
@@ -77,7 +121,7 @@
 								<div class="large_scene col-12 col-sm-6 col-lg-3 col-xxl-2 ">
 									<div class="card">
 										<a style="border-radius:0px;filter:blur(0);hover:none;" href="{% url 'details' slug=item.slug %}" class="card__cover">
-											<img  style='height: 150px;width:250px;border-radius: 0px;filter:blur(0px);'src="{{item.coverphoto.url}}" alt="">
+											<img class='product_image_scene' style='filter:blur(0px);'src="{{item.coverphoto.url}}" alt="">
 										</a>
 											{% if user.is_authenticated %}
 											{% if item.id in user_favourite_movie %}
@@ -148,21 +192,7 @@
 			
 
 		</div>
-		<style>
-			.page-item{
-				display: flex;
-				flex-direction: row;
-				justify-content: center;
-				align-items: center;
-				width: 30px;
-				height: 30px;
-				border-radius: 12px;
-				background-color: #131720;
-				font-size: 14px;
-				color: #e0e0e0;
-				font-weight: 500;
-			}
-		</style>
+		
 		<div style="margin:0" class="row">
 			<div class="col-12">
 				<div style="justify-content:center;" class="catalog__paginator-wrap">

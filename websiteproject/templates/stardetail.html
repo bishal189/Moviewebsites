@@ -8,7 +8,80 @@
 	<!-- header (hidden style) -->
 {% include 'include/header.html' %}	
 <style>
-	.text_title{
+	.page-item{
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+		width: 30px;
+		height: 30px;
+		border-radius: 12px;
+		background-color: #131720;
+		font-size: 14px;
+		color: #e0e0e0;
+		font-weight: 500;
+	}
+    .product_image{
+		height:290px;
+		width:220px;
+		filter:blur(0);
+		
+
+	}
+	
+	.product_image_scene{
+		height: 190px;
+		width:290px!important;
+		border-radius: 0px;
+		filter:blur(0px);
+	}
+	@media screen and (min-width: 1600px){
+	
+	  .large_screen{
+		margin-right:8px;
+	}
+		.large_scene{
+			margin-right:-30px;
+	}
+}
+	@media screen and (max-width: 1600px){
+		
+	  .large_screen{
+		margin-right:45px;
+	}
+	.large_scene{
+		margin-right:0px;
+	}
+}
+	@media screen and (min-width:765px) and (max-width:1200px){
+		.large_screen{
+			margin-right:20px;
+		}
+		.large_scene{
+			margin-right:-10px;
+			max-width:90%;
+		}
+	
+	
+
+}
+
+@media screen and (min-width:465px) and (max-width:600px){
+	.product_image{
+		height:265px;
+		width: 195px;
+	}
+	
+}
+@media screen and (max-width:585px){
+	.card__list{
+justify-content:center;
+	}
+	.card__title{
+		text-align:center;
+	}
+}
+.text_title{
 		color:white;
 		font-size:20px;
 	}
@@ -16,10 +89,12 @@
 		color:white;
 		font-size:20px;
 	}
+
+	
 </style>
 	<!-- details -->
-	<section style="padding:0px;" class="section section--head section--head-fixed section--gradient section--details-bg">
-		<div class="container">
+	<section style="padding:0px" class="section section--head section--head-fixed section--gradient section--details-bg">
+		<div style="margin-top:50px;" class="container">
 			<!-- article -->
 			<div class="article">
 			
@@ -29,7 +104,7 @@
 						
 
 						<div class="article__actions article__actions--details">
-							<div style="width:30%;">
+							<div style="width:40%;">
                                 <a href="{{star.image.url}}" class="card__cover">
                                     <img src="{{star.image.url}}" alt="">
                                 </a>	
@@ -136,40 +211,7 @@
 	</section>
 	<!-- end details -->
 
-	<!-- similar -->
-	<style>
-		.page-item{
-			display: flex;
-			flex-direction: row;
-			justify-content: center;
-			align-items: center;
-			width: 30px;
-			height: 30px;
-			border-radius: 12px;
-			background-color: #131720;
-			font-size: 14px;
-			color: #e0e0e0;
-			font-weight: 500;
-		}
-		@media screen and (min-width: 1600px){
-		
-		  .large_screen{
-			margin-right:-40px;
-		}
-			.large_scene{
-				margin-right:-70px;
-		}
-	}
-		@media screen and (max-width: 1600px){
-			
-		  .large_screen{
-			margin-right:-13px;
-		}
-		.large_scene{
-			margin-right:-20px;
-		}
-	}
-	</style>
+	
 	
 	
 		<!-- details -->
@@ -183,9 +225,9 @@
 					 <div style="justify-content:center;" class="row row--grid">
 						{% for item in  data_dvd %}
 						<div class="large_screen col-6 col-sm-4 col-lg-3 col-xl-2 col-xxl-2">
-							<div class="card">
+							<div style="width:220px;"class="card">
 								<a style="border-radius:0px;" href="{% url 'details' slug=item.slug %}" class="card__cover">
-									<img style="height:240px;width:165px;filter:blur(0);" src="{{item.coverphoto.url}}" alt="">
+									<img class="product_image" style="filter:blur(0);" src="{{item.coverphoto.url}}" alt="">
 																		</a>
 									{% if user.is_authenticated %}
 									{% if item.id in user_favourite_movie %}
@@ -269,9 +311,9 @@
 					 <div style="justify-content:center;" class="row row--grid">
 						{% for item in  data_photoset %}
 						<div class="large_screen col-6 col-sm-4 col-lg-3 col-xl-2 col-xxl-2">
-							<div class="card">
+							<div style="width:220px;"class="card">
 								<a style="border-radius:0px;" href="{% url 'details' slug=item.slug %}" class="card__cover">
-									<img style="height:240px;width:165px;filter:blur(0);" src="{{item.coverphoto.url}}" alt="">
+									<img class="product_image" style="filter:blur(0);" src="{{item.coverphoto.url}}" alt="">
 																		</a>
 									{% if user.is_authenticated %}
 									{% if item.id in user_favourite_movie %}
@@ -356,9 +398,9 @@
 					 <div style="justify-content:center;" class="row row--grid">
 						{% for item in  data_scene %}
 						<div  class="large_scene col-6 col-sm-6 col-lg-3 col-xxl-2 ">
-							<div class="card">
+							<div  class="card">
 								<a style="border-radius:0px;filter:blur(0);hover:none;" href="{% url 'details' slug=item.slug %}" class="card__cover">
-									<img  style='height: 150px;width:250px;border-radius: 0px;filter:blur(0px);'src="{{item.coverphoto.url}}" alt="">
+									<img  class="product_image_scene" style='filter:blur(0px);'src="{{item.coverphoto.url}}" alt="">
 								</a>
 									{% if user.is_authenticated %}
 									{% if item.id in user_favourite_movie %}
