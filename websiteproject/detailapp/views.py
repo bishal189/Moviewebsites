@@ -225,7 +225,7 @@ def add_album_to_cart(request, album_id):
 
 
 def cart(request,total=0,quantity=0,cart_items=None,album_price=None,album_name=None):
-   
+    all_cart_items=None
     try:
         tax=0
         grand_total=0
