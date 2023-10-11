@@ -10,7 +10,7 @@
 			counter++
 			cartValue.textContent=counter
 			add.style.display="none"
-			remove.style.display="block"
+			remove.style.display="flex"
 
 	}
 	function remove_cart(item){
@@ -22,7 +22,7 @@
 		counter--
 		cartValue.textContent=counter
 		remove.style.display="none";
-		add.style.display="block"
+		add.style.display="flex"
 
 
 	}
@@ -35,7 +35,7 @@ add=document.getElementById('add_favourites_'+id)
 remove=document.getElementById('remove_favourites_'+id)
 url=current.getAttribute('fetch-url')
 fetch(url)
-remove.style.display="block"
+remove.style.display="flex"
 add.style.display="none"
 
 }
@@ -47,7 +47,7 @@ url=current.getAttribute('fetch-url')
 fetch(url)
 
 remove.style.display="none"
-add.style.display="block"
+add.style.display="flex"
 
 
 

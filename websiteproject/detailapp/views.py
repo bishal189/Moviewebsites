@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.shortcuts import get_object_or_404, redirect
 from .models import Cart, Album_item, Albums,Order_Product_album
 from .models import Cart,Cartitem
-from indexapp.models import MovieDetail
+from indexapp.models import MovieDetail,FavouritesModel
 from albums.models import Albums,AlbumMovie,Separator
 from .models import Album_item
 from django.core.exceptions import ObjectDoesNotExist
@@ -46,6 +46,11 @@ def details(request,slug=None):
             order_li.append(item.product)
 
         already_bought=product in order_li
+        
+        user_favorite_movies=None
+        if   request.user.is_authenticated:
+            user_favorite_movies = FavouritesModel.objects.filter(user=request.user).values_list('favourite_movies__id', flat=True)
+
 
         context={
             'val':val,
@@ -53,6 +58,7 @@ def details(request,slug=None):
             'product':product,
             'notlogin':False,
             'similar':similar,
+            'user_favourite_movie':user_favorite_movies,
         }
         
         return render(request,'details.html',context)

@@ -9,7 +9,7 @@ from django.template.loader import render_to_string
 #for getting the list of albums in album page
 def album(request):
     albums=Albums.objects.all()
-    paginator_album=Paginator(albums,2)
+    paginator_album=Paginator(albums,12)
     page_album=request.GET.get('page_albums')
     paged_album=paginator_album.get_page(page_album)
     if request.META.get('HTTP_X_REQUESTED_WITH') == 'Fetch':

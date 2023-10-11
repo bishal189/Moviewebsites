@@ -203,7 +203,7 @@ def pagination(request):
 #Getting list of scene type Movies
 def scenes(request):
     alldata = MovieDetail.objects.filter(type='Scene')
-    paginator_scene = Paginator(alldata, 5)
+    paginator_scene = Paginator(alldata, 10)
     page_scene = request.GET.get('page_scene')
     paged_scene = paginator_scene.get_page(page_scene)
 
@@ -234,7 +234,7 @@ def scenes(request):
 
 def dvd(request):
     alldata=MovieDetail.objects.filter(type='DVD').order_by('-id')
-    paginator_dvd=Paginator(alldata,4)
+    paginator_dvd=Paginator(alldata,12)
     page_dvd=request.GET.get('page_dvd')
     paged_dvd=paginator_dvd.get_page(page_dvd)
     user_favorite_movies=None
@@ -264,7 +264,7 @@ def dvd(request):
 
 def stars(request):
     allstars=StarsModel.objects.all().order_by('-id')
-    paginator_star=Paginator(allstars,4)
+    paginator_star=Paginator(allstars,12)
     page_star=request.GET.get('page_star')
     paged_star=paginator_star.get_page(page_star)
     if request.META.get('HTTP_X_REQUESTED_WITH') == 'Fetch':
@@ -323,7 +323,7 @@ def star_detail(request,id):
 
 def photosets(request):
     movies=MovieDetail.objects.filter(type="PhotoSets")
-    paginator_photo=Paginator(movies,3)
+    paginator_photo=Paginator(movies,12)
     page_photo=request.GET.get('page_photo')
     paged_photo=paginator_photo.get_page(page_photo)
     user_favorite_movies=None

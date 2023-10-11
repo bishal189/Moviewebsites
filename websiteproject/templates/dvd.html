@@ -21,7 +21,7 @@
 	@media screen and (min-width: 1600px){
 	
 		.large_screen{
-		  margin-right:-40px;
+		  margin-right:-20px;
 	  }
 		  .large_scene{
 			  margin-right:-70px;
@@ -67,10 +67,10 @@
 								{% for item in dvd %}
 
 					
-								<div   class="large_screen col-6 col-sm-4 col-lg-3 col-xl-2">
+								<div   class="large_screen col-6 col-sm-4 col-lg-3 col-xl-2 col-xxl-2">
 									<div class="card">
 										<a style="border-radius:0px;" href="{% url 'details' slug=item.slug %}" class="card__cover">
-											<img style="height:240px;width:165px;filter:blur(0);" src="{{item.coverphoto.url}}" alt="">
+											<img style="height:260px;width:195px;filter:blur(0);" src="{{item.coverphoto.url}}" alt="">
 																				</a>
 											{% if user.is_authenticated %}
 											{% if item.id in user_favourite_movie %}
