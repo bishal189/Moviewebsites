@@ -675,7 +675,7 @@ def pages(request):
    return render(request,'owner/pages.html',context)
 
 def add_page(request):
-   if request.method=="POST":
+  if request.method=="POST":
       title=request.POST['title']
       status=request.POST['status']
       body=request.POST['body']
@@ -689,6 +689,7 @@ def add_page(request):
       'all_pages':all_pages
         }
       return render(request,'owner/pages.html',context)
+  return render(request,'owner/add-page.html')
 def deactivate_page(request,id):
    page=Page.objects.get(id=id)
    page.status="Inactive"
