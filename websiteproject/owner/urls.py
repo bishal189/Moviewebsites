@@ -30,5 +30,10 @@ urlpatterns = [
 
     path('pages',views.pages,name='pages'),
     path('add_page',views.add_page,name='add_page'),
+    path('activate_page/<int:id>',views.activate_page,name='activate_page'),
+    path('deactivate_page/<int:id>',views.deactivate_page,name='deactivate_page'),
+    path('delete_page/<int:id>',views.delete_page,name='delete_page'),
+    path('edit_page/<int:id>',views.edit_page,name='edit_page')
+    
   
 ]

@@ -3,8 +3,7 @@ from . import views
 urlpatterns = [
     path('',views.home,name='home'),
     path('search/',views.search,name='search'),
-    path('about/',views.about,name='about'),
-    path('privacy/',views.privacy,name='privacy'),
+    path('pages/<str:slug>',views.pageshow,name='pageshow'),
     path('search/<str:tosearch>',views.search_pagination,name='search_pagination'),
     path('add_favourites/<int:id>',views.add_favourites,name='add_favourites'),
     path('remove_favourites/<int:id>',views.remove_favourites,name='remove_favourites'),
