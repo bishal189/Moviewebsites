@@ -16,7 +16,7 @@ def home(request):
     all_scene=MovieDetail.objects.filter(type="Scene").order_by('-id')
     all_photosets=MovieDetail.objects.filter(type="PhotoSets").order_by('-id')
 
-    paginator_dvd=Paginator(all_dvd,12)
+    paginator_dvd=Paginator(all_dvd,4)
     page_dvd=request.GET.get('page_dvd')
     paged_dvd=paginator_dvd.get_page(page_dvd)
 
