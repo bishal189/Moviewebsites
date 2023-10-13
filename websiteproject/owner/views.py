@@ -676,9 +676,77 @@ def pages(request):
    return render(request,'owner/pages.html',context)
 
 def add_page(request):
-   return render(request,'owner/add-page.html')
 
+  if request.method=="POST":
+      title=request.POST['title']
+      status=request.POST['status']
+      body=request.POST['body']
+      
+      pages=Page.objects.create(title=title,status=status,body=body)
+      pages.save()
+      all_pages=Page.objects.all()
+   
 
+      context={
+      'all_pages':all_pages
+        }
+      return render(request,'owner/pages.html',context)
+  return render(request,'owner/add-page.html')
+def deactivate_page(request,id):
+   page=Page.objects.get(id=id)
+   page.status="Inactive"
+   page.save()
+   all_pages=Page.objects.all()
+   
+
+   context={
+      'all_pages':all_pages
+   }
+   return render(request,'owner/pages.html',context)
+
+   
+def delete_page(request,id):
+   page=Page.objects.get(id=id)
+   page.delete()
+   all_pages=Page.objects.all()
+
+   context={
+      'all_pages':all_pages
+   }
+   return render(request,'owner/pages.html',context)
+   
+   
+def activate_page(request,id):
+   page=Page.objects.get(id=id)
+   page.status="Active"
+   all_pages=Page.objects.all()
+   page.save()
+   context={
+      'all_pages':all_pages
+   }
+   return render(request,'owner/pages.html',context)
+   
+def edit_page(request,id):
+   page=Page.objects.get(id=id)
+   context={
+      'page':page
+   }
+   if request.method=="POST":
+      body=request.POST['body']
+      title=request.POST['title']
+      status=request.POST['status']
+
+      page.body=body
+      page.title=title
+      page.status=status
+      page.save()
+      pages=Page.objects.all()
+      context={
+         'all_pages':pages
+         }
+      return render(request,'owner/pages.html',context)
+   return render(request,'owner/edit-page.html',context)
+   
 
 
 def stars_catalog(reqeust):
@@ -721,3 +789,4 @@ def delete_stars(reqeust,id):
   get_stars=get_object_or_404(StarsModel,id=id)
   get_stars.delete()
   return redirect('stars_catalog')
+

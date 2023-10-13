@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}
+	<title>FlixTV – Movies & TV Shows, Online cinema HTML Template</title>
+{% endblock%}
+
+
+
+{% block content%}
+	<!-- header (hidden style) -->
+	{% include 'include/header.html' %}
+	<!-- end header -->
+
+	<!-- head -->
+	<section style="margin-top:150px;" class="section section--head section--head-fixed">
+		<div class="container">
+			<div class="row">
+				<div class="col-12 col-xl-6">
+					<h1 class="section__title section__title--head">{{page.title}}</h1>
+				</div>
+
+				<div class="col-12 col-xl-6">
+					<ul class="breadcrumb">
+						<li class="breadcrumb__item"><a href="index.html">Home</a></li>
+						<li class="breadcrumb__item breadcrumb__item--active">{{page.title}}</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- end head -->
+
+	<section class="section section--pb0 section--gradient">
+		<div class="container">
+			<div class="row">
+			{{page.body|safe}}
+			</div>
+		</div>
+	</section>
+
+	<!-- partners -->
+
+	<!-- end partners -->
+
+	<!-- footer -->
+	{% include 'include/footer.html' with pages=pages %}
+	
+
+{% endblock %}
