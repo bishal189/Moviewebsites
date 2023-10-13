@@ -8,10 +8,11 @@ from detailapp.models import Payment ,Order,Order_Product
 from django.db.models import Sum,Count
 from datetime import datetime, timedelta
 from .models import Page
-from .forms import MovieDetailForm
+from .forms import MovieDetailForm,Stars_form
 from myaccount.models import Account
 from category.models import Category
 from django.contrib.auth.decorators import user_passes_test
+from indexapp.models import StarsModel
 
 
 def is_superadmin(user):
@@ -675,6 +676,7 @@ def pages(request):
    return render(request,'owner/pages.html',context)
 
 def add_page(request):
+
   if request.method=="POST":
       title=request.POST['title']
       status=request.POST['status']
@@ -745,3 +747,46 @@ def edit_page(request,id):
       return render(request,'owner/pages.html',context)
    return render(request,'owner/edit-page.html',context)
    
+
+
+def stars_catalog(reqeust):
+  get_stars=StarsModel.objects.all().order_by('-id')
+  context={
+    'stars':get_stars
+  }
+  return render(reqeust,'owner/stars_catalog.html',context)
+
+
+
+
+
+def edit_stars(request,id):
+  stars= get_object_or_404(StarsModel, pk=id)
+  print(stars)
+  if request.method == 'POST':
+    form =Stars_form(request.POST,instance=stars)
+    if form.is_valid():
+      form.save()
+      return redirect('stars_catalog')  # Redirect to the movie detail page after editing
+    else:
+      print(form.errors)  
+  else:
+      form =Stars_form(instance=stars)
+
+  context = {
+        'form': form,
+        'movie': stars,
+    }
+
+  return render(request, 'owner/edit_stars.html', context)
+  
+
+
+
+
+
+def delete_stars(reqeust,id):
+  get_stars=get_object_or_404(StarsModel,id=id)
+  get_stars.delete()
+  return redirect('stars_catalog')
+
