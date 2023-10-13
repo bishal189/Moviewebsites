@@ -1,4 +1,4 @@
-from indexapp.models import MovieDetail
+from indexapp.models import MovieDetail,StarsModel
 from django import forms
 from albums.models import Albums
 class movie_form(forms.ModelForm):
@@ -77,3 +77,58 @@ class Album_form(forms.ModelForm):
         # self.fields ['duration'].widget.attrs['class']='form__input'  
 
     
+
+
+
+
+# for the stars 
+
+class Stars_form(forms.ModelForm):
+    class Meta:
+        model = StarsModel
+        fields = "__all__"
+    def __init__(self,*args,**kwargs):
+        super(Stars_form,self).__init__(*args,**kwargs)   
+        self.fields ['name'].widget.attrs['class']='form__input'
+        self.fields ['name'].widget.attrs['placeholder']='Enter Name'
+        self.fields ['image'].widget.attrs['id']='form__img-upload'  
+        self.fields ['haircolor'].widget.attrs['class']='form__input'   
+        self.fields ['haircolor'].widget.attrs['placeholder']='haircolor'   
+        self.fields ['height'].widget.attrs['class']='form__input'   
+        self.fields ['height'].widget.attrs['placeholder']='height'   
+        self.fields ['view_count'].widget.attrs['class']='form__input'   
+        self.fields ['view_count'].widget.attrs['placeholder']='view_count'   
+        self.fields ['dob'].widget.attrs['class']='form__input'   
+        self.fields ['dob'].widget.attrs['placeholder']='DOB'   
+        self.fields ['birthplace'].widget.attrs['class']='form__input'   
+        self.fields ['birthplace'].widget.attrs['placeholder']='birthplace'   
+        self.fields ['ethnicity'].widget.attrs['class']='form__input'   
+        self.fields ['ethnicity'].widget.attrs['placeholder']='ethnicity'   
+        self.fields ['nationality'].widget.attrs['class']='form__input'   
+        self.fields ['nationality'].widget.attrs['placeholder']='nationality'      
+        self.fields ['weight'].widget.attrs['class']='form__input'   
+        self.fields ['weight'].widget.attrs['placeholder']='weight'   
+        self.fields ['tatoo'].widget.attrs['class']='form__input'      
+        self.fields ['tatoo'].widget.attrs['placeholder']='Tatoo'      
+        self.fields ['piercing'].widget.attrs['class']='form__input' 
+        self.fields ['piercing'].widget.attrs['placeholder']='piercing' 
+        self.fields ['breastsize'].widget.attrs['class']='form__input' 
+        self.fields ['breastsize'].widget.attrs['placeholder']='breastsize' 
+        self.fields ['bodymarking'].widget.attrs['class']='form__input' 
+        self.fields ['bodymarking'].widget.attrs['placeholder']='bodymarking' 
+        self.fields ['currentstatus'].widget.attrs['class']='form__input' 
+        self.fields ['currentstatus'].widget.attrs['placeholder']='currentstatus' 
+        self.fields ['gender'].widget.attrs['class']='form__input' 
+        self.fields ['gender'].widget.attrs['placeholder']='Gender' 
+        self.fields ['modeltype'].widget.attrs['class']='form__input' 
+        self.fields ['modeltype'].widget.attrs['placeholder']='Model Type'
+        self.fields ['eyecolor'].widget.attrs['class']='form__input' 
+        self.fields ['eyecolor'].widget.attrs['placeholder']='Eyecolor' 
+        self.fields ['bodytype'].widget.attrs['class']='form__input' 
+        self.fields ['bodytype'].widget.attrs['placeholder']='Body Type' 
+         
+        # self.fields ['images'].widget.attrs['class']='form__gallery-upload'      
+        # self.fields ['images'].widget.attrs['id']='form__gallery-uploa'      
+        # self.fields ['images'].widget.attrs['type']='file'      
+        # self.fields ['images'].widget.attrs['accept']='.png, .jpg, .jpeg'      
+        # self.fields ['images'].widget.attrs['data_name']='#gallery1'     

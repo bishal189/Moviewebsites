@@ -13,6 +13,7 @@ urlpatterns = [
 
     path('edit_user/',views.edit_user,name='edit_user'),
     path('show_transactions/',views.show_transactions,name='transactions'),
+    path('stars_catalog/',views.stars_catalog,name='stars_catalog'),
     path('show_transactions/country',views.show_transactions_country,name='transactions_country'),
     path('show_transactions/product',views.show_transactions_product,name='transactions_product'),
     
@@ -24,8 +25,10 @@ urlpatterns = [
     path('delete_user/<int:id>/',views.user_delete_user,name='user_delete_user'),
 
     path('edit_movie/<int:id>',views.edit_movie,name='edit_movie'),
+    path('edit_stars/<int:id>',views.edit_stars,name='edit_stars'),
     path('edit_album/<int:id>',views.edit_album,name='edit_album'),
     path('remove_movie/<int:id>',views.remove_movie,name='remove_movie'),
+    path('remove_stars/<int:id>',views.delete_stars,name='delete_stars'),
     path('remove_album/<int:id>',views.remove_album,name='remove_album'),
 
     path('pages',views.pages,name='pages'),

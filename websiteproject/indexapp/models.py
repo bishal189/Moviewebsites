@@ -11,20 +11,16 @@ class ImagesModel(models.Model):
 class StarsModel(models.Model):
     name=models.CharField(max_length=100,null=True)
     image=models.ImageField(upload_to='stars/',null=True)
-    
     haircolor=models.CharField(max_length=100,blank=True,null=True)
     height=models.FloatField(null=True,blank=True)
-    
     view_count=models.IntegerField(default=0)
     dob=models.DateField(blank=True,null=True)
-    
     birthplace=models.CharField(max_length=200,blank=True,null=True)
     ethnicity=models.CharField(max_length=200,blank=True,null=True)
     nationality=models.CharField(max_length=200,blank=True,null=True)
     weight=models.IntegerField(blank=True,null=True)
     tatoo=models.CharField(max_length=600,blank=True,null=True)
     piercing=models.CharField(max_length=200,blank=True,null=True)
-    
     breasttype=models.CharField(max_length=100,null=True,blank=True)
     breastsize=models.CharField(max_length=10,blank=True,null=True)
     bodymarking=models.CharField(max_length=30,blank=True,null=True)
@@ -33,6 +29,11 @@ class StarsModel(models.Model):
     modeltype=models.CharField(max_length=30,blank=True,null=True)
     eyecolor=models.CharField(max_length=200,blank=True,null=True)
     bodytype=models.CharField(max_length=200,blank=True,null=True)
+    created_at=models.DateField(auto_now_add=True,null=True)
+
+    def __str__(self):
+       return str(self.created_at)
+
 
 
 
