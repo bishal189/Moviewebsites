@@ -7,7 +7,7 @@ from django.core.exceptions import PermissionDenied
 from detailapp.models import Payment ,Order,Order_Product
 from django.db.models import Sum,Count
 from datetime import datetime, timedelta
-
+from .models import Page
 from .forms import MovieDetailForm
 from myaccount.models import Account
 from category.models import Category
@@ -303,25 +303,39 @@ def add_stars(request):
       starbodytype=request.POST['starbodytype']
       starpiercing=request.POST['starpiercing']
       startatoo=request.POST['startatoo']
-      starbreast=request.POST['starbreast']
+
+      starbreastsize=request.POST['starbreastsize']
+      starbreasttype=request.POST['starbreasttype']
+      starbodymarking=request.POST['starbodymarking']
+      starcurrentstatus=request.POST['starcurrentstatus']
+      stargender=request.POST['stargender']
+      starmodeltype=request.POST['starmodeltype']
 
       
       star = StarsModel.objects.create(
         name=starname.title(),
         height=float(starheight) if starheight else None,
-        haircolor=starhaircolor.title() if starhaircolor else None,
         dob=starage if starage else None,
         image=starimage if starimage else None,
         birthplace=starbirthplace.title() if starbirthplace else None,
-        ethnicity=starethnicity.title() if starethnicity else None,
         nationality=starnationality.title() if starnationality else None,
         weight=int(starweight) if starweight else None,
-        eyecolor=stareyecolor.title() if stareyecolor else None,
-        bodytype=starbodytype.title() if starbodytype else None,
+
         piercing=starpiercing.title() if starpiercing else None,
         tatoo=startatoo.title() if startatoo else None,
-        breast=starbreast.title() if starbreast else None,
-        )
+        ethnicity=starethnicity  if starethnicity and starethnicity!="" else None,
+        haircolor=starhaircolor if starhaircolor and starhaircolor!="" else None,
+        eyecolor=stareyecolor if stareyecolor and stareyecolor!="" else None,
+        bodytype=starbodytype if starbodytype and starbodytype!="" else None,
+        breastsize=starbreastsize if starbreastsize and starbreastsize!="" else None,
+        breasttype=starbreasttype if starbreasttype and starbreasttype!="" else None,
+        bodymarking=starbodymarking if starbodymarking and starbodymarking!="" else None,
+
+        currentstatus=starcurrentstatus if starcurrentstatus and starcurrentstatus!="" else None,
+        gender=stargender if stargender and stargender!="" else None,
+        modeltype=starmodeltype if starmodeltype and starmodeltype!="" else None,
+
+      )
       star.save()
       
 
@@ -649,3 +663,16 @@ def active_user(request,id):
     return redirect('user_list')
     
 
+
+
+# for displaying all pages 
+def pages(request):
+   all_pages=Page.objects.all()
+
+   context={
+      'all_pages':all_pages
+   }
+   return render(request,'owner/pages.html',context)
+
+def add_page(request):
+   return render(request,'owner/add-page.html')

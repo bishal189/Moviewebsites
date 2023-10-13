@@ -1,7 +1,7 @@
 from django import forms
 from .models import Account
-from captcha.fields import ReCaptchaField 
-from captcha.widgets import ReCaptchaV2Checkbox
+#from captcha.fields import ReCaptchaField 
+#from captcha.widgets import ReCaptchaV2Checkbox
 
 
 
