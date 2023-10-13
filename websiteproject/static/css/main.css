@@ -62,7 +62,8 @@ body {
 body {
   font-family: 'Inter', sans-serif;
   font-weight: 400;
-  background-color: #131720;
+  color: #999!important;
+  background-color: #222!important;
   -webkit-font-smoothing: antialiased;
 }
 button {
@@ -410,7 +411,7 @@ body::-webkit-scrollbar-thumb {
   right: 0;
   bottom: -80px;
   height: 80px;
-  background-color: #131720;
+  background-color: black;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -1363,6 +1364,9 @@ body::-webkit-scrollbar-thumb {
   padding: 40px 0 60px;
   overflow: hidden;
 }
+.catalog:after{
+  background-color: #222!important;
+}
 .catalog:after {
   content: '';
   position: absolute;
@@ -1425,7 +1429,7 @@ body::-webkit-scrollbar-thumb {
   width: 100%;
   height: 50px;
   border-radius: 16px;
-  background-color: #151f30;
+  background-color: #222;
 }
 .catalog__paginator-wrap--comments {
   margin: 30px auto;
@@ -4428,7 +4432,7 @@ body::-webkit-scrollbar-thumb {
 	Footer
 ==============================*/
 .footer {
-  background-color: #131720;
+  background-color: #000;
   padding: 30px 0;
   position: relative;
   overflow: hidden;
@@ -4442,7 +4446,7 @@ body::-webkit-scrollbar-thumb {
   right: 0;
   display: block;
   z-index: 1;
-  background: black;
+  background:#000 ;
 }
 .footer .container {
   z-index: 2;
