@@ -28,5 +28,7 @@ urlpatterns = [
     path('remove_movie/<int:id>',views.remove_movie,name='remove_movie'),
     path('remove_album/<int:id>',views.remove_album,name='remove_album'),
 
+    path('pages',views.pages,name='pages'),
+    path('add_page',views.add_page,name='add_page'),
   
 ]

@@ -65,7 +65,7 @@ $(document).ready(function () {
 		placeholder: "Choose quality",
 		allowClear: true
 	});
-
+	
 	
 
  $('#genre').select2({
