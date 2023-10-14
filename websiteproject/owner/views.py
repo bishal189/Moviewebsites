@@ -8,7 +8,7 @@ from detailapp.models import Payment ,Order,Order_Product
 from django.db.models import Sum,Count
 from datetime import datetime, timedelta
 from .models import Page
-from .forms import MovieDetailForm,Stars_form
+from .forms import MovieDetailForm
 from myaccount.models import Account
 from category.models import Category
 from django.contrib.auth.decorators import user_passes_test
@@ -749,33 +749,79 @@ def edit_page(request,id):
    
 
 
-def stars_catalog(reqeust):
+def stars_catalog(request):
   get_stars=StarsModel.objects.all().order_by('-id')
   context={
     'stars':get_stars
   }
-  return render(reqeust,'owner/stars_catalog.html',context)
-
-
+  return render(request,'owner/stars_catalog.html',context)
 
 
 
 def edit_stars(request,id):
-  stars= get_object_or_404(StarsModel, pk=id)
-  print(stars)
+  stars= StarsModel.objects.get(id=id)
+  
   if request.method == 'POST':
-    form =Stars_form(request.POST,instance=stars)
-    if form.is_valid():
-      form.save()
-      return redirect('stars_catalog')  # Redirect to the movie detail page after editing
-    else:
-      print(form.errors)  
-  else:
-      form =Stars_form(instance=stars)
+      starimage=None
+      if 'starimage' in request.FILES:
+        starimage=request.FILES['starimage']
+      starname=request.POST['starname']
+      starheight=request.POST['starheight']
+      starhaircolor=request.POST['starhaircolor']
+      starage=request.POST['starage']
+      starbirthplace=request.POST['starbirthplace']
+      starethnicity=request.POST['starethnicity']
+      starnationality=request.POST['starnationality']
+      starweight=request.POST['starweight']
+      stareyecolor=request.POST['stareyecolor']
+      starbodytype=request.POST['starbodytype']
+      starpiercing=request.POST['starpiercing']
+      startatoo=request.POST['startatoo']
+
+      starbreastsize=request.POST['starbreastsize']
+      starbreasttype=request.POST['starbreasttype']
+      starbodymarking=request.POST['starbodymarking']
+      starcurrentstatus=request.POST['starcurrentstatus']
+      stargender=request.POST['stargender']
+      starmodeltype=request.POST['starmodeltype']
+
+      print(float(starheight))
+      stars.name=starname.title()
+      stars.height=float(starheight) if starheight else None
+      # print(stars.height)
+      stars.dob=starage if starage else None
+      
+      if starimage is not  None:
+        stars.image=starimage
+      stars.birthplace=starbirthplace.title() if starbirthplace else None
+      stars.nationality=starnationality.title() if starnationality else None
+      stars.weight=int(starweight) if starweight else None
+
+      stars.piercing=starpiercing.title() if starpiercing else None
+      stars.tatoo=startatoo.title() if startatoo else None
+      stars.ethnicity=starethnicity  if starethnicity and starethnicity!="" else None
+      stars.haircolor=starhaircolor if starhaircolor and starhaircolor!="" else None
+      stars.eyecolor=stareyecolor if stareyecolor and stareyecolor!="" else None
+      stars.bodytype=starbodytype if starbodytype and starbodytype!="" else None
+      stars.breastsize=starbreastsize if starbreastsize and starbreastsize!="" else None
+      stars.breasttype=starbreasttype if starbreasttype and starbreasttype!="" else None
+      stars.bodymarking=starbodymarking if starbodymarking and starbodymarking!="" else None
+
+      stars.currentstatus=starcurrentstatus if starcurrentstatus and starcurrentstatus!="" else None
+      stars.gender=stargender if stargender and stargender!="" else None
+      stars.modeltype=starmodeltype if starmodeltype and starmodeltype!="" else None
+
+      
+      stars.save()  
+      get_stars=StarsModel.objects.all().order_by('-id')
+      context={
+      'stars':get_stars
+       }
+      return render(request,'owner/stars_catalog.html',context)
 
   context = {
-        'form': form,
-        'movie': stars,
+        
+        'star': stars,
     }
 
   return render(request, 'owner/edit_stars.html', context)
