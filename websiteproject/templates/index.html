@@ -18,7 +18,7 @@
 		bottom: 0;
 		width: 100vw;
 		height: 100vh;
-		{% comment %} background-color: rgba(8,11,14,.7); {% endcomment %}
+		/* {% comment %} background-color: rgba(8,11,14,.7); {% endcomment %} */
 		z-index: 10000;
 		backdrop-filter: blur(20px);
 		-webkit-backdrop-filter: blur(20px);
@@ -1036,7 +1036,7 @@ margin-left: -29px;
 		<!-- end plan -->
 
 	
-{% include 'include/footer.html' %}
+{% include 'include/footer.html' with pages=pages %}
 {% include 'include/script.html' %}
 	<!-- end footer -->
 {% include 'include/script_pagination.html' %}

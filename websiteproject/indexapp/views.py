@@ -9,7 +9,7 @@ from datetime import datetime
 from django.contrib.auth.models import AnonymousUser
 from detailapp.models import Cartitem
 from django.template.loader import render_to_string
-
+from owner.models import Page
 #Home page
 def home(request): 
     all_dvd=MovieDetail.objects.filter(type="DVD").order_by('-id')
@@ -89,6 +89,8 @@ def home(request):
         'pagination': pagination_html,
             }
         return JsonResponse(response_data)
+    
+    pages=Page.objects.all().order_by('-id')
 
     context={
         'genres':genres,
@@ -101,8 +103,11 @@ def home(request):
         'haircolor':haircolor,
         'user_favourite_movie':user_favorite_movies,
         'user_added_cart':user_added_cart,
+        'pages':pages,
         
     }
+
+
     return render(request,'index.html',context)
 
 
@@ -375,9 +380,13 @@ def remove_favourites(request,id):
 
 
 
-def about(request):
-    return render(request,'about.html')
-def privacy(request):
-    return render(request,'privacy.html')
+def pageshow(request,slug):
+    pages=Page.objects.all()
+    page=Page.objects.get(slug=slug)
+    context={
+        'page':page,
+        'pages':pages
+    }
+    return render(request,'page-template.html',context)
 
 
