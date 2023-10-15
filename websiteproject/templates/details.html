@@ -7,6 +7,9 @@
 {% block content %}
 	<!-- header (hidden style) -->
 {% include 'include/header.html' %}	
+
+<!----code for responsiveness -->
+{% comment %} {% include 'include/responsive.html' %} {% endcomment %}
 <style>
 
 	.img_article{
@@ -646,7 +649,7 @@
 								<div class="col-12">
 									<h1 style="background-color:#151f30;margin-bottom:0px;padding:20px;" class="home__title">Similar Items </h1><F5>
 									</div>
-									<div id="paginator_data_scene" style="justify-content:center;" class="row row--grid">
+									<div id="paginator_data_scene" style="justify-content:center; margin:0 auto; " class="row row--grid">
 										{% for item in  similar %}
 										{% if product.type == "Scene" %}
 										<div  class="large_scene col-6 col-sm-6 col-lg-3 col-xxl-2 ">
