@@ -9,83 +9,8 @@
 	{% include 'include/header.html' %}
 	
 	
-	
-<style>
-	.page-item{
-		display: flex;
-		flex-direction: row;
-		justify-content: center;
-		align-items: center;
-		width: 30px;
-		height: 30px;
-		border-radius: 12px;
-		background-color: #131720;
-		font-size: 14px;
-		color: #e0e0e0;
-		font-weight: 500;
-	}
-    .product_image{
-		height:290px;
-		width:220px;
-		filter:blur(0);
-		
-
-	}
-	
-	.product_image_scene{
-		height: 190px;
-		width:290px!important;
-		border-radius: 0px;
-		filter:blur(0px);
-	}
-	@media screen and (min-width: 1600px){
-	
-	  .large_screen{
-		margin-right:8px;
-	}
-		.large_scene{
-			margin-right:-30px;
-	}
-}
-	@media screen and (max-width: 1600px){
-		
-	  .large_screen{
-		margin-right:45px;
-	}
-	.large_scene{
-		margin-right:0px;
-	}
-}
-	@media screen and (min-width:765px) and (max-width:1200px){
-		.large_screen{
-			margin-right:20px;
-		}
-		.large_scene{
-			margin-right:-10px;
-			max-width:90%;
-		}
-	
-	
-
-}
-
-@media screen and (min-width:465px) and (max-width:600px){
-	.product_image{
-		height:265px;
-		width: 195px;
-	}
-	
-}
-@media screen and (max-width:585px){
-	.card__list{
-justify-content:center;
-	}
-	.card__title{
-		text-align:center;
-	}
-}
-
-</style>
+	<!----code for responsiveness -->
+{% include 'include/responsive.html' %}
 	<!-- head -->
 	<section style="margin-top:50px"class="section section--head ">
 		<div class="container">
@@ -201,7 +126,7 @@ justify-content:center;
 			<div class="row">
 				<div class="col-12">
 					<h1  style='color:white'>Scene</h1>
-					<div style="justify-content:center;" class="row row--grid">
+					<div style="justify-content:center;margin:0 auto;" class="row row--grid">
 						{% for item in  all_products_scene %}
 						<div  class="large_scene col-6 col-sm-6 col-lg-3 col-xxl-2 ">
 							<div class="card">

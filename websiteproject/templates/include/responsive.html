@@ -1,0 +1,183 @@
+
+{% comment %} code for responsive ness   {% endcomment %}
+<style>
+    .page-item{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        width: 30px;
+        height: 30px;
+        border-radius: 12px;
+        background-color: #131720;
+        font-size: 14px;
+        color: #e0e0e0;
+        font-weight: 500;
+    }
+    .product_image{
+        height:290px;
+        width:220px;
+        filter:blur(0);
+        
+
+    }
+    
+    .product_image_scene{
+        height: 190px;
+        width:290px!important;
+        border-radius: 0px;
+        filter:blur(0px);
+    }
+    @media screen and (min-width: 1600px){
+    
+      .large_screen{
+        margin-right:8px;
+    }
+        .large_scene{
+            margin-right:-30px;
+    }
+}
+    @media screen and (max-width: 1600px){
+        
+      .large_screen{
+        margin-right:45px;
+    }
+    .large_scene{
+        margin-right:0px;
+    }
+}
+    @media screen and (min-width:765px) and (max-width:1200px){
+        .large_screen{
+            margin-right:20px;
+        }
+        .large_scene{
+            margin-right:-10px;
+            max-width:90%;
+        }
+    
+    
+
+}
+
+@media screen and (min-width:465px) and (max-width:600px){
+    .product_image{
+        height:265px;
+        width: 195px;
+    }
+    
+}
+@media screen and (max-width:585px){
+    .card__list{
+justify-content:center;
+    }
+    .card__title{
+        text-align:center;
+    }
+}
+
+@media screen and (max-width:1200px){
+    .top{
+        margin-top:150px!important;
+    }
+    .dvd_padding{
+        padding-bottom:15px;
+    }
+}
+
+
+@media screen and (max-width:582px){
+    .product_image{
+        width:247px!important;
+        height:304px;
+    }
+}
+@media screen and (max-width:578px){
+    .product_image{
+        
+        width:245px!important;
+        height:301px!important;
+        
+    }
+    .large_screen{
+        margin-right:0px;
+    }
+}
+@media screen and (max-width:465px){
+    .product_image{
+        width:188px!important;
+        height:232px!important;
+        
+    }
+    .card__add{
+        left:22px;
+        right: 22px !important;
+    }
+    .row--grid {
+            margin-right: 16px;
+margin-left: -29px;
+          }
+    
+    .large_screen{
+        margin-right:0px;
+    }
+}
+
+@media screen and (max-width:398px){
+    .product_image{
+        width:153px!important;
+        height:188px!important;
+        
+    }
+    .card__add{
+        left: 36px!important;
+        right: 36px!important;
+    }
+    .row--grid {
+        margin-right: 35px;
+        margin-left: -37px;
+    }
+    .large_screen{
+        margin-right:0px;
+    }
+}
+ @media screen and (max-width:350px){
+    .product_image{
+    
+        width:113px!important;
+        height:164px!important;
+        
+    }
+    .card__add{
+        left: 50px!important;
+        right: 48px!important;
+    }
+    .row--grid {
+        margin-right: 23px;
+        margin-left: -55px;
+    }
+    .large_screen{
+        margin-right:0px;
+    }
+
+}
+ @media screen and (max-width:290px){
+    .product_image{
+        width:100px!important;
+        height:115px!important;
+        
+    }
+    .card__add{
+        left: 60px!important;
+        right: 60px!important;
+    }
+    .row--grid {
+        margin-right: 20px;
+        margin-left: -65px;
+    }
+    .large_screen{
+        margin-right:0px;
+    }
+
+}
+ 
+</style>

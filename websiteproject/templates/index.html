@@ -243,96 +243,16 @@ clickyes()
 	</div>
 </div>
 
+
+
+{% include  'include/responsive.html' %}
 <style>
-	.page-item{
-		display: flex;
-		flex-direction: row;
-		justify-content: center;
-		align-items: center;
-		width: 30px;
-		height: 30px;
-		border-radius: 12px;
-		background-color: #131720;
-		font-size: 14px;
-		color: #e0e0e0;
-		font-weight: 500;
-	}
-    .product_image{
-		height:290px;
-		width:220px;
-		filter:blur(0);
-		
-
-	}
 	
-	.product_image_scene{
-		height: 190px;
-		width:290px!important;
-		border-radius: 0px;
-		filter:blur(0px);
-	}
-	.row{
-		justify-content:center;
-	}
-	@media screen and (min-width: 1600px){
-	
-	  .large_screen{
-		margin-right:8px;
-	}
-		.large_scene{
-			margin-right:-30px;
-	}
+ 
+.row--grid .col-6, .row--grid .col-12 {
+    padding-left: 20px;
+    padding-right: 10px;
 }
-	@media screen and (max-width: 1600px){
-		
-	  .large_screen{
-		margin-right:45px;
-	}
-	.large_scene{
-		margin-right:0px;
-	}
-}
-	@media screen and (min-width:765px) and (max-width:1200px){
-		.large_screen{
-			margin-right:20px;
-		}
-		.large_scene{
-			margin-right:-10px;
-			max-width:90%;
-		}
-	
-	
-
-}
-.home__title{
-	font-size:20px;
-}
-
-
-@media screen and (max-width:580px){
-	
-	.product_image{
-		height:245px;
-		width:195px!important;
-	}
-	.large_screen{
-		margin-right:-40px;
-	}
-	.card__list{
-justify-content:center;
-	}
-	
-	.card__title{
-		text-align:center;
-	}
-}
-.span_hover{
-	color:white
-}
-.span_hover:hover{
-	color:blue;
-}
-
 </style>
 
 	<!-- catalog -->
@@ -343,10 +263,10 @@ justify-content:center;
 				<div class="col-12">
 					<h1 style="background-color:#151f30;margin-bottom:0px;padding:20px;" class="home__title">Recently Added Dvds <span  style="font-size:16px;position:absolute;right:10%;"><a class="span_hover" href="{% url 'dvd' %}">View All</a></span></h1><F5>
 				</div>		
-					<div id="paginator_data_dvd" class="row row--grid">
+					<div id="paginator_data_dvd" style="justify-content:center;"class="row row--grid">
 						{% for item in  dvd %}
 						<div class="large_screen col-6 col-sm-4 col-md-4 col-lg-3 col-xl-2 col-xxl-2">
-							<div style="width:220px;" class="card">
+							<div  class="card" style="width:220px; ">
 								<a style="border-radius:0px;" href="{% url 'details' slug=item.slug %}" class="card__cover">
 									<img style="filter:blur(0)" class="product_image"  src="{{item.coverphoto.url}}" alt="">
 								</a>
@@ -466,9 +386,9 @@ justify-content:center;
 				<div class="col-12">
 					<h1 style="background-color:#151f30;margin-bottom:0px;padding:20px;" class="home__title">Recently Added Scenes <span style="font-size:16px;position:absolute;right:10%;"><a class="span_hover" href="{% url 'scenes' %}">View All</a></span></h1><F5>
 					</div>
-					<div id="paginator_data_scene" style="justify-content:center;" class="row row--grid">
+					<div id="paginator_data_scene" style="justify-content:center; margin:0 auto ;" class="row row--grid">
 						{% for item in  scenes %}
-						<div  class="large_scene col-12 col-sm-6 col-lg-3 col-md-4 col-xxl-2 ">
+						<div  class="large_scene col-12 col-sm-6 col-lg-3 col-md-4 col-xxl-2">
 							<div class="card">
 								<a style="border-radius:0px;filter:blur(0);hover:none;" href="{% url 'details' slug=item.slug %}" class="card__cover">
 									<img class="product_image_scene" src="{{item.coverphoto.url}}" alt="">
