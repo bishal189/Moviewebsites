@@ -338,11 +338,7 @@ def scenes(request):
         'genres':genres,
         'popular_genre':popular_genres,
         'attributes':attribute_choices,
-
-
-
     }
-
     return render(request, 'scenes.html',context)
 
 def dvd(request):

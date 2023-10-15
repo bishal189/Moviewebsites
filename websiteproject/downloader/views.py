@@ -31,8 +31,9 @@ def download_list(request):
                 print("Symbolic link created successfully.")
             except subprocess.CalledProcessError as e:
                 print(f"Error: {e}")
+
             
-            albums=Order_Product_album.objects.filter(user=user)
+        albums=Order_Product_album.objects.filter(user=user)
         for album in albums:
             albumdir=os.path.join(user_home_directory,album.product.album.album_name)
             subprocess.run(['sudo','mkdir','-p',albumdir],check=True)
@@ -47,8 +48,19 @@ def download_list(request):
                     print("Symbolic link created successfully.")
                 except subprocess.CalledProcessError as e:
                     print(f"Error: {e}")
+        
+        data_dvd=order_items.filter(product__type='DVD')
+        data_scene=order_items.filter(product__type='Scene')
+        data_photoset=order_items.filter(product__type='PhotoSets')
 
-        return render(request, 'download-list.html', {'orders': order_items,'albums':albums})
+        context={
+            'albums':albums,
+            'data_dvd':data_dvd,
+            'data_scene':data_scene,
+            'data_photoset':data_photoset,
+        }
+
+        return render(request, 'download-list.html',context)
     
 
 def package_list(request,id):
