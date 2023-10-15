@@ -1,0 +1,42 @@
+{% for item in movies %}
+							{% if product.type == "Scene" %}
+							<div  class="large_scene col-6 col-sm-6 col-lg-3 col-xxl-2 ">
+								<div class="card" style='width:220px;'>
+									<a style="border-radius:0px;filter:blur(0);" href="{% url 'details' slug=item.slug %}" class="card__cover">
+										<img  style='filter:blur(0px);' class='product_image_scene'  src="{{item.coverphoto.url}}" alt="">
+								{% else%}
+
+							<div class="large_screen col-6 col-sm-4 col-lg-3 col-xl-2 col-xxl-2">
+								<div class="card" style='width:220px;'>
+									<a style="border-radius:0px;" href="{% url 'details' slug=item.slug %}" class="card__cover">
+										<img style="filter:blur(0);" class='product_image' src="{{item.coverphoto.url}}" alt="">
+																		
+									{% endif %}
+									</a>
+									
+								<span class="card__rating">{{item.price}} $</span>
+								<h3 class="card__title"><a href="{% url 'details' slug=item.slug%}">{{item.movie_name}}</a></h3>
+								<ul class="card__list">
+									<li>{{item.type}}</li>
+									<li>{{item.price}} $</li>
+									<li>{{item.duration}} min</li>
+								</ul>
+								{% if user.is_authenticated %}
+								
+								{%if item in already_in_album %}
+								<button dec-url="{% url 'dec_counter' product.id item.id %}"  id="item_remove_{{item.id}}" onclick="remove_item({{item.id}})"  class="sign__btn">Added</button>
+									{% else %}
+								<button inc-url="{% url 'inc_counter' product.id item.id %}" id="item_add_{{item.id}}" onclick="add_item({{item.id}})"  class="sign__btn">Add to Packages</button>
+
+								{% endif %}
+								<button dec-url="{% url 'dec_counter' product.id item.id %}" style="display:none;" id="item_remove_{{item.id}}" onclick="remove_item({{item.id}})"  class="sign__btn">Added</button>
+
+								<button inc-url="{% url 'inc_counter' product.id item.id %}" style="display:none;" id="item_add_{{item.id}}" onclick="add_item({{item.id}})"  class="sign__btn">Add to Packages</button>
+
+	     {% else %}		
+		<a href="{% url 'login' %}" ><button   class="sign__btn">Add to Packages</button></button></a>
+		{% endif %}
+							</div>
+						</div>
+					
+					{% endfor %}

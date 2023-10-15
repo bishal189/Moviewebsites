@@ -5,7 +5,7 @@ from detailapp.models import Cartitem
 from django.db.models import  Sum
 from django.contrib.auth.models import AnonymousUser
 from datetime import datetime
-from django.db.models import Count,Q
+from django.db.models import Count
 from django.db.models.functions import Lower
 
 #Request to category page can be removed now as no category page is available now 
@@ -27,7 +27,7 @@ def category(request):
 
     attributes = list(attribute_mapping.keys())
 
-    age_ranges = [f"Age: {i}-{i+2}" for i in range(18, 40, 5)]
+    age_ranges = [f"Age: {i}-{i+5}" for i in range(18, 40, 5)]
     attributes.append('Age')
 
     # Combine attribute names and values for the single <select> tag
@@ -61,7 +61,7 @@ def category(request):
     return render(request,"category.html",context)
     
 #filtering mechanism which filters based on post data from index page
-def category_filter(request):
+def category_filter(request,type=None):
     attribute_mapping = {
         'Hair Color': 'haircolor',
         'Ethnicity': 'ethnicity',
@@ -79,7 +79,7 @@ def category_filter(request):
 
     attributes = list(attribute_mapping.keys())
 
-    age_ranges = [f"Age: {i}-{i+2}" for i in range(18, 50, 5)]
+    age_ranges = [f"Age: {i}-{i+5}" for i in range(18, 50, 5)]
     attributes.append('Age')
 
     # Combine attribute names and values for the single <select> tag
@@ -175,15 +175,19 @@ def category_filter(request):
     current['popular_category']=popular_category
     current['all_category']=scene_category
     current['choice']=selected_options
-    print(current)
 
 
     ###To deterrmine which filters are applied
-    
+    if type is not None:
+        data_to_show="data_"+type.lower()
+        
+        actual_data=movies.filter(type=type)
+
+    else:   
     # now getting data based on type
-    get_dvd=movies.filter(type="DVD")
-    get_scene=movies.filter(type="Scene")
-    get_photoset=movies.filter(type="PhotoSets")
+        get_dvd=movies.filter(type="DVD")
+        get_scene=movies.filter(type="Scene")
+        get_photoset=movies.filter(type="PhotoSets")
 
     stardata=StarsModel.objects.all()
     haircolor=StarsModel.objects.values('haircolor').distinct()
@@ -195,17 +199,17 @@ def category_filter(request):
     if not isinstance(request.user,AnonymousUser):
         user_added_cart=Cartitem.objects.filter(user=request.user).values_list('product__id',flat=True)
 
-    popular_genres=popular_categories = Category.objects.annotate(
+    popular_genres=Category.objects.annotate(
     total_views=Count('moviedetail__view_count'),
     total_carts=Count('moviedetail__cart_count')
     ).order_by('-total_views', '-total_carts')[:10]
-    
-# Order the categories by total_view_count and total_cart_count
-    context={
+
+
+    if type is not None:
+        context={
           'genres':genres,
-          'data_dvd':get_dvd,
-          'data_scene':get_scene,
-          'data_photoset':get_photoset,
+           data_to_show:actual_data,
+           'type':type,
           'star':stardata,
           'haircolor':haircolor,
           'user_favourite_movie':user_favorite_movies,
@@ -213,10 +217,24 @@ def category_filter(request):
           'attributes':attribute_choices,
           'popular_genre':popular_genres,
           'current':current,
+        }
 
+    else:
+# Order the categories by total_view_count and total_cart_count
+        context={
+            'genres':genres,
+            'data_dvd':get_dvd,
+            'data_scene':get_scene,
+            'data_photosets':get_photoset,
+            'star':stardata,
+            'haircolor':haircolor,
+            'user_favourite_movie':user_favorite_movies,
+            'user_added_cart':user_added_cart,
+            'attributes':attribute_choices,
+            'popular_genre':popular_genres,
+            'current':current,
 
-
-        } 
+            } 
     return render(request,"category.html",context)
     
    
