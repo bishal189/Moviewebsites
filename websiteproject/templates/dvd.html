@@ -10,8 +10,12 @@
 	<!-- header (relative style) -->
 {% include 'include/header.html' %}
 
+{% include 'include/select.html' %}
+
+
 <!----code for responsiveness -->
 {% include 'include/responsive.html' %}
+
 	<!-- head -->
 	<section class="top section section--head mt-5" >
 		<div class="container">
@@ -36,6 +40,69 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-12">
+					<div class="catalog__nav">
+						<div  class="catalog__select-wrap">
+						<form method="POST" action="{% url 'category_filter_type' "DVD"%}">
+									{% csrf_token %}
+
+										<div class="form__group">
+											<select id="sort" name='sort'>
+												<option></option> <!-- Add an empty option as a placeholder -->
+												<option value="most-trending" {% if current.sort == "most-trending" %} selected{% else %} {% endif %}>Most Trending</option>
+												<option value="newest" {% if current.sort == "newest" %} selected{% else %} {% endif %}>Newest</option>
+		
+												<option value="most-popular" {% if current.sort == "most-popular" %} selected{% else %} {% endif %}>Most Popular</option>
+		
+												<option value="alphabetical" {% if current.sort == "alphabetical" %} selected{% else %} {% endif %}>Alphabetical Order</option>
+		
+											</select>
+									</div>
+										
+										<div class="form__group">
+												
+											<select name="view" id="view">
+
+											<option selected></option> <!-- Add an empty option as a placeholder -->
+											<option value="4k" {% if current.view == "4k" %} selected{% else %} {% endif %}>4k</option>
+												<option value="HD" {% if current.view == "HD" %} selected{% else %} {% endif %}>HD</option>
+												<option value="SD" {% if current.view == "SD" %} selected{% else %} {% endif %}>SD</option>
+
+												<option value="FullHD" {% if current.view == "FullHD" %} selected{% else %} {% endif %}>FullHD</option>
+		
+											</select>
+										</div>
+						
+									<select  multiple="multiple" name="popular_category" id="popular_category">
+										
+										{% for item in popular_genre %}
+										
+											<option value="{{item.id}}"  {% if item.id|stringformat:"s" in current.popular_category %} selected {% endif %}>{{item.category_name}} </option>
+											{%endfor%}
+
+										</select>
+									
+
+									<select  multiple="multiple" name="scene_category" id="scene_category">
+										{% for item in genres %}
+										<option value="{{item.id}}"{% if item.id|stringformat:"s" in current.all_category %} selected {% endif %}>{{item.category_name}}</option>
+										{% endfor %}
+									</select>
+								
+									<select  multiple="multiple" name="model" id="model">
+										{% for choice in attributes %}
+										<option value="{{choice}}"{% if choice|stringformat:"s" in current.choice %} selected {% endif %}>{{ choice }}</option>
+										{% endfor %}
+
+									</select>
+
+
+								<button style="text-align:center;width:150px;display:inline-block;" type="submit" class="sign__btn">Filter</button>
+								</form>
+														</div>
+													</div>
+								{% comment %} filter end {% endcomment %}
+
+
 			
 							<div id="paginator_data" style="justify-content:center;" class="row row--grid">
 
@@ -162,6 +229,6 @@
 	{% include 'include/footer.html' %}
 	{% include 'include/script.html' %}
 	{% include 'include/script_pagination.html' %}
-
+	{% include 'include/selectjs.html' %}
 	
 	{% endblock %}

@@ -58,14 +58,7 @@ def album_detail(request,id):
     items_per_page = 20 # Adjust this to your preferred value
 
     # Create a Paginator object with the movies queryset
-    paginator = Paginator(movies, items_per_page)
-
-    # Get the current page number from the request's GET parameters
-    page_number = request.GET.get('page')
-
-    # Get the Page object for the current page
-    movies = paginator.get_page(page_number)
-
+    
     li=[]
 
     #type checker is used to check for scene in index page
@@ -75,8 +68,6 @@ def album_detail(request,id):
     if request.user.is_authenticated:
         user=request.user
         cart_item=Cartitem.objects.filter(user=user)
-
-
 
         for item in cart_item:
                 li.append(item.product)
@@ -88,17 +79,37 @@ def album_detail(request,id):
     
         for item in previous_items:
             li.append(item.product)
+        
+        filtered_movie_details = [movie for movie in movies if movie not in li]    
+        paginator = Paginator(filtered_movie_details, 2)
+
+    # Get the current page number from the request's GET parameters
+        page_number = request.GET.get('page_album')
+
+    # Get the Page object for the current page
+        paged_data = paginator.get_page(page_number)
+        if request.META.get('HTTP_X_REQUESTED_WITH') == 'Fetch':
+            response_data=None
+            page_album=request.GET.get('page_album')
+            print(page_album)
+            if page_album is not None:
+                paged_album= paginator.get_page(page_album)
+                album_html = render_to_string('partial/album_detail_partial.html', {'product':album,'movies': paged_album}, request=request)
+                pagination_html = render_to_string('partial/pagination_partial.html', {'data': paged_album,'type':"album",}, request=request)
+                response_data = {
+            'content': album_html,
+            'pagination': pagination_html,
+                }
+            return JsonResponse(response_data)
 
 
         context={
 
             'product':album,
-            'movies':movies,
+            'movies':paged_data,
             'already_in_album':already_in_album,
-            'itemsincart':li,
             # 'counter':album.counter,
             'counter':counter,
-            'all_products':movies,
             'typeChecker':typeChecker,
             'count':count
         }
@@ -106,7 +117,6 @@ def album_detail(request,id):
         context={
              'product':album,
             'movies':movies,
-            'all_products':movies,
             'count':count
             
 

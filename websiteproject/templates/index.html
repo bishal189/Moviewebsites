@@ -85,6 +85,9 @@
 	} 
 
 </style>
+{% include 'include/select.html' %}
+
+
 	<div id="age_check">
 	<div class="modal1" id="ageModal">
 			<h2>Our site</h2>
@@ -168,118 +171,63 @@ clickyes()
 			<div class="col-12">
 				<div class="catalog__nav">
 					<div  class="catalog__select-wrap">
-					<form method="POST" action="{% url 'category_filter' %}">
-								{% csrf_token %}
-						<select class="catalog__select" name="genre" id="genre">
+						<form method="POST" action="{% url 'category_filter' %}">
+							{% csrf_token %}
 
-							{%  if current.genre %}<option value="{{current.genre}}">{{current.genre}}</option>{% endif %}
-							<option value="all">All genres</option>
+								<div class="form__group">
+									<select id="sort" name='sort'>
+										<option></option> <!-- Add an empty option as a placeholder -->
+										<option value="most-trending" {% if current.sort == "most-trending" %} selected{% else %} {% endif %}>Most Trending</option>
+										<option value="newest" {% if current.sort == "newest" %} selected{% else %} {% endif %}>Newest</option>
 
-							{% for gen in genres %}
-							{% if gen.category_name == current.genre %}
-							{% else %}
-							<option value="{{gen.category_name}}">{{gen.category_name}}</option>
-								{%  endif %}
-							{% endfor %}
-							
-						</select>
-						<select class="catalog__select" name="popularity" id="popularity">
-							{%  if current.popularity %}
-							<option value="{{current.popularity}}">{{current.popularity}}</option>{% endif %}
-							<option value="all">Popularity</option>
+										<option value="most-popular" {% if current.sort == "most-popular" %} selected{% else %} {% endif %}>Most Popular</option>
 
-							
-							<option value="Videos">Videos</option>
-							<option value="Genres">Genres</option>
-							<option value="Stars">Stars</option>
-							
-							
-						</select>
+										<option value="alphabetical" {% if current.sort == "alphabetical" %} selected{% else %} {% endif %}>Alphabetical Order</option>
 
-						<select class="catalog__select" name="type" id="type">
-							{%  if current.type %}<option value="{{current.type}}">{{current.type}}</option>{% endif %}
-							<option value="all">All Types</option>
-
-							<option value="PhotoSets">PhotoSets</option>
-							<option value="DVD">DVD</option>
-							<option value="Scene">Scene</option>
+									</select>
+							</div>
 								
-						</select>
+								<div class="form__group">
+										
+									<select name="view" id="view">
 
+									<option selected></option> <!-- Add an empty option as a placeholder -->
+									<option value="4k" {% if current.view == "4k" %} selected{% else %} {% endif %}>4k</option>
+										<option value="HD" {% if current.view == "HD" %} selected{% else %} {% endif %}>HD</option>
+										<option value="SD" {% if current.view == "SD" %} selected{% else %} {% endif %}>SD</option>
+
+										<option value="FullHD" {% if current.view == "FullHD" %} selected{% else %} {% endif %}>FullHD</option>
+
+									</select>
+								</div>
+				
+							<select  multiple="multiple" name="popular_category" id="popular_category">
+								
+								{% for item in popular_genre %}
+								
+									<option value="{{item.id}}"  {% if item.id|stringformat:"s" in current.popular_category %} selected {% endif %}>{{item.category_name}} </option>
+									{%endfor%}
+
+								</select>
+							
+
+							<select  multiple="multiple" name="scene_category" id="scene_category">
+								{% for item in genres %}
+								<option value="{{item.id}}"{% if item.id|stringformat:"s" in current.all_category %} selected {% endif %}>{{item.category_name}}</option>
+								{% endfor %}
+							</select>
 						
-						<select class="catalog__select" name="price" id="price">
-							{%  if current.price %}<option value="{{current.price}}">{{current.price}}</option>{% endif %}
-							<option value="all">All Prices</option>
-							<option value="0-10">0$-10$</option>
-							<option value="10-20">10$-20$</option>
-							<option value="20-30">20$-30$</option>
-							<option value="30-40">30$-40$</option>
-							<option value="40-50">40$-50$</option>
-							<option value="50-1000">50+</option>
-							
-								
-						</select>
+							<select  multiple="multiple" name="model" id="model">
+								{% for choice in attributes %}
+								<option value="{{choice}}"{% if choice|stringformat:"s" in current.choice %} selected {% endif %}>{{ choice }}</option>
+								{% endfor %}
 
-						<select class="catalog__select" name="year" id ="year" >
-							{% if current.year %}<option value="{{current.year}}">{{current.year}}</option>{% endif %}
-							
-							<option value="all">All the years</option>
-								
-							<option value="2023">2023</option>
-							<option value="2022">2022</option>
-							<option value="2021">2021</option>
-							<option value="2020">2020</option>
-							<option value="2019">2019</option>
-							<option value="2018">2018</option>
-							<option value="2017">2017</option>
-							<option value="2016">2016 and before</option>
-					</select>
-
-	<select class="catalog__select" name="starage" id ="starage">
-	{% if current.age %}<option value="{{current.age}}">{{current.age}}</option>{% endif %}
-
-<option value="all">All Ages</option>
-	
-<option value="18-20">18-20</option>
-<option value="20-25">20-25</option>
-<option value="25-30">25-30</option>
-<option value="30-35">30-35</option>
-<option value="35-40">35-40</option>
-<option value="40-45">40-45</option>
-<option value="45-50">45-50</option>
-<option value="50-100">50+<option>
-</select>
+							</select>
 
 
+						<button style="text-align:center;width:150px;display:inline-block;" type="submit" class="sign__btn">Filter</button>
+						</form>
 
-
-<select class="catalog__select" name="starhaircolor" id ="starhaircolor">
-{% if current.hair %}<option value="{{current.hair}}">{{current.hair}}</option>{% endif %}
-
-<option value="all">All Hair Color</option>
-{% for item_group in haircolor %}
-	
-
-<option value="{{item_group.haircolor}}">{{item_group.haircolor}}</option>
-
-{% endfor %}
-</select>
-
-
-<select class="catalog__select" name="starheight" id ="starheight">
-{% if current.height %}<option value="{{current.height}}">{{current.height}}</option>{% endif %}
-
-<option value="all">All Heights</option>
-	
-<option value="4-4.5">4ft-4.5ft</option>
-<option value="4.5-5">4.5ft-5ft</option>
-<option value="5-5.5">5ft-5.5ft</option>
-<option value="5.5-6">5.5ft-6ft</option>
-<option value="6-10">6+ft</option>
-</select>
-
-
-<button style="text-align:center;width:150px;display:inline-block;" type="submit" class="sign__btn">Filter</button>
 </form>
 					</div>
 <!--
@@ -431,7 +379,7 @@ clickyes()
 	</div>
 	{% comment %} <!-- end catalog -->      ------------------------------------- {% endcomment %}
 
-	<div style="margin-top:-100px;" class="catalog catalog--list">
+	<div style="padding:0px;margin-top:-50px;" class="catalog catalog--list">
 		<div class="container">
 			
 			<div class="row">
@@ -769,14 +717,14 @@ clickyes()
 
 
 	<!----------- packages -->
-	<div style="margin-top:-100px;" class="catalog catalog--list">
+	<div style="padding:0px;" class="catalog catalog--list">
 		<div class="container">
 			
 			<div class="row">
 				<div class="col-12">
 					<h1 style="background-color:#151f30;margin-bottom:0px;padding:20px;" class="home__title">Packages<span style="font-size:16px;position:absolute;right:10%;"><a class="span_hover" href="{% url 'album' %}">View All</a></span></h1><F5>
 					</div>
-					<div id="paginator_data_star" style="justify-content:center;" class="row row--grid">
+					<div id="paginator_data_package" style="justify-content:center;" class="row row--grid">
 						{% for item in  allalbums %}
 						<div  class=" large_screen col-6 col-sm-4 col-lg-3 col-xl-2 col-xxl-2">
 							<div style="width:220px;" class="card">
@@ -808,27 +756,27 @@ clickyes()
 					<div style="justify-content:center;" class="catalog__paginator-wrap">
 						{% comment %} <span style="position:absolute;left:25px;" class="catalog__pages">10 from {{count}}</span> {% endcomment %}
 
-						<ul class="catalog__paginator" data-content="paginator_data_star" id="pagination_click">
+						<ul class="catalog__paginator" data-content="paginator_data_package" id="pagination_click">
 							<nav class="mt-4" aria-label="Page navigation sample">
-								{% if star.has_other_pages %}
-								<ul id="pagination_click" data-paginator="paginator_star" class="pagination" style='display: flex;
+								{% if allalbums.has_other_pages %}
+								<ul id="pagination_click"  class="pagination" style='display: flex;
 								margin-bottom: 13px;'>
-									{% if star.has_previous %}
+									{% if allalbums.has_previous %}
 									<li class="page-item "><a class="page-link"
-											href="?page_star={{star.previous_page_number}}"><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.75 5.36475L13.1992 5.36475" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M5.771 10.1271L0.749878 5.36496L5.771 0.602051" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
+											href="?page_album={{allalbums.previous_page_number}}"><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.75 5.36475L13.1992 5.36475" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M5.771 10.1271L0.749878 5.36496L5.771 0.602051" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
 									{% else %}
 									<li class="page-item disabled"><a class="page-link" href=""><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.75 5.36475L13.1992 5.36475" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M5.771 10.1271L0.749878 5.36496L5.771 0.602051" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
 									{% endif %}
 			
-									{% for i in star.paginator.page_range %}
-									{% if star.number == i %}
+									{% for i in allalbums.paginator.page_range %}
+									{% if allalbums.number == i %}
 									<li style="margin-right:15px;" class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
 									{% else %}
-									<li class="page-item"><a class="page-link" href="?page_star={{i}}">{{i}}</a></li>
+									<li class="page-item"><a class="page-link" href="?page_album={{i}}">{{i}}</a></li>
 									{% endif %}
 									{% endfor %}
-									{% if star.has_next %}
-									<li class="page-item"><a class="page-link active" href="?page_star={{star.next_page_number}}"><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.1992 5.3645L0.75 5.3645" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M8.17822 0.602051L13.1993 5.36417L8.17822 10.1271" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
+									{% if allalbums.has_next %}
+									<li class="page-item"><a class="page-link active" href="?page_album={{allalbums.next_page_number}}"><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.1992 5.3645L0.75 5.3645" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M8.17822 0.602051L13.1993 5.36417L8.17822 10.1271" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
 									{% else %}
 									<li class="page-item disabled"><a class="page-link" href="#"><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.1992 5.3645L0.75 5.3645" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M8.17822 0.602051L13.1993 5.36417L8.17822 10.1271" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
 									{% endif %}
@@ -859,4 +807,5 @@ clickyes()
 {% include 'include/script.html' %}
 	<!-- end footer -->
 {% include 'include/script_pagination.html' %}
+{% include 'include/selectjs.html' %}
 	{% endblock %}
