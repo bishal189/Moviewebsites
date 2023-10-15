@@ -9,60 +9,49 @@
 {% include 'include/header.html' %}	
 
 <!----code for responsiveness -->
-{% comment %} {% include 'include/responsive.html' %} {% endcomment %}
-<style>
+{% include 'include/responsive.html' %}
+ <style>
+
 
 	.img_article{
 		margin-right:0px;
 	}
-		.page-item{
-			display: flex;
-			flex-direction: row;
-			justify-content: center;
-			align-items: center;
-			width: 30px;
-			height: 30px;
-			border-radius: 12px;
-			background-color: #131720;
-			font-size: 14px;
-			color: #e0e0e0;
-			font-weight: 500;
-		}
 	
-		@media screen and (min-width: 1600px){
-		  .large_screen{
-			margin-right:-20px;
-		}
-			.large_scene{
-				margin-right:-70px;
-		}
-	}
 	.article__content{
 		display:flex;
 		flex-direction:row;
 	}
-	@media screen and (max-width: 1600px){
-			
-		.large_screen{
-		  margin-right:-13px;
-	  }
-	  .large_scene{
-		  margin-right:-20px;
-	  }
-  }
+
 	@media screen and (max-width:1200px){
 		.topper{
 			margin-top:100px;
 		}
 	
 	}
+	@media screen and (max-width:414px){
+		.row{
+			margin-left:-17px!important;
+		}
+	}
+	{% comment %} @media screen and (max-width:414px){
+		.row{
+			margin-left:-17px!important;
+		}
+	} {% endcomment %}
+	@media screen and (max-width:375px){
+		.row {
+			margin-left: -28px!important;
+			margin-right: 11px!important;
+		}
+	
+	}
+	@media screen and (max-width:540px){
+		.row{
+			margin:0 6px;
+		}
+	
+	}
 	@media screen and (min-width:765px) and (max-width:1200px){
-		.large_screen{
-			margin-right:-63px;
-		}
-		.large_scene{
-			margin-right:-20px;
-		}
 		.img_article{
 			margin-right:20px;
 		}
@@ -138,7 +127,7 @@
 		padding: 10px 10px;
 	}
   
-</style>
+</style> 
 	<!-- details -->
 	{% if product.type != "PhotoSets" %}
 	<section style="padding:0px;margin-top:150px;" class="section section--head section--head-fixed section--gradient section--details-bg">
@@ -430,7 +419,7 @@
 			<div class="article">
 				<div class="row">
 						<div class="article__content">
-							<div class="img_article" >
+							<div class="img_article" style='margin:0 auto;' >
 								<img style="height:330px;width:250px;filter:blur(0);border-radius:0px;" src="{{product.coverphoto.url}}" alt="">
 								<div class="article__actions article__actions--details">
 									{% if val %}
@@ -650,18 +639,20 @@
 									<h1 style="background-color:#151f30;margin-bottom:0px;padding:20px;" class="home__title">Similar Items </h1><F5>
 									</div>
 									<div id="paginator_data_scene" style="justify-content:center; margin:0 auto; " class="row row--grid">
-										{% for item in  similar %}
+									
+										
+											{% for item in  similar %}
 										{% if product.type == "Scene" %}
-										<div  class="large_scene col-6 col-sm-6 col-lg-3 col-xxl-2 ">
+										<div  class="large_scene col-6 col-sm-6 col-lg-3 col-xxl-2" >
 											<div class="card">
 												<a style="border-radius:0px;filter:blur(0);hover:none;" href="{% url 'details' slug=item.slug %}" class="card__cover">
-													<img  style='height: 150px;width:250px;border-radius: 0px;filter:blur(0px);'src="{{item.coverphoto.url}}" alt="">
+													<img  class='product_image_scene'src="{{item.coverphoto.url}}" alt="">
 												</a>
 												{% else %}
 												<div class="large_screen col-6 col-sm-4 col-lg-3 col-xl-2 col-xxl-2">
-													<div class="card">
+													<div class="card" style='width:220px;'>
 														<a style="border-radius:0px;filter:blur(0);hover:none;" href="{% url 'details' slug=item.slug %}" class="card__cover">
-															<img style="height:260px;width:195px;filter:blur(0);" src="{{item.coverphoto.url}}" alt="">
+															<img class='product_image' src="{{item.coverphoto.url}}" alt="">
 														</a>
 														{% endif %}
 													{% if user.is_authenticated %}
