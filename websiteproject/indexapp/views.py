@@ -30,6 +30,10 @@ def home(request):
 
     count_dvd=all_dvd.count()
     allalbums=Albums.objects.all().order_by('-id')
+    paginator_album=Paginator(allalbums,2)
+    page_album=request.GET.get('page_album')
+    paged_album=paginator_album.get_page(page_album)
+
     stardata=StarsModel.objects.all().order_by('-view_count')
     paginator_star=Paginator(stardata,12)
     page_star=request.GET.get('page_star')
@@ -53,6 +57,8 @@ def home(request):
         page_dvd=request.GET.get('page_dvd')
         page_photo=request.GET.get('page_photo')
         page_star=request.GET.get('page_star')
+        page_album=request.GET.get('page_album')
+        print(page_album)
 
         if page_scene is not None:
             paged_scene = paginator_scene.get_page(page_scene)
@@ -80,6 +86,14 @@ def home(request):
         'content': photo_html,
         'pagination': pagination_html,
             }
+        if page_album is not None:
+            paged_album=paginator_album.get_page(page_album)
+            album_html=render_to_string('partial/album_partial.html',{'albums':paged_album},request=request)
+            pagination_html=render_to_string('partial/pagination_partial.html',{'data':paged_album,'type':'album'})
+            response_data={
+                'content':album_html,
+                'pagination':pagination_html
+            }
         if page_star is not None:
             paged_star= paginator_star.get_page(page_star)
             star_html = render_to_string('partial/star_partial.html', {'star': paged_star}, request=request)
@@ -98,7 +112,7 @@ def home(request):
         'scenes':paged_scene,
         'photoset':paged_photo,
         'count':count_dvd,
-        'allalbums':allalbums,
+        'allalbums':paged_album,
         'star':paged_star,     
         'haircolor':haircolor,
         'user_favourite_movie':user_favorite_movies,

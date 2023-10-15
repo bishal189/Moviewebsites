@@ -96,6 +96,7 @@
                     class="article__content">
 
                     <h1>Download</h1>
+                    <h1></h1>
                     <button onclick='modalshow()' style="max-width:40%;" class="sign__btn">Get your Ftp
                         Credentials</button>
                 </div>
@@ -145,7 +146,7 @@
                 <div style="margin-right:18px;" class="col-6 col-sm-4 col-lg-3 col-xl-2">
                     <div class="card">
                         <a href="{% url 'details' slug=item.slug %}" class="card__cover">
-                            <img src="{{item.product.coverphoto.url}}" alt="">
+                            <img src="{{item.coverphoto.url}}" alt="">
                             <svg width="22" height="22" viewBox="0 0 22 22" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" clip-rule="evenodd"
@@ -158,16 +159,16 @@
                         </a>
                         <span class="card__rating">{{item.product.price}} $</span>
                         <h3 class="card__title"><a
-                                href="{% url 'details' slug=item.slug%}">{{item.product.movie_name}}</a></h3>
+                                href="{% url 'details' slug=item.slug%}">{{item.movie_name}}</a></h3>
                         <ul class="card__list">
-                            <li>{{item.product.type}}</li>
-                            <li>{{item.product.year}}</li>
-                            <li>{{item.product.duration}} min</li>
+                            <li>{{item.type}}</li>
+                            <li>{{item.year}}</li>
+                            <li>{{item.duration}} min</li>
                         </ul>
 
 
 
-                        <a style="text-align:center;" href="{% url 'file_download' item.movie_name %}">Download </a>
+                        <a style="text-align:center;" class="sign__btn" href="{% url 'file_download' item.movie_name %}">Download </a>
                        {%comment%} <a inc-url="{% url 'inc_counter' item.id %}"
                             data-url="{% url 'file_download' item.movie_name %}"
                             onclick="download__click(event, this)" class="sign__btn"
@@ -175,17 +176,11 @@
                             <button id="item_add_{{ item.id }}" class="sign__btn"></button>
                         </a>
                        {% endcomment %}
-
                     </div>
                 </div>
-
-
                 {% endfor %}
             </div>
-
         </div>
-
-
     </div>
     <!-- end article -->
     </div>

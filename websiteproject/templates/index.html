@@ -511,7 +511,7 @@ justify-content:center;
 	</div>
 	{% comment %} <!-- end catalog -->      ------------------------------------- {% endcomment %}
 
-	<div style="margin-top:-100px;" class="catalog catalog--list">
+	<div style="padding:0px;margin-top:-50px;" class="catalog catalog--list">
 		<div class="container">
 			
 			<div class="row">
@@ -849,14 +849,14 @@ justify-content:center;
 
 
 	<!----------- packages -->
-	<div style="margin-top:-100px;" class="catalog catalog--list">
+	<div style="padding:0px;" class="catalog catalog--list">
 		<div class="container">
 			
 			<div class="row">
 				<div class="col-12">
 					<h1 style="background-color:#151f30;margin-bottom:0px;padding:20px;" class="home__title">Packages<span style="font-size:16px;position:absolute;right:10%;"><a class="span_hover" href="{% url 'album' %}">View All</a></span></h1><F5>
 					</div>
-					<div id="paginator_data_star" style="justify-content:center;" class="row row--grid">
+					<div id="paginator_data_package" style="justify-content:center;" class="row row--grid">
 						{% for item in  allalbums %}
 						<div  class=" large_screen col-6 col-sm-4 col-lg-3 col-xl-2 col-xxl-2">
 							<div style="width:220px;" class="card">
@@ -888,27 +888,27 @@ justify-content:center;
 					<div style="justify-content:center;" class="catalog__paginator-wrap">
 						{% comment %} <span style="position:absolute;left:25px;" class="catalog__pages">10 from {{count}}</span> {% endcomment %}
 
-						<ul class="catalog__paginator" data-content="paginator_data_star" id="pagination_click">
+						<ul class="catalog__paginator" data-content="paginator_data_package" id="pagination_click">
 							<nav class="mt-4" aria-label="Page navigation sample">
-								{% if star.has_other_pages %}
-								<ul id="pagination_click" data-paginator="paginator_star" class="pagination" style='display: flex;
+								{% if allalbums.has_other_pages %}
+								<ul id="pagination_click"  class="pagination" style='display: flex;
 								margin-bottom: 13px;'>
-									{% if star.has_previous %}
+									{% if allalbums.has_previous %}
 									<li class="page-item "><a class="page-link"
-											href="?page_star={{star.previous_page_number}}"><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.75 5.36475L13.1992 5.36475" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M5.771 10.1271L0.749878 5.36496L5.771 0.602051" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
+											href="?page_album={{allalbums.previous_page_number}}"><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.75 5.36475L13.1992 5.36475" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M5.771 10.1271L0.749878 5.36496L5.771 0.602051" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
 									{% else %}
 									<li class="page-item disabled"><a class="page-link" href=""><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.75 5.36475L13.1992 5.36475" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M5.771 10.1271L0.749878 5.36496L5.771 0.602051" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
 									{% endif %}
 			
-									{% for i in star.paginator.page_range %}
-									{% if star.number == i %}
+									{% for i in allalbums.paginator.page_range %}
+									{% if allalbums.number == i %}
 									<li style="margin-right:15px;" class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
 									{% else %}
-									<li class="page-item"><a class="page-link" href="?page_star={{i}}">{{i}}</a></li>
+									<li class="page-item"><a class="page-link" href="?page_album={{i}}">{{i}}</a></li>
 									{% endif %}
 									{% endfor %}
-									{% if star.has_next %}
-									<li class="page-item"><a class="page-link active" href="?page_star={{star.next_page_number}}"><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.1992 5.3645L0.75 5.3645" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M8.17822 0.602051L13.1993 5.36417L8.17822 10.1271" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
+									{% if allalbums.has_next %}
+									<li class="page-item"><a class="page-link active" href="?page_album={{allalbums.next_page_number}}"><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.1992 5.3645L0.75 5.3645" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M8.17822 0.602051L13.1993 5.36417L8.17822 10.1271" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
 									{% else %}
 									<li class="page-item disabled"><a class="page-link" href="#"><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.1992 5.3645L0.75 5.3645" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M8.17822 0.602051L13.1993 5.36417L8.17822 10.1271" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
 									{% endif %}
