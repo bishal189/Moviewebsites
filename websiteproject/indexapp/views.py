@@ -10,8 +10,49 @@ from django.contrib.auth.models import AnonymousUser
 from detailapp.models import Cartitem
 from django.template.loader import render_to_string
 from owner.models import Page
+from django.db.models import Count
+
 #Home page
 def home(request): 
+
+    #just for showing filtering data
+    attribute_mapping = {
+        'Hair Color': 'haircolor',
+        'Ethnicity': 'ethnicity',
+        'Nationality': 'nationality',
+        'Eye Color': 'eyecolor',
+        'Body Type': 'bodytype',
+        'Body Piercing': 'piercing',
+        'Boob Size': 'breastsize',
+        'Boob Type': 'breasttype',
+        'Body Markings':'bodymarking',
+        'Current Status':'currentstatus',
+        'Gender':'gender',
+
+    }
+
+    attributes = list(attribute_mapping.keys())
+
+    age_ranges = [f"Age: {i}-{i+5}" for i in range(18, 50, 5)]
+    attributes.append('Age')
+
+    # Combine attribute names and values for the single <select> tag
+    attribute_choices = []
+    for attribute in attributes:
+        if attribute == 'Age':
+            attribute_choices.extend(age_ranges)
+        else:
+            values = StarsModel.objects.values(attribute_mapping[attribute]).distinct()
+            values_list = [value[attribute_mapping[attribute]] for value in values]
+            attribute_choices.extend([f"{attribute}:{value}" for value in values_list])
+    popular_genres=popular_categories = Category.objects.annotate(
+    total_views=Count('moviedetail__view_count'),
+    total_carts=Count('moviedetail__cart_count')
+    ).order_by('-total_views', '-total_carts')[:10]
+
+# end attribute for showing data in model star for filtering 
+
+
     all_dvd=MovieDetail.objects.filter(type="DVD").order_by('-id')
     all_scene=MovieDetail.objects.filter(type="Scene").order_by('-id')
     all_photosets=MovieDetail.objects.filter(type="PhotoSets").order_by('-id')
@@ -118,6 +159,9 @@ def home(request):
         'user_favourite_movie':user_favorite_movies,
         'user_added_cart':user_added_cart,
         'pages':pages,
+        'popular_genre':popular_genres,
+        'attributes':attribute_choices,
+
         
     }
 
@@ -221,6 +265,44 @@ def pagination(request):
 
 #Getting list of scene type Movies
 def scenes(request):
+    #just for showing filtering data
+    attribute_mapping = {
+        'Hair Color': 'haircolor',
+        'Ethnicity': 'ethnicity',
+        'Nationality': 'nationality',
+        'Eye Color': 'eyecolor',
+        'Body Type': 'bodytype',
+        'Body Piercing': 'piercing',
+        'Boob Size': 'breastsize',
+        'Boob Type': 'breasttype',
+        'Body Markings':'bodymarking',
+        'Current Status':'currentstatus',
+        'Gender':'gender',
+
+    }
+
+    attributes = list(attribute_mapping.keys())
+
+    age_ranges = [f"Age: {i}-{i+5}" for i in range(18, 50, 5)]
+    attributes.append('Age')
+
+    # Combine attribute names and values for the single <select> tag
+    attribute_choices = []
+    for attribute in attributes:
+        if attribute == 'Age':
+            attribute_choices.extend(age_ranges)
+        else:
+            values = StarsModel.objects.values(attribute_mapping[attribute]).distinct()
+            values_list = [value[attribute_mapping[attribute]] for value in values]
+            attribute_choices.extend([f"{attribute}:{value}" for value in values_list])
+    popular_genres=popular_categories = Category.objects.annotate(
+    total_views=Count('moviedetail__view_count'),
+    total_carts=Count('moviedetail__cart_count')
+    ).order_by('-total_views', '-total_carts')[:10]
+    genres=Category.objects.all().order_by('-id')
+
+# end attribute for showing data in model star for filtering 
+
     alldata = MovieDetail.objects.filter(type='Scene')
     paginator_scene = Paginator(alldata, 10)
     page_scene = request.GET.get('page_scene')
@@ -249,9 +331,54 @@ def scenes(request):
     
         return JsonResponse(response_data)
 
-    return render(request, 'scenes.html', {'scenes': paged_scene, 'user_favourite_movie': user_favorite_movies, 'user_added_cart': user_added_cart})
+    context={
+        'scenes':paged_scene,
+        'user_favourite_movie':user_favorite_movies,
+        'user_added_cart':user_added_cart,
+        'genres':genres,
+        'popular_genre':popular_genres,
+        'attributes':attribute_choices,
+
+
+
+    }
+
+    return render(request, 'scenes.html',context)
 
 def dvd(request):
+    #just for showing filtering data
+    attribute_mapping = {
+        'Hair Color': 'haircolor',
+        'Ethnicity': 'ethnicity',
+        'Nationality': 'nationality',
+        'Eye Color': 'eyecolor',
+        'Body Type': 'bodytype',
+        'Body Piercing': 'piercing',
+        'Boob Size': 'breastsize',
+        'Boob Type': 'breasttype',
+        'Body Markings':'bodymarking',
+        'Current Status':'currentstatus',
+        'Gender':'gender',
+
+    }
+
+    attributes = list(attribute_mapping.keys())
+
+    age_ranges = [f"Age: {i}-{i+5}" for i in range(18, 50, 5)]
+    attributes.append('Age')
+
+    # Combine attribute names and values for the single <select> tag
+    attribute_choices = []
+    for attribute in attributes:
+        if attribute == 'Age':
+            attribute_choices.extend(age_ranges)
+        else:
+            values = StarsModel.objects.values(attribute_mapping[attribute]).distinct()
+            values_list = [value[attribute_mapping[attribute]] for value in values]
+            attribute_choices.extend([f"{attribute}:{value}" for value in values_list])
+
+# end attribute for showing data in model star for filtering 
+
     alldata=MovieDetail.objects.filter(type='DVD').order_by('-id')
     paginator_dvd=Paginator(alldata,12)
     page_dvd=request.GET.get('page_dvd')
@@ -275,11 +402,24 @@ def dvd(request):
         'pagination': pagination_html,
             }
         return JsonResponse(response_data)
+    popular_genres=popular_categories = Category.objects.annotate(
+    total_views=Count('moviedetail__view_count'),
+    total_carts=Count('moviedetail__cart_count')
+    ).order_by('-total_views', '-total_carts')[:10]
+    genres=Category.objects.all().order_by('-id')
+
+    context={
+        'dvd':paged_dvd,
+        'user_favourite_movie':user_favorite_movies,
+        'user_added_cart':user_added_cart,
+        'genres':genres,
+        'popular_genre':popular_genres,
+        'attributes':attribute_choices,
+
+    }
 
 
-    return render(request,'dvd.html',{'dvd':paged_dvd ,'user_favourite_movie':user_favorite_movies,
-        'user_added_cart':user_added_cart
-})
+    return render(request,'dvd.html',context)
 
 def stars(request):
     allstars=StarsModel.objects.all().order_by('-id')
@@ -341,10 +481,51 @@ def star_detail(request,id):
 
 
 def photosets(request):
+    #just for showing filtering data
+    attribute_mapping = {
+        'Hair Color': 'haircolor',
+        'Ethnicity': 'ethnicity',
+        'Nationality': 'nationality',
+        'Eye Color': 'eyecolor',
+        'Body Type': 'bodytype',
+        'Body Piercing': 'piercing',
+        'Boob Size': 'breastsize',
+        'Boob Type': 'breasttype',
+        'Body Markings':'bodymarking',
+        'Current Status':'currentstatus',
+        'Gender':'gender',
+
+    }
+
+    attributes = list(attribute_mapping.keys())
+
+    age_ranges = [f"Age: {i}-{i+5}" for i in range(18, 50, 5)]
+    attributes.append('Age')
+
+    # Combine attribute names and values for the single <select> tag
+    attribute_choices = []
+    for attribute in attributes:
+        if attribute == 'Age':
+            attribute_choices.extend(age_ranges)
+        else:
+            values = StarsModel.objects.values(attribute_mapping[attribute]).distinct()
+            values_list = [value[attribute_mapping[attribute]] for value in values]
+            attribute_choices.extend([f"{attribute}:{value}" for value in values_list])
+
+# end attribute for showing data in model star for filtering 
+
+    popular_genres=popular_categories = Category.objects.annotate(
+    total_views=Count('moviedetail__view_count'),
+    total_carts=Count('moviedetail__cart_count')
+    ).order_by('-total_views', '-total_carts')[:10]
+    genres=Category.objects.all().order_by('-id')
+
     movies=MovieDetail.objects.filter(type="PhotoSets")
     paginator_photo=Paginator(movies,12)
     page_photo=request.GET.get('page_photo')
     paged_photo=paginator_photo.get_page(page_photo)
+
+
     user_favorite_movies=None
     if  not isinstance(request.user, AnonymousUser):
         user_favorite_movies = FavouritesModel.objects.filter(user=request.user).values_list('favourite_movies__id', flat=True)
@@ -370,6 +551,9 @@ def photosets(request):
         'photoset':paged_photo,
         'user_favourite_movie':user_favorite_movies,
         'user_added_cart':user_added_cart,
+        'genres':genres,
+        'popular_genre':popular_genres,
+        'attributes':attribute_choices,
         
     }
 

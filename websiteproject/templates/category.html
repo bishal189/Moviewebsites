@@ -152,7 +152,11 @@
 				<div class="col-12">
 					<div class="catalog__nav">
 						<div  class="catalog__select-wrap">
+							{% if type %}
+						<form method="POST" action="{% url 'category_filter_type' type %}">
+							{% else %}
 						<form method="POST" action="{% url 'category_filter' %}">
+							{% endif %}
 									{% csrf_token %}
 
 										<div class="form__group">
@@ -175,7 +179,8 @@
 											<option selected></option> <!-- Add an empty option as a placeholder -->
 											<option value="4k" {% if current.view == "4k" %} selected{% else %} {% endif %}>4k</option>
 												<option value="HD" {% if current.view == "HD" %} selected{% else %} {% endif %}>HD</option>
-		
+												<option value="SD" {% if current.view == "SD" %} selected{% else %} {% endif %}>SD</option>
+
 												<option value="FullHD" {% if current.view == "FullHD" %} selected{% else %} {% endif %}>FullHD</option>
 		
 											</select>
@@ -205,113 +210,7 @@
 									</select>
 
 
-<!-- 
-							<select class="catalog__select" name="genre" id="genre">
 
-								{%  if current.genre %}<option value="{{current.genre}}">{{current.genre}}</option>{% endif %}
-								<option value="all">All genres</option>
-
-								{% for gen in genres %}
-								{% if gen.category_name == current.genre %}
-								{% else %}
-								<option value="{{gen.category_name}}">{{gen.category_name}}</option>
-									{%  endif %}
-								{% endfor %}
-								
-							</select>
-							<select class="catalog__select" name="popularity" id="popularity">
-								{%  if current.popularity %}
-								<option value="{{current.popularity}}">{{current.popularity}}</option>{% endif %}
-								<option value="all">Popularity</option>
-
-								
-								<option value="Videos">Videos</option>
-								<option value="Genres">Genres</option>
-								<option value="Stars">Stars</option>
-								
-								
-							</select>
-
-							<select class="catalog__select" name="type" id="type">
-								{%  if current.type %}<option value="{{current.type}}">{{current.type}}</option>{% endif %}
-								<option value="all">All Types</option>
-
-								
-								<option value="DVD">DVD</option>
-								<option value="Scene">Scene</option>
-									
-							</select>
-
-							
-							<select class="catalog__select" name="price" id="price">
-								{%  if current.price %}<option value="{{current.price}}">{{current.price}}</option>{% endif %}
-								<option value="all">All Prices</option>
-								<option value="0-10">0$-10$</option>
-								<option value="10-20">10$-20$</option>
-								<option value="20-30">20$-30$</option>
-								<option value="30-40">30$-40$</option>
-								<option value="40-50">40$-50$</option>
-								<option value="50-1000">50+</option>
-								
-									
-							</select>
-
-							<select class="catalog__select" name="year" id ="year" >
-								{% if current.year %}<option value="{{current.year}}">{{current.year}}</option>{% endif %}
-								
-								<option value="all">All the years</option>
-									
-								<option value="2023">2023</option>
-								<option value="2022">2022</option>
-								<option value="2021">2021</option>
-								<option value="2020">2020</option>
-								<option value="2019">2019</option>
-								<option value="2018">2018</option>
-								<option value="2017">2017</option>
-								<option value="2016">2016 and before</option>
-						</select>
-
-		<select class="catalog__select" name="starage" id ="starage">
-		{% if current.age %}<option value="{{current.age}}">{{current.age}}</option>{% endif %}
-	
-	<option value="all">All Ages</option>
-		
-	<option value="18-20">18-20</option>
-	<option value="20-25">20-25</option>
-	<option value="25-30">25-30</option>
-	<option value="30-35">30-35</option>
-	<option value="35-40">35-40</option>
-	<option value="40-45">40-45</option>
-	<option value="45-50">45-50</option>
-	<option value="50-100">50+<option>
-</select>
-
-
-
-
-<select class="catalog__select" name="starhaircolor" id ="starhaircolor">
-	{% if current.hair %}<option value="{{current.hair}}">{{current.hair}}</option>{% endif %}
-	
-	<option value="all">All Hair Color</option>
-{% for item in haircolor%}
-
-	<option value="{{item.haircolor}}">{{item.haircolor}}</option>
-
-	{% endfor %}
-</select>
-
-
-<select class="catalog__select" name="starheight" id ="starheight">
-	{% if current.height %}<option value="{{current.height}}">{{current.height}}</option>{% endif %}
-	
-	<option value="all">All Heights</option>
-		
-	<option value="4-4.5">4ft-4.5ft</option>
-	<option value="4.5-5">4.5ft-5ft</option>
-	<option value="5-5.5">5ft-5.5ft</option>
-	<option value="5.5-6">5.5ft-6ft</option>
-	<option value="6-10">6+ft</option>
-</select> -->
 
 
 <button style="text-align:center;width:150px;display:inline-block;" type="submit" class="sign__btn">Filter</button>
@@ -379,10 +278,7 @@
 							.large_scene{
 								margin-right:-10px;
 								max-width:90%;
-							}
-						
-						
-					
+							}			
 					}
 					
 					@media screen and (min-width:465px) and (max-width:600px){
@@ -402,62 +298,12 @@
 					}
 					
 					</style>
-					
-					{% if sort_stars %}
-					<div style="color:#ffffff;font-size:22px;margin-top:10px; ">Popular Stars: </div>
-					<div style="justify-content:center;" class="row row--grid">
-
-						{% for item in star %}
-
-				
-					<div  class="large_screen col-6 col-sm-4 col-lg-3 col-xl-2">
-						<div class="card" style='width:220px;'>
-							<a href="{% url 'star_detail' item.id %}" class="card__cover">
-								<img style="filter:blur(0)" class='product_image' src="{{item.image.url}}" alt="">
-							</a>
-							<h3 class="card__title"><a href="{% url 'star_detail' item.id%}">{{item.name}}</a></h3>
-							
-						</div>
-					</div>
-				
-				
-					{% endfor %}</div>
-
-				</div>
-
-					{% endif %}
-
-					{% if sort_category %}
-					<div class="col-12 col-xl-8">
-						<!-- categories -->
-						<div class="categories">
-							<h3 class="categories__title">Popular Genres</h3>
-							{% for gen in  categories %}
-							<a href="{% url 'categorybygenre' gen.category_name %}" class="categories__item">{{ gen.category_name }}</a>
-							{% endfor %}
-						</div>
-						<!-- end categories -->
-
-					
-					</div>
-					{% endif %}
-	                    
-							
-							{% if not sort_stars %}
-							{% if sort_category %}
-
-							<div style="color:white;font-size:22px;margin-top:10px; "> Popular DVD Based on genre: </div>
+							{% if not data_dvd %}
 							{% else %}
-
-							{% if current.genre %}
-							<div style="color:white;font-size:22px;margin-top:10px; ">{{current.genre}} DVD: </div>
-							{% else %}
-
 							<div style="color:white;font-size:22px;margin-top:10px; "> DVD: </div>
-							{% endif %}
-							{% endif %}
-							
+
 							<div style="justify-content:center;" class="row row--grid">
+
 								{% for item in  data_dvd %}
 								<div class="large_screen col-6 col-sm-4 col-lg-3 col-xl-2 col-xxl-2">
 									<div class="card" style='width:220px;'>
@@ -524,6 +370,7 @@
 									</div>
 								</div>
 								{% endfor %}	
+								
 		
 							
 							</div>
@@ -532,19 +379,11 @@
 					<!-- end dvd container-->
 
 						
-					{% if not sort_stars %}
-					{% if sort_category %}
-
-					<div style="color:white;font-size:22px;margin-top:10px; "> Popular Scenes Based on genre </div>
-					{% else %}
-
-					{% if current.genre %}
-					<div style="color:white;font-size:22px;margin-top:10px; ">{{current.genre}} Scene</div>
+					{% if not data_scene %}
 					{% else %}
 
 					<div style="color:white;font-size:22px;margin-top:10px; "> Scene </div>
-					{% endif %}
-					{% endif %}
+				
 					
 					<div style="justify-content:center;" class="row row--grid">
 						{% for item in  data_scene %}
@@ -619,22 +458,14 @@
 						{% endif %}
 
 						<!-- end scene container-->
-						{% if not sort_stars %}
-						{% if sort_category %}
-
-						<div style="color:white;font-size:22px;margin-top:10px; "> Popular Photoset Based on genre </div>
+						
+						{% if not data_photosets %}
 						{% else %}
-
-						{% if current.genre %}
-						<div style="color:white;font-size:22px;margin-top:10px; ">{{current.genre}} PhotoSet: </div>
-						{% else %}
-
 						<div style="color:white;font-size:22px;margin-top:10px; "> PhotoSet </div>
-						{% endif %}
-						{% endif %}
+						
 						
 						<div style="justify-content:center;" class="row row--grid">
-							{% for item in  data_photoset %}
+							{% for item in  data_photosets %}
 							<div class="large_screen col-6 col-sm-4 col-lg-3 col-xl-2 col-xxl-2">
 								<div class="card" style='width:220px;'>
 									<a style="border-radius:0px;" href="{% url 'details' slug=item.slug %}" class="card__cover">
