@@ -53,7 +53,14 @@
 										{%endfor%}
 
 									</select>
-								
+									<select  multiple="multiple" name="studio" id="studio">
+										
+										{% for item in studio %}
+										
+											<option value="{{item.id}}"  {% if item.id|stringformat:"s" in current.studio %} selected {% endif %}>{{item.name}} </option>
+											{%endfor%}
+
+										</select>								
 
 								<select  multiple="multiple" name="scene_category" id="scene_category">
 									{% for item in genres %}

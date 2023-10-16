@@ -154,12 +154,12 @@ clickyes()
 	<style>
 		@media screen and (max-width:1200px){
 			.top{
-				margin-top:180px;
+				margin-top:50px;
 			}
 		}
 		@media screen and (min-width:1200px){
 			.top{
-				margin-top:150px;
+				margin-top:70px;
 			}
 		}
 	</style>
@@ -183,6 +183,14 @@ clickyes()
 									{%endfor%}
 
 								</select>
+								<select  multiple="multiple" name="studio" id="studio">
+										
+									{% for item in studio %}
+									
+										<option value="{{item.id}}"  {% if item.id|stringformat:"s" in current.studio %} selected {% endif %}>{{item.name}} </option>
+										{%endfor%}
+
+									</select>
 							
 
 							<select  multiple="multiple" name="scene_category" id="scene_category">
@@ -222,7 +230,9 @@ clickyes()
 {% include  'include/responsive.html' %}
 <style>
 	
- 
+ .home__title{
+	font-size:20px;
+ }
 .row--grid .col-6, .row--grid .col-12 {
     padding-left: 20px;
     padding-right: 10px;
@@ -310,7 +320,7 @@ clickyes()
 
 				</div>
 			</div>
-			
+			{% if dvd.has_other_pages %}
 		 <div class="row">
 				<div class="col-12">
 					<div style="justify-content:center;" class="catalog__paginator-wrap">
@@ -347,6 +357,7 @@ clickyes()
 					</div>
 				</div>
 			</div>
+			{% endif %}
 
 
 		</div>
@@ -436,7 +447,8 @@ clickyes()
 			
 			
 	
-			
+			{% if scenes.has_other_pages %}
+
 		 <div class="row">
 				<div class="col-12" >
 					<div style="justify-content:center;" class="catalog__paginator-wrap">
@@ -472,6 +484,7 @@ clickyes()
 					</div>
 				</div>
 			</div>
+			{% endif %}
 
 
 		</div>
@@ -479,7 +492,7 @@ clickyes()
 	<!-- end catalog -->
 
 
-	<div style="margin-top:-100px;" class="catalog catalog--list">
+	<div  class="catalog catalog--list">
 		<div class="container">
 			
 			<div class="row">
@@ -562,7 +575,8 @@ clickyes()
 			
 			
 	
-			
+			{% if photoset.has_other_pages %}
+
 		 <div class="row">
 				<div class="col-12">
 					<div style="justify-content:center;" class="catalog__paginator-wrap">
@@ -599,6 +613,7 @@ clickyes()
 					</div>
 				</div>
 			</div>
+			{% endif %}
 
 
 		</div>
@@ -642,7 +657,8 @@ clickyes()
 			
 			
 	
-			
+			{% if star.has_other_pages %}
+
 		 <div class="row">
 				<div class="col-12">
 					<div style="justify-content:center;" class="catalog__paginator-wrap">
@@ -679,6 +695,7 @@ clickyes()
 					</div>
 				</div>
 			</div>
+			{% endif %}
 
 
 		</div>
@@ -724,7 +741,8 @@ clickyes()
 			
 			
 	
-			
+			{% if allalbums.has_other_pages %}
+
 		 <div class="row">
 				<div class="col-12">
 					<div style="justify-content:center;" class="catalog__paginator-wrap">
@@ -761,6 +779,7 @@ clickyes()
 					</div>
 				</div>
 			</div>
+			{% endif %}
 
 
 		</div>
