@@ -341,7 +341,18 @@
 								<!--		<button class="article__favorites" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16,2H8A3,3,0,0,0,5,5V21a1,1,0,0,0,.5.87,1,1,0,0,0,1,0L12,18.69l5.5,3.18A1,1,0,0,0,18,22a1,1,0,0,0,.5-.13A1,1,0,0,0,19,21V5A3,3,0,0,0,16,2Zm1,17.27-4.5-2.6a1,1,0,0,0-1,0L7,19.27V5A1,1,0,0,1,8,4h8a1,1,0,0,1,1,1Z"></path></svg> Add to favorites</button> -->
 							</div>	
 						
-						</div>						
+						</div>	
+						<style>
+							.links_a{
+								color:white;
+								text-decoration: underline;
+							}
+							.links_a:hover{
+								text-decoration: none;
+								color:white;
+							}
+						</style>
+						
 						<div class="movieDescription">
 						<h1>{{ product.movie_name }}</h1>
 
@@ -351,21 +362,23 @@
 								<li>{{product.duration}} min</li>
 								<li>{{product.type}}</li>
 							</ul>
-							<div style="color:white;margin-bottom:10px;">Studio: <a style="display:inline" href="{% url 'studio_detail' product.studio.id %}">{{product.studio.name}}</a></div>
+							<div style="color:gray;margin-bottom:10px;">Studio: <a class="links_a" style="display:inline" href="{% url 'studio_detail' product.studio.id %}">{{product.studio.name}}</a></div>
 						
-							<div style="color:white;margin-bottom:10px;display:inline-block;">Stars: </div>
+							<div style="color:whitgraye;margin-bottom:10px;display:inline-block;">Stars: </div>
 							{% for star in product.stars.all %}
-							<a href="{% url 'star_detail' star.id %}"style="display:inline" >{{star.name}}</a>
+							<a href="{% url 'star_detail' star.id %}" class="links_a" style="display:inline" >{{star.name}}</a>
 								<span style="color:blue">,</span>
 							{% endfor %}
 
 							<div style="margin-top:0px;margin-bottom:10px;" class="categories">
-								<h3 class="categories__title">Genres</h3>
+								<h3 style="color:gray;font-size:16px;" class="categories__title">Genres</h3>
 								{% for gen in product.genre.all  %}
 								<a style="margin-top:-20px;" href="{% url 'categorybygenre' gen.category_name %}" class="categories__item">{{ gen.category_name }}</a>
 								{% endfor %}
 							</div>
-							<p>Description:{{product.short_description|linebreaks}}</p>
+
+							<p style="padding:0px;display:inline-block;margin:2px;">Description:</p>
+							<p style="color:white;display:inline-block">{{product.short_description}}</p>
 						</div>
 
 						<!-- end div -->
