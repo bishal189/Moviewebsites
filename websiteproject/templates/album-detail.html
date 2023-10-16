@@ -23,7 +23,7 @@
 						<!-- end article content -->
 					</div>
 
-					<div class="col-12 col-xl-8">
+					<div class="col-12 col-xl-8" style='margin-top:4rem;'>
 						<!-- categories -->
 						<div class="categories">
 							<h3 class="categories__title">Genres</h3>
@@ -37,13 +37,13 @@
 					</div>
 
 						<div id='counter' style="color:white;margin-top:25px;font-size:20px;">{{counter}} items added in album</div>		
-						<div id="paginator_data_package" style="justify-content:center;" class="row row--grid">
+						<div id="paginator_data_package" style="justify-content:center; margin:0 auto;" class="row row--grid">
 
 
 							{% for item in movies %}
 							{% if product.type == "Scene" %}
 							<div  class="large_scene col-6 col-sm-6 col-lg-3 col-xxl-2 ">
-								<div class="card" style='width:220px;'>
+								<div class="card">
 									<a style="border-radius:0px;filter:blur(0);" href="{% url 'details' slug=item.slug %}" class="card__cover">
 
 										<img  style='filter:blur(0px);' class='product_image_scene'  src="{{item.coverphoto.url}}" alt="">
