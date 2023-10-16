@@ -40,34 +40,6 @@
 						<div  class="catalog__select-wrap">
 						<form method="POST" action="{% url 'category_filter_type' "DVD"%}">
 									{% csrf_token %}
-
-										<div class="form__group">
-											<select id="sort" name='sort'>
-												<option></option> <!-- Add an empty option as a placeholder -->
-												<option value="most-trending" {% if current.sort == "most-trending" %} selected{% else %} {% endif %}>Most Trending</option>
-												<option value="newest" {% if current.sort == "newest" %} selected{% else %} {% endif %}>Newest</option>
-		
-												<option value="most-popular" {% if current.sort == "most-popular" %} selected{% else %} {% endif %}>Most Popular</option>
-		
-												<option value="alphabetical" {% if current.sort == "alphabetical" %} selected{% else %} {% endif %}>Alphabetical Order</option>
-		
-											</select>
-									</div>
-										
-										<div class="form__group">
-												
-											<select name="view" id="view">
-
-											<option selected></option> <!-- Add an empty option as a placeholder -->
-											<option value="4k" {% if current.view == "4k" %} selected{% else %} {% endif %}>4k</option>
-												<option value="HD" {% if current.view == "HD" %} selected{% else %} {% endif %}>HD</option>
-												<option value="SD" {% if current.view == "SD" %} selected{% else %} {% endif %}>SD</option>
-
-												<option value="FullHD" {% if current.view == "FullHD" %} selected{% else %} {% endif %}>FullHD</option>
-		
-											</select>
-										</div>
-						
 									<select  multiple="multiple" name="popular_category" id="popular_category">
 										
 										{% for item in popular_genre %}

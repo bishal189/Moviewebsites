@@ -6,124 +6,9 @@
 
 
 {% block content %}
-<style>
-.select2 {
-	width: 100% !important;
-	height: 44px;
-	margin-bottom: 0;
-  }
-  .select2-search--dropdown,
-  .select2-container--default .select2-selection--single .select2-selection__clear {
-	display: none;
-  }
-  .select2-container--default .select2-selection--single {
-	border: none;
-	height: 44px;
-	color: #fff;
-	padding: 0 40px 0 20px;
-	background-color: #151f30;
-	width: 100%;
-	font-size: 14px;
-	border-radius: 16px;
-	outline: none !important;
-  }
-  .select2-container--default .select2-selection--single .select2-selection__arrow {
-	height: 44px;
-	top: 0;
-	right: 0;
-	width: 40px;
-  }
-  .select2-container--default .select2-selection--single .select2-selection__arrow b {
-	border-color: #2f80ed transparent transparent transparent;
-  }
-  .select2-container--default.select2-container--open .select2-selection--single .select2-selection__arrow b {
-	border-color: transparent transparent #2f80ed transparent;
-  }
-  .select2-container--default .select2-selection--multiple {
-	border: none;
-	height: 44px;
-	color: #fff;
-	padding: 0 40px 0 20px;
-	background-color: #151f30;
-	width: 100%;
-	font-size: 14px;
-	border-radius: 16px;
-  }
-  .select2-container--default.select2-container--focus .select2-selection--multiple {
-	border: none;
-  }
-  .select2-container--default .select2-selection--multiple .select2-selection__rendered {
-	height:34px;
-	padding: 0;
-  }
-  .select2-container .select2-search--inline .select2-search__field {
-	font-size: 14px;
-	height: 44px;
-	position:absolute;
-	top:0px;
-	margin: 0;
-	color: #fff;
-  }
-  .select2-container--default .select2-selection--multiple .select2-selection__choice {
-	background-color: rgba(47,128,237,0.1);
-	border: none;
-	border-radius: 12px;
-	display: flex;
-	flex-direction: row;
-	justify-content: flex-start;
-	align-items: center;
-	height: 30px;
-	margin-top: 7px;
-	color: #fff;
-	padding: 0 10px;
-	margin-right: 10px;
-  }
-  .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
-	color: #2f80ed;
-	margin-right: 7px;
-	transition: color 0.5s;
-  }
-  .select2-container--default .select2-selection--multiple .select2-selection__choice__remove:hover {
-	color: #eb5757;
-  }
-  .select2-container .select2-selection--single .select2-selection__rendered {
-	padding: 0;
-	color: #fff;
-	line-height: 44px;
-  }
-  .select2-dropdown {
-	border: none;
-	border-radius: 0;
-	padding: 10px 20px;
-	background-color: #151f30;
-  }
-  .select2-results__option {
-	padding: 0;
-	line-height: 40px;
-	font-size: 14px;
-	color: #e0e0e0;
-	line-height: 40px;
-	display: block;
-	transition: 0.5s;
-  }
-  .select2-container--default .select2-results__option--highlighted[aria-selected] {
-	background-color: transparent;
-	color: #2f80ed;
-  }
-  .select2-container--default .select2-results__option[aria-selected="true"] {
-	background-color: transparent;
-	color: #2f80ed;
-	cursor: default;
-  }
-  .select2-container--open .select2-dropdown--below {
-	border-bottom-left-radius: 16px;
-	border-bottom-right-radius: 16px;
-  }
-  .select2-container--open .select2-dropdown--above {
-	border-top-left-radius: 16px;
-	border-top-right-radius: 16px;
-  }
-</style>
+{% include 'include/select.html' %}
+
+
 	<!-- header (relative style) -->
 {% include 'include/header.html' %}
 	<!-- head -->
@@ -146,6 +31,59 @@
 	<!-- end head -->
 
 	<!-- catalog -->
+	<style>
+
+
+.vpTitle .mTitle {
+  float: left;
+}
+  @media only screen and (max-width: 1279px){
+.mTitle {
+  font-size: 20px;
+  line-height: 30px;
+}
+}
+.mTitle {
+  font-size: 16px;
+  font-weight: 400;
+  color: white;
+  position: relative;
+  text-transform: uppercase;
+}
+@media only screen and (max-width: 1590px){
+.sort {
+  margin-left: 22px;
+}
+}
+.sort {
+  float: left;
+  margin-left: 28px;
+}
+.sort li{
+	float: left;
+  font-size: 15px;
+  text-transform: uppercase;
+  text-align: center;
+  margin-right: 9px;
+}
+.sort li a:hover, .sort li a.active {
+  background-color: #1fbafa;
+  color: #fff;
+  border-color: #1fbafa;
+}
+.sort li a {
+  min-width: 132px;
+  line-height: 31px;
+  border: 1px solid #636363;
+    border-top-color: rgb(99, 99, 99);
+    border-right-color: rgb(99, 99, 99);
+    border-bottom-color: rgb(99, 99, 99);
+    border-left-color: rgb(99, 99, 99);
+  padding: 0 8px;
+  color: white;
+  display: block;
+}
+</style>
 	<div class="catalog catalog--page">
 		<div class="container">
 			<div class="row">
@@ -159,33 +97,65 @@
 							{% endif %}
 									{% csrf_token %}
 
-										<div class="form__group">
-											<select id="sort" name='sort'>
-												<option></option> <!-- Add an empty option as a placeholder -->
-												<option value="most-trending" {% if current.sort == "most-trending" %} selected{% else %} {% endif %}>Most Trending</option>
-												<option value="newest" {% if current.sort == "newest" %} selected{% else %} {% endif %}>Newest</option>
-		
-												<option value="most-popular" {% if current.sort == "most-popular" %} selected{% else %} {% endif %}>Most Popular</option>
-		
-												<option value="alphabetical" {% if current.sort == "alphabetical" %} selected{% else %} {% endif %}>Alphabetical Order</option>
-		
-											</select>
-									</div>
-										
-										<div class="form__group">
-												
-											<select name="view" id="view">
-
-											<option selected></option> <!-- Add an empty option as a placeholder -->
-											<option value="4k" {% if current.view == "4k" %} selected{% else %} {% endif %}>4k</option>
-												<option value="HD" {% if current.view == "HD" %} selected{% else %} {% endif %}>HD</option>
-												<option value="SD" {% if current.view == "SD" %} selected{% else %} {% endif %}>SD</option>
-
-												<option value="FullHD" {% if current.view == "FullHD" %} selected{% else %} {% endif %}>FullHD</option>
-		
-											</select>
+										<div class="vpTitle">
+											<h1 class="mTitle">
+												Sort By
+											</h1>
+											<ul id="sort" class="sort">
+												<li>
+													<a data-type="sort" class="radio-1 Array " onclick="clicker(this)" data-url="?sort=most-popular" style="cursor:pointer;">Most Popular</a>
+												</li>
+												<li>
+													<a data-type="sort" class="radio-1 Array " onclick="clicker(this)" data-url="?sort=most-trending" style="cursor:pointer;">Most Trending</a>
+												</li>
+												<li>
+													<a data-type="sort" class="radio-1 Array active " onclick="clicker(this)" data-url="?sort=newest" style="cursor:pointer;">Newest</a>
+												</li>
+												<li>
+													<a data-type="sort" class="radio-1 Array " onclick="clicker(this)" data-url="?sort=alphabetical" style="cursor:pointer;">Alphabetical</a>
+												</li>
+											</ul>
 										</div>
-						
+										
+
+										<div  class="mt-5 mb-5 vpTitle">
+											<h1 class="mTitle">
+												View 
+											</h1>
+											<ul id="view" class="sort">
+												<li>
+													<a data-type="view" class="radio-1 Array " onclick="clicker(this)" data-url="view=4k" style="cursor:pointer;">4K</a>
+												</li>
+												<li>
+													<a data-type="view"class="radio-1 Array " onclick="clicker(this)" data-url="view=FullHD" style="cursor:pointer;">Full HD</a>
+												</li>
+												<li>
+													<a data-type="view" class="radio-1 Array active " onclick="clicker(this)" data-url="view=HD" style="cursor:pointer;">HD</a>
+												</li>
+												<li>
+													<a data-type="view" class="radio-1 Array " onclick="clicker(this)" data-url="view=SD" style="cursor:pointer;">SD</a>
+												</li>
+											</ul>
+										</div>
+
+										<div style="margin-top:100px;margin-bottom:25px;"  class=" vpTitle">
+											<h1 class="mTitle">
+												Display 
+											</h1>
+											<ul id="display" class="sort">
+												<li>
+													<a data-type="display" class="radio-1 Array active" onclick="clicker(this)" data-url="display=20" style="cursor:pointer;">20</a>
+												</li>
+												<li>
+													<a data-type="display"class="radio-1 Array " onclick="clicker(this)" data-url="display=50" style="cursor:pointer;">50</a>
+												</li>
+												<li>
+													<a data-type="display" class="radio-1 Array  " onclick="clicker(this)" data-url="display=100" style="cursor:pointer;">100</a>
+												</li>
+												
+											</ul>
+										</div>			
+									<br><br>
 									<select  multiple="multiple" name="popular_category" id="popular_category">
 										
 										{% for item in popular_genre %}
@@ -214,16 +184,16 @@
 </form>
 						</div>
 
-</div>
+						</div>
 							
-					
-					
-					{% include 'include/responsive.html' %}
-				{% if not data_dvd %}
-							{% else %}
+						{% include 'include/responsive.html' %}
+
+							<section id="data-content">
+							{% if data_dvd %}
+							
 							<div style="color:white;font-size:22px;margin-top:10px; "> DVD: </div>
 
-							<div style="justify-content:center;" class="row row--grid">
+							<div id="paginator_data_dvd" style="justify-content:center;" class="row row--grid">
 
 								{% for item in  data_dvd %}
 								<div class="large_screen col-6 col-sm-4 col-lg-3 col-xl-2 col-xxl-2">
@@ -290,11 +260,44 @@
 										
 									</div>
 								</div>
-								{% endfor %}	
-								
-		
-							
+								{% endfor %}							
 							</div>
+								
+								<div class="row">
+									<div class="col-12">
+										<div style="justify-content:center;" class="catalog__paginator-wrap">
+					
+											<ul class="catalog__paginator" data-content="paginator_data_dvd" id="pagination_click">
+												<nav class="mt-4" aria-label="Page navigation sample">
+													{% if data_dvd.has_other_pages %}
+													<ul id="pagination_click"  class="pagination" style='display: flex;
+													margin-bottom: 13px;'>
+														{% if data_dvd.has_previous %}
+														<li class="page-item "><a class="page-link"
+																href="?page_dvd={{data_dvd.previous_page_number}}"><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.75 5.36475L13.1992 5.36475" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M5.771 10.1271L0.749878 5.36496L5.771 0.602051" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
+														{% else %}
+														<li class="page-item disabled"><a class="page-link" href=""><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.75 5.36475L13.1992 5.36475" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M5.771 10.1271L0.749878 5.36496L5.771 0.602051" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
+														{% endif %}
+								
+														{% for i in data_dvd.paginator.page_range %}
+														{% if data_dvd.number == i %}
+														<li style="margin-right:15px;" class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
+														{% else %}
+														<li class="page-item"><a class="page-link" href="?page_dvd={{i}}">{{i}}</a></li>
+														{% endif %}
+														{% endfor %}
+														{% if data_dvd.has_next %}
+														<li class="page-item"><a class="page-link active" href="?page_dvd={{data_dvd.next_page_number}}"><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.1992 5.3645L0.75 5.3645" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M8.17822 0.602051L13.1993 5.36417L8.17822 10.1271" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
+														{% else %}
+														<li class="page-item disabled"><a class="page-link " href="#"><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.1992 5.3645L0.75 5.3645" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M8.17822 0.602051L13.1993 5.36417L8.17822 10.1271" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
+														{% endif %}
+													</ul>
+													{% endif %}
+												</nav>
+											</ul>
+										</div>
+									</div>
+								</div>
 								{% endif %}
 
 					<!-- end dvd container-->
@@ -306,7 +309,7 @@
 					<div style="color:white;font-size:22px;margin-top:10px; "> Scene </div>
 				
 					
-					<div style="justify-content:center; margin:0 auto; " class="row row--grid">
+					<div id="paginator_data_scene" style="justify-content:center; margin:0 auto; " class="row row--grid">
 						{% for item in  data_scene %}
 						<div  class="large_scene col-12 col-sm-6 col-lg-3 col-xxl-2 ">
 							<div class="card" >
@@ -376,6 +379,42 @@
 
 					
 					</div>
+						
+						<div class="row">
+							<div class="col-12">
+								<div style="justify-content:center;" class="catalog__paginator-wrap">
+									{% comment %} <span style="position:absolute;left:25px;" class="catalog__pages">10 from {{count}}</span> {% endcomment %}
+			
+									<ul class="catalog__paginator" data-content="paginator_data_scene" id="pagination_click">
+										<nav class="mt-4" aria-label="Page navigation sample">
+											{% if data_scene.has_other_pages %}
+											<ul class="pagination" style='display: flex;margin-bottom: 13px;'>
+												{% if data_scene.has_previous %}
+												<li class="page-item "><a class="page-link"
+														href="?page_scene={{data_scene.previous_page_number}}"><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.75 5.36475L13.1992 5.36475" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M5.771 10.1271L0.749878 5.36496L5.771 0.602051" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
+												{% else %}
+												<li class="page-item disabled"><a class="page-link" href=""><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.75 5.36475L13.1992 5.36475" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M5.771 10.1271L0.749878 5.36496L5.771 0.602051" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
+												{% endif %}
+						
+												{% for i in data_scene.paginator.page_range %}
+												{% if data_scene.number == i %}
+												<li style="margin-right:15px;" class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
+												{% else %}
+												<li class="page-item"><a class="page-link" href="?page_scene={{i}}">{{i}}</a></li>
+												{% endif %}
+												{% endfor %}
+												{% if data_scene.has_next %}
+												<li class="page-item"><a class="page-link active" href="?page_scene={{data_scene.next_page_number}}"><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.1992 5.3645L0.75 5.3645" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M8.17822 0.602051L13.1993 5.36417L8.17822 10.1271" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
+												{% else %}
+												<li class="page-item disabled"><a class="page-link " href="#"><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.1992 5.3645L0.75 5.3645" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M8.17822 0.602051L13.1993 5.36417L8.17822 10.1271" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
+												{% endif %}
+											</ul>
+											{% endif %}
+										</nav>
+									</ul>
+								</div>
+							</div>
+						</div>
 						{% endif %}
 
 						<!-- end scene container-->
@@ -385,7 +424,7 @@
 						<div style="color:white;font-size:22px;margin-top:10px; "> PhotoSet </div>
 						
 						
-						<div style="justify-content:center;" class="row row--grid">
+						<div id="paginator_data_photosets" style="justify-content:center;" class="row row--grid">
 							{% for item in  data_photosets %}
 							<div class="large_screen col-6 col-sm-4 col-lg-3 col-xl-2 col-xxl-2">
 								<div class="card" style='width:220px;'>
@@ -455,7 +494,45 @@
 	
 						
 						</div>
+							
+							<div class="row">
+								<div class="col-12">
+									<div style="justify-content:center;" class="catalog__paginator-wrap">
+										{% comment %} <span style="position:absolute;left:25px;" class="catalog__pages">10 from {{count}}</span> {% endcomment %}
+				
+										<ul class="catalog__paginator" data-content="paginator_data_photosets" id="pagination_click">
+											<nav class="mt-4" aria-label="Page navigation sample">
+												{% if data_photosets.has_other_pages %}
+												<ul id="pagination_click" class="pagination_click" style='display: flex;
+												margin-bottom: 13px;'>
+													{% if data_photosets.has_previous %}
+													<li class="page-item "><a class="page-link"
+															href="?page_photosets={{data_photosets.previous_page_number}}"><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.75 5.36475L13.1992 5.36475" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M5.771 10.1271L0.749878 5.36496L5.771 0.602051" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
+													{% else %}
+													<li class="page-item disabled"><a class="page-link" href=""><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.75 5.36475L13.1992 5.36475" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M5.771 10.1271L0.749878 5.36496L5.771 0.602051" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
+													{% endif %}
+							
+													{% for i in data_photosets.paginator.page_range %}
+													{% if data_photosets.number == i %}
+													<li style="margin-right:15px;" class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
+													{% else %}
+													<li class="page-item"><a class="page-link" href="?page_photosets={{i}}">{{i}}</a></li>
+													{% endif %}
+													{% endfor %}
+													{% if data_photosets.has_next %}
+													<li class="page-item"><a class="page-link active" href="?page_photosets={{data_photosets.next_page_number}}"><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.1992 5.3645L0.75 5.3645" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M8.17822 0.602051L13.1993 5.36417L8.17822 10.1271" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
+													{% else %}
+													<li class="page-item disabled"><a class="page-link" href="#"><svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.1992 5.3645L0.75 5.3645" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M8.17822 0.602051L13.1993 5.36417L8.17822 10.1271" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></li>
+													{% endif %}
+												</ul>
+												{% endif %}
+											</nav>
+										</ul>
+									</div>
+								</div>
+							</div>
 							{% endif %}
+						</section>
 
 							{% comment %} End  photoset container {% endcomment %}
 				</div>
@@ -482,14 +559,14 @@
 
 	{% include 'include/script.html' %}
 	<script>
-	$('#sort').select2({
-		placeholder: "Sort By:",
-		allowClear: true
-	});
-	$('#view').select2({
-		placeholder: "View :",
-		allowClear: true
-	});
+	// $('#sort').select2({
+	// 	placeholder: "Sort By:",
+	// 	allowClear: true
+	// });
+	// $('#view').select2({
+	// 	placeholder: "View :",
+	// 	allowClear: true
+	// });
 	$('#popular_category').select2({
 	 	placeholder: "Popular Categories",
 		closeOnSelect: false // Add this line to keep the dropdown open after selecting an item
@@ -507,5 +584,103 @@
 	});
 
 	</script>
+		<script>
+var data_content=document.getElementById('data-content')
+			function clicker(element) {
+type=element.getAttribute('data-type')
+var options = document.querySelectorAll('#'+type+' a');
+// Remove 'active' class from all options
+options.forEach(function(option) {
+option.classList.remove('active');
+				});
+
+						// Add 'active' class to the clicked option
+element.classList.add('active');
+var sortOption = document.querySelector('#sort .active');
+var viewOption = document.querySelector('#view .active');
+var displayOption = document.querySelector('#display .active');
+
+// Get the data-url attributes for the active options
+var sortUrl = sortOption.getAttribute('data-url');
+var viewUrl = viewOption.getAttribute('data-url');
+var displayUrl=displayOption.getAttribute('data-url')
+
+// Construct the URL for the fetch request with both "sort" and "view"
+var requestUrl = sortUrl + '&' + viewUrl + '&' +displayUrl;
+type=window.location.href
+console.log(type)
+types=type.split('/')
+if (types.length==5){
+	if (types[4]=="Scene"){
+		data_content=document.getElementById('paginator_data_scene')
+	}
+	if (types[4]=="DVD"){
+		data_content=document.getElementById('paginator_data_dvd')
+	}
+	if (types[4]=="PhotoSets"){
+		data_content=document.getElementById('paginator_data_photosets')
+	}
+}
+fetch(requestUrl,{
+method: 'GET',  
+headers: {
+'X-Requested-With': 'Fetch'
+},
+}).then(response=>response.json()).then(data=>{
+data_content.innerHTML=data.content
+})																	// Perform your sorting or other actions here
+					}
+</script>
+
+
+<script>
+	const paginator=document.querySelectorAll('#pagination_click');
+
+	paginator.forEach(function(element){	
+	element.addEventListener('click', (e) => {
+		if (e.target.tagName === 'A' || e.target.parentNode.tagName === 'A'||e.target.parentNode.parentNode.tagName==='A') {
+			e.preventDefault();
+
+			var targetElement
+			if (e.target.tagName==='A'){
+				
+				targetElement=e.target
+			}else if (e.target.parentNode.tagName=='A'){
+				targetElement=e.target.parentNode
+			}else if(e.target.parentNode.tagName=='svg'){
+				targetElement=e.target.parentNode.parentNode
+			}
+			data_content=element.getAttribute('data-content')
+			data_content=document.getElementById(data_content)
+			const nextPageHref = targetElement.getAttribute('href');
+			var nextPage=nextPageHref.split('?')[1]
+			console.log(nextPage)
+			var sortOption = document.querySelector('#sort .active');
+			var viewOption = document.querySelector('#view .active');
+			var displayOption = document.querySelector('#display .active');
+
+			var sortUrl = sortOption.getAttribute('data-url');
+			var viewUrl = viewOption.getAttribute('data-url');
+			var displayUrl=displayOption.getAttribute('data-url')
+
+// Construct the URL for the fetch request with both "sort" and "view"
+			var requestUrl = sortUrl + '&' + viewUrl + '&' +displayUrl+ '&'+nextPage;
+
+
+			fetch(requestUrl,{
+				method: 'GET',  
+				headers: {
+					'X-Requested-With': 'Fetch'
+				},
+			}).then(response=>response.json()).then(data=>{
+				data_content.innerHTML=data.content
+				element.innerHTML=data.pagination
+			})			
+		}
+	});
+})
+	
+</script>
+
 	{% endblock %}
 	

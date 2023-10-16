@@ -3,8 +3,8 @@
 							<div  class="large_scene col-6 col-sm-6 col-lg-3 col-xxl-2 ">
 								<div class="card" style='width:220px;'>
 									<a style="border-radius:0px;filter:blur(0);" href="{% url 'details' slug=item.slug %}" class="card__cover">
-										<img  style='filter:blur(0px);' class='product_image_scene'  src="{{item.coverphoto.url}}" alt="">
-								{% else%}
+										<img class="product_image_scene" src="{{item.coverphoto.url}}" alt="">
+										{% else%}
 
 							<div class="large_screen col-6 col-sm-4 col-lg-3 col-xl-2 col-xxl-2">
 								<div class="card" style='width:220px;'>
