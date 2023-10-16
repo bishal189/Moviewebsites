@@ -47,7 +47,7 @@
 								<a href="{% url 'album_detail' item.id %}" class="card__cover">
 									<img style="filter:blur(0)" class='product_image' src="{{item.coverphoto.url}}" alt="">
 								</a>
-								<span class="card__rating">{{item.price}} $</span>
+								{% comment %} <span class="card__rating">{{item.price}} $</span> {% endcomment %}
 
 								<h3 class="card__title card__title--subs"><a href="{% url 'album_detail' item.id %}">{{item.album_name}}</a></h3>
 								<ul class="card__list">

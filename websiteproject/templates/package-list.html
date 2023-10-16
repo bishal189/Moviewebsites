@@ -169,13 +169,7 @@
 
 
                         <a style="text-align:center;" class="sign__btn" href="{% url 'file_download' item.movie_name %}">Download </a>
-                       {%comment%} <a inc-url="{% url 'inc_counter' item.id %}"
-                            data-url="{% url 'file_download' item.movie_name %}"
-                            onclick="download__click(event, this)" class="sign__btn"
-                            href="{% url 'file_download' item.movie_name %}">
-                            <button id="item_add_{{ item.id }}" class="sign__btn"></button>
-                        </a>
-                       {% endcomment %}
+                      
                     </div>
                 </div>
                 {% endfor %}
@@ -193,45 +187,6 @@
         }
     };
 </script>
-{% comment %}
-<script>
 
-    function download__click(event, item) {
-        inc_url = item.getAttribute('inc-url')
-        url = (item.getAttribute('data-url'))
-
-
-        event.preventDefault()
-        item.textContent = "In Progress"
-
-        var counter
-        fetch(inc_url).then(response => response.json()).then(data => counter = data.counter)
-
-        // Construct the URL with the movieName parameter
-        // Perform a Fetch API request to initiate the file download
-
-        var anchor = document.createElement('a');
-        anchor.href = url;
-        anchor.style.display = 'none';
-
-
-
-        // Add the anchor to the document
-        document.body.appendChild(anchor);
-
-        // Trigger a click event on the anchor to initiate the download
-        anchor.click();
-
-        // Remove the anchor from the document after the click event
-        document.body.removeChild(anchor);
-        setTimeout(() => {
-            item.innerHTML = "Download<br>(" + counter + "of 3 Remaining )";
-            if (counter > 300) {
-                location.reload()
-            }
-            // Trigger a click event on the anchor to initiate the download (if needed)
-        }, 20000);
-    }
-</script> {% endcomment %}
 
 {% endblock %}

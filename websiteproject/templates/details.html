@@ -11,8 +11,16 @@
 <!----code for responsiveness -->
 {% include 'include/responsive.html' %}
  <style>
-
-
+	@media screen and (max-width: 412px) {
+		.article__content{
+			margin-left:3rem!important;
+		}
+	}
+	@media screen and (max-width: 375px) {
+		.row{
+			margin-left:-1rem!important;
+		}
+	}
 	.img_article{
 		margin-right:0px;
 	}
@@ -33,11 +41,14 @@
 			margin-left:-17px!important;
 		}
 	}
-	{% comment %} @media screen and (max-width:414px){
-		.row{
-			margin-left:-17px!important;
+ @media screen and (max-width:280px){
+		#images{
+			margin-left:-72px!important;
 		}
-	} {% endcomment %}
+		#items{
+			margin-left:52!important;
+		}
+	}
 	@media screen and (max-width:375px){
 		.row {
 			margin-left: -28px!important;
@@ -49,12 +60,29 @@
 		.row{
 			margin:0 6px;
 		}
+	}
 	
+	@media screen and (max-width:414px){
+		.article__content{
+				margin-left: 3rem;
+		}
+	
+	}
+	@media screen and (max-width:280px){
+		.tab-content{
+			margin-left:3rem!important;
+		}
+		
+		.row{
+			margin-left: -52px!important;
+			margin-right: 11px!important;
+		}
 	}
 	@media screen and (min-width:765px) and (max-width:1200px){
 		.img_article{
 			margin-right:20px;
 		}
+		
 	}
 	@media screen and (min-width:500px) and (max-width:765px){
 		
@@ -134,7 +162,7 @@
 		<div class="topper container">
 			<!-- article -->
 			<div class="article">
-				<div  class="row">
+				<div  class="row" id='images'>
 					
 					<div class="article__content">
 						<div class="img_article" >
@@ -373,7 +401,7 @@
 					</div>
 					</div>
 					<div class="tab-pane show active" id="tab-3" role="tabpnel">
-						<div class="row">
+						<div class="row" style='margin-left:1rem!important' id='carousel'>
 							<div class="col-12">
 								<h2 style="font-size:22px;text-align:center;"class="section__title">Images</h2>
 							</div>
@@ -598,7 +626,7 @@
 				</div>
 			
 
-				<div class="row">
+				<div class="row" style='margin-left:1rem!important'>
 					<div class="col-12">
 						<h2 style="font-size:22px;text-align:center;"class="section__title">Images</h2>
 					</div>
@@ -634,11 +662,11 @@
 					<div style="margin-top:20px;" class="catalog catalog--list">
 						<div class="container">
 							
-							<div class="row">
+							<div class="row" style='margin-left:-1rem!important'>
 								<div class="col-12">
 									<h1 style="background-color:#151f30;margin-bottom:0px;padding:20px;" class="home__title">Similar Items </h1><F5>
 									</div>
-									<div id="paginator_data_scene" style="justify-content:center; margin:0 auto; " class="row row--grid">
+									<div id="paginator_data_scene" style="justify-content:center; margin:0 auto;"  id='items' class="row row--grid">
 									
 										
 											{% for item in  similar %}
