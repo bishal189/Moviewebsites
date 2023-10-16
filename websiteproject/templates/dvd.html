@@ -49,12 +49,20 @@
 
 										</select>
 									
-
+										<select  multiple="multiple" name="studio" id="studio">
+										
+											{% for item in studio %}
+											
+												<option value="{{item.id}}"  {% if item.id|stringformat:"s" in current.studio %} selected {% endif %}>{{item.name}} </option>
+												{%endfor%}
+	
+											</select>
 									<select  multiple="multiple" name="scene_category" id="scene_category">
 										{% for item in genres %}
 										<option value="{{item.id}}"{% if item.id|stringformat:"s" in current.all_category %} selected {% endif %}>{{item.category_name}}</option>
 										{% endfor %}
 									</select>
+
 								
 									<select  multiple="multiple" name="model" id="model">
 										{% for choice in attributes %}
@@ -77,7 +85,7 @@
 								{% for item in dvd %}
 
 					
-								<div   class="large_screen col-6 col-sm-4 col-lg-3 col-xl-2 col-xxl-2">
+								<div class="large_screen col-6 col-sm-4 col-lg-3 col-xl-2 col-xxl-2">
 									<div class="card" style='width:220px;'>
 										<a style="border-radius:0px;" href="{% url 'details' slug=item.slug %}" class="card__cover">
 											<img style="filter:blur(0);" class='product_image' src="{{item.coverphoto.url}}" alt="">

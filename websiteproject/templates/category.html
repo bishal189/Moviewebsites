@@ -164,6 +164,14 @@
 											{%endfor%}
 
 										</select>
+										<select  multiple="multiple" name="studio" id="studio">
+										
+											{% for item in studio %}
+											
+												<option value="{{item.id}}"  {% if item.id|stringformat:"s" in current.studio %} selected {% endif %}>{{item.name}} </option>
+												{%endfor%}
+	
+											</select>
 									
 
 									<select  multiple="multiple" name="scene_category" id="scene_category">
@@ -569,6 +577,11 @@
 	// });
 	$('#popular_category').select2({
 	 	placeholder: "Popular Categories",
+		closeOnSelect: false // Add this line to keep the dropdown open after selecting an item
+
+	});
+	$('#studio').select2({
+	 	placeholder: "Studio",
 		closeOnSelect: false // Add this line to keep the dropdown open after selecting an item
 
 	});

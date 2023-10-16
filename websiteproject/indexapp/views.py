@@ -49,6 +49,7 @@ def home(request):
     total_views=Count('moviedetail__view_count'),
     total_carts=Count('moviedetail__cart_count')
     ).order_by('-total_views', '-total_carts')[:10]
+    studio=StudioModel.objects.all().order_by('-id')
 
 # end attribute for showing data in model star for filtering 
 
@@ -57,7 +58,7 @@ def home(request):
     all_scene=MovieDetail.objects.filter(type="Scene").order_by('-id')
     all_photosets=MovieDetail.objects.filter(type="PhotoSets").order_by('-id')
 
-    paginator_dvd=Paginator(all_dvd,4)
+    paginator_dvd=Paginator(all_dvd,12)
     page_dvd=request.GET.get('page_dvd')
     paged_dvd=paginator_dvd.get_page(page_dvd)
 
@@ -161,6 +162,7 @@ def home(request):
         'pages':pages,
         'popular_genre':popular_genres,
         'attributes':attribute_choices,
+        'studio':studio
 
         
     }
@@ -300,6 +302,7 @@ def scenes(request):
     total_carts=Count('moviedetail__cart_count')
     ).order_by('-total_views', '-total_carts')[:10]
     genres=Category.objects.all().order_by('-id')
+    studio=StudioModel.objects.all().order_by('-id')
 
 # end attribute for showing data in model star for filtering 
 
@@ -338,6 +341,7 @@ def scenes(request):
         'genres':genres,
         'popular_genre':popular_genres,
         'attributes':attribute_choices,
+        'studio':studio,
     }
     return render(request, 'scenes.html',context)
 
@@ -374,7 +378,7 @@ def dvd(request):
             attribute_choices.extend([f"{attribute}:{value}" for value in values_list])
 
 # end attribute for showing data in model star for filtering 
-
+    studio=StudioModel.objects.all().order_by('-id')
     alldata=MovieDetail.objects.filter(type='DVD').order_by('-id')
     paginator_dvd=Paginator(alldata,12)
     page_dvd=request.GET.get('page_dvd')
@@ -411,6 +415,7 @@ def dvd(request):
         'genres':genres,
         'popular_genre':popular_genres,
         'attributes':attribute_choices,
+        'studio':studio,
 
     }
 
@@ -509,8 +514,8 @@ def photosets(request):
             attribute_choices.extend([f"{attribute}:{value}" for value in values_list])
 
 # end attribute for showing data in model star for filtering 
-
-    popular_genres=popular_categories = Category.objects.annotate(
+    studio=StudioModel.objects.all().order_by('-id')
+    popular_genres= Category.objects.annotate(
     total_views=Count('moviedetail__view_count'),
     total_carts=Count('moviedetail__cart_count')
     ).order_by('-total_views', '-total_carts')[:10]
@@ -550,6 +555,7 @@ def photosets(request):
         'genres':genres,
         'popular_genre':popular_genres,
         'attributes':attribute_choices,
+        'studio':studio
         
     }
 

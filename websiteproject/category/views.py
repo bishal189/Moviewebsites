@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import Category
-from indexapp.models import MovieDetail,StarsModel,FavouritesModel
+from indexapp.models import MovieDetail,StarsModel,FavouritesModel,StudioModel
 from detailapp.models import Cartitem
 from django.db.models import  Sum
 from django.contrib.auth.models import AnonymousUser
@@ -50,15 +50,16 @@ def category(request):
     total_views=Count('moviedetail__view_count'),
     total_carts=Count('moviedetail__cart_count')
     ).order_by('-total_views', '-total_carts')[:10]
+
+    studio=StudioModel.objects.all().order_by('-id')
      
-
-
     context={
           'genres':genres,
           'data':data,
           'star':stardata,
           'popular_genre':popular_genres,
           'attributes':attribute_choices,
+          'studio':studio
      }
 
     return render(request,"category.html",context)
@@ -98,15 +99,19 @@ def category_filter(request,type=None):
 
 
     genres=Category.objects.all()
+    all_studios=StudioModel.objects.all().order_by('-id')
 
     ###Get all data from post
     popular_category=None
     scene_category=None
     selected_options=None
+    studio=None
     # view=None
     # sort=None
     if 'popular_category' in request.POST:
          popular_category=request.POST.getlist('popular_category')
+    if 'studio' in request.POST:
+         studio=request.POST.getlist('studio')
 
     if 'scene_category' in request.POST:
         scene_category=request.POST.getlist('scene_category')
@@ -168,6 +173,8 @@ def category_filter(request,type=None):
         movies=movies.filter(genre__in=popular_category)
     if scene_category is not None:
         movies=movies.filter(genre__in=scene_category)
+    if studio is not None:
+        movies=movies.filter(studio__in=studio)
     
     # if view is not None and view != "":
     #     movies=movies.filter(quality=view)
@@ -179,6 +186,7 @@ def category_filter(request,type=None):
     current['popular_category']=popular_category
     current['all_category']=scene_category
     current['choice']=selected_options
+    current['studio']=studio
 
 
     ###To deterrmine which filters are applied
@@ -353,6 +361,7 @@ def category_filter(request,type=None):
           'attributes':attribute_choices,
           'popular_genre':popular_genres,
           'current':current,
+          'studio':all_studios,
         }
 
     else:
@@ -369,6 +378,7 @@ def category_filter(request,type=None):
             'attributes':attribute_choices,
             'popular_genre':popular_genres,
             'current':current,
+            'studio':all_studios
 
             } 
     return render(request,"category.html",context)

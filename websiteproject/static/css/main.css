@@ -207,7 +207,7 @@ body::-webkit-scrollbar-thumb {
   align-items: center;
   position: relative;
   overflow: hidden;
-  height: 170px;
+  height: 80px;
   width: 100%;
 }
 .header__logo {
@@ -478,7 +478,7 @@ body::-webkit-scrollbar-thumb {
   align-items: center;
 }
 .header__search {
-  margin-right: 30px;
+  margin-left: 20px;
 }
 .header__search svg {
   width: 20px;
