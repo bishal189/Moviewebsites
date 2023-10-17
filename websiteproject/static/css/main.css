@@ -4662,7 +4662,7 @@ body::-webkit-scrollbar-thumb {
   padding: 40px 0;
 }
 .sign__form {
-  background-color: #131720;
+  background-color: black;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -4725,7 +4725,7 @@ body::-webkit-scrollbar-thumb {
   margin-bottom: 5px;
 }
 .sign__input {
-  background-color: black;
+  background-color: #1a1a1a;
   border: 1px solid transparent;
   /* border-radius: 16px; */
   height: 44px;
@@ -4863,7 +4863,8 @@ body::-webkit-scrollbar-thumb {
   /* background-color: #ff0000; */
   background-color:#ff0000;
   font-size: 14px;
-  color: #e0e0e0;
+  /* color: #e0e0e0; */
+  color:white;
   text-transform: uppercase;
   font-weight: 500;
 }
