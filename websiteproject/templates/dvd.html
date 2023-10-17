@@ -40,6 +40,65 @@
 						<div  class="catalog__select-wrap">
 						<form method="POST" action="{% url 'category_filter_type' "DVD"%}">
 									{% csrf_token %}
+									<div class="vpTitle">
+										<h1 class="mTitle">
+											Sort By
+										</h1>
+										<ul id="sort" class="sort">
+											<li>
+												<a data-type="sort" class="radio-1 Array " onclick="clicker(this)" data-url="?sort=most-popular" style="cursor:pointer;">Most Popular</a>
+											</li>
+											<li>
+												<a data-type="sort" class="radio-1 Array " onclick="clicker(this)" data-url="?sort=most-trending" style="cursor:pointer;">Most Trending</a>
+											</li>
+											<li>
+												<a data-type="sort" class="radio-1 Array active " onclick="clicker(this)" data-url="?sort=newest" style="cursor:pointer;">Newest</a>
+											</li>
+											<li>
+												<a data-type="sort" class="radio-1 Array " onclick="clicker(this)" data-url="?sort=alphabetical" style="cursor:pointer;">Alphabetical</a>
+											</li>
+										</ul>
+									</div>
+									
+
+									<div  class="mt-5 mb-5 vpTitle">
+										<h1 class="mTitle">
+											View 
+										</h1>
+										<ul id="view" class="sort">
+											<li>
+												<a data-type="view" class="radio-1 Array " onclick="clicker(this)" data-url="view=4k" style="cursor:pointer;">4K</a>
+											</li>
+											<li>
+												<a data-type="view"class="radio-1 Array " onclick="clicker(this)" data-url="view=FullHD" style="cursor:pointer;">Full HD</a>
+											</li>
+											<li>
+												<a data-type="view" class="radio-1 Array active " onclick="clicker(this)" data-url="view=HD" style="cursor:pointer;">HD</a>
+											</li>
+											<li>
+												<a data-type="view" class="radio-1 Array " onclick="clicker(this)" data-url="view=SD" style="cursor:pointer;">SD</a>
+											</li>
+										</ul>
+									</div>
+
+									<div style="margin-top:100px;margin-bottom:25px;"  class=" vpTitle">
+										<h1 class="mTitle">
+											Display 
+										</h1>
+										<ul id="display" class="sort">
+											<li>
+												<a data-type="display" class="radio-1 Array active" onclick="clicker(this)" data-url="display=20" style="cursor:pointer;">20</a>
+											</li>
+											<li>
+												<a data-type="display"class="radio-1 Array " onclick="clicker(this)" data-url="display=50" style="cursor:pointer;">50</a>
+											</li>
+											<li>
+												<a data-type="display" class="radio-1 Array  " onclick="clicker(this)" data-url="display=100" style="cursor:pointer;">100</a>
+											</li>
+											
+										</ul>
+									</div>		
+									<br><br>
 									<select  multiple="multiple" name="popular_category" id="popular_category">
 										
 										{% for item in popular_genre %}
@@ -204,7 +263,103 @@
 	<!-- footer -->
 	{% include 'include/footer.html' %}
 	{% include 'include/script.html' %}
-	{% include 'include/script_pagination.html' %}
 	{% include 'include/selectjs.html' %}
-	
+	<script>
+		const paginator_data=document.getElementById('pagination_click');
+
+		var data_content=document.getElementById('paginator_data')
+					function clicker(element) {
+		type=element.getAttribute('data-type')
+		var options = document.querySelectorAll('#'+type+' a');
+		// Remove 'active' class from all options
+		options.forEach(function(option) {
+		option.classList.remove('active');
+						});
+		
+								// Add 'active' class to the clicked option
+		element.classList.add('active');
+		var sortOption = document.querySelector('#sort .active');
+		var viewOption = document.querySelector('#view .active');
+		var displayOption = document.querySelector('#display .active');
+
+		var pageOption = document.querySelector('.page-item.active a.page-link');		
+		// Get the data-url attributes for the active options
+		var sortUrl = sortOption.getAttribute('data-url');
+		var viewUrl = viewOption.getAttribute('data-url');
+
+		var displayUrl=displayOption.getAttribute('data-url')
+		if (pageOption){
+		var pageUrl=pageOption.textContent
+		var nextPage="page_dvd="+pageUrl
+		var requestUrl = sortUrl + '&' + viewUrl + '&' +displayUrl+ '&'+nextPage;
+		}else{
+		// Construct the URL for the fetch request with both "sort" and "view"
+		var requestUrl = sortUrl + '&' + viewUrl + '&' +displayUrl;
+		}
+					
+		fetch(requestUrl,{
+		method: 'GET',  
+		headers: {
+		'X-Requested-With': 'Fetch'
+		},
+		}).then(response=>response.json()).then(data=>{
+		data_content.innerHTML=data.content
+		if (pageOption){
+			console.log(data.pagination)
+
+		paginator_data.innerHTML=data.pagination
+		}
+		})																	// Perform your sorting or other actions here
+							}
+		</script>
+		
+		
+		<script>
+			const paginator=document.querySelectorAll('#pagination_click');
+		
+			paginator.forEach(function(element){	
+			element.addEventListener('click', (e) => {
+				if (e.target.tagName === 'A' || e.target.parentNode.tagName === 'A'||e.target.parentNode.parentNode.tagName==='A') {
+					e.preventDefault();
+		
+					var targetElement
+					if (e.target.tagName==='A'){
+						
+						targetElement=e.target
+					}else if (e.target.parentNode.tagName=='A'){
+						targetElement=e.target.parentNode
+					}else if(e.target.parentNode.tagName=='svg'){
+						targetElement=e.target.parentNode.parentNode
+					}
+					data_content=element.getAttribute('data-content')
+					data_content=document.getElementById(data_content)
+					const nextPageHref = targetElement.getAttribute('href');
+					var nextPage=nextPageHref.split('?')[1]
+					console.log(nextPage)
+					var sortOption = document.querySelector('#sort .active');
+					var viewOption = document.querySelector('#view .active');
+					var displayOption = document.querySelector('#display .active');
+		
+					var sortUrl = sortOption.getAttribute('data-url');
+					var viewUrl = viewOption.getAttribute('data-url');
+					var displayUrl=displayOption.getAttribute('data-url')
+		
+		// Construct the URL for the fetch request with both "sort" and "view"
+					var requestUrl = sortUrl + '&' + viewUrl + '&' +displayUrl+ '&'+nextPage;
+		
+		
+					fetch(requestUrl,{
+						method: 'GET',  
+						headers: {
+							'X-Requested-With': 'Fetch'
+						},
+					}).then(response=>response.json()).then(data=>{
+						data_content.innerHTML=data.content
+						element.innerHTML=data.pagination
+					})			
+				}
+			});
+		})
+			
+		</script>
 	{% endblock %}

@@ -246,7 +246,6 @@ def category_filter(request,type=None):
 
         if page_sort is not None:
             actual_data_quality=movies.filter(quality=page_view)
-            print(actual_data_quality)
             if page_sort=="newest":
 
                 actual_data=actual_data_quality.order_by('-id')

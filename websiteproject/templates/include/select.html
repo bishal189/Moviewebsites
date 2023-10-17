@@ -1,9 +1,18 @@
 <style>
+
   .select2 {
     width: 100% !important;
     height: 44px;
     margin-bottom: 0;
     }
+
+      /* Updated style for the container */
+      .select2-container--default {
+  display: inline-block; /* Display the containers in a row */
+  width: 200px!important; /* Set a fixed width for each select item */
+  margin-right: 10px; /* Adjust the spacing between dropdowns */
+}
+    
     .select2-search--dropdown,
     .select2-container--default .select2-selection--single .select2-selection__clear {
     display: none;
@@ -27,10 +36,10 @@
     width: 40px;
     }
     .select2-container--default .select2-selection--single .select2-selection__arrow b {
-    border-color: #2f80ed transparent transparent transparent;
+    border-color: #ff0000 transparent transparent transparent;
     }
     .select2-container--default.select2-container--open .select2-selection--single .select2-selection__arrow b {
-    border-color: transparent transparent #2f80ed transparent;
+    border-color: transparent transparent #ff0000 transparent;
     }
     .select2-container--default .select2-selection--multiple {
     border: none;
@@ -78,7 +87,7 @@
     margin-right: 10px;
     }
     .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
-    color: #2f80ed;
+    color: #ff0000;
     margin-right: 7px;
     transition: color 0.5s;
     }
@@ -109,11 +118,11 @@
     }
     .select2-container--default .select2-results__option--highlighted[aria-selected] {
     background-color: transparent;
-    color: #2f80ed;
+    color: #ff0000;
     }
     .select2-container--default .select2-results__option[aria-selected="true"] {
     background-color: transparent;
-    color: #2f80ed;
+    color: #ff0000;
     cursor: default;
     }
     .select2-container--open .select2-dropdown--below {
@@ -124,4 +133,60 @@
     border-top-left-radius: 16px;
     border-top-right-radius: 16px;
     }
+    .select2-selection__choice__remove {
+  display: none;
+}
+
+
+
+/* for button group */
+.vpTitle .mTitle {
+  float: left;
+}
+  @media only screen and (max-width: 1279px){
+.mTitle {
+  font-size: 20px;
+  line-height: 30px;
+}
+}
+.mTitle {
+  font-size: 16px;
+  font-weight: 400;
+  color: white;
+  position: relative;
+  text-transform: uppercase;
+}
+@media only screen and (max-width: 1590px){
+.sort {
+  margin-left: 22px;
+}
+}
+.sort {
+  float: left;
+  margin-left: 28px;
+}
+.sort li{
+	float: left;
+  font-size: 15px;
+  text-transform: uppercase;
+  text-align: center;
+  margin-right: 9px;
+}
+.sort li a:hover, .sort li a.active {
+  background-color: #ff0000;
+  color: #fff;
+  border-color: #ff0000;
+}
+.sort li a {
+  min-width: 132px;
+  line-height: 31px;
+  border: 1px solid #636363;
+    border-top-color: rgb(99, 99, 99);
+    border-right-color: rgb(99, 99, 99);
+    border-bottom-color: rgb(99, 99, 99);
+    border-left-color: rgb(99, 99, 99);
+  padding: 0 8px;
+  color: white;
+  display: block;
+}
   </style>
