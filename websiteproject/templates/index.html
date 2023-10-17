@@ -234,13 +234,7 @@ clickyes()
 {% include  'include/responsive.html' %}
 <style>
 	
- .home__title{
-	font-size:20px;
- }
-.row--grid .col-6, .row--grid .col-12 {
-    padding-left: 20px;
-    padding-right: 10px;
-}
+
 </style>
 
 	<!-- catalog -->
@@ -249,7 +243,7 @@ clickyes()
 			
 			<div class="row">
 				<div class="col-12">
-					<h1 style="background-color:#151f30;margin-bottom:0px;padding:20px;" class="home__title">Recently Added Dvds <span  style="font-size:16px;position:absolute;right:10%;"><a class="span_hover" href="{% url 'dvd' %}">View All</a></span></h1><F5>
+					<h1 style="margin-bottom:0px;padding:20px;" class="home__title">Recently Added Dvds <span  style="font-size:16px;position:absolute;right:10%;"><a class="span_hover" href="{% url 'dvd' %}">View All</a></span></h1><F5>
 				</div>		
 					<div id="paginator_data_dvd" style="justify-content:center;"class="row row--grid">
 						{% for item in  dvd %}
@@ -372,7 +366,7 @@ clickyes()
 		<div class="container">
 			
 				<div class="col-12">
-					<h1 style="background-color:hsl(218, 39%, 14%);margin-bottom:0px;padding:20px;" class="home__title">Recently Added Scenes <span style="font-size:16px;position:absolute;right:10%;"><a class="span_hover" href="{% url 'scenes' %}">View All</a></span></h1><F5>
+					<h1 style="margin-bottom:0px;padding:20px;" class="home__title">Recently Added Scenes <span style="font-size:16px;position:absolute;right:10%;"><a class="span_hover" href="{% url 'scenes' %}">View All</a></span></h1><F5>
 					</div>
 					<div id="paginator_data_scene" style="justify-content:center; margin:0 auto ;" class="row row--grid">
 						<div id="paginator_data" style="justify-content:center; margin:0 auto;" class="row row--grid">
@@ -380,8 +374,8 @@ clickyes()
 
 				
 							<div class="large_scene col-12 col-sm-6 col-lg-3 col-xxl-2 ">
-								<div style="width:270px" class="card">
-									<a style="border-radius:0px;filter:blur(0);href="{% url 'details' slug=item.slug %}" class="card__cover">
+								<div  class="card card__scene">
+									<a style="border-radius:0px;filter:blur(0);"href="{% url 'details' slug=item.slug %}" class="card__cover">
 										<img class='product_image_scene' style='filter:blur(0px);'src="{{item.coverphoto.url}}" alt="">
 									</a>
 									{% if user.is_authenticated %}
@@ -511,7 +505,7 @@ clickyes()
 			
 			<div class="row">
 				<div class="col-12">
-					<h1 style="background-color:#151f30;margin-bottom:0px;padding:20px;" class="home__title">Recently Added PhotoSets <span style="font-size:16px;position:absolute;right:10%;"><a class="span_hover" href="{% url 'photosets' %}">View All</a></span></h1><F5>
+					<h1 style="margin-bottom:0px;padding:20px;" class="home__title">Recently Added PhotoSets <span style="font-size:16px;position:absolute;right:10%;"><a class="span_hover" href="{% url 'photosets' %}">View All</a></span></h1><F5>
 					</div>
 					<div id="paginator_data_photoset" style="justify-content:center;" class="row row--grid">
 						{% for item in  photoset %}
@@ -640,7 +634,7 @@ clickyes()
 			
 			<div class="row">
 				<div class="col-12">
-					<h1 style="background-color:#151f30;margin-bottom:0px;padding:20px;" class="home__title">Trending Stars <span style="font-size:16px;position:absolute;right:10%;"><a class="span_hover" href="{% url 'stars' %}">View All</a></span></h1><F5>
+					<h1 style="margin-bottom:0px;padding:20px;" class="home__title">Trending Stars <span style="font-size:16px;position:absolute;right:10%;"><a class="span_hover" href="{% url 'stars' %}">View All</a></span></h1><F5>
 					</div>
 					<div id="paginator_data_star" style="justify-content:center;" class="row row--grid">
 						{% for item in  star %}
@@ -727,7 +721,7 @@ clickyes()
 			
 			<div class="row">
 				<div class="col-12">
-					<h1 style="background-color:#151f30;margin-bottom:0px;padding:20px;" class="home__title">Packages<span style="font-size:16px;position:absolute;right:10%;"><a class="span_hover" href="{% url 'album' %}">View All</a></span></h1><F5>
+					<h1 style="margin-bottom:0px;padding:20px;" class="home__title">Packages<span style="font-size:16px;position:absolute;right:10%;"><a class="span_hover" href="{% url 'album' %}">View All</a></span></h1><F5>
 					</div>
 					<div id="paginator_data_package" style="justify-content:center;" class="row row--grid">
 						{% for item in  allalbums %}

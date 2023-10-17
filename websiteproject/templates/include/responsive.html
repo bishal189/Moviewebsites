@@ -21,10 +21,20 @@
         
 
     }
+    .home__title{
+	font-size:20px;
+ }
+.row--grid .col-6, .row--grid .col-12 {
+    padding-left: 20px;
+    padding-right: 10px;
+}
+    .card__scene{
+        width:270px;
+    }
     
     .product_image_scene{
         height: 190px;
-        width:290px!important;
+        width:290px;
         border-radius: 0px;
         filter:blur(0px);
     }
@@ -46,7 +56,12 @@
         margin-right:0px;
     }
 }
-    @media screen and (min-width:765px) and (max-width:1200px){
+    @media screen and (min-width:580px) and (max-width:768px){
+        .card__scene{
+            width:250px;
+        }
+    }
+    @media screen and (min-width:769px) and (max-width:1200px){
         .large_screen{
             margin-right:20px;
         }
@@ -64,6 +79,10 @@
         height:265px;
         width: 195px;
     }
+    .card__scene{
+        max-width:400px;
+        margin:10px auto;
+    }
     
 }
 @media screen and (max-width:585px){
@@ -73,8 +92,12 @@ justify-content:center;
     .card__title{
         text-align:center;
     }
+    .card__scene{
+        max-width:400px;
+        margin:10px auto;
+    }
+    
 }
-
 @media screen and (max-width:1200px){
     .top{
         margin-top:50px!important;
@@ -87,15 +110,15 @@ justify-content:center;
 
 @media screen and (max-width:582px){
     .product_image{
-        width:247px!important;
+        width:247px;
         height:304px;
     }
 }
 @media screen and (max-width:578px){
     .product_image{
         
-        width:245px!important;
-        height:301px!important;
+        width:245px;
+        height:301px;
         
     }
     .large_screen{
@@ -104,9 +127,10 @@ justify-content:center;
     }
 }
 @media screen and (max-width:465px){
+    
     .product_image{
-        width:188px!important;
-        height:232px!important;
+        width:188px;
+        height:232px;
         
     }
     .card__icon{
@@ -129,6 +153,9 @@ margin-left: -29px;
         height:188px!important;
         
     }
+    .home__title{
+        font-size:16px!important;
+    }
     .card__icon{
         left: 36px!important;
         right: 36px!important;
@@ -147,6 +174,9 @@ margin-left: -29px;
         width:113px!important;
         height:164px!important;
         
+    }
+    .home__title{
+        font-size:14px!important;
     }
     .card__icon{
         left: 50px!important;
