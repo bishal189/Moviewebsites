@@ -336,10 +336,10 @@
 					<div  style="margin-top:35px;margin-bottom:-50px;" class="col-12">
 						<h1 class="home__title">Scene </h1><F5>
 					</div>
-					<div class="row row--grid">
+					<div style="justify-content:center;" class="row row--grid">
 						{% for item in orders_scene %}
 						<div  class="large_scene col-6 col-sm-6 col-lg-3 col-xxl-2 ">
-							<div class="card">
+							<div class="card card__scene">
 								<a style="border-radius:0px;" href="{% url 'details' slug=item.product.slug %}" class="card__cover">
 									<img  style='filter:blur(0px);' class='product_image_scene' src="{{item.product.coverphoto.url}}" alt="">
 																		</a>
