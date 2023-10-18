@@ -10,9 +10,10 @@ from django.db.models.functions import Lower
 from django.template.loader import render_to_string
 from django.core.paginator import Paginator
 from django.http import JsonResponse
-
+from owner.models import Page
 #Request to category page can be removed now as no category page is available now 
 def category(request):
+    pages=Page.objects.all().order_by('-id')
     attribute_mapping = {
         'Hair Color': 'haircolor',
         'Ethnicity': 'ethnicity',
@@ -57,13 +58,15 @@ def category(request):
           'star':stardata,
           'popular_genre':popular_genres,
           'attributes':attribute_choices,
-          'studio':studio
+          'studio':studio,
+          'pages':pages,
      }
 
     return render(request,"category.html",context)
     
 #filtering mechanism which filters based on post data from index page
 def category_filter(request,type=None):
+    pages=Page.objects.all().order_by('-id')
     attribute_mapping = {
         'Hair Color': 'haircolor',
         'Ethnicity': 'ethnicity',
@@ -322,6 +325,7 @@ def category_filter(request,type=None):
           'popular_genre':popular_genres,
           'current':current,
           'studio':all_studios,
+          'pages':pages,
         }
 
     else:
@@ -338,7 +342,8 @@ def category_filter(request,type=None):
             'attributes':attribute_choices,
             'popular_genre':popular_genres,
             'current':current,
-            'studio':all_studios
+            'studio':all_studios,
+            'pages':pages,
 
             } 
     return render(request,"category.html",context)
@@ -347,6 +352,7 @@ def category_filter(request,type=None):
 
 #simple categoy for genre
 def category_by_genre(request,genrename):
+     pages=Page.objects.all().order_by('-id')
      category=Category.objects.get(category_name=genrename)#first gets category
      genres=Category.objects.all()#get all genre to show as options
      datatoshow=MovieDetail.objects.all().filter(genre=category)[:20]#finally get movie based on category
@@ -359,6 +365,7 @@ def category_by_genre(request,genrename):
           'genre':genrename,
           'star':stardata,
           'current':current,
+          'pages':pages,
 
      }
 

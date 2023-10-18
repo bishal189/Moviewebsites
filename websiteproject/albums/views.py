@@ -5,9 +5,10 @@ from django.http import JsonResponse
 from django.core.paginator import Paginator
 from detailapp.models import Cartitem,Order_Product_album,Order_Product
 from django.template.loader import render_to_string
-
+from owner.models import Page
 #for getting the list of albums in album page
 def album(request):
+    pages=Page.objects.all().order_by('-id')
     albums=Albums.objects.all().order_by('-id')
     paginator_album=Paginator(albums,12)
     page_album=request.GET.get('page_albums')
@@ -26,7 +27,8 @@ def album(request):
         return JsonResponse(response_data)
 
     context={
-        'albums':paged_album
+        'albums':paged_album,
+        'pages':pages,
     }
     return render(request,'album.html',context)
 
@@ -34,6 +36,7 @@ def album(request):
 
 #for getting the particular album besed on id
 def album_detail(request,id):
+    pages=Page.objects.all().order_by('-id')
     album=Albums.objects.get(id=id) 
     movies=MovieDetail.objects.filter(genre__in=album.genre.all(),type=album.type).order_by('-id').distinct()
     counter=0
@@ -112,13 +115,15 @@ def album_detail(request,id):
             'already_in_album':already_in_album,
             'counter':counter,
             'typeChecker':typeChecker,
-            'count':count
+            'count':count,
+            'pages':pages
         }
     else:
         context={
              'product':album,
             'movies':movies,
-            'count':count
+            'count':count,
+            'pages':pages,
 
         }
     return render(request,"album-detail.html",context)

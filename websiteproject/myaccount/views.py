@@ -24,7 +24,7 @@ from .models import Account
 from indexapp.models import FavouritesModel
 from detailapp.models import Order_Product,Payment,Order,Order_Product_album,Cartitem
 from django.contrib import messages, auth
-
+from owner.models import Page
 django.utils.encoding.force_text = force_str
 #
 #
@@ -210,9 +210,8 @@ def reset_password(request):
 
 
 def profile(request):
+    pages=Page.objects.all().order_by('-id')
     orders_dvd=Order_Product.objects.filter(user=request.user,product__type="DVD")
-    
-    
     orders_scene=Order_Product.objects.filter(user=request.user,product__type="Scene")
     orders_album=Order_Product_album.objects.filter(user=request.user)
     orders_photosets=Order_Product.objects.filter(user=request.user,product__type="PhotoSets")
@@ -223,7 +222,6 @@ def profile(request):
     except:
         favourites=None
     orders_product = Order.objects.filter(payment__in=payments).order_by('-id')
-    print()
     favourite_dvd=favourites.favourite_movies.all().filter(type="DVD")
     favourite_scene=favourites.favourite_movies.all().filter(type="Scene")
     favourite_photoset=favourites.favourite_movies.all().filter(type="PhotoSets")
@@ -245,7 +243,8 @@ def profile(request):
         'favourite_photoset':favourite_photoset,
         'orders_product':orders_product,
         'user_favourite_movie':user_favorite_movies,
-        'user_added_cart':user_added_cart
+        'user_added_cart':user_added_cart,
+        'pages':pages,
         })
 
 
