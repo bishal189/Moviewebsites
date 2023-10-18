@@ -506,58 +506,58 @@ clickyes()
 				<div class="col-12">
 					<h1 style="margin-bottom:0px;padding:20px;" class="home__title">Recently Added PhotoSets <span style="font-size:16px;position:absolute;right:10%;"><a class="span_hover" href="{% url 'photosets' %}">View All</a></span></h1><F5>
 					</div>
-					<div id="paginator_data_photoset" style="justify-content:center;" class="row row--grid">
+					<div id="paginator_data_photoset" style="justify-content:center;"class="row row--grid">
 						{% for item in  photoset %}
-						<div   class="large_screen col-6 col-sm-4 col-lg-3 col-xl-2">
-							<div style="width:220px;" class="card">
-								<a style="border-radius:0px;filter:blur(0);hover:none;" href="{% url 'details' slug=item.slug %}" class="card__cover">
-									<img style="filter:blur(0)" class="product_image" src="{{item.coverphoto.url}}" alt="">
+						<div class="large_screen col-6 col-sm-4 col-md-4 col-lg-3 col-xl-2 col-xxl-2">
+							<div  class="card" style="width:220px; ">
+								<a style="border-radius:0px;" href="{% url 'details' slug=item.slug %}" class="card__cover">
+									<img style="filter:blur(0)" class="product_image"  src="{{item.coverphoto.url}}" alt="">
 								</a>
 									{% if user.is_authenticated %}
 									{% if item.id in user_favourite_movie %}
-									<button fetch-url="{% url 'remove_favourites' item.id %}" data-context="{{item.id}}" onclick="remove_favourites(this)"  id="remove_favourites_{{item.id}}" class="card__add" type="button">
+									<button fetch-url="{% url 'remove_favourites' item.id %}" data-context="{{item.id}}" onclick="remove_favourites(this)"  id="remove_favourites_{{item.id}}" class="card__icon card__add" type="button">
 										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="100" height="100">
-											<path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z" />
+											<path d="M22,9.67A1,1,0,0,0,21.14,9l-4.37-.63L12.9,3a1,1,0,0,0-1.8,0L7.37,8.34,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l3.77,3.65-1.01,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1.01-5.68L22,9.67Z" fill="red" />
+											<polygon points="12,5.7 13.88,9.52 18.09,10.13 14.63,13.81 15.74,18.02 12,15.48 8.26,18.02 9.37,13.81 5.91,10.13 10.12,9.52" fill="red" />
 										</svg>
+										
 										
 										</button>
 									{% else %}
-									<button data-context="{{item.id}}" fetch-url="{% url 'add_favourites' item.id %}"onclick="add_favourites(this)"  id="add_favourites_{{item.id}}" class="card__add" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z"/></svg></button>
+									<button data-context="{{item.id}}" fetch-url="{% url 'add_favourites' item.id %}"onclick="add_favourites(this)"  id="add_favourites_{{item.id}}" class="card__add card__icon" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z"/></svg></button>
 									{% endif %}
-									<button style="display:none" fetch-url="{% url 'remove_favourites' item.id %}" data-context="{{item.id}}" onclick="remove_favourites(this)"  id="remove_favourites_{{item.id}}" class="card__add" type="button">
+									<button style="display:none" fetch-url="{% url 'remove_favourites' item.id %}" data-context="{{item.id}}" onclick="remove_favourites(this)"  id="remove_favourites_{{item.id}}" class="card__icon  card__add" type="button">
 										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="100" height="100">
-											<path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z" />
-										</svg>
-										
+											<path d="M22,9.67A1,1,0,0,0,21.14,9l-4.37-.63L12.9,3a1,1,0,0,0-1.8,0L7.37,8.34,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l3.77,3.65-1.01,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1.01-5.68L22,9.67Z" fill="red" />
+											<polygon points="12,5.7 13.88,9.52 18.09,10.13 14.63,13.81 15.74,18.02 12,15.48 8.26,18.02 9.37,13.81 5.91,10.13 10.12,9.52" fill="red" />
+										</svg>										
 										</button>
-										<button style="display:none;" data-context="{{item.id}}" fetch-url="{% url 'add_favourites' item.id %}"onclick="add_favourites(this)"  id="add_favourites_{{item.id}}" class="card__add" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z"/></svg></button>
-
-
+										<button style="display:none;" data-context="{{item.id}}" fetch-url="{% url 'add_favourites' item.id %}"onclick="add_favourites(this)"  id="add_favourites_{{item.id}}" class="card__icon card__add" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z"/></svg></button>
 										{% else %}
-										<a href="{% url 'login' %}"><button class="card__add" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z"/></svg></button></a>
+										<a href="{% url 'login' %}"><button class="card__add card__icon" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z"/></svg></button></a>
 										{% endif %}
 									
 										{% if user.is_authenticated %}
 										{% if item.id in user_added_cart %}
-										<button onclick="remove_cart(this);" fetch-url={% url 'remove_cart' item.id %} id="remove_cart_{{item.id}}" data-context={{item.id}} style="position:absolute;margin-left:auto;right:1px;top:1px;" class="card__add">
+										<button onclick="remove_cart(this);" fetch-url={% url 'remove_cart' item.id %} id="remove_cart_{{item.id}}" data-context={{item.id}} style="position:absolute;margin-left:auto;right:1px;top:1px;" class="card__add card__icon">
 											<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>
 											</button>
 										{% else %}
-										<button onclick="add_cart(this);" fetch-url={% url 'add_cart' item.id %} id="add_cart_{{item.id}}" data-context={{item.id}}  style="position:absolute;margin-left:auto;right:1px;top:1px;" class="card__add">
+										<button onclick="add_cart(this);" fetch-url={% url 'add_cart' item.id %} id="add_cart_{{item.id}}" data-context={{item.id}}  style="position:absolute;margin-left:auto;right:1px;top:1px;" class="card__add card__icon">
 											<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/></svg>
 										</button> 
 										{% endif %}
-										<button onclick="add_cart(this);" fetch-url={% url 'add_cart' item.id %} id="add_cart_{{item.id}}" data-context={{item.id}}  style="display:none;position:absolute;margin-left:auto;right:1px;top:1px;" class="card__add">
+										<button onclick="add_cart(this);" fetch-url={% url 'add_cart' item.id %} id="add_cart_{{item.id}}" data-context={{item.id}}  style="display:none;position:absolute;margin-left:auto;right:1px;top:1px;" class="card__add card__icon">
 											<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/></svg>
 										</button> 
 
-										<button onclick="remove_cart(this);" fetch-url={% url 'remove_cart' item.id %} id="remove_cart_{{item.id}}" data-context={{item.id}} style="display:none;position:absolute;margin-left:auto;right:1px;top:1px;" class="card__add">
+										<button onclick="remove_cart(this);" fetch-url={% url 'remove_cart' item.id %} id="remove_cart_{{item.id}}" data-context={{item.id}} style="display:none;position:absolute;margin-left:auto;right:1px;top:1px;" class="card__add card__icon">
 											<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>
 											</button>
 										
 										{% else %}
 
-									<button style="position:absolute;margin-left:auto;right:1px;top:1px;" class="card__add">
+									<button style="position:absolute;margin-left:auto;right:1px;top:1px;" class="card__add card__icon">
 									<a href={% url 'login' %} > <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/></svg></a>
 									</button> 
 									{% endif %}

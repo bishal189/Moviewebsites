@@ -1581,8 +1581,8 @@ body::-webkit-scrollbar-thumb {
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  /* background-color: black; */
-  background-color:#131720;
+  background-color: black;
+  /* background-color:#131720; */
   padding: 20px 20px 0;
   /* border-radius: 16px; */
   position: relative;
@@ -1705,6 +1705,7 @@ body::-webkit-scrollbar-thumb {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    background-color: black;
   }
   .profile__tabs {
     border-bottom: none;
