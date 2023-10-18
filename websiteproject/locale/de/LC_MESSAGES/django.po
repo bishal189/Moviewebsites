@@ -20,102 +20,102 @@ msgstr ""
 
 #: indexapp/urls.py:13
 msgid "DVD/"
-msgstr ""
+msgstr "DVD/"
 
 #: indexapp/urls.py:14
 msgid "stars/"
-msgstr ""
+msgstr "Sterne/"
 
 #: templates/404.html:20
 msgid "The page you are looking for not available!"
-msgstr ""
+msgstr "Die von Ihnen gesuchte Seite ist nicht verfügbar!"
 
 #: templates/404.html:21
 msgid "Go back"
-msgstr ""
+msgstr "Geh zurück"
 
 #: templates/album-detail.html:30
 msgid "Genres"
-msgstr ""
+msgstr "Genres"
 
 #: templates/album-detail.html:40
 msgid "items added in album"
-msgstr ""
+msgstr "Im Album hinzugefügte Elemente"
 
 #: templates/album-detail.html:70 templates/album-detail.html:75
 msgid "Added"
-msgstr ""
+msgstr "Hinzugefügt"
 
 #: templates/album-detail.html:72 templates/album-detail.html:77
 msgid "Add to Packages"
-msgstr ""
+msgstr "Zu Paketen hinzufügen"
 
 #: templates/album.html:20 templates/album.html:26
 #: templates/download-list.html:320 templates/include/header.html:74
 #: templates/index.html:731
 msgid "Packages"
-msgstr ""
+msgstr "Pakete"
 
 #: templates/album.html:25 templates/category.html:25
 #: templates/include/header.html:29 templates/profile.html:121
 #: templates/search.html:26 templates/stars.html:24
 msgid "Home"
-msgstr "german home"
+msgstr "heim"
 
 #: templates/category.html:20 templates/category.html:26
 msgid "Category"
-msgstr ""
+msgstr "Kategorie"
 
 #: templates/category.html:51 templates/dvd.html:46 templates/photosets.html:48
 #: templates/scenes.html:53
 msgid "Sort By"
-msgstr ""
+msgstr "Sortiere nach"
 
 #: templates/category.html:55 templates/dvd.html:50 templates/photosets.html:52
 #: templates/scenes.html:57
 msgid "Most Popular"
-msgstr ""
+msgstr "Am beliebtesten"
 
 #: templates/category.html:58 templates/dvd.html:53 templates/photosets.html:55
 #: templates/scenes.html:60
 msgid "Most Trending"
-msgstr ""
+msgstr "Am angesagtesten"
 
 #: templates/category.html:61 templates/dvd.html:56 templates/photosets.html:58
 #: templates/scenes.html:63
 msgid "Newest"
-msgstr ""
+msgstr "neueste"
 
 #: templates/category.html:64 templates/dvd.html:59 templates/photosets.html:61
 #: templates/scenes.html:66
 msgid "Alphabetical"
-msgstr ""
+msgstr "alphabetisch"
 
 #: templates/category.html:72 templates/dvd.html:67 templates/photosets.html:69
 msgid "View"
-msgstr ""
+msgstr "Sicht"
 
 #: templates/category.html:79 templates/photosets.html:76
 #: templates/scenes.html:81
 msgid "Full HD"
-msgstr ""
+msgstr "Full HD"
 
 #: templates/category.html:82 templates/scenes.html:84
 msgid "HD"
-msgstr ""
+msgstr "hd"
 
 #: templates/category.html:85 templates/scenes.html:87
 msgid "SD"
-msgstr ""
+msgstr "sd"
 
 #: templates/category.html:92 templates/dvd.html:87 templates/photosets.html:89
 msgid "Display"
-msgstr ""
+msgstr "Anzeige"
 
 #: templates/category.html:140 templates/dvd.html:135
 #: templates/photosets.html:138 templates/scenes.html:143
 msgid "Filter"
-msgstr ""
+msgstr "Filter"
 
 #: templates/category.html:151 templates/download-list.html:149
 #: templates/dvd.html:25 templates/include/footer.html:33
@@ -123,413 +123,408 @@ msgstr ""
 #: templates/profile.html:211 templates/search.html:42
 #: templates/studio-detail.html:27
 msgid "DVD"
-msgstr ""
+msgstr "DVD"
 
 #: templates/category.html:267 templates/download-list.html:200
 #: templates/include/footer.html:35 templates/partial/partial-category.html:118
 #: templates/profile.html:266 templates/search.html:131
 msgid "Scene"
-msgstr ""
+msgstr "Szene"
 
 #: templates/category.html:383 templates/partial/partial-category.html:234
 msgid "PhotoSet"
-msgstr ""
+msgstr "FotoSet"
 
 #: templates/details.html:188
 msgid "Added To Cart"
-msgstr ""
+msgstr "Zum Warenkorb hinzugefügt"
 
 #: templates/details.html:198 templates/details.html:227
 #: templates/details.html:238 templates/details.html:486
 #: templates/details.html:515 templates/details.html:526
 msgid "Buy"
-msgstr ""
+msgstr "Kaufen"
 
 #: templates/details.html:209 templates/details.html:497
 msgid "Already Bought"
-msgstr ""
+msgstr "Bereits eingekauft"
 
 #: templates/details.html:214 templates/details.html:502
 msgid "Download From here"
-msgstr ""
+msgstr "Von hier herunterladen"
 
 #: templates/details.html:248 templates/details.html:536
 msgid "Added To Cart\t"
-msgstr ""
+msgstr "Zum Warenkorb hinzugefügt\t"
 
 #: templates/details.html:287 templates/details.html:312
 #: templates/details.html:576 templates/details.html:601
 msgid "Added To Favourites"
-msgstr ""
+msgstr "Zu den Favoriten hinzugefügt"
 
 #: templates/details.html:298 templates/details.html:322
 #: templates/details.html:334 templates/details.html:587
 #: templates/details.html:611 templates/details.html:623
 msgid "Add To Favourites"
-msgstr ""
+msgstr "Zu den Favoriten hinzugefügt"
 
 #: templates/details.html:393 templates/details.html:668
 msgid "Images"
-msgstr ""
+msgstr "Bilder"
 
 #: templates/details.html:397
 msgid "Trailer"
-msgstr ""
+msgstr "Anhänger"
 
 #: templates/details.html:476
 msgid "\tAdded To Cart"
-msgstr ""
+msgstr "\tZum Warenkorb hinzugefügt"
 
 #: templates/details.html:704
 msgid "Similar Items"
-msgstr ""
+msgstr "ähnliche Gegenstände"
 
 #: templates/download-list.html:100 templates/package-list.html:99
 #: templates/package-list.html:172 templates/profile.html:725
 msgid "Download"
-msgstr ""
+msgstr "herunterladen"
 
 #: templates/download-list.html:260 templates/include/header.html:83
 msgid "PhotoSets"
-msgstr ""
-
+msgstr "Fotosets"
 #: templates/forgot.html:26 templates/reset.html:26 templates/signup.html:46
 msgid "I agree to the"
-msgstr ""
+msgstr "Ich stimme der"
 
 #: templates/forgot.html:26 templates/reset.html:26 templates/signup.html:46
 msgid "Privacy Policy"
-msgstr ""
+msgstr "Datenschutzrichtlinie"
 
 #: templates/forgot.html:29 templates/reset.html:29
 msgid "Send"
-msgstr ""
+msgstr "Senden"
 
 #: templates/forgot.html:31 templates/reset.html:31
 msgid "We will send a password to your Email"
-msgstr ""
+msgstr "Wir werden ein Passwort an Ihre E-Mail senden"
 
 #: templates/include/footer.html:11
 msgid "Adult Star Content"
-msgstr ""
+msgstr "Inhalte für Erwachsene"
 
 #: templates/include/footer.html:13
 msgid "Contacts"
-msgstr ""
+msgstr "Kontakte"
 
 #: templates/include/footer.html:16 templates/include/footer.html:18
 msgid "My Profile"
-msgstr ""
+msgstr "Mein Profil"
 
 #: templates/include/footer.html:26
 msgid "Browse"
-msgstr ""
+msgstr "Durchsuchen"
 
 #: templates/include/footer.html:34
 msgid "Movies"
-msgstr ""
-
+msgstr "Filme"
 #: templates/include/footer.html:36
 msgid "Collections"
-msgstr ""
+msgstr "Sammlungen"
 
 #: templates/include/footer.html:43
 msgid "Pages"
-msgstr ""
+msgstr "Seiten"
 
 #: templates/include/footer.html:61
 msgid "©Copy right reserved, 2023. Created by"
-msgstr ""
+msgstr "©Urheberrecht vorbehalten, 2023. Erstellt von"
 
 #: templates/include/header.html:56 templates/scenes.html:27
 #: templates/studio-detail.html:214
 msgid "Scenes"
-msgstr ""
+msgstr "Szenen"
 
 #: templates/include/header.html:92 templates/stars.html:19
 #: templates/stars.html:25
 msgid "Stars"
-msgstr ""
+msgstr "Schauspieler"
 
 #: templates/include/header.html:103
 msgid "I am looking for..."
-msgstr ""
+msgstr "Ich suche nach..."
 
 #: templates/include/header.html:138
 msgid "Sign Out"
-msgstr ""
+msgstr "Abmelden"
 
 #: templates/include/header.html:148 templates/signin.html:42
 #: templates/signup.html:61
 msgid "Sign in"
-msgstr ""
+msgstr "Anmelden"
 
 #: templates/include/header.html:162
 msgid "Welcome"
-msgstr ""
+msgstr "Willkommen"
 
 #: templates/index.html:96
 msgid "Are you 18 years of age or older?"
-msgstr ""
-
+msgstr "Sind Sie 18 Jahre alt oder älter?"
 #: templates/index.html:101
 msgid "Enter"
-msgstr ""
+msgstr "Eingeben"
 
 #: templates/index.html:102
 msgid "No"
-msgstr ""
+msgstr "Nein"
 
 #: templates/index.html:248
 msgid "Recently Added Dvds"
-msgstr ""
+msgstr "Kürzlich hinzugefügte DVDs"
 
 #: templates/index.html:248 templates/index.html:373 templates/index.html:512
-#: templates/index.html:642 templates/index.html:731
+#: templates/index.html:642 templates.index.html:731
 msgid "View All"
-msgstr ""
+msgstr "Alle anzeigen"
 
-#: templates/index.html:373
+#: templates.index.html:373
 msgid "Recently Added Scenes"
-msgstr ""
+msgstr "Kürzlich hinzugefügte Szenen"
 
-#: templates/index.html:512
+#: templates.index.html:512
 msgid "Recently Added PhotoSets"
-msgstr ""
+msgstr "Kürzlich hinzugefügte Fotosets"
 
-#: templates/index.html:642
+#: templates.index.html:642
 msgid "Trending Stars"
-msgstr ""
+msgstr "Trendende Stars"
 
 #: templates/package-list.html:77
 msgid "FTP CREDENTIALS"
-msgstr ""
+msgstr "FTP-Zugangsdaten"
 
 #: templates/package-list.html:78
 msgid "Donot Share With Others"
-msgstr ""
+msgstr "Nicht mit anderen teilen"
 
 #: templates/profile.html:93
 msgid "Are You sure you want to Delete Your Account"
-msgstr ""
+msgstr "Sind Sie sicher, dass Sie Ihr Konto löschen möchten"
 
 #: templates/profile.html:94
 msgid "Check the boxes below to Proceed"
-msgstr ""
+msgstr "Kreuzen Sie die unten stehenden Kästchen an, um fortzufahren"
 
 #: templates/profile.html:98
 msgid "I accept all Download rights of the Purchased Video"
-msgstr ""
+msgstr "Ich akzeptiere alle Downloadrechte des gekauften Videos"
 
 #: templates/profile.html:101
 msgid "I know what i decided and there's no way to get back the account"
-msgstr ""
+msgstr "Ich weiß, was ich entschieden habe, und es gibt keinen Weg, das Konto zurückzubekommen"
 
 #: templates/profile.html:104 templates/profile.html:195
 msgid "Delete Account"
-msgstr ""
+msgstr "Konto löschen"
 
 #: templates/profile.html:105
 msgid "Cancel"
-msgstr ""
+msgstr "Abbrechen"
 
 #: templates/profile.html:122
 msgid "Profile"
-msgstr ""
+msgstr "Profil"
 
 #: templates/profile.html:174
 msgid "Settings"
-msgstr ""
+msgstr "Einstellungen"
 
 #: templates/profile.html:178
 msgid "Your Movies"
-msgstr ""
+msgstr "Ihre Filme"
 
 #: templates/profile.html:181
 msgid "Favourites"
-msgstr ""
+msgstr "Favoriten"
 
 #: templates/profile.html:184
 msgid "Download Files"
-msgstr ""
+msgstr "Dateien herunterladen"
 
 #: templates/profile.html:187
 msgid "Orders"
-msgstr ""
+msgstr "Bestellungen"
 
 #: templates/profile.html:320
 msgid "Photosets"
-msgstr ""
+msgstr "Fotosets"
 
 #: templates/profile.html:371
 msgid "Album"
-msgstr ""
-
+msgstr "Album"
 #: templates/profile.html:405
 msgid "Favourite DVDS"
-msgstr ""
+msgstr "Lieblings-DVDs"
 
 #: templates/profile.html:472
 msgid "Favourite Scenes"
-msgstr ""
+msgstr "Lieblingsszenen"
 
 #: templates/profile.html:544
 msgid "Favourite PhotoSets"
-msgstr ""
+msgstr "Lieblings-Fotosets"
 
 #: templates/profile.html:624
 msgid "Profile details"
-msgstr ""
+msgstr "Profil-Details"
 
 #: templates/profile.html:629
 msgid "Username"
-msgstr ""
+msgstr "Benutzername"
 
 #: templates/profile.html:636 templates/profile.html:677
 #: templates/signin.html:28
 msgid "Email"
-msgstr ""
+msgstr "E-Mail"
 
 #: templates/profile.html:672
 msgid "Change password"
-msgstr ""
+msgstr "Passwort ändern"
 
 #: templates/profile.html:684
 msgid "password"
-msgstr ""
+msgstr "Passwort"
 
 #: templates/profile.html:691
 msgid "Confirm new password"
-msgstr ""
+msgstr "Neues Passwort bestätigen"
 
 #: templates/profile.html:710
 msgid "Change"
-msgstr ""
+msgstr "Ändern"
 
 #: templates/profile.html:724
 msgid "Download all your pending Files from here"
-msgstr ""
+msgstr "Laden Sie alle ausstehenden Dateien von hier herunter"
 
 #: templates/profile.html:745
 msgid "Order_number"
-msgstr ""
-
+msgstr "Bestellnummer"
 #: templates/profile.html:746
 msgid "Payment_Id"
-msgstr ""
+msgstr "Zahlungs-ID"
 
 #: templates/profile.html:747
 msgid "Date"
-msgstr ""
+msgstr "Datum"
 
 #: templates/profile.html:748
 msgid "Download Invoice"
-msgstr ""
+msgstr "Rechnung herunterladen"
 
 #: templates/scenes.html:78
 msgid "4K"
-msgstr ""
+msgstr "4K"
 
 #: templates/search.html:21
 msgid "Search Results"
-msgstr ""
+msgstr "Suchergebnisse"
 
 #: templates/search.html:27
 msgid "Search"
-msgstr ""
+msgstr "Suche"
 
 #: templates/search.html:217
 msgid "Photo sets"
-msgstr ""
+msgstr "Fotosets"
 
 #: templates/search.html:303
 msgid "Albums"
-msgstr ""
+msgstr "Alben"
 
 #: templates/signin.html:32
 msgid "Password"
-msgstr ""
+msgstr "Passwort"
 
 #: templates/signin.html:53
 msgid "Don't have an account"
-msgstr ""
+msgstr "Sie haben noch kein Konto"
 
 #: templates/signin.html:53 templates/signup.html:50
 msgid "Sign up"
-msgstr ""
+msgstr "Registrieren"
 
 #: templates/signin.html:55
 msgid "Forgot password"
-msgstr ""
+msgstr "Passwort vergessen"
 
 #: templates/signup.html:52
 msgid "or"
-msgstr ""
+msgstr "oder"
 
 #: templates/signup.html:61
 msgid "Already have an account"
-msgstr ""
+msgstr "Bereits ein Konto haben"
 
 #: templates/stardetail.html:59
 msgid "Current Age"
-msgstr ""
+msgstr "Aktuelles Alter"
 
 #: templates/stardetail.html:65
 msgid "Birth Place"
-msgstr ""
+msgstr "Geburtsort"
 
 #: templates/stardetail.html:71
 msgid "Ethnicity"
-msgstr ""
+msgstr "Ethnizität"
 
 #: templates/stardetail.html:77
 msgid "Nationality"
-msgstr ""
+msgstr "Nationalität"
 
 #: templates/stardetail.html:83
 msgid "Breast"
-msgstr ""
+msgstr "Brust"
 
 #: templates/stardetail.html:89
 msgid "Weight"
-msgstr ""
+msgstr "Gewicht"
 
 #: templates/stardetail.html:96
 msgid "Height"
-msgstr ""
+msgstr "Größe"
 
 #: templates/stardetail.html:102
 msgid "Eye Color"
-msgstr ""
+msgstr "Augenfarbe"
 
 #: templates/stardetail.html:108
 msgid "Hair Color"
-msgstr ""
+msgstr "Haarfarbe"
 
 #: templates/stardetail.html:114
 msgid "Body Type"
-msgstr ""
+msgstr "Körpertyp"
 
 #: templates/stardetail.html:120
 msgid "Tatoo"
-msgstr ""
+msgstr "Tätowierung"
 
 #: templates/stardetail.html:126
 msgid "Piercing"
-msgstr ""
+msgstr "Piercing"
 
 #: templates/stardetail.html:155
 msgid "DVD Played By Star"
-msgstr ""
+msgstr "DVD gespielt von Star"
 
 #: templates/stardetail.html:243
 msgid "PhotoSets Played By Star"
-msgstr ""
+msgstr "Foto-Sets gespielt von Star"
 
 #: templates/stardetail.html:332
 msgid "Scenes Played By Star"
-msgstr ""
+msgstr "Szenen gespielt von Star"
 
 #: templates/studio-detail.html:120
 msgid "Photo Sets"
-msgstr ""
+msgstr "Foto-Sets"
