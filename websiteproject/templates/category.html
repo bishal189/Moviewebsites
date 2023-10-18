@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 {% block title %}
 	<title>FlixTV – Movies & TV Shows, Online cinema HTML Template</title>
 {% endblock %}
@@ -16,13 +17,13 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-12 col-xl-6">
-					<h1 class="section__title section__title--head">Category</h1>
+					<h1 class="section__title section__title--head">{% trans "Category" %}</h1>
 				</div>
 
 				<div class="col-12 col-xl-6">
 					<ul class="breadcrumb">
-						<li class="breadcrumb__item"><a href="index.html">Home</a></li>
-						<li class="breadcrumb__item breadcrumb__item--active">Category</li>
+						<li class="breadcrumb__item"><a href="index.html">{% trans "Home" %}</a></li>
+						<li class="breadcrumb__item breadcrumb__item--active">{% trans "Category" %}</li>
 					</ul>
 				</div>
 			</div>
@@ -47,20 +48,20 @@
 
 										<div class="vpTitle">
 											<h1 class="mTitle">
-												Sort By
+												{% trans "Sort By" %}
 											</h1>
 											<ul id="sort" class="sort">
 												<li>
-													<a data-type="sort" class="radio-1 Array " onclick="clicker(this)" data-url="?sort=most-popular" style="cursor:pointer;">Most Popular</a>
+													<a data-type="sort" class="radio-1 Array " onclick="clicker(this)" data-url="?sort=most-popular" style="cursor:pointer;">{% trans "Most Popular" %}</a>
 												</li>
 												<li>
-													<a data-type="sort" class="radio-1 Array " onclick="clicker(this)" data-url="?sort=most-trending" style="cursor:pointer;">Most Trending</a>
+													<a data-type="sort" class="radio-1 Array " onclick="clicker(this)" data-url="?sort=most-trending" style="cursor:pointer;">{% trans "Most Trending" %}</a>
 												</li>
 												<li>
-													<a data-type="sort" class="radio-1 Array active " onclick="clicker(this)" data-url="?sort=newest" style="cursor:pointer;">Newest</a>
+													<a data-type="sort" class="radio-1 Array active " onclick="clicker(this)" data-url="?sort=newest" style="cursor:pointer;">{% trans "Newest" %}</a>
 												</li>
 												<li>
-													<a data-type="sort" class="radio-1 Array " onclick="clicker(this)" data-url="?sort=alphabetical" style="cursor:pointer;">Alphabetical</a>
+													<a data-type="sort" class="radio-1 Array " onclick="clicker(this)" data-url="?sort=alphabetical" style="cursor:pointer;">{% trans "Alphabetical" %}</a>
 												</li>
 											</ul>
 										</div>
@@ -68,27 +69,27 @@
 
 										<div  class="mt-5 mb-5 vpTitle">
 											<h1 class="mTitle">
-												View 
+												{% trans "View" %} 
 											</h1>
 											<ul id="view" class="sort">
 												<li>
 													<a data-type="view" class="radio-1 Array " onclick="clicker(this)" data-url="view=4k" style="cursor:pointer;">4K</a>
 												</li>
 												<li>
-													<a data-type="view"class="radio-1 Array " onclick="clicker(this)" data-url="view=FullHD" style="cursor:pointer;">Full HD</a>
+													<a data-type="view"class="radio-1 Array " onclick="clicker(this)" data-url="view=FullHD" style="cursor:pointer;">{% trans "Full HD" %}</a>
 												</li>
 												<li>
-													<a data-type="view" class="radio-1 Array active " onclick="clicker(this)" data-url="view=HD" style="cursor:pointer;">HD</a>
+													<a data-type="view" class="radio-1 Array active " onclick="clicker(this)" data-url="view=HD" style="cursor:pointer;">{% trans "HD" %}</a>
 												</li>
 												<li>
-													<a data-type="view" class="radio-1 Array " onclick="clicker(this)" data-url="view=SD" style="cursor:pointer;">SD</a>
+													<a data-type="view" class="radio-1 Array " onclick="clicker(this)" data-url="view=SD" style="cursor:pointer;">{% trans "SD" %}</a>
 												</li>
 											</ul>
 										</div>
 
 										<div style="margin-top:100px;margin-bottom:25px;"  class=" vpTitle">
 											<h1 class="mTitle">
-												Display 
+												{% trans "Display" %} 
 											</h1>
 											<ul id="display" class="sort">
 												<li>
@@ -136,7 +137,7 @@
 									</select>
 
 
-<button style="text-align:center;width:150px;display:inline-block;" type="submit" class="sign__btn">Filter</button>
+<button style="text-align:center;width:150px;display:inline-block;" type="submit" class="sign__btn">{% trans "Filter" %}</button>
 </form>
 						</div>
 
@@ -147,7 +148,7 @@
 							<section id="data-content">
 							{% if data_dvd %}
 							
-							<div style="color:white;font-size:22px;margin-top:10px; "> DVD: </div>
+							<div style="color:white;font-size:22px;margin-top:10px; "> {% trans "DVD" %}: </div>
 
 							<div id="paginator_data_dvd" style="justify-content:center;"class="row row--grid">
 								{% for item in  data_dvd %}
@@ -263,7 +264,7 @@
 					{% if not data_scene %}
 					{% else %}
 
-					<div style="color:white;font-size:22px;margin-top:10px; "> Scene </div>
+					<div style="color:white;font-size:22px;margin-top:10px; "> {% trans "Scene" %} </div>
 				
 					
 					<div id="paginator_data_scene" style="justify-content:center; margin:0 auto; " class="row row--grid">
@@ -378,7 +379,7 @@
 						
 						{% if not data_photosets %}
 						{% else %}
-						<div style="color:white;font-size:22px;margin-top:10px; "> PhotoSet </div>
+						<div style="color:white;font-size:22px;margin-top:10px; "> {% trans "PhotoSet" %} </div>
 						
 						
 						<div id="paginator_data_photosets" style="justify-content:center;"class="row row--grid">

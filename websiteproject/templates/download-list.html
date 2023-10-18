@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-
+{% load i18n %}
 {% block title %}
 <title>FlixTV – Movies & TV Shows, Online cinema HTML Template</title>
 {% endblock %}
@@ -96,9 +96,9 @@
                 <div style="flex-direction:row;display:flex;justify-content:space-between;width:100%"
                     class="article__content">
 
-                    <h1>Download</h1>
-                    <button onclick='modalshow()' style="max-width:40%;" class="sign__btn">Get your Ftp
-                        Credentials</button>
+                    <h1>{% trans "Download" %}</h1>
+                    <button onclick='modalshow()' style="max-width:40%;" class="sign__btn">{% trans "Get your Ftp
+                        Credentials" %}</button>
                 </div>
                 <!-- end article content -->
             </div>
@@ -145,7 +145,7 @@
                 <div style="flex-direction:row;display:flex;justify-content:space-between;width:100%"
                     class="article__content">
 
-                    <h1>DVD</h1>
+                    <h1>{% trans "DVD" %}</h1>
                 </div>
                 <!-- end article content -->
             </div>
@@ -196,7 +196,7 @@
                 <div style="flex-direction:row;display:flex;justify-content:space-between;width:100%"
                     class="article__content">
 
-                    <h1>Scene</h1>
+                    <h1>{% trans "Scene" %}</h1>
                 </div>
                 <!-- end article content -->
             </div>
@@ -256,7 +256,7 @@
                 <div style="flex-direction:row;display:flex;justify-content:space-between;width:100%"
                     class="article__content">
 
-                    <h1>PhotoSets</h1>
+                    <h1>{% trans "PhotoSets" %}</h1>
                 </div>
                 <!-- end article content -->
             </div>
@@ -316,7 +316,7 @@
                 <div style="flex-direction:row;display:flex;justify-content:space-between;width:100%"
                     class="article__content">
 
-                    <h1>Packages</h1>
+                    <h1>{% trans "Packages" %}</h1>
                 </div>
                 <!-- end article content -->
             </div>

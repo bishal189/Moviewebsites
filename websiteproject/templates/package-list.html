@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-
+{% load i18n %}
 {% block title %}
 <title>FlixTV – Movies & TV Shows, Online cinema HTML Template</title>
 {% endblock %}
@@ -73,8 +73,8 @@
 </style>
 <div id="age_check">
     <div class="modal1" id="ageModal">
-        <h2>FTP CREDENTIALS</h2>
-        <h3>Donot Share With Others</h3>
+        <h2>{% trans "FTP CREDENTIALS" %}</h2>
+        <h3>{% trans "Donot Share With Others" %}</h3>
 
         <hr>
         <h3>IP: 107.173.171.228</h3>
@@ -95,10 +95,10 @@
                 <div style="flex-direction:row;display:flex;justify-content:space-between;width:100%"
                     class="article__content">
 
-                    <h1>Download</h1>
+                    <h1>{% trans "Download" %}</h1>
                     <h1></h1>
-                    <button onclick='modalshow()' style="max-width:40%;" class="sign__btn">Get your Ftp
-                        Credentials</button>
+                    <button onclick='modalshow()' style="max-width:40%;" class="sign__btn">{% trans "Get your Ftp
+                        Credentials" %}</button>
                 </div>
                 <!-- end article content -->
             </div>
@@ -168,7 +168,7 @@
 
 
 
-                        <a style="text-align:center;" class="sign__btn" href="{% url 'file_download' item.movie_name %}">Download </a>
+                        <a style="text-align:center;" class="sign__btn" href="{% url 'file_download' item.movie_name %}">{% trans "Download" %} </a>
                       
                     </div>
                 </div>

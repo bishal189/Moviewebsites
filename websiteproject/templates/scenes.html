@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 {% block title %}
+
 	<title>FlixTV – Movies & TV Shows, Online cinema HTML Template</title>
 {% endblock %}
 
@@ -22,13 +24,13 @@
 		<div class="container">
 			<div class="row"style='margin-bottom: -64px;'>
 				<div style="margin-bottom:60px;" class="col-12 col-xl-6">
-					<h1 class="scene_padding section__title section__title--head">Scenes</h1>
+					<h1 class="scene_padding section__title section__title--head">{% trans "Scenes" %}</h1>
 				</div>
 
 				<div class="col-12 col-xl-6">
 					{% comment %} <ul class="breadcrumb">
-						<li class="breadcrumb__item"><a href="{%url 'home' %}">Home</a></li>
-						<li class="breadcrumb__item breadcrumb__item--active">Scenes</li>
+						<li class="breadcrumb__item"><a href="{%url 'home' %}">{% trans "Home" %}</a></li>
+						<li class="breadcrumb__item breadcrumb__item--active">{% trans "Scenes" %}</li>
 					</ul> {% endcomment %}
 				</div>
 			</div>
@@ -47,20 +49,20 @@
 									{% csrf_token %}
 									<div class="vpTitle">
 										<h1 class="mTitle">
-											Sort By
+											{% trans "Sort By" %}
 										</h1>
 										<ul id="sort" class="sort">
 											<li>
-												<a data-type="sort" class="radio-1 Array " onclick="clicker(this)" data-url="?sort=most-popular" style="cursor:pointer;">Most Popular</a>
+												<a data-type="sort" class="radio-1 Array " onclick="clicker(this)" data-url="?sort=most-popular" style="cursor:pointer;">{% trans "Most Popular" %}</a>
 											</li>
 											<li>
-												<a data-type="sort" class="radio-1 Array " onclick="clicker(this)" data-url="?sort=most-trending" style="cursor:pointer;">Most Trending</a>
+												<a data-type="sort" class="radio-1 Array " onclick="clicker(this)" data-url="?sort=most-trending" style="cursor:pointer;">{% trans "Most Trending" %}</a>
 											</li>
 											<li>
-												<a data-type="sort" class="radio-1 Array active " onclick="clicker(this)" data-url="?sort=newest" style="cursor:pointer;">Newest</a>
+												<a data-type="sort" class="radio-1 Array active " onclick="clicker(this)" data-url="?sort=newest" style="cursor:pointer;">{% trans "Newest" %}</a>
 											</li>
 											<li>
-												<a data-type="sort" class="radio-1 Array " onclick="clicker(this)" data-url="?sort=alphabetical" style="cursor:pointer;">Alphabetical</a>
+												<a data-type="sort" class="radio-1 Array " onclick="clicker(this)" data-url="?sort=alphabetical" style="cursor:pointer;">{% trans "Alphabetical" %}</a>
 											</li>
 										</ul>
 									</div>
@@ -72,16 +74,16 @@
 										</h1>
 										<ul id="view" class="sort">
 											<li>
-												<a data-type="view" class="radio-1 Array " onclick="clicker(this)" data-url="view=4k" style="cursor:pointer;">4K</a>
+												<a data-type="view" class="radio-1 Array " onclick="clicker(this)" data-url="view=4k" style="cursor:pointer;">{% trans "4K" %}</a>
 											</li>
 											<li>
-												<a data-type="view"class="radio-1 Array " onclick="clicker(this)" data-url="view=FullHD" style="cursor:pointer;">Full HD</a>
+												<a data-type="view"class="radio-1 Array " onclick="clicker(this)" data-url="view=FullHD" style="cursor:pointer;">{% trans "Full HD" %}</a>
 											</li>
 											<li>
-												<a data-type="view" class="radio-1 Array active " onclick="clicker(this)" data-url="view=HD" style="cursor:pointer;">HD</a>
+												<a data-type="view" class="radio-1 Array active " onclick="clicker(this)" data-url="view=HD" style="cursor:pointer;">{% trans "HD" %}</a>
 											</li>
 											<li>
-												<a data-type="view" class="radio-1 Array " onclick="clicker(this)" data-url="view=SD" style="cursor:pointer;">SD</a>
+												<a data-type="view" class="radio-1 Array " onclick="clicker(this)" data-url="view=SD" style="cursor:pointer;">{% trans "SD" %}</a>
 											</li>
 										</ul>
 									</div>
@@ -137,7 +139,7 @@
 									</select>
 
 
-								<button style="text-align:center;width:150px;display:inline-block;" type="submit" class="sign__btn">Filter</button>
+								<button style="text-align:center;width:150px;display:inline-block;" type="submit" class="sign__btn">{% trans "Filter" %}</button>
 								</form>
 														</div>
 													</div>
@@ -266,7 +268,7 @@
 
 	<!-- subscriptions -->
 	
-	<!-- end subscriptions -->
+	<!-- end  -->
 
 	<!-- footer -->
 	{% include 'include/footer.html' with pages=pages %}

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-18 09:47+0000\n"
+"POT-Creation-Date: 2023-10-18 13:38+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,16 +18,61 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#: indexapp/urls.py:13
+msgid "DVD/"
+msgstr ""
+
+#: indexapp/urls.py:14
+msgid "stars/"
+msgstr ""
+
+#: templates/include/footer.html:11
+msgid "Adult Star Content"
+msgstr ""
+
+#: templates/include/footer.html:13
+msgid "Contacts"
+msgstr ""
+
+#: templates/include/footer.html:16 templates/include/footer.html:18
+msgid "My Profile"
+msgstr ""
+
+#: templates/include/footer.html:26
+msgid "Browse"
+msgstr ""
+
+#: templates/include/footer.html:33 templates/include/header.html:65
+#: templates/partial/partial-category.html:3
+msgid "DVD"
+msgstr ""
+
+#: templates/include/footer.html:34
+msgid "Movies"
+msgstr ""
+
+#: templates/include/footer.html:35 templates/partial/partial-category.html:118
+msgid "Scene"
+msgstr ""
+
+#: templates/include/footer.html:36
+msgid "Collections"
+msgstr ""
+
+#: templates/include/footer.html:43
+msgid "Pages"
+msgstr ""
+
+#: templates/include/footer.html:61
+msgid "©Copy right reserved, 2023. Created by"
+msgstr ""
+
 #: templates/include/header.html:29
 msgid "Home"
 msgstr "german home"
 
-#: templates/include/header.html:56
+#: templates/include/header.html:56 templates/scenes.html:27
 msgid "Scenes"
-msgstr ""
-
-#: templates/include/header.html:65
-msgid "DVD"
 msgstr ""
 
 #: templates/include/header.html:74
@@ -43,7 +88,7 @@ msgid "Stars"
 msgstr ""
 
 #: templates/include/header.html:103
-msgid "I'm looking for..."
+msgid "I am looking for..."
 msgstr ""
 
 #: templates/include/header.html:138
@@ -56,4 +101,48 @@ msgstr ""
 
 #: templates/include/header.html:162
 msgid "Welcome"
+msgstr ""
+
+#: templates/partial/partial-category.html:234
+msgid "PhotoSet"
+msgstr ""
+
+#: templates/scenes.html:53
+msgid "Sort By"
+msgstr ""
+
+#: templates/scenes.html:57
+msgid "Most Popular"
+msgstr ""
+
+#: templates/scenes.html:60
+msgid "Most Trending"
+msgstr ""
+
+#: templates/scenes.html:63
+msgid "Newest"
+msgstr ""
+
+#: templates/scenes.html:66
+msgid "Alphabetical"
+msgstr ""
+
+#: templates/scenes.html:78
+msgid "4K"
+msgstr ""
+
+#: templates/scenes.html:81
+msgid "Full HD"
+msgstr ""
+
+#: templates/scenes.html:84
+msgid "HD"
+msgstr ""
+
+#: templates/scenes.html:87
+msgid "SD"
+msgstr ""
+
+#: templates/scenes.html:143
+msgid "Filter"
 msgstr ""

@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 {% block title %}
+
 	<title>FlixTV – Movies & TV Shows, Online cinema HTML Template</title>
 {% endblock %}
 
@@ -15,13 +17,13 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-12 col-xl-6">
-					<h1 class="dvd_padding section__title section__title--head">Packages</h1>
+					<h1 class="dvd_padding section__title section__title--head">{% trans "Packages" %}</h1>
 				</div>
 
 				<div class="col-12 col-xl-6">
 					<ul class="breadcrumb">
-						<li class="breadcrumb__item"><a href="index.html">Home</a></li>
-						<li class="breadcrumb__item breadcrumb__item--active">Packages</li>
+						<li class="breadcrumb__item"><a href="index.html">{% trans "Home" %}</a></li>
+						<li class="breadcrumb__item breadcrumb__item--active">{% trans "Packages" %}</li>
 					</ul>
 				</div>
 			</div>
