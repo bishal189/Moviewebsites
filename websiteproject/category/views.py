@@ -349,25 +349,38 @@ def category_filter(request,type=None):
     return render(request,"category.html",context)
     
    
-
 #simple categoy for genre
 def category_by_genre(request,genrename):
      pages=Page.objects.all().order_by('-id')
      category=Category.objects.get(category_name=genrename)#first gets category
      genres=Category.objects.all()#get all genre to show as options
-     datatoshow=MovieDetail.objects.all().filter(genre=category)[:20]#finally get movie based on category
+     datatoshow=MovieDetail.objects.all().filter(genre=category)#finally get movie based on category
+     get_dvd=datatoshow.filter(type="DVD",quality="HD").order_by('-id')
+     
+     paginator_dvd=Paginator(get_dvd,20)
+     page_dvd=request.GET.get('page_dvd')
+     paged_dvd=paginator_dvd.get_page(page_dvd)
+
+     get_scene=datatoshow.filter(type="Scene",quality="HD").order_by('-id')
+     paginator_scene=Paginator(get_scene,20)
+     page_scene=request.GET.get('page_scene')
+     paged_scene=paginator_scene.get_page(page_scene)
+
+     get_photoset=datatoshow.filter(type="PhotoSets",quality="HD").order_by('-id')
+     paginator_photosets=Paginator(get_photoset,20)
+     page_photo=request.GET.get('page_photosets')
+     paged_photo=paginator_photosets.get_page(page_photo)
      stardata=StarsModel.objects.all()
-     current={}
-     current['genre']=genrename
+
      context={
           'genres':genres,
-          'data':datatoshow,
+          'data_dvd':paged_dvd,
+          'data_scene':paged_scene,
+          'data_photosets':paged_photo,
           'genre':genrename,
           'star':stardata,
-          'current':current,
           'pages':pages,
 
      }
-
 
      return render(request,"category.html",context)

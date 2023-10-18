@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% load static %}
 {% block  title %}
 	<title>FlixTV – Movies & TV Shows, Online cinema HTML Template</title>
@@ -55,74 +56,74 @@
 					<div style="border-top:2px solid white;" class="row ">
 					{% if star.dob %}
 								<div class="col-12"  style="margin-top:8px;display:flex;">
-								<div class="text_title">Current Age:</div>
+								<div class="text_title">{% trans "Current Age" %}:</div>
 								<span class="text_data ">{{age}}(Born {{star.dob}})</span>
 								</div>
 							{% endif %}
 							{% if star.birthplace %}
 								<div class=" col-12"  style="margin-top:8px;display:flex;">
-								<div class="text_title">Birth Place:</div>
+								<div class="text_title">{% trans "Birth Place" %}:</div>
 								<span class="text_data ">{{star.birthplace}}</span>
 								</div>
 							{% endif %}
 							{% if star.ethnicity %}
 								<div class="col-12"  style="margin-top:8px;display:flex;">
-								<div class="text_title">Ethnicity:</div>
+								<div class="text_title">{% trans "Ethnicity" %}:</div>
 								<span class="text_data ">{{star.ethnicity}}</span>
 								</div>
 							{% endif %}
 							{% if star.nationality %}
 								<div class="col-lg-6 col-12"  style="margin-top:8px;display:flex;">
-								<div class="text_title">Nationality:</div>
+								<div class="text_title">{% trans "Nationality" %}:</div>
 								<span class="text_data ">{{star.nationality}}</span>
 								</div>
 							{% endif %}
 							{% if star.breast %}
 								<div class="col-lg-6 col-12"  style="margin-top:8px;display:flex;">
-								<div class="text_title">Breast:</div>
+								<div class="text_title">{% trans "Breast" %}:</div>
 								<span class="text_data ">{{star.breast}}</span>
 								</div>
 							{% endif %}
 							{% if star.weight %}
 								<div class="col-lg-6 col-12"  style="margin-top:8px;display:flex;">
-								<div class="text_title">Weight:</div>
+								<div class="text_title">{% trans "Weight" %}:</div>
 								<span class="text_data ">{{star.weight}} lbs</span>
 								</div>
 							{% endif %}
 							
 							{% if star.height %}
 								<div class="col-lg-6 col-12"  style="margin-top:8px;display:flex;">
-								<div class="text_title">Height:</div>
+								<div class="text_title">{% trans "Height" %}:</div>
 								<span class="text_data ">{{star.height}} ft</span>
 								</div>
 							{% endif %}
 							{% if star.eyecolor %}
 								<div class="col-lg-6 col-12"  style="margin-top:8px;display:flex;">
-								<div class="text_title">Eye Color:</div>
+								<div class="text_title">{% trans "Eye Color" %}:</div>
 								<span class="text_data ">{{star.eyecolor}}</span>
 								</div>
 							{% endif %}
 							{% if star.haircolor %}
 								<div class="col-lg-6 col-12"  style="margin-top:8px;display:flex;">
-								<div class="text_title">Hair Color:</div>
+								<div class="text_title">{% trans "Hair Color" %}:</div>
 								<span class="text_data ">{{star.haircolor}}</span>
 								</div>
 							{% endif %}
 							{% if star.bodytype %}
 								<div class=" col-12"  style="margin-top:8px;display:flex;">
-								<div class="text_title">Body Type:</div>
+								<div class="text_title">{% trans "Body Type" %}:</div>
 								<span class="text_data ">{{star.bodytype}}</span>
 								</div>
 							{% endif %}
 							{% if star.tatoo %}
 								<div class="col-12"  style="margin-top:8px;display:flex;">
-								<div class="text_title">Tatoo:</div>
+								<div class="text_title">{% trans "Tatoo" %}:</div>
 								<span class="text_data ">{{star.tatoo}}</span>
 								</div>
 							{% endif %}
 							{% if star.piercing %}
 								<div class=" col-12"  style="margin-top:8px;display:flex;">
-								<div class="text_title">Piercing:</div>
+								<div class="text_title">{% trans "Piercing" %}:</div>
 								<span class="text_data ">{{star.piercing}}</span>
 								</div>
 							{% endif %}
@@ -151,7 +152,7 @@
 				<div class="article">
 					
 					{% if data_dvd%}
-					 <h1  style='color:white'>DVD Played By Star</h1>
+					 <h1  style='color:white'>{% trans "DVD Played By Star" %}</h1>
 					 <div style="justify-content:center;" class="row row--grid">
 						{% for item in  data_dvd %}
 						<div class="large_screen col-6 col-sm-4 col-md-4 col-lg-3 col-xl-2 col-xxl-2">
@@ -238,7 +239,7 @@
 					 {% comment %} <div id='counter' style="color:white;margin-top:25px;font-size:20px;">Items in Studio {{product.name}}</div> {% endcomment %}
 								{% if data_photoset%}
 
-					 <h1  style='color:white; margin-top:5px;'>PhotoSets Played By Star</h1>
+					 <h1  style='color:white; margin-top:5px;'>{% trans "PhotoSets Played By Star" %}</h1>
 					 <div style="justify-content:center;" class="row row--grid">
 						{% for item in  data_photoset %}
 						<div class="large_screen col-6 col-sm-4 col-md-4 col-lg-3 col-xl-2 col-xxl-2">
@@ -326,7 +327,7 @@
 					
 					 {% comment %} <div id='counter' style="color:white;margin-top:25px;font-size:20px;">Items in Studio {{product.name}}</div> {% endcomment %}
 					{% if data_scene%}
-					 <h1  style='color:white;margin-top:5px;'>Scenes Played By Star</h1>
+					 <h1  style='color:white;margin-top:5px;'>{% trans "Scenes Played By Star" %}</h1>
 					 <div style="justify-content:center; margin:0 auto;" class="row row--grid">
 						{% for item in  data_scene %}
 						<div class="large_scene col-12 col-sm-6 col-lg-3 col-xxl-2 ">

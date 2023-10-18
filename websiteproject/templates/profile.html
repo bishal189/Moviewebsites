@@ -91,18 +91,18 @@
 <div id="age_check">
 	<div class="modal1" id="ageModal">
 			<h2>{% trans "Are You sure you want to Delete Your Account" %}?</h2>
-            <h3>Check the boxes below to Proceed</h3>
+            <h3>{% trans "Check the boxes below to Proceed" %}</h3>
 			
 			
 			<input onclick="checker()" type="checkbox" id="download_check" name="download_check" value="download_check" style="margin-right: 5px;margin-left:5px; background-color: white;appearance:checkbox">
-			<label for="download_check"><p>I accept all Download rights of the Purchased Video</p></label>
+			<label for="download_check"><p>{% trans "I accept all Download rights of the Purchased Video" %}</p></label>
 			<br>
 			<input onclick="checker()" type="checkbox" id="delete_check" name="delete_check" value="delete_check" style="margin-right: 5px;margin-left:5px; background-color: white;appearance:checkbox">
-			<label  for="delete_check"><p>I know what i decided and there's no way to get back the account</p></label>
+			<label  for="delete_check"><p>{% trans "I know what i decided and there's no way to get back the account" %}</p></label>
 
 			<div class="ft-buttons">
-			<button home-url={% url 'home' %} disabled delete-url='{% url 'user_delete_user' user.id %}' class="ft-btn"id="yesButton">Delete Account</button>
-            <button class="ft-btn" id="noButton">Cancel</button>
+			<button home-url={% url 'home' %} disabled delete-url='{% url 'user_delete_user' user.id %}' class="ft-btn"id="yesButton">{% trans "Delete Account" %}</button>
+            <button class="ft-btn" id="noButton">{% trans "Cancel" %}</button>
 			</div>
     </div>
 </div>
@@ -112,13 +112,13 @@
 		<div class="container">
 			<div class="row">
 				{% comment %} <div class="col-12 col-xl-6">
-					<h1 class="section__title section__title--head">Profile</h1>
+					<h1 class="section__title section__title--head">{% trans "Profile" %}</h1>
 				</div> {% endcomment %}
 
 				<div class="col-12 col-xl-6">
 					<ul class="breadcrumb">
-						<li class="breadcrumb__item"><a href="index.html">Home</a></li>
-						<li class="breadcrumb__item breadcrumb__item--active">Profile</li>
+						<li class="breadcrumb__item"><a href="index.html">{% trans "Home" %}</a></li>
+						<li class="breadcrumb__item breadcrumb__item--active">{% trans "Profile" %}</li>
 					</ul>
 				</div>
 			</div>
@@ -169,20 +169,20 @@
 						 <ul class="nav nav-tabs spacer profile__tabs" id="profile__tabs" role="tablist">
 							
 							<li class="nav-item">
-								<a class="nav-link active" data-toggle="tab" href="#tab-3" role="tab" aria-controls="tab-3" aria-selected="true">Settings</a>
+								<a class="nav-link active" data-toggle="tab" href="#tab-3" role="tab" aria-controls="tab-3" aria-selected="true">{% trans "Settings" %}</a>
 							</li>
 
 							<li class="nav-item">
-								 <a class="nav-link" data-toggle="tab" href="#tab-2" role="tab" aria-controls="tab-2" aria-selected="false">Your Movies</a> 
+								 <a class="nav-link" data-toggle="tab" href="#tab-2" role="tab" aria-controls="tab-2" aria-selected="false">{% trans "Your Movies" %}</a> 
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" data-toggle="tab" href="#tab-1" role="tab" aria-controls="tab-1" aria-selected="false">Favourites</a> 
+								<a class="nav-link" data-toggle="tab" href="#tab-1" role="tab" aria-controls="tab-1" aria-selected="false">{% trans "Favourites" %}</a> 
 						   </li>
 							<li class="nav-item">
-								<a class="nav-link" data-toggle="tab" href="#tab-4" role="tab" aria-controls="tab-4" aria-selected="false">Download Files</a> 
+								<a class="nav-link" data-toggle="tab" href="#tab-4" role="tab" aria-controls="tab-4" aria-selected="false">{% trans "Download Files" %}</a> 
 						   </li>
 						   <li class="nav-item">
-							<a class="orders_nav nav-link" data-toggle="tab" href="#tab-5" role="tab" aria-controls="tab-5" aria-selected="false">Orders</a> 
+							<a class="orders_nav nav-link" data-toggle="tab" href="#tab-5" role="tab" aria-controls="tab-5" aria-selected="false">{% trans "Orders" %}</a> 
 					   </li>
 
 							
@@ -190,7 +190,7 @@
 						<!-- end tabs nav -->
 
 						<button style="font-size:18px;" onclick='modalshow()' class="profile__logout" type="button">
-							<a  href="#">Delete Account</a>
+							<a  href="#">{% trans "Delete Account" %}</a>
 							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4,12a1,1,0,0,0,1,1h7.59l-2.3,2.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0l4-4a1,1,0,0,0,.21-.33,1,1,0,0,0,0-.76,1,1,0,0,0-.21-.33l-4-4a1,1,0,1,0-1.42,1.42L12.59,11H5A1,1,0,0,0,4,12ZM17,2H7A3,3,0,0,0,4,5V8A1,1,0,0,0,6,8V5A1,1,0,0,1,7,4H17a1,1,0,0,1,1,1V19a1,1,0,0,1-1,1H7a1,1,0,0,1-1-1V16a1,1,0,0,0-2,0v3a3,3,0,0,0,3,3H17a3,3,0,0,0,3-3V5A3,3,0,0,0,17,2Z"></path></svg>
 						</button>
 					</div>
@@ -206,7 +206,7 @@
 				<div class="tab-pane fade" id="tab-2" role="tabpanel">
 					<!-- favorites -->
 				<div style="margin-top:5px;margin-bottom:-50px;" class="col-12">
-					<h1 style="background-color:transparent" class="home__title">DVD </h1><F5>
+					<h1 style="background-color:transparent" class="home__title">{% trans "DVD" %} </h1><F5>
 				</div>
 				<!--dvd-->
 				<div  style="justify-content:center;"class="row row--grid">
@@ -261,7 +261,7 @@
 					<!--end dvd-->
 					<!--scene-->
 					<div  style="margin-top:35px;margin-bottom:-50px;" class="col-12">
-						<h1  style="background-color:transparent" class="home__title">Scene </h1><F5>
+						<h1  style="background-color:transparent" class="home__title">{% trans "Scene" %} </h1><F5>
 					</div>
 					<div  style="justify-content:center; margin:0 auto;" class="row row--grid">
 						{% for item in orders_scene %}
@@ -315,7 +315,7 @@
 				<!--End Scene-->
 				<!-- Photosets-->
 				<div  style="margin-top:35px;margin-bottom:-50px;" class="col-12">
-					<h1  style="background-color:transparent" class="home__title">Photosets </h1><F5>
+					<h1  style="background-color:transparent" class="home__title">{% trans "Photosets" %} </h1><F5>
 				</div>
 				<div  style="justify-content:center;"class="row row--grid">
 					{% for item in  orders_photoset %}
@@ -366,7 +366,7 @@
 				</div>
 				<!--End photosets-->
 				<div  style="margin-top:35px;margin-bottom:-50px;" class="col-12">
-					<h1  style="background-color:transparent" class="home__title">Album </h1><F5>
+					<h1  style="background-color:transparent" class="home__title">{% trans "Album" %} </h1><F5>
 				</div>
 				<div style="justify-content:center;" class="row row--grid">
 					{% for item in orders_album %}
@@ -399,7 +399,7 @@
 					<!-- favorites -->
 					{% if favourite_dvd %}
 					<div style="margin-top:15px;" class="col-12">
-					<h1 style="background-color:transparent;" class="home__title">Favourite DVDS </h1><F5>
+					<h1 style="background-color:transparent;" class="home__title">{% trans "Favourite DVDS" %} </h1><F5>
 				</div>
 				<!--dvd-->
 					<div style="justify-content:center;"class="row row--grid">
@@ -466,7 +466,7 @@
 							<!-- favorites -->
 							{% if favourite_scene %}
 					<div style="margin-top:15px;" class="col-12">
-						<h1  style="background-color:transparent"class="home__title">Favourite Scenes </h1><F5>
+						<h1  style="background-color:transparent"class="home__title">{% trans "Favourite Scenes" %} </h1><F5>
 					</div>
 					<!--dvd-->
 					<div  style="justify-content:center; margin:0 auto;" class="row row--grid">
@@ -538,7 +538,7 @@
 							<!-- favorites -->
 							{% if favourite_photoset %}
 					<div style="margin-top:15px;" class="col-12">
-						<h1 class="home__title">Favourite PhotoSets </h1><F5>
+						<h1 class="home__title">{% trans "Favourite PhotoSets" %} </h1><F5>
 					</div>
 					<!--dvd-->
 					<div style="justify-content:center;"class="row row--grid">
@@ -618,39 +618,39 @@
 										<form action="#" class="sign__form sign__form--profile sign__form--first">
 											<div class="row">
 												<div class="col-12">
-													<h4 class="sign__title">Profile details</h4>
+													<h4 class="sign__title">{% trans "Profile details" %}</h4>
 												</div>
 
 												<div class="col-12 col-md-6 col-lg-12 col-xl-6">
 													<div class="sign__group">
-														<label class="sign__label" for="username">Username</label>
+														<label class="sign__label" for="username">{% trans "Username" %}</label>
 														<input id="username" type="text" name="username" disabled class="sign__input" placeholder="User name" value={{user.username}}>
 													</div>
 												</div>
 
 												<div class="col-12 col-md-6 col-lg-12 col-xl-6">
 													<div class="sign__group">
-														<label class="sign__label" for="email">Email</label>
+														<label class="sign__label" for="email">{% trans "Email" %}</label>
 														<input id="email" type="email" name="email" class="sign__input" placeholder="email@email.com" value={{user.email}} disabled>
 													</div>
 												</div>
 
 												<div class="col-12 col-md-6 col-lg-12 col-xl-6">
 													{% comment %} <div class="sign__group">
-														<label class="sign__label" for="firstname">First name</label>
+														<label class="sign__label" for="firstname">{% trans "First name" %}</label>
 														<input id="firstname" type="text" name="firstname" class="sign__input" placeholder="John">
 													</div> {% endcomment %}
 												</div>
 
 												<div class="col-12 col-md-6 col-lg-12 col-xl-6">
 													{% comment %} <div class="sign__group">
-														<label class="sign__label" for="lastname">Last name</label>
+														<label class="sign__label" for="lastname">{% trans "Last name" %}</label>
 														<input id="lastname" type="text" name="lastname" class="sign__input" placeholder="Doe">
 													</div> {% endcomment %}
 												</div>
 
 												{% comment %} <div class="col-12">
-													<button class="sign__btn" type="submit" disabled>Save</button>
+													<button class="sign__btn" type="submit" disabled>{% trans "Save" %}</button>
 												</div> {% endcomment %}
 											</div>
 										</form>
@@ -663,26 +663,26 @@
 											{% csrf_token %}
                                             <div class="row">
 												<div class="col-12">
-													<h4 class="sign__title">Change password</h4>
+													<h4 class="sign__title">{% trans "Change password" %}</h4>
 												</div>
 
 												<div class="col-12 col-md-6 col-lg-12 col-xl-6">
 													<div class="sign__group">
-														<label class="sign__label" for="oldpass">Email</label>
+														<label class="sign__label" for="oldpass">{% trans "Email" %}</label>
 														<input id="oldpass" type="email" name="email" class="sign__input">
 													</div>
 												</div>
 
 												<div class="col-12 col-md-6 col-lg-12 col-xl-6">
 													<div class="sign__group">
-														<label class="sign__label" for="newpass">password</label>
+														<label class="sign__label" for="newpass">{% trans "password" %}</label>
 														<input id="newpass" type="password" name="password" class="sign__input">
 													</div>
 												</div>
 
 												<div class="col-12 col-md-6 col-lg-12 col-xl-6">
 													<div class="sign__group">
-														<label class="sign__label" for="confirmpass">Confirm new password</label>
+														<label class="sign__label" for="confirmpass">{% trans "Confirm new password" %}</label>
 														<input id="confirmpass" type="password" name="new_password" class="sign__input">
 													</div>
 												</div>
@@ -700,7 +700,7 @@
 												</div> {% endcomment %}
 
 												<div class="col-12">
-													<button class="sign__btn" type="submit">Change</button>
+													<button class="sign__btn" type="submit">{% trans "Change" %}</button>
 												</div>
 											</div>
 										</form>
@@ -714,8 +714,8 @@
 				<div class="tab-pane fade" id="tab-4" role="tabpanel">
 					<!-- favorites -->
 					<div style="display:block;" class="row row--grid">
-						<div style="color:white;margin-top:15px;text-align:center;">Download all your pending Files from here:</div>
-						<a href="{% url 'download_list' %}"><button   class="sign__btn">Download</button></a>
+						<div style="color:white;margin-top:15px;text-align:center;">{% trans "Download all your pending Files from here" %}:</div>
+						<a href="{% url 'download_list' %}"><button   class="sign__btn">{% trans "Download" %}</button></a>
 
 					</div>
 						
@@ -727,17 +727,17 @@
 					
 					<!-- end paginator -->
 				<div class="tab-pane fade" id="tab-5" role="tabpanel">
-					{% comment %} <a href='{% url 'download_pdf' order_number transID  %}' class="btn btn-primary">Download Invoice</a>  {% endcomment %}
+					{% comment %} <a href='{% url 'download_pdf' order_number transID  %}' class="btn btn-primary">{% trans "Download Invoice" %}</a>  {% endcomment %}
 					<!-- favorites -->
 					<div style="margin-top: 20px;">
 						<div class="table-responsive">
 							<table class="main__table">
 								<thead>
 									<tr>
-										<th>Order_number</th>
-										<th>Payment_Id</th>
-										<th>Date</th>
-										<th>Download Invoice</th>
+										<th>{% trans "Order_number" %}</th>
+										<th>{% trans "Payment_Id" %}</th>
+										<th>{% trans "Date" %}</th>
+										<th>{% trans "Download Invoice" %}</th>
 									</tr>
 								</thead>
 								<tbody>
