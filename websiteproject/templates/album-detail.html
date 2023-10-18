@@ -8,7 +8,7 @@
 	<!-- header (hidden style) -->
 {% include 'include/header.html' %}	
 {% include 'include/responsive.html' %}
-</style>
+
 	<!-- details -->
 	<section style="padding:0px;" class="section section--head section--head-fixed section--gradient section--details-bg">
 		<div class="container">
@@ -37,7 +37,7 @@
 					</div>
 
 						<div id='counter' style="color:white;margin-top:25px;font-size:20px;">{{counter}} items added in album</div>		
-						<div id="paginator_data_package" style="justify-content:center; margin:0 auto;" class="row row--grid">
+						<div id="paginator_data_package" style="justify-content:center;" class="row row--grid">
 
 
 							{% for item in movies %}
@@ -57,7 +57,7 @@
 									{% endif %}
 									</a>
 									
-								<span class="card__rating">{{item.price}} $</span>
+								{% comment %} <span class="card__rating">{{item.price}} $</span> {% endcomment %}
 								<h3 class="card__title"><a href="{% url 'details' slug=item.slug%}">{{item.movie_name}}</a></h3>
 								<ul class="card__list">
 									<li>{{item.type}}</li>
@@ -99,21 +99,7 @@
 			</div>
 			<!-- end article -->
 		</div>
-<style>
-	.page-item{
-		display: flex;
-		flex-direction: row;
-		justify-content: center;
-		align-items: center;
-		width: 30px;
-		height: 30px;
-		border-radius: 12px;
-		background-color: #131720;
-		font-size: 14px;
-		color: #e0e0e0;
-		font-weight: 500;
-	}
-</style>
+
 
 		<div class="row">
 			<div class="col-12">
