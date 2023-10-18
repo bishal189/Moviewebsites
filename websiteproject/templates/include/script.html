@@ -42,14 +42,37 @@ add.style.display="none"
 function remove_favourites(current){
 id=current.getAttribute('data-context')
 add=document.getElementById('add_favourites_'+id)
+
 remove=document.getElementById('remove_favourites_'+id)
 url=current.getAttribute('fetch-url')
-fetch(url)
-
 remove.style.display="none"
 add.style.display="flex"
-
-
+fetch(url)
 
 }
 </script>
+<script>
+function add_from_favourites(current){
+	id=current.getAttribute('data-context')
+	add=document.getElementById('add_from_favourites_'+id)
+	remove=document.getElementById('remove_from_favourites_'+id)
+	url=current.getAttribute('fetch-url')
+	fetch(url)
+	remove.style.display="flex"
+	add.style.display="none"
+	
+	}
+	</script>
+<script>
+function remove_from_favourites(current){
+	id=current.getAttribute('data-context')
+	add=document.getElementById('add_from_favourites_'+id)
+	
+	remove=document.getElementById('remove_from_favourites_'+id)
+	url=current.getAttribute('fetch-url')
+	remove.style.display="none"
+	add.style.display="flex"
+	fetch(url)
+	
+	}
+	</script>
