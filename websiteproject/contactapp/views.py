@@ -14,7 +14,7 @@ def contact(request):
        message=request.POST['text']
        contact_details=Contact(first_name=first_name,last_name=last_name,email=email,message=message,subject=subject)
        contact_details.save()
-       messages.success(request,'You have contact us! Thanks You')
+       messages.success(request,'Thanks You For Your Message')
        return render(request,'contacts.html')
     else:
 

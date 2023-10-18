@@ -31,6 +31,7 @@ def album(request):
     return render(request,'album.html',context)
 
 
+
 #for getting the particular album besed on id
 def album_detail(request,id):
     album=Albums.objects.get(id=id) 
@@ -80,6 +81,7 @@ def album_detail(request,id):
         for item in previous_items:
             li.append(item.product)
         
+        #movies already bought are not shown album 
         filtered_movie_details = [movie for movie in movies if movie not in li]    
         paginator = Paginator(filtered_movie_details, 20)
 
@@ -91,7 +93,7 @@ def album_detail(request,id):
         if request.META.get('HTTP_X_REQUESTED_WITH') == 'Fetch':
             response_data=None
             page_album=request.GET.get('page_album')
-            print(page_album)
+
             if page_album is not None:
                 paged_album= paginator.get_page(page_album)
                 album_html = render_to_string('partial/album_detail_partial.html', {'product':album,'movies': paged_album}, request=request)
@@ -101,14 +103,13 @@ def album_detail(request,id):
             'pagination': pagination_html,
                 }
             return JsonResponse(response_data)
-
-
+        
+        
         context={
 
             'product':album,
             'movies':paged_data,
             'already_in_album':already_in_album,
-            # 'counter':album.counter,
             'counter':counter,
             'typeChecker':typeChecker,
             'count':count
@@ -118,7 +119,6 @@ def album_detail(request,id):
              'product':album,
             'movies':movies,
             'count':count
-            
 
         }
     return render(request,"album-detail.html",context)
