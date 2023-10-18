@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 
 {% block title %}
 	<title>FlixTV – Movies & TV Shows, Online cinema HTML Template</title>
@@ -118,7 +119,7 @@
 	<!-- end partners -->
 
 	<!-- footer -->
-	{% include 'include/footer.html' %}
+	{% include 'include/footer.html' with pages=pages %}
 	{% comment %} <footer class="footer">
 		<div class="container">
 			<div class="row">

@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}
+{% load i18n %}
 	<title>FlixTV – Movies & TV Shows, Online cinema HTML Template</title>
 	{% endblock%}
 
@@ -91,13 +92,13 @@
 	<div id="age_check">
 	<div class="modal1" id="ageModal">
 			<h2>Our site</h2>
-            <h3>Are you 18 years of age or older?</h3>
-			<p>You must be 18 years or older and agree to our Terms of Use to access and use this website.
-			By clicking ENTER below, you certify that you are 18 years or older and that you accept our Terms of Use.
+            <h3>{% trans "Are you 18 years of age or older?" %}</h3>
+			<p>{% trans "You must be 18 years or older and agree to our Terms of Use to access and use this website.
+			By clicking ENTER below, you certify that you are 18 years or older and that you accept our Terms of Use." %}
 			</p>
 			<div class="ft-buttons">
-			<button  class="ft-btn"id="yesButton">Enter</button>
-            <button class="ft-btn" id="noButton">No</button>
+			<button  class="ft-btn"id="yesButton">{% trans "Enter" %}</button>
+            <button class="ft-btn" id="noButton">{% trans "No" %}</button>
 			</div>
     </div>
 </div>
@@ -243,7 +244,7 @@ clickyes()
 			
 			<div class="row">
 				<div class="col-12">
-					<h1 style="margin-bottom:0px;padding:20px;" class="home__title">Recently Added Dvds <span  style="font-size:16px;position:absolute;right:10%;"><a class="span_hover" href="{% url 'dvd' %}">View All</a></span></h1><F5>
+					<h1 style="margin-bottom:0px;padding:20px;" class="home__title">{% trans "Recently Added Dvds" %} <span  style="font-size:16px;position:absolute;right:10%;"><a class="span_hover" href="{% url 'dvd' %}">{% trans "View All" %}</a></span></h1><F5>
 				</div>		
 					<div id="paginator_data_dvd" style="justify-content:center;"class="row row--grid">
 						{% for item in  dvd %}
@@ -366,7 +367,7 @@ clickyes()
 		<div class="container">
 			
 				<div class="col-12">
-					<h1 style="margin-bottom:0px;padding:20px;" class="home__title">Recently Added Scenes <span style="font-size:16px;position:absolute;right:10%;"><a class="span_hover" href="{% url 'scenes' %}">View All</a></span></h1><F5>
+					<h1 style="margin-bottom:0px;padding:20px;" class="home__title">{% trans "Recently Added Scenes" %} <span style="font-size:16px;position:absolute;right:10%;"><a class="span_hover" href="{% url 'scenes' %}">{% trans "View All" %}</a></span></h1><F5>
 					</div>
 					
 						<div id="paginator_data" style="justify-content:center; margin:0 auto;" class="row row--grid">
@@ -504,7 +505,7 @@ clickyes()
 			
 			<div class="row">
 				<div class="col-12">
-					<h1 style="margin-bottom:0px;padding:20px;" class="home__title">Recently Added PhotoSets <span style="font-size:16px;position:absolute;right:10%;"><a class="span_hover" href="{% url 'photosets' %}">View All</a></span></h1><F5>
+					<h1 style="margin-bottom:0px;padding:20px;" class="home__title">{% trans "Recently Added PhotoSets" %} <span style="font-size:16px;position:absolute;right:10%;"><a class="span_hover" href="{% url 'photosets' %}">{% trans "View All" %}</a></span></h1><F5>
 					</div>
 					<div id="paginator_data_photoset" style="justify-content:center;"class="row row--grid">
 						{% for item in  photoset %}
@@ -633,7 +634,7 @@ clickyes()
 			
 			<div class="row">
 				<div class="col-12">
-					<h1 style="margin-bottom:0px;padding:20px;" class="home__title">Trending Stars <span style="font-size:16px;position:absolute;right:10%;"><a class="span_hover" href="{% url 'stars' %}">View All</a></span></h1><F5>
+					<h1 style="margin-bottom:0px;padding:20px;" class="home__title">{% trans "Trending Stars" %} <span style="font-size:16px;position:absolute;right:10%;"><a class="span_hover" href="{% url 'stars' %}">{% trans "View All" %}</a></span></h1><F5>
 					</div>
 					<div id="paginator_data_star" style="justify-content:center;" class="row row--grid">
 						{% for item in  star %}
@@ -720,7 +721,7 @@ clickyes()
 			
 			<div class="row">
 				<div class="col-12">
-					<h1 style="margin-bottom:0px;padding:20px;" class="home__title">Packages<span style="font-size:16px;position:absolute;right:10%;"><a class="span_hover" href="{% url 'album' %}">View All</a></span></h1><F5>
+					<h1 style="margin-bottom:0px;padding:20px;" class="home__title">{% trans "Packages" %}<span style="font-size:16px;position:absolute;right:10%;"><a class="span_hover" href="{% url 'album' %}">{% trans "View All" %}</a></span></h1><F5>
 					</div>
 					<div id="paginator_data_package" style="justify-content:center;" class="row row--grid">
 						{% for item in  allalbums %}

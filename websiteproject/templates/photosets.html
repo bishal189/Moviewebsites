@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 {% block title %}
 	<title>FlixTV – Movies & TV Shows, Online cinema HTML Template</title>
 {% endblock %}
@@ -44,20 +45,20 @@
 								{% csrf_token %}
 								<div class="vpTitle">
 									<h1 class="mTitle">
-										Sort By
+										{% trans "Sort By" %}
 									</h1>
 									<ul id="sort" class="sort">
 										<li>
-											<a data-type="sort" class="radio-1 Array " onclick="clicker(this)" data-url="?sort=most-popular" style="cursor:pointer;">Most Popular</a>
+											<a data-type="sort" class="radio-1 Array " onclick="clicker(this)" data-url="?sort=most-popular" style="cursor:pointer;">{% trans "Most Popular" %}</a>
 										</li>
 										<li>
-											<a data-type="sort" class="radio-1 Array " onclick="clicker(this)" data-url="?sort=most-trending" style="cursor:pointer;">Most Trending</a>
+											<a data-type="sort" class="radio-1 Array " onclick="clicker(this)" data-url="?sort=most-trending" style="cursor:pointer;">{% trans "Most Trending" %}</a>
 										</li>
 										<li>
-											<a data-type="sort" class="radio-1 Array active " onclick="clicker(this)" data-url="?sort=newest" style="cursor:pointer;">Newest</a>
+											<a data-type="sort" class="radio-1 Array active " onclick="clicker(this)" data-url="?sort=newest" style="cursor:pointer;">{% trans "Newest" %}</a>
 										</li>
 										<li>
-											<a data-type="sort" class="radio-1 Array " onclick="clicker(this)" data-url="?sort=alphabetical" style="cursor:pointer;">Alphabetical</a>
+											<a data-type="sort" class="radio-1 Array " onclick="clicker(this)" data-url="?sort=alphabetical" style="cursor:pointer;">{% trans "Alphabetical" %}</a>
 										</li>
 									</ul>
 								</div>
@@ -65,14 +66,14 @@
 
 								<div  class="mt-5 mb-5 vpTitle">
 									<h1 class="mTitle">
-										View 
+										{% trans "View" %} 
 									</h1>
 									<ul id="view" class="sort">
 										<li>
 											<a data-type="view" class="radio-1 Array " onclick="clicker(this)" data-url="view=4k" style="cursor:pointer;">4K</a>
 										</li>
 										<li>
-											<a data-type="view"class="radio-1 Array " onclick="clicker(this)" data-url="view=FullHD" style="cursor:pointer;">Full HD</a>
+											<a data-type="view"class="radio-1 Array " onclick="clicker(this)" data-url="view=FullHD" style="cursor:pointer;">{% trans "Full HD" %}</a>
 										</li>
 										<li>
 											<a data-type="view" class="radio-1 Array active " onclick="clicker(this)" data-url="view=HD" style="cursor:pointer;">HD</a>
@@ -85,7 +86,7 @@
 
 								<div style="margin-top:100px;margin-bottom:25px;"  class=" vpTitle">
 									<h1 class="mTitle">
-										Display 
+										{% trans "Display" %} 
 									</h1>
 									<ul id="display" class="sort">
 										<li>
@@ -134,7 +135,7 @@
 								</select>
 
 
-							<button style="text-align:center;width:150px;display:inline-block;" type="submit" class="sign__btn">Filter</button>
+							<button style="text-align:center;width:150px;display:inline-block;" type="submit" class="sign__btn">{% trans "Filter" %}</button>
 							</form>
 													</div>
 												</div>
@@ -260,7 +261,7 @@
 
 
 <!-- footer -->
-{% include 'include/footer.html' %}
+{% include 'include/footer.html' with pages=pages %}
 {% include 'include/script.html' %}
 {% include 'include/selectjs.html' %}
 <script>

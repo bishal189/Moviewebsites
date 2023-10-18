@@ -482,6 +482,7 @@ body::-webkit-scrollbar-thumb {
 }
 .header__search {
   margin-left: 20px;
+  padding-right:12px;
 }
 .header__search svg {
   width: 20px;

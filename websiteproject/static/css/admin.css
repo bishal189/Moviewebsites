@@ -45,7 +45,7 @@ body {
 body {
   font-family: 'Inter', sans-serif;
   font-weight: 400;
-  background-color: #131720;
+  background-color: black;
   font-weight: normal;
   -webkit-font-smoothing: antialiased;
 }
@@ -99,12 +99,12 @@ ul {
 }
 ::-moz-selection {
   background: #fff;
-  color: #151f30;
+  color: #131720;
   text-shadow: none;
 }
 ::selection {
   background: #fff;
-  color: #151f30;
+  color: #131720;
   text-shadow: none;
 }
 ::-webkit-input-placeholder {
@@ -130,11 +130,11 @@ body::-webkit-scrollbar {
   width: 16px;
 }
 body::-webkit-scrollbar-track {
-  background: #151f30;
+  background: #131720;
 }
 body::-webkit-scrollbar-thumb {
   background-color: #ff0000;
-  outline: 1px solid #151f30;
+  outline: 1px solid #131720;
 }
 .tab-content {
   width: 100%;
@@ -179,7 +179,7 @@ body::-webkit-scrollbar-thumb {
   top: 0;
   left: 0;
   right: 0;
-  background-color: #151f30;
+  background-color: #131720;
   z-index: 100;
   transition: 0.5s ease;
 }
@@ -198,7 +198,7 @@ body::-webkit-scrollbar-thumb {
   justify-content: flex-start;
   align-items: center;
   height: 70px;
-  background-color: #151f30;
+  background-color: #131720;
   width: 80%;
 }
 .header__logo img {
@@ -263,7 +263,7 @@ body::-webkit-scrollbar-thumb {
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  background-color: #131720;
+  background-color: black;
   position: fixed;
   top: 0;
   left: 0;
@@ -281,7 +281,7 @@ body::-webkit-scrollbar-thumb {
   align-items: center;
   height: 70px;
   padding: 0 30px;
-  background-color: #131720;
+  background-color: black;
   width: 100%;
   position: relative;
   border-bottom: 1px solid rgba(47,128,237,0.1);
@@ -340,7 +340,7 @@ body::-webkit-scrollbar-thumb {
   height: 40px;
   width: 40px;
   border-radius: 10px;
-  background-color: #151f30;
+  background-color: #131720;
   margin-left: auto;
 }
 .sidebar__user-btn svg {
@@ -353,7 +353,7 @@ body::-webkit-scrollbar-thumb {
   background-color: #fff;
 }
 .sidebar__user-btn:hover svg {
-  fill: #151f30;
+  fill: #131720;
 }
 .sidebar__nav {
   display: flex;
@@ -550,7 +550,7 @@ body::-webkit-scrollbar-thumb {
 .main__title-form input {
   height: 40px;
   border-radius: 16px;
-  background-color: #151f30;
+  background-color: #131720;
   border: none;
   padding: 0 60px 0 20px;
   font-size: 14px;
@@ -590,7 +590,7 @@ body::-webkit-scrollbar-thumb {
   margin-left: auto;
 }
 .main__title-link:hover {
-  color: #151f30;
+  color: #131720;
   background-color: #fff;
 }
 .main__table-wrap {
@@ -604,7 +604,7 @@ body::-webkit-scrollbar-thumb {
   border-spacing: 0;
 }
 .main__table thead {
-  border-bottom: 20px solid #131720;
+  border-bottom: 20px solid black;
 }
 .main__table thead th {
   font-size: 12px;
@@ -616,7 +616,7 @@ body::-webkit-scrollbar-thumb {
   border: none;
 }
 .main__table tbody tr {
-  border-bottom: 10px solid #131720;
+  border-bottom: 10px solid black;
 }
 .main__table tbody td {
   padding: 0;
@@ -661,7 +661,7 @@ body::-webkit-scrollbar-thumb {
   font-weight: 400;
   line-height: 30px;
   padding: 20px;
-  background-color: #151f30;
+  background-color: #131720;
   white-space: nowrap;
 }
 .main__table-text a {
@@ -695,7 +695,7 @@ body::-webkit-scrollbar-thumb {
   justify-content: flex-start;
   align-items: center;
   padding: 20px;
-  background-color: #151f30;
+  background-color: #131720;
 }
 .main__table-btn {
   display: flex;
@@ -707,7 +707,7 @@ body::-webkit-scrollbar-thumb {
   font-size: 16px;
   color: #fff;
   border-radius: 10px;
-  background-color: #131720;
+  background-color: black;
   margin-right: 10px;
 }
 .main__table-btn svg {
@@ -758,7 +758,7 @@ body::-webkit-scrollbar-thumb {
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  background-color: #151f30;
+  background-color: #131720;
   padding: 0 20px;
   height: 70px;
 }
@@ -843,7 +843,7 @@ body::-webkit-scrollbar-thumb {
   margin-bottom: 20px;
   padding: 20px;
   border-radius: 16px;
-  background-color: #151f30;
+  background-color: #131720;
   width: 100%;
 }
 .stats span {
@@ -885,7 +885,7 @@ body::-webkit-scrollbar-thumb {
 	Dashbox
 ==============================*/
 .dashbox {
-  background-color: #151f30;
+  background-color: #131720;
   margin-bottom: 20px;
   border-radius: 16px;
   overflow: hidden;
@@ -930,7 +930,7 @@ body::-webkit-scrollbar-thumb {
   align-items: center;
   padding: 0 10px;
   height: 30px;
-  background-color: #131720;
+  background-color: black;
   font-size: 12px;
   margin-left: 15px;
   color: #e0e0e0;
@@ -1052,7 +1052,7 @@ body::-webkit-scrollbar-thumb {
   margin-top: 0;
   width: 200px;
   padding: 0 20px;
-  background-color: #151f30;
+  background-color: #131720;
   display: block;
   transition: 0.5s;
   position: absolute;
@@ -1103,7 +1103,7 @@ body::-webkit-scrollbar-thumb {
   width: 100%;
   height: 50px;
   border-radius: 16px;
-  background-color: #151f30;
+  background-color: #131720;
 }
 .paginator__pages {
   display: none;
@@ -1132,7 +1132,7 @@ body::-webkit-scrollbar-thumb {
   width: 30px;
   height: 30px;
   border-radius: 12px;
-  background-color: #131720;
+  background-color: black;
   font-size: 14px;
   color: #e0e0e0;
   font-weight: 500;
@@ -1169,7 +1169,7 @@ body::-webkit-scrollbar-thumb {
 	Form
 ==============================*/
 .form {
-  background-color: #131720;
+  background-color: black;
   padding: 20px;
   border-radius: 16px;
   margin-bottom: 30px;
@@ -1201,7 +1201,7 @@ body::-webkit-scrollbar-thumb {
   z-index: 1;
 }
 .form__input {
-  background-color: #151f30;
+  background-color: #131720;
   border: 1px solid transparent;
   border-radius: 16px;
   height: 44px;
@@ -1212,11 +1212,11 @@ body::-webkit-scrollbar-thumb {
   padding: 0 20px;
 }
 .form__input:focus {
-  background-color: #151f30;
+  background-color: #131720;
   border-color: #ff0000;
 }
 .form__textarea {
-  background-color: #151f30;
+  background-color: #131720;
   border: 1px solid transparent;
   border-radius: 16px;
   height: 142px;
@@ -1228,7 +1228,7 @@ body::-webkit-scrollbar-thumb {
   resize: none;
 }
 .form__textarea:focus {
-  background-color: #151f30;
+  background-color: #131720;
   border-color: #ff0000;
 }
 .form__btn {
@@ -1246,7 +1246,7 @@ body::-webkit-scrollbar-thumb {
   font-weight: 500;
 }
 .form__btn:hover {
-  color: #151f30;
+  color: #131720;
   background-color: #fff;
 }
 .form__radio {
@@ -1330,7 +1330,7 @@ body::-webkit-scrollbar-thumb {
   height: 44px;
   color: #e0e0e0;
   padding: 0 60px 0 20px;
-  background-color: #151f30;
+  background-color: #131720;
   margin: 0;
   width: 100%;
   font-size: 14px;
@@ -1375,7 +1375,7 @@ body::-webkit-scrollbar-thumb {
   height: 44px;
   color: #e0e0e0;
   padding: 0 60px 0 20px;
-  background-color: #151f30;
+  background-color: #131720;
   margin: 0;
   width: 100%;
   font-size: 14px;
@@ -1401,7 +1401,7 @@ body::-webkit-scrollbar-thumb {
   width: 100%;
   height: 400px;
   overflow: hidden;
-  background-color: #151f30;
+  background-color: #131720;
   margin-bottom: 20px;
   border-radius: 16px;
   overflow: hidden;
@@ -1475,7 +1475,7 @@ body::-webkit-scrollbar-thumb {
   justify-content: flex-start;
   align-items: flex-start;
   padding: 20px;
-  background-color: #151f30;
+  background-color: #131720;
   margin-bottom: 30px;
   position: relative;
   border-radius: 16px;
@@ -1599,7 +1599,7 @@ body::-webkit-scrollbar-thumb {
   margin-top: -10px;
   width: 200px;
   padding: 0 20px;
-  background-color: #151f30;
+  background-color: #131720;
   display: block;
   transition: 0.5s;
   position: absolute;
@@ -1653,7 +1653,7 @@ body::-webkit-scrollbar-thumb {
   font-size: 16px;
   color: #fff;
   border-radius: 10px;
-  background-color: #131720;
+  background-color: black;
   margin-right: 10px;
 }
 .profile__action svg {
@@ -1821,7 +1821,7 @@ body::-webkit-scrollbar-thumb {
   color: #fff;
   font-size: 16px;
   line-height: 26px;
-  background-color: #151f30;
+  background-color: #131720;
   padding: 20px 0;
   position: relative;
   border-top: 1px solid rgba(47,128,237,0.1);
@@ -1829,7 +1829,7 @@ body::-webkit-scrollbar-thumb {
 }
 .comments__text span {
   display: block;
-  background-color: #131720;
+  background-color: black;
   margin-bottom: 20px;
   padding: 20px;
   position: relative;
@@ -1842,7 +1842,7 @@ body::-webkit-scrollbar-thumb {
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  background-color: #151f30;
+  background-color: #131720;
   padding: 20px;
   position: relative;
 }
@@ -1949,7 +1949,7 @@ body::-webkit-scrollbar-thumb {
   color: #fff;
   font-size: 16px;
   line-height: 26px;
-  background-color: #151f30;
+  background-color: #131720;
   padding: 20px 0;
   position: relative;
   border-top: 1px solid rgba(47,128,237,0.1);
@@ -1989,7 +1989,7 @@ body::-webkit-scrollbar-thumb {
   padding: 40px 0;
 }
 .sign__form {
-  background-color: #131720;
+  background-color: black;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -1999,7 +1999,7 @@ body::-webkit-scrollbar-thumb {
   position: relative;
   width: 100%;
   max-width: 400px;
-  border: 1px solid #151f30;
+  border: 1px solid #131720;
 }
 .sign__form--profile {
   margin-top: 20px;
@@ -2045,7 +2045,7 @@ body::-webkit-scrollbar-thumb {
   margin-bottom: 5px;
 }
 .sign__input {
-  background-color: #151f30;
+  background-color: #131720;
   border: 1px solid transparent;
   border-radius: 16px;
   height: 44px;
@@ -2056,11 +2056,11 @@ body::-webkit-scrollbar-thumb {
   padding: 0 20px;
 }
 .sign__input:focus {
-  background-color: #151f30;
+  background-color: #131720;
   border-color: #ff0000;
 }
 .sign__textarea {
-  background-color: #151f30;
+  background-color: #131720;
   border: 1px solid transparent;
   border-radius: 16px;
   height: 144px;
@@ -2072,7 +2072,7 @@ body::-webkit-scrollbar-thumb {
   resize: none;
 }
 .sign__textarea:focus {
-  background-color: #151f30;
+  background-color: #131720;
   border-color: #ff0000;
 }
 .sign__group {
@@ -2117,7 +2117,7 @@ body::-webkit-scrollbar-thumb {
   top: 0;
   width: 22px;
   height: 22px;
-  background-color: #151f30;
+  background-color: #131720;
   border: 1px solid transparent;
   border-radius: 8px;
 }
@@ -2166,7 +2166,7 @@ body::-webkit-scrollbar-thumb {
   font-weight: 500;
 }
 .sign__btn:hover {
-  color: #151f30;
+  color: #131720;
   background-color: #fff;
 }
 .sign__text {
@@ -2242,7 +2242,7 @@ body::-webkit-scrollbar-thumb {
   fill: #1da1f2;
 }
 .sign__wrap {
-  background-color: #151f30;
+  background-color: #131720;
   padding: 20px;
   border-radius: 16px;
   margin-bottom: 30px;
@@ -2296,7 +2296,7 @@ body::-webkit-scrollbar-thumb {
   padding: 40px 0;
 }
 .page-404__content {
-  background-color: #131720;
+  background-color: black;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -2306,7 +2306,7 @@ body::-webkit-scrollbar-thumb {
   position: relative;
   width: 100%;
   max-width: 400px;
-  border: 1px solid #151f30;
+  border: 1px solid #131720;
 }
 .page-404__title {
   position: relative;
@@ -2342,7 +2342,7 @@ body::-webkit-scrollbar-thumb {
   font-weight: 500;
 }
 .page-404__btn:hover {
-  color: #151f30;
+  color: #131720;
   background-color: #fff;
 }
 @media (min-width: 576px) {
@@ -2356,7 +2356,7 @@ body::-webkit-scrollbar-thumb {
 .modal {
   position: relative;
   display: block;
-  background-color: #151f30;
+  background-color: #131720;
   margin: 40px auto;
   width: 100%;
   max-width: 420px;
@@ -2414,7 +2414,7 @@ body::-webkit-scrollbar-thumb {
 }
 .modal__btn--dismiss {
   background-color: #fff;
-  color: #151f30;
+  color: #131720;
 }
 .modal__btn--dismiss:hover {
   color: #eb5757;
@@ -2481,7 +2481,7 @@ body::-webkit-scrollbar-thumb {
   height: 44px;
   color: #fff;
   padding: 0 40px 0 20px;
-  background-color: #151f30;
+  background-color: #131720;
   width: 100%;
   font-size: 14px;
   border-radius: 16px;
@@ -2504,7 +2504,7 @@ body::-webkit-scrollbar-thumb {
   height: 44px;
   color: #fff;
   padding: 0 40px 0 20px;
-  background-color: #151f30;
+  background-color: #131720;
   width: 100%;
   font-size: 14px;
   border-radius: 16px;
@@ -2554,7 +2554,7 @@ body::-webkit-scrollbar-thumb {
   border: none;
   border-radius: 0;
   padding: 10px 20px;
-  background-color: #151f30;
+  background-color: #131720;
 }
 .select2-results__option {
   padding: 0;
@@ -2586,7 +2586,7 @@ body::-webkit-scrollbar-thumb {
 	Scrollbar-track
 ==============================*/
 .scrollbar-track-y {
-  background: #131720 !important;
+  background: black !important;
   top: 10px !important;
   bottom: 10px !important;
   height: auto !important;
@@ -2601,7 +2601,7 @@ body::-webkit-scrollbar-thumb {
   border-radius: 4px !important;
 }
 .scrollbar-track-x {
-  background: #131720 !important;
+  background: black !important;
   left: 10px !important;
   right: 10px !important;
   height: 4px !important;

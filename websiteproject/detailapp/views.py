@@ -16,7 +16,7 @@ from django.template import loader
 import pdfkit
 from itertools import chain
 # Create your views here.
-
+from owner.models import Page
 
 def _cart_id(request):
     cart=request.session.session_key
@@ -25,6 +25,7 @@ def _cart_id(request):
     return cart   
 
 def details(request,slug=None):
+    pages=Page.objects.all().order_by('-id')
     product =MovieDetail.objects.get(slug=slug)
     product.view_count=product.view_count+1
     product.save()
@@ -59,6 +60,7 @@ def details(request,slug=None):
             'notlogin':False,
             'similar':similar,
             'user_favourite_movie':user_favorite_movies,
+            'pages':pages,
         }
         
         return render(request,'details.html',context)
@@ -68,6 +70,7 @@ def details(request,slug=None):
             'val':False,
             'product':product,
             'notlogin':True,
+            'pages':pages,
             'similar':similar,
         }
        return render(request,'details.html',context)

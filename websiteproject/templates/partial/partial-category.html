@@ -1,6 +1,6 @@
 {% if data_dvd %}
 							
-							<div style="color:white;font-size:22px;margin-top:10px; "> DVD: </div>
+							<div style="color:white;font-size:22px;margin-top:10px; "> {% trans "DVD" %}: </div>
 
 							<div id="paginator_data_dvd" style="justify-content:center;"class="row row--grid">
 								{% for item in  data_dvd %}
@@ -115,7 +115,7 @@
 					{% if not data_scene %}
 					{% else %}
 
-					<div style="color:white;font-size:22px;margin-top:10px; "> Scene </div>
+					<div style="color:white;font-size:22px;margin-top:10px; "> {% trans "Scene" %} </div>
 				
 					
 					<div id="paginator_data_scene" style="justify-content:center; margin:0 auto; " class="row row--grid">
@@ -230,7 +230,7 @@
 						
 						{% if not data_photosets %}
 						{% else %}
-						<div style="color:white;font-size:22px;margin-top:10px; "> PhotoSet </div>
+						<div style="color:white;font-size:22px;margin-top:10px; "> {% trans "PhotoSet" %} </div>
 						
 						
 						<div id="paginator_data_photosets" style="justify-content:center;"class="row row--grid">
