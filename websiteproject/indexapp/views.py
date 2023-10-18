@@ -102,7 +102,6 @@ def home(request):
         page_photo=request.GET.get('page_photo')
         page_star=request.GET.get('page_star')
         page_album=request.GET.get('page_album')
-        print(page_album)
 
         if page_scene is not None:
             paged_scene = paginator_scene.get_page(page_scene)
@@ -175,6 +174,7 @@ def home(request):
 
 #Studo Detail page which shows all list of items done by that studio 
 def studio_detail(request,id):
+    pages=Page.objects.all().order_by('-id')
     studio=StudioModel.objects.get(id=id)
     movies=MovieDetail.objects.filter(studio=studio)
     dvd=movies.filter(type='DVD').order_by('-id')
@@ -196,12 +196,14 @@ def studio_detail(request,id):
         'scene':scene,
         'user_favourite_movie':user_favorite_movies,
         'user_added_cart':user_added_cart,
+        'pages':pages,
 
     }
     return render(request,'studio-detail.html',context)
 
 #Searching functionality
 def search(request):
+    pages=Page.objects.all().order_by('-id')
     tosearch=request.POST['searchtext']
     get_dvd=MovieDetail.objects.filter(movie_name__icontains=tosearch,type="DVD").order_by('-id')
     get_scene=MovieDetail.objects.filter(movie_name__icontains=tosearch,type="Scene").order_by('-id')
@@ -232,6 +234,7 @@ def search(request):
         'all_products_scene':get_scene,
         'user_favourite_movie':user_favorite_movies,
         'user_added_cart':user_added_cart,     
+        'pages':pages,
     }
     return render(request,'search.html',context)
 
@@ -269,6 +272,7 @@ def pagination(request):
 
 #Getting list of scene type Movies
 def scenes(request):
+    pages=Page.objects.all().order_by('-id')
     #just for showing filtering data
     attribute_mapping = {
         'Hair Color': 'haircolor',
@@ -370,10 +374,12 @@ def scenes(request):
         'popular_genre':popular_genres,
         'attributes':attribute_choices,
         'studio':studio,
+        'pages':pages,
     }
     return render(request, 'scenes.html',context)
 
 def dvd(request):
+    pages=Page.objects.all().order_by('-id')
     #just for showing filtering data
     attribute_mapping = {
         'Hair Color': 'haircolor',
@@ -477,6 +483,7 @@ def dvd(request):
         'popular_genre':popular_genres,
         'attributes':attribute_choices,
         'studio':studio,
+        'pages':pages,
 
     }
 
@@ -484,6 +491,7 @@ def dvd(request):
     return render(request,'dvd.html',context)
 
 def stars(request):
+    pages=Page.objects.all().order_by('-id')
     allstars=StarsModel.objects.all().order_by('-id')
     paginator_star=Paginator(allstars,12)
     page_star=request.GET.get('page_star')
@@ -503,11 +511,13 @@ def stars(request):
 
     context={
         'star':paged_star,
+        'pages':pages,
     }
     return render(request,'stars.html',context)
     
 
 def star_detail(request,id):
+    pages=Page.objects.all().order_by('-id')
     star=StarsModel.objects.get(id=id)
     star.view_count=star.view_count+1
     star.save()
@@ -537,12 +547,14 @@ def star_detail(request,id):
         'age':age,
         'user_favourite_movie':user_favorite_movies,
         'user_added_cart':user_added_cart,
+        'pages':pages,
 
     }
     return render(request,'stardetail.html',context)
 
 
 def photosets(request):
+    pages=Page.objects.all().order_by('-id')
     #just for showing filtering data
     attribute_mapping = {
         'Hair Color': 'haircolor',
@@ -630,6 +642,7 @@ def photosets(request):
             response_data = {
         'content': photo_html,
         'pagination': pagination_html,
+
             }
         return JsonResponse(response_data)
 
@@ -641,7 +654,8 @@ def photosets(request):
         'genres':genres,
         'popular_genre':popular_genres,
         'attributes':attribute_choices,
-        'studio':studio
+        'studio':studio,
+        'pages':pages,
         
     }
 

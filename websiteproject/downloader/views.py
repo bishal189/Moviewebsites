@@ -12,17 +12,15 @@ import subprocess
 
 #List all the downloads in download page 
 def download_list(request):
-    
         user=request.user
         CreateUser(user.username)
         order_items=Order_Product.objects.filter(user=user)
+
         user_home_directory = "/home/"+user.username        
         centralized_movies_directory = "/home/website"
 
         for item in order_items:
             purchased_movie = item.product.movie_name
-
-# Create a symbolic link to the purchased movie
             symlink_path = os.path.join(user_home_directory, purchased_movie)
             source_path = os.path.join(centralized_movies_directory,purchased_movie)
             command = ["sudo", "ln", "-s", source_path, symlink_path]
@@ -32,7 +30,6 @@ def download_list(request):
             except subprocess.CalledProcessError as e:
                 print(f"Error: {e}")
 
-            
         albums=Order_Product_album.objects.filter(user=user)
         for album in albums:
             albumdir=os.path.join(user_home_directory,album.product.album.album_name)
@@ -48,18 +45,15 @@ def download_list(request):
                     print("Symbolic link created successfully.")
                 except subprocess.CalledProcessError as e:
                     print(f"Error: {e}")
-        
         data_dvd=order_items.filter(product__type='DVD')
         data_scene=order_items.filter(product__type='Scene')
         data_photoset=order_items.filter(product__type='PhotoSets')
-
         context={
             'albums':albums,
             'data_dvd':data_dvd,
             'data_scene':data_scene,
             'data_photoset':data_photoset,
         }
-
         return render(request, 'download-list.html',context)
     
 
@@ -99,10 +93,7 @@ def file_download(request,filename):
 
         # Set Accept-Ranges header to enable partial content requests
         response['Accept-Ranges'] = 'bytes'
-
-            # Limit the download speed to 1 MB/s (adjust as needed)
-        # response['X-Accel-Buffering'] = 'no'
-        # response['X-Accel-Limit-Rate'] = '1024k'
+        
         return response
 
        

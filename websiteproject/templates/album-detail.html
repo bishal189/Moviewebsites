@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block  title %}
+{% load i18n %}
 	<title>FlixTV – Movies & TV Shows, Online cinema HTML Template</title>
 {% endblock %}
 
@@ -23,10 +24,10 @@
 						<!-- end article content -->
 					</div>
 
-					<div class="col-12 col-xl-8" style='margin-top:4rem;'>
+					<div class="col-12 col-xl-8" >
 						<!-- categories -->
 						<div class="categories">
-							<h3 class="categories__title">Genres</h3>
+							<h3 class="categories__title">{% trans "Genres" %}</h3>
 							{% for gen in product.genre.all  %}
 							<a href="{% url 'categorybygenre' gen.category_name %}" class="categories__item">{{ gen.category_name }}</a>
 							{% endfor %}
@@ -36,7 +37,7 @@
 					
 					</div>
 
-						<div id='counter' style="color:white;margin-top:25px;font-size:20px;">{{counter}} items added in album</div>		
+						<div id='counter' style="color:white;margin-top:25px;font-size:20px;">{{counter}} {% trans "items added in album" %}</div>		
 						<div id="paginator_data_package" style="justify-content:center;" class="row row--grid">
 
 
@@ -67,14 +68,14 @@
 								{% if user.is_authenticated %}
 								
 								{%if item in already_in_album %}
-								<button style="max-width:70%;"  dec-url="{% url 'dec_counter' product.id item.id %}"  id="item_remove_{{item.id}}" onclick="remove_item({{item.id}})"  class="sign__btn">Added</button>
+								<button style="max-width:70%;"  dec-url="{% url 'dec_counter' product.id item.id %}"  id="item_remove_{{item.id}}" onclick="remove_item({{item.id}})"  class="sign__btn">{% trans "Added" %}</button>
 									{% else %}
-								<button style="max-width:70%;"  inc-url="{% url 'inc_counter' product.id item.id %}" id="item_add_{{item.id}}" onclick="add_item({{item.id}})"  class="sign__btn">Add to Packages</button>
+								<button style="max-width:70%;"  inc-url="{% url 'inc_counter' product.id item.id %}" id="item_add_{{item.id}}" onclick="add_item({{item.id}})"  class="sign__btn">{% trans "Add to Packages" %}</button>
 
 								{% endif %}
-								<button style="max-width:70%;display:none;" dec-url="{% url 'dec_counter' product.id item.id %}"  id="item_remove_{{item.id}}" onclick="remove_item({{item.id}})"  class="sign__btn">Added</button>
+								<button style="max-width:70%;display:none;" dec-url="{% url 'dec_counter' product.id item.id %}"  id="item_remove_{{item.id}}" onclick="remove_item({{item.id}})"  class="sign__btn">{% trans "Added" %}</button>
 
-								<button style="max-width:70%;display:none;" inc-url="{% url 'inc_counter' product.id item.id %}"  id="item_add_{{item.id}}" onclick="add_item({{item.id}})"  class="sign__btn">Add to Packages</button>
+								<button style="max-width:70%;display:none;" inc-url="{% url 'inc_counter' product.id item.id %}"  id="item_add_{{item.id}}" onclick="add_item({{item.id}})"  class="sign__btn">{% trans "Add to Packages" %}</button>
 
 	     {% else %}		
 		<a href="{% url 'login' %}" style='margin:0 auto;' ><button   class="sign__btn">Add to Packages</button></a>
@@ -161,7 +162,7 @@
 	<!-- similar -->
 	
 	<!-- end similar -->
-	{% include 'include/footer.html' %}
+	{% include 'include/footer.html' with pages=pages %}
 	{% include 'include/script_pagination.html' %}
 
 

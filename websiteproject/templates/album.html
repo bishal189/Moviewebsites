@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 {% block title %}
+
 	<title>FlixTV – Movies & TV Shows, Online cinema HTML Template</title>
 {% endblock %}
 
@@ -15,13 +17,13 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-12 col-xl-6">
-					<h1 class="dvd_padding section__title section__title--head">Packages</h1>
+					<h1 class="dvd_padding section__title section__title--head">{% trans "Packages" %}</h1>
 				</div>
 
 				<div class="col-12 col-xl-6">
 					<ul class="breadcrumb">
-						<li class="breadcrumb__item"><a href="index.html">Home</a></li>
-						<li class="breadcrumb__item breadcrumb__item--active">Packages</li>
+						<li class="breadcrumb__item"><a href="index.html">{% trans "Home" %}</a></li>
+						<li class="breadcrumb__item breadcrumb__item--active">{% trans "Packages" %}</li>
 					</ul>
 				</div>
 			</div>
@@ -50,7 +52,7 @@
 								{% comment %} <span class="card__rating">{{item.price}} $</span> {% endcomment %}
 
 								<h3 class="card__title card__title--subs"><a href="{% url 'album_detail' item.id %}">{{item.album_name}}</a></h3>
-								<ul class="card__list">
+								<ul style="justify-content:center;" class="card__list">
 												{% comment %} <li>{{album.movies.count}} items added</li> {% endcomment %}
 												<li>{{item.price}} $</li>
 												
@@ -111,7 +113,7 @@
 	<!-- end subscriptions -->
 
 	<!-- footer -->
-	{% include 'include/footer.html' %}
+	{% include 'include/footer.html' with pages=pages %}
 	{% include 'include/script_pagination.html' %}
 	
 	{% endblock %}

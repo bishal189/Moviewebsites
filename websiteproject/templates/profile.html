@@ -1,43 +1,10 @@
 {% extends 'base.html'%}
+{% load i18n %}
+
 {% block content %}
+
 {% include 'include/header.html' %}
 <style>
-.page-item{
-			display: flex;
-			flex-direction: row;
-			justify-content: center;
-			align-items: center;
-			width: 30px;
-			height: 30px;
-			border-radius: 12px;
-			background-color: #131720;
-			font-size: 14px;
-			color: #e0e0e0;
-			font-weight: 500;
-		}
-		.product_image{
-			height:290px;
-			width:220px;
-			filter:blur(0);
-			
-	
-		}
-		
-		.product_image_scene{
-			height: 190px;
-			width:290px!important;
-			border-radius: 0px;
-			filter:blur(0px);
-		}
-		@media screen and (min-width: 1600px){
-		
-		  .large_screen{
-			margin-right:8px;
-		}
-			.large_scene{
-				margin-right:-30px;
-		}
-	}
 
 
 
@@ -50,7 +17,6 @@
 		bottom: 0;
 		width: 100vw;
 		height: 100vh;
-		{% comment %} background-color: rgba(8,11,14,.7); {% endcomment %}
 	display: flex;
 		justify-content: center;
 		align-items: center;
@@ -106,47 +72,6 @@
 		margin-top:5px;
 	  }
 
-		@media screen and (max-width: 1600px){
-			
-		  .large_screen{
-			margin-right:45px;
-		}
-		.large_scene{
-			margin-right:0px;
-		}
-	}
-		@media screen and (min-width:765px) and (max-width:1200px){
-			.large_screen{
-				margin-right:20px;
-			}
-			.large_scene{
-				margin-right:-10px;
-				max-width:90%;
-			}
-		
-		
-	
-	}
-	
-	@media screen and (min-width:465px) and (max-width:600px){
-		.product_image{
-			height:265px;
-			width: 195px;
-		}
-		
-	}
-	@media screen and (max-width:585px){
-		.card__list{
-	justify-content:center;
-		}
-		.card__title{
-			text-align:center;
-		}
-	}
-	
-
-
-
 
 
 	  @media screen and (max-width:768px){
@@ -162,21 +87,22 @@
 		   }
 	   } 
 </style>
+{% include 'include/responsive.html' %}
 <div id="age_check">
 	<div class="modal1" id="ageModal">
-			<h2>Are You sure you want to Delete Your Account?</h2>
-            <h3>Check the boxes below to Proceed</h3>
+			<h2>{% trans "Are You sure you want to Delete Your Account" %}?</h2>
+            <h3>{% trans "Check the boxes below to Proceed" %}</h3>
 			
 			
 			<input onclick="checker()" type="checkbox" id="download_check" name="download_check" value="download_check" style="margin-right: 5px;margin-left:5px; background-color: white;appearance:checkbox">
-			<label for="download_check"><p>I accept all Download rights of the Purchased Video</p></label>
+			<label for="download_check"><p>{% trans "I accept all Download rights of the Purchased Video" %}</p></label>
 			<br>
 			<input onclick="checker()" type="checkbox" id="delete_check" name="delete_check" value="delete_check" style="margin-right: 5px;margin-left:5px; background-color: white;appearance:checkbox">
-			<label  for="delete_check"><p>I know what i decided and there's no way to get back the account</p></label>
+			<label  for="delete_check"><p>{% trans "I know what i decided and there's no way to get back the account" %}</p></label>
 
 			<div class="ft-buttons">
-			<button home-url={% url 'home' %} disabled delete-url='{% url 'user_delete_user' user.id %}' class="ft-btn"id="yesButton">Delete Account</button>
-            <button class="ft-btn" id="noButton">Cancel</button>
+			<button home-url={% url 'home' %} disabled delete-url='{% url 'user_delete_user' user.id %}' class="ft-btn"id="yesButton">{% trans "Delete Account" %}</button>
+            <button class="ft-btn" id="noButton">{% trans "Cancel" %}</button>
 			</div>
     </div>
 </div>
@@ -186,13 +112,13 @@
 		<div class="container">
 			<div class="row">
 				{% comment %} <div class="col-12 col-xl-6">
-					<h1 class="section__title section__title--head">Profile</h1>
+					<h1 class="section__title section__title--head">{% trans "Profile" %}</h1>
 				</div> {% endcomment %}
 
 				<div class="col-12 col-xl-6">
 					<ul class="breadcrumb">
-						<li class="breadcrumb__item"><a href="index.html">Home</a></li>
-						<li class="breadcrumb__item breadcrumb__item--active">Profile</li>
+						<li class="breadcrumb__item"><a href="index.html">{% trans "Home" %}</a></li>
+						<li class="breadcrumb__item breadcrumb__item--active">{% trans "Profile" %}</li>
 					</ul>
 				</div>
 			</div>
@@ -243,28 +169,28 @@
 						 <ul class="nav nav-tabs spacer profile__tabs" id="profile__tabs" role="tablist">
 							
 							<li class="nav-item">
-								<a class="nav-link active" data-toggle="tab" href="#tab-3" role="tab" aria-controls="tab-3" aria-selected="true">Settings</a>
+								<a class="nav-link active" data-toggle="tab" href="#tab-3" role="tab" aria-controls="tab-3" aria-selected="true">{% trans "Settings" %}</a>
 							</li>
 
 							<li class="nav-item">
-								 <a class="nav-link" data-toggle="tab" href="#tab-2" role="tab" aria-controls="tab-2" aria-selected="false">Your Movies</a> 
+								 <a class="nav-link" data-toggle="tab" href="#tab-2" role="tab" aria-controls="tab-2" aria-selected="false">{% trans "Your Movies" %}</a> 
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" data-toggle="tab" href="#tab-1" role="tab" aria-controls="tab-1" aria-selected="false">Favourites</a> 
+								<a class="nav-link" data-toggle="tab" href="#tab-1" role="tab" aria-controls="tab-1" aria-selected="false">{% trans "Favourites" %}</a> 
 						   </li>
 							<li class="nav-item">
-								<a class="nav-link" data-toggle="tab" href="#tab-4" role="tab" aria-controls="tab-4" aria-selected="false">Download Files</a> 
+								<a class="nav-link" data-toggle="tab" href="#tab-4" role="tab" aria-controls="tab-4" aria-selected="false">{% trans "Download Files" %}</a> 
 						   </li>
 						   <li class="nav-item">
-							<a class="orders_nav nav-link" data-toggle="tab" href="#tab-5" role="tab" aria-controls="tab-5" aria-selected="false">Orders</a> 
+							<a class="orders_nav nav-link" data-toggle="tab" href="#tab-5" role="tab" aria-controls="tab-5" aria-selected="false">{% trans "Orders" %}</a> 
 					   </li>
 
 							
 						</ul> 
 						<!-- end tabs nav -->
 
-						<button onclick='modalshow()' class="profile__logout" type="button">
-							<a  href="#">Delete Account</a>
+						<button style="font-size:18px;" onclick='modalshow()' class="profile__logout" type="button">
+							<a  href="#">{% trans "Delete Account" %}</a>
 							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4,12a1,1,0,0,0,1,1h7.59l-2.3,2.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0l4-4a1,1,0,0,0,.21-.33,1,1,0,0,0,0-.76,1,1,0,0,0-.21-.33l-4-4a1,1,0,1,0-1.42,1.42L12.59,11H5A1,1,0,0,0,4,12ZM17,2H7A3,3,0,0,0,4,5V8A1,1,0,0,0,6,8V5A1,1,0,0,1,7,4H17a1,1,0,0,1,1,1V19a1,1,0,0,1-1,1H7a1,1,0,0,1-1-1V16a1,1,0,0,0-2,0v3a3,3,0,0,0,3,3H17a3,3,0,0,0,3-3V5A3,3,0,0,0,17,2Z"></path></svg>
 						</button>
 					</div>
@@ -280,42 +206,43 @@
 				<div class="tab-pane fade" id="tab-2" role="tabpanel">
 					<!-- favorites -->
 				<div style="margin-top:5px;margin-bottom:-50px;" class="col-12">
-					<h1 class="home__title">DVD </h1><F5>
+					<h1 style="background-color:transparent" class="home__title">{% trans "DVD" %} </h1><F5>
 				</div>
 				<!--dvd-->
-					<div class="row row--grid">
-						{% for item in orders_dvd %}
-						<div  class="large_screen col-6 col-sm-4 col-lg-3 col-xl-2 ">
-							<div class="card" style='width:220px;'>
-								<a style="border-radius:0px;" href="{% url 'details' slug=item.product.slug %}" class="card__cover">
-									<img style="filter:blur(0);" class='product_image' src="{{item.product.coverphoto.url}}" alt="">
-																		</a>
+				<div  style="justify-content:center;"class="row row--grid">
+					{% for item in  orders_dvd %}
+					<div class="large_screen col-6 col-sm-4 col-md-4 col-lg-3 col-xl-2 col-xxl-2">
+						<div  class="card" style="width:220px; ">
+							<a style="border-radius:0px;" href="{% url 'details' slug=item.product.slug %}" class="card__cover">
+								<img style="filter:blur(0)" class="product_image"  src="{{item.product.coverphoto.url}}" alt="">
+							</a>
 									{% if user.is_authenticated %}
 									{% if item.product.id in user_favourite_movie %}
-									<button fetch-url="{% url 'remove_favourites' item.product.id %}" data-context="{{item.product.id}}" onclick="remove_favourites(this)"  id="remove_favourites_{{item.product.id}}" class="card__add" type="button">
+									<button fetch-url="{% url 'remove_favourites' item.product.id %}" data-context="{{item.product.id}}" onclick="remove_favourites(this)"  id="remove_favourites_{{item.product.id}}" class="card__add card__icon" type="button">
 										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="100" height="100">
-											<path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z" fill="blue"/>
+											<path d="M22,9.67A1,1,0,0,0,21.14,9l-4.37-.63L12.9,3a1,1,0,0,0-1.8,0L7.37,8.34,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l3.77,3.65-1.01,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1.01-5.68L22,9.67Z" fill="red" />
+											<polygon points="12,5.7 13.88,9.52 18.09,10.13 14.63,13.81 15.74,18.02 12,15.48 8.26,18.02 9.37,13.81 5.91,10.13 10.12,9.52" fill="red" />
 										</svg>
 										
 										</button>
 									{% else %}
-									<button data-context="{{item.product.id}}" fetch-url="{% url 'add_favourites' item.product.id %}"onclick="add_favourites(this)"  id="add_favourites_{{item.product.id}}" class="card__add" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z"/></svg></button>
+									<button data-context="{{item.product.id}}" fetch-url="{% url 'add_favourites' item.product.id %}"onclick="add_favourites(this)"  id="add_favourites_{{item.product.id}}" class="card__add card__icon" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z"/></svg></button>
 									{% endif %}
-									<button style="display:none" fetch-url="{% url 'remove_favourites' item.product.id %}" data-context="{{item.product.id}}" onclick="remove_favourites(this)"  id="remove_favourites_{{item.product.id}}" class="card__add" type="button">
+									<button style="display:none" fetch-url="{% url 'remove_favourites' item.product.id %}" data-context="{{item.product.id}}" onclick="remove_favourites(this)"  id="remove_favourites_{{item.product.id}}" class="card__add card__icon" type="button">
 										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="100" height="100">
-											<path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z" fill="blue"/>
+											<path d="M22,9.67A1,1,0,0,0,21.14,9l-4.37-.63L12.9,3a1,1,0,0,0-1.8,0L7.37,8.34,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l3.77,3.65-1.01,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1.01-5.68L22,9.67Z" fill="red" />
+											<polygon points="12,5.7 13.88,9.52 18.09,10.13 14.63,13.81 15.74,18.02 12,15.48 8.26,18.02 9.37,13.81 5.91,10.13 10.12,9.52" fill="red" />
 										</svg>
 										
 										</button>
-										<button style="display:none;" data-context="{{item.product.id}}" fetch-url="{% url 'add_favourites' item.id %}"onclick="add_favourites(this)"  id="add_favourites_{{item.product.id}}" class="card__add" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z"/></svg></button>
+										<button style="display:none;" data-context="{{item.product.id}}" fetch-url="{% url 'add_favourites' item.product.id %}"onclick="add_favourites(this)"  id="add_favourites_{{item.product.id}}" class="card__add card__icon" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z"/></svg></button>
 
 
 										{% else %}
-										<a href="{% url 'login' %}"><button class="card__add" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z"/></svg></button></a>
+										<a href="{% url 'login' %}"><button class="card__add card__icon" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z"/></svg></button></a>
 										{% endif %}
 									
-										
-
+									
 									
 								<h3 class="card__title"><a href="{% url 'details' slug=item.product.slug%}">{{item.product.movie_name}}</a></h3>
 								<ul class="card__list">
@@ -334,20 +261,23 @@
 					<!--end dvd-->
 					<!--scene-->
 					<div  style="margin-top:35px;margin-bottom:-50px;" class="col-12">
-						<h1 class="home__title">Scene </h1><F5>
+						<h1  style="background-color:transparent" class="home__title">{% trans "Scene" %} </h1><F5>
 					</div>
-					<div class="row row--grid">
+					<div  style="justify-content:center; margin:0 auto;" class="row row--grid">
 						{% for item in orders_scene %}
-						<div  class="large_scene col-6 col-sm-6 col-lg-3 col-xxl-2 ">
-							<div class="card">
-								<a style="border-radius:0px;" href="{% url 'details' slug=item.product.slug %}" class="card__cover">
-									<img  style='filter:blur(0px);' class='product_image_scene' src="{{item.product.coverphoto.url}}" alt="">
-																		</a>
+
+			
+						<div class="large_scene col-12 col-sm-6 col-lg-3 col-xxl-2 ">
+							<div  class="card card__scene">
+								<a style="border-radius:0px;filter:blur(0);"href="{% url 'details' slug=item.product.slug %}" class="card__cover">
+									<img class='product_image_scene' style='filter:blur(0px);'src="{{item.product.coverphoto.url}}" alt="">
+								</a>
 									{% if user.is_authenticated %}
 									{% if item.product.id in user_favourite_movie %}
 									<button fetch-url="{% url 'remove_favourites' item.product.id %}" data-context="{{item.product.id}}" onclick="remove_favourites(this)"  id="remove_favourites_{{item.product.id}}" class="card__add" type="button">
 										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="100" height="100">
-											<path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z" fill="blue"/>
+											<path d="M22,9.67A1,1,0,0,0,21.14,9l-4.37-.63L12.9,3a1,1,0,0,0-1.8,0L7.37,8.34,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l3.77,3.65-1.01,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1.01-5.68L22,9.67Z" fill="red" />
+											<polygon points="12,5.7 13.88,9.52 18.09,10.13 14.63,13.81 15.74,18.02 12,15.48 8.26,18.02 9.37,13.81 5.91,10.13 10.12,9.52" fill="red" />
 										</svg>
 										
 										</button>
@@ -356,11 +286,12 @@
 									{% endif %}
 									<button style="display:none" fetch-url="{% url 'remove_favourites' item.product.id %}" data-context="{{item.product.id}}" onclick="remove_favourites(this)"  id="remove_favourites_{{item.product.id}}" class="card__add" type="button">
 										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="100" height="100">
-											<path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z" fill="blue"/>
+											<path d="M22,9.67A1,1,0,0,0,21.14,9l-4.37-.63L12.9,3a1,1,0,0,0-1.8,0L7.37,8.34,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l3.77,3.65-1.01,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1.01-5.68L22,9.67Z" fill="red" />
+											<polygon points="12,5.7 13.88,9.52 18.09,10.13 14.63,13.81 15.74,18.02 12,15.48 8.26,18.02 9.37,13.81 5.91,10.13 10.12,9.52" fill="red" />
 										</svg>
 										
 										</button>
-										<button style="display:none;" data-context="{{item.product.id}}" fetch-url="{% url 'add_favourites' item.id %}"onclick="add_favourites(this)"  id="add_favourites_{{item.product.id}}" class="card__add" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z"/></svg></button>
+										<button style="display:none;" data-context="{{item.product.id}}" fetch-url="{% url 'add_favourites' item.product.id %}"onclick="add_favourites(this)"  id="add_favourites_{{item.product.id}}" class="card__add" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z"/></svg></button>
 
 
 										{% else %}
@@ -384,38 +315,40 @@
 				<!--End Scene-->
 				<!-- Photosets-->
 				<div  style="margin-top:35px;margin-bottom:-50px;" class="col-12">
-					<h1 class="home__title">Photosets </h1><F5>
+					<h1  style="background-color:transparent" class="home__title">{% trans "Photosets" %} </h1><F5>
 				</div>
-				<div class="row row--grid">
-					{% for item in orders_photoset %}
-					<div  class="large_screen  col-6 col-sm-4 col-lg-3 col-xl-2 ">
-						<div class="card" style='width:220px'>
+				<div  style="justify-content:center;"class="row row--grid">
+					{% for item in  orders_photoset %}
+					<div class="large_screen col-6 col-sm-4 col-md-4 col-lg-3 col-xl-2 col-xxl-2">
+						<div  class="card" style="width:220px; ">
 							<a style="border-radius:0px;" href="{% url 'details' slug=item.product.slug %}" class="card__cover">
-								<img style="filter:blur(0);" class='product_image' src="{{item.product.coverphoto.url}}" alt="">
+								<img style="filter:blur(0)" class="product_image"  src="{{item.product.coverphoto.url}}" alt="">
 							</a>
-								{% if user.is_authenticated %}
-								{% if item.product.id in user_favourite_movie %}
-								<button fetch-url="{% url 'remove_favourites' item.product.id %}" data-context="{{item.product.id}}" onclick="remove_favourites(this)"  id="remove_favourites_{{item.product.id}}" class="card__add" type="button">
-									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="100" height="100">
-										<path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z" fill="blue"/>
-									</svg>
-									
-									</button>
+							{% if user.is_authenticated %}
+							{% if item.product.id in user_favourite_movie %}
+							<button fetch-url="{% url 'remove_favourites' item.product.id %}" data-context="{{item.product.id}}" onclick="remove_favourites(this)"  id="remove_favourites_{{item.product.id}}" class="card__add card__icon" type="button">
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="100" height="100">
+									<path d="M22,9.67A1,1,0,0,0,21.14,9l-4.37-.63L12.9,3a1,1,0,0,0-1.8,0L7.37,8.34,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l3.77,3.65-1.01,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1.01-5.68L22,9.67Z" fill="red" />
+									<polygon points="12,5.7 13.88,9.52 18.09,10.13 14.63,13.81 15.74,18.02 12,15.48 8.26,18.02 9.37,13.81 5.91,10.13 10.12,9.52" fill="red" />
+								</svg>
+								
+								</button>
+							{% else %}
+							<button data-context="{{item.product.id}}" fetch-url="{% url 'add_favourites' item.product.id %}"onclick="add_favourites(this)"  id="add_favourites_{{item.product.id}}" class="card__add card__icon" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z"/></svg></button>
+							{% endif %}
+							<button style="display:none" fetch-url="{% url 'remove_favourites' item.product.id %}" data-context="{{item.product.id}}" onclick="remove_favourites(this)"  id="remove_favourites_{{item.product.id}}" class="card__add card__icon" type="button">
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="100" height="100">
+									<path d="M22,9.67A1,1,0,0,0,21.14,9l-4.37-.63L12.9,3a1,1,0,0,0-1.8,0L7.37,8.34,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l3.77,3.65-1.01,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1.01-5.68L22,9.67Z" fill="red" />
+									<polygon points="12,5.7 13.88,9.52 18.09,10.13 14.63,13.81 15.74,18.02 12,15.48 8.26,18.02 9.37,13.81 5.91,10.13 10.12,9.52" fill="red" />
+								</svg>
+								
+								</button>
+								<button style="display:none;" data-context="{{item.product.id}}" fetch-url="{% url 'add_favourites' item.product.id %}"onclick="add_favourites(this)"  id="add_favourites_{{item.product.id}}" class="card__add card__icon" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z"/></svg></button>
+
+
 								{% else %}
-								<button data-context="{{item.product.id}}" fetch-url="{% url 'add_favourites' item.product.id %}"onclick="add_favourites(this)"  id="add_favourites_{{item.product.id}}" class="card__add" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z"/></svg></button>
+								<a href="{% url 'login' %}"><button class="card__add card__icon" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z"/></svg></button></a>
 								{% endif %}
-								<button style="display:none" fetch-url="{% url 'remove_favourites' item.product.id %}" data-context="{{item.product.id}}" onclick="remove_favourites(this)"  id="remove_favourites_{{item.product.id}}" class="card__add" type="button">
-									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="100" height="100">
-										<path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z" fill="blue"/>
-									</svg>
-									
-									</button>
-									<button style="display:none;" data-context="{{item.product.id}}" fetch-url="{% url 'add_favourites' item.id %}"onclick="add_favourites(this)"  id="add_favourites_{{item.product.id}}" class="card__add" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z"/></svg></button>
-
-
-									{% else %}
-									<a href="{% url 'login' %}"><button class="card__add" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z"/></svg></button></a>
-									{% endif %}
 								
 									
 
@@ -433,9 +366,9 @@
 				</div>
 				<!--End photosets-->
 				<div  style="margin-top:35px;margin-bottom:-50px;" class="col-12">
-					<h1 class="home__title">Album </h1><F5>
+					<h1  style="background-color:transparent" class="home__title">{% trans "Album" %} </h1><F5>
 				</div>
-				<div class="row row--grid">
+				<div style="justify-content:center;" class="row row--grid">
 					{% for item in orders_album %}
 					<div class="large_screen col-6 col-sm-4 col-lg-3 col-xl-2 ">
 						<div class="card" style='width:220px'>
@@ -464,61 +397,52 @@
 
 				<div class="tab-pane fade" id="tab-1" role="tabpanel">
 					<!-- favorites -->
-					<div style="margin-top:5px;margin-bottom:-50px;" class="col-12">
-					<h1 class="home__title">Favourite DVDS </h1><F5>
+					{% if favourite_dvd %}
+					<div style="margin-top:15px;" class="col-12">
+					<h1 style="background-color:transparent;" class="home__title">{% trans "Favourite DVDS" %} </h1><F5>
 				</div>
 				<!--dvd-->
-					<div class="row row--grid">
-						{% for item in favourite_dvd %}
-						<div class="large_screen   col-6 col-sm-4 col-lg-3 col-xl-2 ">
-							<div class="card" style='width:220px;'>
+					<div style="justify-content:center;"class="row row--grid">
+						{% for item in  favourite_dvd %}
+						<div class="large_screen col-6 col-sm-4 col-md-4 col-lg-3 col-xl-2 col-xxl-2">
+							<div  class="card" style="width:220px; ">
 								<a style="border-radius:0px;" href="{% url 'details' slug=item.slug %}" class="card__cover">
-									<img style="filter:blur(0);" class='product_image' src="{{item.coverphoto.url}}" alt="">
-																		</a>
-									{% if user.is_authenticated %}
-									{% if item.id in user_favourite_movie %}
-									<button fetch-url="{% url 'remove_favourites' item.id %}" data-context="{{item.id}}" onclick="remove_favourites(this)"  id="remove_favourites_{{item.id}}" class="card__add" type="button">
-										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="100" height="100">
-											<path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z" fill="blue"/>
-										</svg>
-										
-										</button>
+									<img style="filter:blur(0)" class="product_image"  src="{{item.coverphoto.url}}" alt="">
+								</a>
+								{% if user.is_authenticated %}
+								<button fetch-url="{% url 'remove_favourites' item.id %}" data-context="{{item.id}}" onclick="remove_from_favourites(this)"  id="remove_from_favourites_{{item.id}}" class="card__add card__icon" type="button">
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="100" height="100">
+										<path d="M22,9.67A1,1,0,0,0,21.14,9l-4.37-.63L12.9,3a1,1,0,0,0-1.8,0L7.37,8.34,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l3.77,3.65-1.01,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1.01-5.68L22,9.67Z" fill="red" />
+										<polygon points="12,5.7 13.88,9.52 18.09,10.13 14.63,13.81 15.74,18.02 12,15.48 8.26,18.02 9.37,13.81 5.91,10.13 10.12,9.52" fill="red" />
+									</svg>
+									
+									</button>
+								<button style="display:none;" data-context="{{item.id}}" fetch-url="{% url 'add_favourites' item.id %}"onclick="add_from_favourites(this)"  id="add_from_favourites_{{item.id}}" class="card__add card__icon" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z"/></svg></button>
+								
+	
 									{% else %}
-									<button data-context="{{item.id}}" fetch-url="{% url 'add_favourites' item.id %}"onclick="add_favourites(this)"  id="add_favourites_{{item.id}}" class="card__add" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z"/></svg></button>
+									<a href="{% url 'login' %}"><button class="card__add" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z"/></svg></button></a>
 									{% endif %}
-									<button style="display:none" fetch-url="{% url 'remove_favourites' item.id %}" data-context="{{item.id}}" onclick="remove_favourites(this)"  id="remove_favourites_{{item.id}}" class="card__add" type="button">
-										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="100" height="100">
-											<path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z" fill="blue"/>
-										</svg>
-										
-										</button>
-										<button style="display:none;" data-context="{{item.id}}" fetch-url="{% url 'add_favourites' item.id %}"onclick="add_favourites(this)"  id="add_favourites_{{item.id}}" class="card__add" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z"/></svg></button>
-
-
-										{% else %}
-										<a href="{% url 'login' %}"><button class="card__add" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z"/></svg></button></a>
-										{% endif %}
+									
 										{% if user.is_authenticated %}
 										{% if item.id in user_added_cart %}
-										<button onclick="remove_cart(this);" fetch-url={% url 'remove_cart' item.id %} id="remove_cart_{{item.id}}" data-context={{item.id}} style="position:absolute;margin-left:auto;right:10px;top:10px;" class="card__add">
+										<button onclick="remove_cart(this);" fetch-url={% url 'remove_cart' item.id %} id="remove_cart_{{item.id}}" data-context={{item.id}} style="position:absolute;margin-left:auto;right:1px;top:1px;" class="card__add card__icon">
 											<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>
 											</button>
 										{% else %}
-										<button onclick="add_cart(this);" fetch-url={% url 'add_cart' item.id %} id="add_cart_{{item.id}}" data-context={{item.id}}  style="position:absolute;margin-left:auto;right:10px;top:10px;" class="card__add">
+										<button onclick="add_cart(this);" fetch-url={% url 'add_cart' item.id %} id="add_cart_{{item.id}}" data-context={{item.id}}  style="position:absolute;margin-left:auto;right:1px;top:1px;" class="card__add card__icon">
 											<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/></svg>
 										</button> 
 										{% endif %}
-										<button onclick="add_cart(this);" fetch-url={% url 'add_cart' item.id %} id="add_cart_{{item.id}}" data-context={{item.id}}  style="display:none;position:absolute;margin-left:auto;right:10px;top:10px;" class="card__add">
+										<button onclick="add_cart(this);" fetch-url={% url 'add_cart' item.id %} id="add_cart_{{item.id}}" data-context={{item.id}}  style="display:none;position:absolute;margin-left:auto;right:1px;top:1px;" class="card__add card__icon">
 											<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/></svg>
 										</button> 
 
-										<button onclick="remove_cart(this);" fetch-url={% url 'remove_cart' item.id %} id="remove_cart_{{item.id}}" data-context={{item.id}} style="display:none;position:absolute;margin-left:auto;right:10px;top:10px;" class="card__add">
+										<button onclick="remove_cart(this);" fetch-url={% url 'remove_cart' item.id %} id="remove_cart_{{item.id}}" data-context={{item.id}} style="display:none;position:absolute;margin-left:auto;right:1px;top:1px;" class="card__add card__icon">
 											<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>
 											</button>
-										
 										{% else %}
-
-									<button style="position:absolute;margin-left:auto;right:10px;top:10px;" class="card__add">
+									<button style="position:absolute;margin-left:auto;right:1px;top:1px;" class="card__add">
 									<a href={% url 'login' %} > <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/></svg></a>
 									</button> 
 									{% endif %}
@@ -537,57 +461,52 @@
 						</div>
 						{% endfor %}
 					</div>
+					{% endif %}
 					<!-- end favorites dvd-->
 							<!-- favorites -->
-					<div style="margin-top:5px;margin-bottom:-50px;" class="col-12">
-						<h1 class="home__title">Favourite Scenes </h1><F5>
+							{% if favourite_scene %}
+					<div style="margin-top:15px;" class="col-12">
+						<h1  style="background-color:transparent"class="home__title">{% trans "Favourite Scenes" %} </h1><F5>
 					</div>
 					<!--dvd-->
-						<div class="row row--grid">
-							{% for item in favourite_scene %}
-							<div class="large_scene col-6 col-sm-6 col-lg-3 col-xxl-2 ">
-								<div class="card">
-									<a style="border-radius:0px;" href="{% url 'details' slug=item.slug %}" class="card__cover">
-										<img class='product_image_scene' style='filter:blur(0px);'src="{{item.coverphoto.url}}" alt="">
-									</a>
-										{% if user.is_authenticated %}
-										{% if item.id in user_favourite_movie %}
-										<button fetch-url="{% url 'remove_favourites' item.id %}" data-context="{{item.id}}" onclick="remove_favourites(this)"  id="remove_favourites_{{item.id}}" class="card__add" type="button">
-											<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="100" height="100">
-												<path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z" fill="blue"/>
-											</svg>
-											
-											</button>
+					<div  style="justify-content:center; margin:0 auto;" class="row row--grid">
+						{% for item in favourite_scene %}
+
+			
+						<div class="large_scene col-12 col-sm-6 col-lg-3 col-xxl-2 ">
+							<div  class="card card__scene">
+								<a style="border-radius:0px;filter:blur(0);"href="{% url 'details' slug=item.slug %}" class="card__cover">
+									<img class='product_image_scene' style='filter:blur(0px);'src="{{item.coverphoto.url}}" alt="">
+								</a>
+									{% if user.is_authenticated %}
+
+									<button fetch-url="{% url 'remove_favourites' item.id %}" data-context="{{item.id}}" onclick="remove_from_favourites(this)"  id="remove_from_favourites_{{item.id}}" class="card__add " type="button">
+										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="100" height="100">
+											<path d="M22,9.67A1,1,0,0,0,21.14,9l-4.37-.63L12.9,3a1,1,0,0,0-1.8,0L7.37,8.34,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l3.77,3.65-1.01,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1.01-5.68L22,9.67Z" fill="red" />
+											<polygon points="12,5.7 13.88,9.52 18.09,10.13 14.63,13.81 15.74,18.02 12,15.48 8.26,18.02 9.37,13.81 5.91,10.13 10.12,9.52" fill="red" />
+										</svg>
+										
+										</button>
+									
+									<button style="display:none;" data-context="{{item.id}}" fetch-url="{% url 'add_favourites' item.id %}"onclick="add_from_favourites(this)"  id="add_from_favourites_{{item.id}}" class="card__add " type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z"/></svg></button>
 										{% else %}
-										<button data-context="{{item.id}}" fetch-url="{% url 'add_favourites' item.id %}"onclick="add_favourites(this)"  id="add_favourites_{{item.id}}" class="card__add" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z"/></svg></button>
+										<a href="{% url 'login' %}"><button class="card__add" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z"/></svg></button></a>
 										{% endif %}
-										<button style="display:none" fetch-url="{% url 'remove_favourites' item.id %}" data-context="{{item.id}}" onclick="remove_favourites(this)"  id="remove_favourites_{{item.id}}" class="card__add" type="button">
-											<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="100" height="100">
-												<path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z" fill="blue"/>
-											</svg>
-											
-											</button>
-											<button style="display:none;" data-context="{{item.id}}" fetch-url="{% url 'add_favourites' item.id %}"onclick="add_favourites(this)"  id="add_favourites_{{item.id}}" class="card__add" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z"/></svg></button>
-	
-	
-											{% else %}
-											<a href="{% url 'login' %}"><button class="card__add" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z"/></svg></button></a>
-											{% endif %}
 											{% if user.is_authenticated %}
 											{% if item.id in user_added_cart %}
-											<button onclick="remove_cart(this);" fetch-url={% url 'remove_cart' item.id %} id="remove_cart_{{item.id}}" data-context={{item.id}} style="position:absolute;margin-left:auto;right:10px;top:10px;" class="card__add">
+											<button onclick="remove_cart(this);" fetch-url={% url 'remove_cart' item.id %} id="remove_cart_{{item.id}}" data-context={{item.id}} style="position:absolute;margin-left:auto;right:1px;top:1px;" class="card__add">
 												<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>
 												</button>
 											{% else %}
-											<button onclick="add_cart(this);" fetch-url={% url 'add_cart' item.id %} id="add_cart_{{item.id}}" data-context={{item.id}}  style="position:absolute;margin-left:auto;right:10px;top:10px;" class="card__add">
+											<button onclick="add_cart(this);" fetch-url={% url 'add_cart' item.id %} id="add_cart_{{item.id}}" data-context={{item.id}}  style="position:absolute;margin-left:auto;right:1px;top:1px;" class="card__add">
 												<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/></svg>
 											</button> 
 											{% endif %}
-											<button onclick="add_cart(this);" fetch-url={% url 'add_cart' item.id %} id="add_cart_{{item.id}}" data-context={{item.id}}  style="display:none;position:absolute;margin-left:auto;right:10px;top:10px;" class="card__add">
+											<button onclick="add_cart(this);" fetch-url={% url 'add_cart' item.id %} id="add_cart_{{item.id}}" data-context={{item.id}}  style="display:none;position:absolute;margin-left:auto;right:1px;top:1px;" class="card__add">
 												<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/></svg>
 											</button> 
 	
-											<button onclick="remove_cart(this);" fetch-url={% url 'remove_cart' item.id %} id="remove_cart_{{item.id}}" data-context={{item.id}} style="display:none;position:absolute;margin-left:auto;right:10px;top:10px;" class="card__add">
+											<button onclick="remove_cart(this);" fetch-url={% url 'remove_cart' item.id %} id="remove_cart_{{item.id}}" data-context={{item.id}} style="display:none;position:absolute;margin-left:auto;right:1px;top:1px;" class="card__add">
 												<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>
 												</button>
 											
@@ -612,65 +531,59 @@
 							</div>
 							{% endfor %}
 						</div>
+						{% endif %}
 
 						<!-- end favourite scenes-->
 
 							<!-- favorites -->
-					<div style="margin-top:5px;margin-bottom:-50px;" class="col-12">
-						<h1 class="home__title">Favourite PhotoSets </h1><F5>
+							{% if favourite_photoset %}
+					<div style="margin-top:15px;" class="col-12">
+						<h1 class="home__title">{% trans "Favourite PhotoSets" %} </h1><F5>
 					</div>
 					<!--dvd-->
-						<div class="row row--grid">
-							{% for item in favourite_photoset %}
-							<div  class="large_screen  col-6 col-sm-4 col-lg-3 col-xl-2 ">
-								<div class="card" style='width:220px;'>
-									<a style="border-radius:0px;" href="{% url 'details' slug=item.slug %}" class="card__cover">
-										<img style="filter:blur(0);" class='product_image' src="{{item.coverphoto.url}}" alt="">
-																			</a>
-										{% if user.is_authenticated %}
-										{% if item.id in user_favourite_movie %}
-										<button fetch-url="{% url 'remove_favourites' item.id %}" data-context="{{item.id}}" onclick="remove_favourites(this)"  id="remove_favourites_{{item.id}}" class="card__add" type="button">
-											<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="100" height="100">
-												<path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z" fill="blue"/>
-											</svg>
-											
-											</button>
-										{% else %}
-										<button data-context="{{item.id}}" fetch-url="{% url 'add_favourites' item.id %}"onclick="add_favourites(this)"  id="add_favourites_{{item.id}}" class="card__add" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z"/></svg></button>
-										{% endif %}
-										<button style="display:none" fetch-url="{% url 'remove_favourites' item.id %}" data-context="{{item.id}}" onclick="remove_favourites(this)"  id="remove_favourites_{{item.id}}" class="card__add" type="button">
-											<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="100" height="100">
-												<path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z" fill="blue"/>
-											</svg>
-											
-											</button>
-											<button style="display:none;" data-context="{{item.id}}" fetch-url="{% url 'add_favourites' item.id %}"onclick="add_favourites(this)"  id="add_favourites_{{item.id}}" class="card__add" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z"/></svg></button>
+					<div style="justify-content:center;"class="row row--grid">
+						{% for item in  favourite_photoset %}
+						<div class="large_screen col-6 col-sm-4 col-md-4 col-lg-3 col-xl-2 col-xxl-2">
+							<div  class="card" style="width:220px; ">
+								<a style="border-radius:0px;" href="{% url 'details' slug=item.slug %}" class="card__cover">
+									<img style="filter:blur(0)" class="product_image"  src="{{item.coverphoto.url}}" alt="">
+								</a>
+								{% if user.is_authenticated %}
+								<button fetch-url="{% url 'remove_favourites' item.id %}" data-context="{{item.id}}" onclick="remove_from_favourites(this)"  id="remove_from_favourites_{{item.id}}" class="card__add card__icon" type="button">
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="100" height="100">
+										<path d="M22,9.67A1,1,0,0,0,21.14,9l-4.37-.63L12.9,3a1,1,0,0,0-1.8,0L7.37,8.34,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l3.77,3.65-1.01,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1.01-5.68L22,9.67Z" fill="red" />
+										<polygon points="12,5.7 13.88,9.52 18.09,10.13 14.63,13.81 15.74,18.02 12,15.48 8.26,18.02 9.37,13.81 5.91,10.13 10.12,9.52" fill="red" />
+									</svg>
+									
+									</button>
+								<button style="display:none;" data-context="{{item.id}}" fetch-url="{% url 'add_favourites' item.id %}"onclick="add_from_favourites(this)"  id="add_from_favourites_{{item.id}}" class="card__add card__icon" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z"/></svg></button>
+								
 	
-	
-											{% else %}
-											<a href="{% url 'login' %}"><button class="card__add" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z"/></svg></button></a>
-											{% endif %}
+									{% else %}
+									<a href="{% url 'login' %}"><button class="card__add" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z"/></svg></button></a>
+									{% endif %}
+									
 											{% if user.is_authenticated %}
 											{% if item.id in user_added_cart %}
-											<button onclick="remove_cart(this);" fetch-url={% url 'remove_cart' item.id %} id="remove_cart_{{item.id}}" data-context={{item.id}} style="position:absolute;margin-left:auto;right:10px;top:10px;" class="card__add">
+											<button onclick="remove_cart(this);" fetch-url={% url 'remove_cart' item.id %} id="remove_cart_{{item.id}}" data-context={{item.id}} style="position:absolute;margin-left:auto;right:1px;top:1px;" class="card__add card__icon">
 												<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>
 												</button>
 											{% else %}
-											<button onclick="add_cart(this);" fetch-url={% url 'add_cart' item.id %} id="add_cart_{{item.id}}" data-context={{item.id}}  style="position:absolute;margin-left:auto;right:10px;top:10px;" class="card__add">
+											<button onclick="add_cart(this);" fetch-url={% url 'add_cart' item.id %} id="add_cart_{{item.id}}" data-context={{item.id}}  style="position:absolute;margin-left:auto;right:1px;top:1px;" class="card__add card__icon">
 												<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/></svg>
 											</button> 
 											{% endif %}
-											<button onclick="add_cart(this);" fetch-url={% url 'add_cart' item.id %} id="add_cart_{{item.id}}" data-context={{item.id}}  style="display:none;position:absolute;margin-left:auto;right:10px;top:10px;" class="card__add">
+											<button onclick="add_cart(this);" fetch-url={% url 'add_cart' item.id %} id="add_cart_{{item.id}}" data-context={{item.id}}  style="display:none;position:absolute;margin-left:auto;right:1px;top:1px;" class="card__add card__icon">
 												<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/></svg>
 											</button> 
 	
-											<button onclick="remove_cart(this);" fetch-url={% url 'remove_cart' item.id %} id="remove_cart_{{item.id}}" data-context={{item.id}} style="display:none;position:absolute;margin-left:auto;right:10px;top:10px;" class="card__add">
+											<button onclick="remove_cart(this);" fetch-url={% url 'remove_cart' item.id %} id="remove_cart_{{item.id}}" data-context={{item.id}} style="display:none;position:absolute;margin-left:auto;right:1px;top:1px;" class="card__add card__icon">
 												<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>
 												</button>
 											
 											{% else %}
 	
-										<button style="position:absolute;margin-left:auto;right:10px;top:10px;" class="card__add">
+										<button style="position:absolute;margin-left:auto;right:1px;top:1px;" class="card__add card__icon">
 										<a href={% url 'login' %} > <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/></svg></a>
 										</button> 
 										{% endif %}
@@ -689,6 +602,7 @@
 							</div>
 							{% endfor %}
 						</div>
+					{% endif %}
 						<!--end favourite photosets-->
 					
 					<!-- end paginator -->
@@ -704,39 +618,39 @@
 										<form action="#" class="sign__form sign__form--profile sign__form--first">
 											<div class="row">
 												<div class="col-12">
-													<h4 class="sign__title">Profile details</h4>
+													<h4 class="sign__title">{% trans "Profile details" %}</h4>
 												</div>
 
 												<div class="col-12 col-md-6 col-lg-12 col-xl-6">
 													<div class="sign__group">
-														<label class="sign__label" for="username">Username</label>
+														<label class="sign__label" for="username">{% trans "Username" %}</label>
 														<input id="username" type="text" name="username" disabled class="sign__input" placeholder="User name" value={{user.username}}>
 													</div>
 												</div>
 
 												<div class="col-12 col-md-6 col-lg-12 col-xl-6">
 													<div class="sign__group">
-														<label class="sign__label" for="email">Email</label>
+														<label class="sign__label" for="email">{% trans "Email" %}</label>
 														<input id="email" type="email" name="email" class="sign__input" placeholder="email@email.com" value={{user.email}} disabled>
 													</div>
 												</div>
 
 												<div class="col-12 col-md-6 col-lg-12 col-xl-6">
 													{% comment %} <div class="sign__group">
-														<label class="sign__label" for="firstname">First name</label>
+														<label class="sign__label" for="firstname">{% trans "First name" %}</label>
 														<input id="firstname" type="text" name="firstname" class="sign__input" placeholder="John">
 													</div> {% endcomment %}
 												</div>
 
 												<div class="col-12 col-md-6 col-lg-12 col-xl-6">
 													{% comment %} <div class="sign__group">
-														<label class="sign__label" for="lastname">Last name</label>
+														<label class="sign__label" for="lastname">{% trans "Last name" %}</label>
 														<input id="lastname" type="text" name="lastname" class="sign__input" placeholder="Doe">
 													</div> {% endcomment %}
 												</div>
 
 												{% comment %} <div class="col-12">
-													<button class="sign__btn" type="submit" disabled>Save</button>
+													<button class="sign__btn" type="submit" disabled>{% trans "Save" %}</button>
 												</div> {% endcomment %}
 											</div>
 										</form>
@@ -749,26 +663,26 @@
 											{% csrf_token %}
                                             <div class="row">
 												<div class="col-12">
-													<h4 class="sign__title">Change password</h4>
+													<h4 class="sign__title">{% trans "Change password" %}</h4>
 												</div>
 
 												<div class="col-12 col-md-6 col-lg-12 col-xl-6">
 													<div class="sign__group">
-														<label class="sign__label" for="oldpass">Email</label>
+														<label class="sign__label" for="oldpass">{% trans "Email" %}</label>
 														<input id="oldpass" type="email" name="email" class="sign__input">
 													</div>
 												</div>
 
 												<div class="col-12 col-md-6 col-lg-12 col-xl-6">
 													<div class="sign__group">
-														<label class="sign__label" for="newpass">password</label>
+														<label class="sign__label" for="newpass">{% trans "password" %}</label>
 														<input id="newpass" type="password" name="password" class="sign__input">
 													</div>
 												</div>
 
 												<div class="col-12 col-md-6 col-lg-12 col-xl-6">
 													<div class="sign__group">
-														<label class="sign__label" for="confirmpass">Confirm new password</label>
+														<label class="sign__label" for="confirmpass">{% trans "Confirm new password" %}</label>
 														<input id="confirmpass" type="password" name="new_password" class="sign__input">
 													</div>
 												</div>
@@ -786,7 +700,7 @@
 												</div> {% endcomment %}
 
 												<div class="col-12">
-													<button class="sign__btn" type="submit">Change</button>
+													<button class="sign__btn" type="submit">{% trans "Change" %}</button>
 												</div>
 											</div>
 										</form>
@@ -800,8 +714,8 @@
 				<div class="tab-pane fade" id="tab-4" role="tabpanel">
 					<!-- favorites -->
 					<div style="display:block;" class="row row--grid">
-						<div style="color:white;margin-top:15px;text-align:center;">Download all your pending Files from here:</div>
-						<a href="{% url 'download_list' %}"><button   class="sign__btn">Download</button></a>
+						<div style="color:white;margin-top:15px;text-align:center;">{% trans "Download all your pending Files from here" %}:</div>
+						<a href="{% url 'download_list' %}"><button   class="sign__btn">{% trans "Download" %}</button></a>
 
 					</div>
 						
@@ -813,50 +727,43 @@
 					
 					<!-- end paginator -->
 				<div class="tab-pane fade" id="tab-5" role="tabpanel">
-					{% comment %} <a href='{% url 'download_pdf' order_number transID  %}' class="btn btn-primary">Download Invoice</a>  {% endcomment %}
+					{% comment %} <a href='{% url 'download_pdf' order_number transID  %}' class="btn btn-primary">{% trans "Download Invoice" %}</a>  {% endcomment %}
 					<!-- favorites -->
-					<div style="margin-top:20px;" class="row row--grid">
-						<div class="col-12">
-							<div class="main__table-wrap">
-								<table class="main__table">
-									<thead>
-										<tr>
-											<th>Order_number</th>
-
-											<th>Payment_Id</th>
-											<th>Date</th>
-											<th>Download Invoice</th>
-										</tr>
-										
-									</thead>
-								
-		
-									<tbody>
-										<tr>
-											{% for data in orders_product %}
-											<td>
-												<div class="main__table-text">{{data.order_number}}</div>
-											</td>
-											
-											
-											<td>
-												<div class="main__table-text">{{data.payment.payment_id}}</div>
-											</td>
-
-											<td>
-												<div class="main__table-text">{{data.payment.created_at|date:"M d, Y"}}</div>
-											</td>
-											<td>
-												<div class="main__table-text"><a class="sign__btn" href="{% url 'download_pdf' data.order_number data.payment.payment_id %}">Download Invoice</a></div>
-											</td>
-											
+					<div style="margin-top: 20px;">
+						<div class="table-responsive">
+							<table class="main__table">
+								<thead>
+									<tr>
+										<th>{% trans "Order_number" %}</th>
+										<th>{% trans "Payment_Id" %}</th>
+										<th>{% trans "Date" %}</th>
+										<th>{% trans "Download Invoice" %}</th>
+									</tr>
+								</thead>
+								<tbody>
+									{% for data in orders_product %}
+									<tr>
+										<td>
+											<div class="main__table-text">{{ data.order_number }}</div>
+										</td>
+										<td>
+											<div class="main__table-text">{{ data.payment.payment_id }}</div>
+										</td>
+										<td>
+											<div class="main__table-text">{{ data.payment.created_at|date:"M d, Y" }}</div>
+										</td>
+										<td>
+											<div class="main__table-text">
+												<a class="sign__btn" href="{% url 'download_pdf' data.order_number data.payment.payment_id %}">Download Invoice</a>
+											</div>
+										</td>
 									</tr>
 									{% endfor %}
-																	</tbody>
-								</table>
-							</div>
+								</tbody>
+							</table>
 						</div>
-						
+					</div>
+					
 
 						
 					</div>
@@ -912,7 +819,7 @@
 	<!-- end partners -->
 
 	<!-- footer -->
-	{% include 'include/footer.html' %}
+	{% include 'include/footer.html' with pages=pages %}
 
 	<!-- modal top-up -->
 	<script>

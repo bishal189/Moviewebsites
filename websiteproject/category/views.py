@@ -10,9 +10,10 @@ from django.db.models.functions import Lower
 from django.template.loader import render_to_string
 from django.core.paginator import Paginator
 from django.http import JsonResponse
-
+from owner.models import Page
 #Request to category page can be removed now as no category page is available now 
 def category(request):
+    pages=Page.objects.all().order_by('-id')
     attribute_mapping = {
         'Hair Color': 'haircolor',
         'Ethnicity': 'ethnicity',
@@ -25,11 +26,8 @@ def category(request):
         'Body Markings':'bodymarking',
         'Current Status':'currentstatus',
         'Gender':'gender',
-
     }
-
     attributes = list(attribute_mapping.keys())
-
     age_ranges = [f"Age: {i}-{i+5}" for i in range(18, 40, 5)]
     attributes.append('Age')
 
@@ -43,10 +41,11 @@ def category(request):
             values_list = [value[attribute_mapping[attribute]] for value in values]
             attribute_choices.extend([f"{attribute}:{value}" for value in values_list])
 
+
     genres=Category.objects.all().order_by('-id')
     data=MovieDetail.objects.all()[:20]
     stardata=StarsModel.objects.all().order_by('-id')
-    popular_genres=popular_categories = Category.objects.annotate(
+    popular_genres= Category.objects.annotate(
     total_views=Count('moviedetail__view_count'),
     total_carts=Count('moviedetail__cart_count')
     ).order_by('-total_views', '-total_carts')[:10]
@@ -59,13 +58,15 @@ def category(request):
           'star':stardata,
           'popular_genre':popular_genres,
           'attributes':attribute_choices,
-          'studio':studio
+          'studio':studio,
+          'pages':pages,
      }
 
     return render(request,"category.html",context)
     
 #filtering mechanism which filters based on post data from index page
 def category_filter(request,type=None):
+    pages=Page.objects.all().order_by('-id')
     attribute_mapping = {
         'Hair Color': 'haircolor',
         'Ethnicity': 'ethnicity',
@@ -78,11 +79,8 @@ def category_filter(request,type=None):
         'Body Markings':'bodymarking',
         'Current Status':'currentstatus',
         'Gender':'gender',
-
     }
-
     attributes = list(attribute_mapping.keys())
-
     age_ranges = [f"Age: {i}-{i+5}" for i in range(18, 50, 5)]
     attributes.append('Age')
 
@@ -97,17 +95,13 @@ def category_filter(request,type=None):
             attribute_choices.extend([f"{attribute}:{value}" for value in values_list])
 
 
-
     genres=Category.objects.all()
     all_studios=StudioModel.objects.all().order_by('-id')
 
-    ###Get all data from post
     popular_category=None
     scene_category=None
     selected_options=None
     studio=None
-    # view=None
-    # sort=None
     if 'popular_category' in request.POST:
          popular_category=request.POST.getlist('popular_category')
     if 'studio' in request.POST:
@@ -117,13 +111,7 @@ def category_filter(request,type=None):
         scene_category=request.POST.getlist('scene_category')
     if 'model' in request.POST:
         selected_options=request.POST.getlist('model')
-    # if 'view' in request.POST:
-    #     view=request.POST['view']
-    # if 'sort' in request.POST:
-    #     sort=request.POST['sort']
-    ####
     stars=None
-
     if selected_options is not None:
         selected_attributes = []
         selected_values = []
@@ -150,24 +138,11 @@ def category_filter(request,type=None):
 
                 stars = StarsModel.objects.filter(**selected_filters)
 
-    # if sort is not None and sort!="":
-        
-    #     if sort=="newest":
 
-    #         movies=MovieDetail.objects.all().order_by('-id')
-    #     if sort=="alphabetical":
-    #         movies = MovieDetail.objects.all().order_by(Lower('movie_name'))
-    #     if sort=="most-trending":
-    #         movies=MovieDetail.objects.all().order_by('-cart_count')
-    #     if sort=="most-popular":
-    #         movies=MovieDetail.objects.all().order_by('-view_count','-cart_count','-id')
-    # else:
 
     movies=MovieDetail.objects.all()
     if stars is not None:
         movies=movies.filter(stars__in=stars)
-    
-    
     
     if popular_category is not None:
         movies=movies.filter(genre__in=popular_category)
@@ -176,13 +151,8 @@ def category_filter(request,type=None):
     if studio is not None:
         movies=movies.filter(studio__in=studio)
     
-    # if view is not None and view != "":
-    #     movies=movies.filter(quality=view)
-    
-   
+  
     current={}
-    # current['view']=view
-    # current['sort']=sort
     current['popular_category']=popular_category
     current['all_category']=scene_category
     current['choice']=selected_options
@@ -202,13 +172,10 @@ def category_filter(request,type=None):
         get_dvd=movies.filter(type="DVD",quality="HD").order_by('-id')
         paginator_dvd=Paginator(get_dvd,20)
         page_dvd=request.GET.get('page_dvd')
-
-
         paged_dvd=paginator_dvd.get_page(page_dvd)
+
         get_scene=movies.filter(type="Scene",quality="HD").order_by('-id')
         paginator_scene=Paginator(get_scene,20)
-
-
         page_scene=request.GET.get('page_scene')
         paged_scene=paginator_scene.get_page(page_scene)
 
@@ -216,8 +183,6 @@ def category_filter(request,type=None):
         paginator_photosets=Paginator(get_photoset,20)
         page_photo=request.GET.get('page_photosets')
         paged_photo=paginator_photosets.get_page(page_photo)
-
-
 
     stardata=StarsModel.objects.all()
     haircolor=StarsModel.objects.values('haircolor').distinct()
@@ -286,8 +251,7 @@ def category_filter(request,type=None):
 
         if type is not None:
             if actual_data is  None:
-
-                actual_data=actual_data.filter(type=type,quality="HD").order_by('-id')
+                actual_data=movies.filter(type=type,quality="HD").order_by('-id')
             else:
                 actual_data=actual_data.filter(type=type)
             paginator_data=Paginator(actual_data,page_number)
@@ -351,7 +315,7 @@ def category_filter(request,type=None):
     if type is not None:
         context={
           'genres':genres,
-           data_to_show:paged_data,
+           data_to_show:paged_data,#gives paged_dvd or anyother type depending on req
            'type':type,
           'star':stardata,
           'haircolor':haircolor,
@@ -361,6 +325,7 @@ def category_filter(request,type=None):
           'popular_genre':popular_genres,
           'current':current,
           'studio':all_studios,
+          'pages':pages,
         }
 
     else:
@@ -377,29 +342,45 @@ def category_filter(request,type=None):
             'attributes':attribute_choices,
             'popular_genre':popular_genres,
             'current':current,
-            'studio':all_studios
+            'studio':all_studios,
+            'pages':pages,
 
             } 
     return render(request,"category.html",context)
     
    
-
 #simple categoy for genre
 def category_by_genre(request,genrename):
+     pages=Page.objects.all().order_by('-id')
      category=Category.objects.get(category_name=genrename)#first gets category
      genres=Category.objects.all()#get all genre to show as options
-     datatoshow=MovieDetail.objects.all().filter(genre=category)[:20]#finally get movie based on category
+     datatoshow=MovieDetail.objects.all().filter(genre=category)#finally get movie based on category
+     get_dvd=datatoshow.filter(type="DVD",quality="HD").order_by('-id')
+     
+     paginator_dvd=Paginator(get_dvd,20)
+     page_dvd=request.GET.get('page_dvd')
+     paged_dvd=paginator_dvd.get_page(page_dvd)
+
+     get_scene=datatoshow.filter(type="Scene",quality="HD").order_by('-id')
+     paginator_scene=Paginator(get_scene,20)
+     page_scene=request.GET.get('page_scene')
+     paged_scene=paginator_scene.get_page(page_scene)
+
+     get_photoset=datatoshow.filter(type="PhotoSets",quality="HD").order_by('-id')
+     paginator_photosets=Paginator(get_photoset,20)
+     page_photo=request.GET.get('page_photosets')
+     paged_photo=paginator_photosets.get_page(page_photo)
      stardata=StarsModel.objects.all()
-     current={}
-     current['genre']=genrename
+
      context={
           'genres':genres,
-          'data':datatoshow,
+          'data_dvd':paged_dvd,
+          'data_scene':paged_scene,
+          'data_photosets':paged_photo,
           'genre':genrename,
           'star':stardata,
-          'current':current,
+          'pages':pages,
 
      }
-
 
      return render(request,"category.html",context)

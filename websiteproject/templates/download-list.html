@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-
+{% load i18n %}
 {% block title %}
 <title>FlixTV – Movies & TV Shows, Online cinema HTML Template</title>
 {% endblock %}
@@ -87,7 +87,7 @@
         </div>
     </div>
 </div>
-<section style="padding:0px;margin-top:150px;"
+<section style="padding:0px;margin-top:100px;"
     class="section section--head section--head-fixed section--gradient section--details-bg">
     <div class="container">
         <!-- article -->
@@ -96,9 +96,9 @@
                 <div style="flex-direction:row;display:flex;justify-content:space-between;width:100%"
                     class="article__content">
 
-                    <h1>Download</h1>
-                    <button onclick='modalshow()' style="max-width:40%;" class="sign__btn">Get your Ftp
-                        Credentials</button>
+                    <h1>{% trans "Download" %}</h1>
+                    <button onclick='modalshow()' style="max-width:40%;" class="sign__btn">{% trans "Get your Ftp
+                        Credentials" %}</button>
                 </div>
                 <!-- end article content -->
             </div>
@@ -137,7 +137,7 @@
             </script>
 
 
-            <div id='counter'  style="color:white;margin-top:25px;font-size:20px;"></div>
+            <div id='counter'  style="color:white;margin-top:10px;font-size:20px;"></div>
              
 
             {% if data_dvd %}
@@ -145,7 +145,7 @@
                 <div style="flex-direction:row;display:flex;justify-content:space-between;width:100%"
                     class="article__content">
 
-                    <h1>DVD</h1>
+                    <h1>{% trans "DVD" %}</h1>
                 </div>
                 <!-- end article content -->
             </div>
@@ -196,7 +196,7 @@
                 <div style="flex-direction:row;display:flex;justify-content:space-between;width:100%"
                     class="article__content">
 
-                    <h1>Scene</h1>
+                    <h1>{% trans "Scene" %}</h1>
                 </div>
                 <!-- end article content -->
             </div>
@@ -205,7 +205,7 @@
                 {% for item in data_scene %}
 
                 <div  class="large_scene col-12 col-sm-6 col-lg-3 col-md-4 col-xxl-2">
-                    <div class="card">
+                    <div class="card card__scene">
                         <a href="{% url 'details' slug=item.product.slug %}" class="card__cover">
                             <img class="product_image_scene" src="{{item.product.coverphoto.url}}" alt="">
                             <svg width="22" height="22" viewBox="0 0 22 22" fill="none"
@@ -256,7 +256,7 @@
                 <div style="flex-direction:row;display:flex;justify-content:space-between;width:100%"
                     class="article__content">
 
-                    <h1>PhotoSets</h1>
+                    <h1>{% trans "PhotoSets" %}</h1>
                 </div>
                 <!-- end article content -->
             </div>
@@ -316,16 +316,16 @@
                 <div style="flex-direction:row;display:flex;justify-content:space-between;width:100%"
                     class="article__content">
 
-                    <h1>Packages</h1>
+                    <h1>{% trans "Packages" %}</h1>
                 </div>
                 <!-- end article content -->
             </div>
-            <div class="row row--grid">
+            <div style="justify-content: center;margin:0 auto;" class="row row--grid">
                 {% for item in albums %}
-                <div style="margin-right:18px;" class="col-6 col-sm-4 col-lg-3 col-xl-2">
+                <div  class="large_screen col-6 col-sm-4 col-lg-3 col-xl-2">
                     <div class="card">
                         <a href="{% url 'package_list' id=item.product.id %}" class="card__cover">
-                            <img src="{{item.product.album.coverphoto.url}}" alt="">
+                            <img class="product_image" src="{{item.product.album.coverphoto.url}}" alt="">
                             <svg width="22" height="22" viewBox="0 0 22 22" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" clip-rule="evenodd"
