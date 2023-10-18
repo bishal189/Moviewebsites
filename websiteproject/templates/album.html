@@ -50,7 +50,7 @@
 								{% comment %} <span class="card__rating">{{item.price}} $</span> {% endcomment %}
 
 								<h3 class="card__title card__title--subs"><a href="{% url 'album_detail' item.id %}">{{item.album_name}}</a></h3>
-								<ul class="card__list">
+								<ul style="justify-content:center;" class="card__list">
 												{% comment %} <li>{{album.movies.count}} items added</li> {% endcomment %}
 												<li>{{item.price}} $</li>
 												

@@ -81,7 +81,7 @@ def album_detail(request,id):
             li.append(item.product)
         
         filtered_movie_details = [movie for movie in movies if movie not in li]    
-        paginator = Paginator(filtered_movie_details, 2)
+        paginator = Paginator(filtered_movie_details, 20)
 
     # Get the current page number from the request's GET parameters
         page_number = request.GET.get('page_album')
