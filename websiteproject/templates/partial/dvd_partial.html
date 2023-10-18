@@ -1,8 +1,8 @@
 						{% for item in  dvd %}
 						<div class="large_screen col-6 col-sm-4 col-lg-3 col-xl-2 col-xxl-2">
-							<div class="card">
+							<div class="card" style="width:220px;">
 								<a style="border-radius:0px;" href="{% url 'details' slug=item.slug %}" class="card__cover">
-									<img style="height:240px;width:165px;filter:blur(0);" src="{{item.coverphoto.url}}" alt="">
+									<img style="filter:blur(0)" class="product_image"  src="{{item.coverphoto.url}}" alt="">
 																		</a>
 									{% if user.is_authenticated %}
 									{% if item.id in user_favourite_movie %}
