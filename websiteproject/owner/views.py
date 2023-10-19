@@ -61,38 +61,62 @@ def  add_item(request):
       images_list=[]
       
       cover_image=request.FILES['form__img-upload']
-      title=request.POST['title']
-      text=request.POST['text']
+      title_en=request.POST['title_en']
+      title_de=request.POST['title_de']
+      text_en=request.POST['text_en']
+      text_de=request.POST['text_de']
+
       releasedyear=request.POST['releasedyear']
       length=request.POST['length']
       quality=request.POST['quality']
       type=request.POST['type']
       price=request.POST['price']
-      if 'movie' in request.FILES:
 
+      if 'movie' in request.FILES:
         movie=request.FILES['movie']
       else:
-        movie=None     
-      form=MovieDetail.objects.create(movie_name=title,year=releasedyear,type=type,quality=quality,coverphoto=cover_image,duration=length,short_description=text,trailer=movie,price=price)
-      
+        movie=None  
+
+      form_en=MovieDetail.objects.create(movie_name=title_en,lang='en',year=releasedyear,type=type,quality=quality,coverphoto=cover_image,duration=length,short_description=text_en,trailer=movie,price=price)
       for uploaded_file in request.FILES.getlist('image'):
         image_instance=ImagesModel.objects.create(image=uploaded_file)
         images_list.append(image_instance)
-      form.images.set(images_list)
+      form_en.images.set(images_list)
+
       for star in request.POST.getlist('stars'):
         star=StarsModel.objects.get(id=star)
-        form.stars.add(star)
+        form_en.stars.add(star)
 
-      for studio in request.POST.getlist('studio'):
+      for studio in request.POST.getlist('studio_en'):
         studio=StudioModel.objects.get(id=studio)
         
-      form.studio=studio
-      for gen in request.POST.getlist('genre'):
+      form_en.studio=studio
+      for gen in request.POST.getlist('genre_en'):
         category=Category.objects.get(id=gen)
-        form.genre.add(category)
+        form_en.genre.add(category)
+      form_en.save()
 
 
-      form.save()
+      form_de=MovieDetail.objects.create(movie_name=title_de,lang='de',year=releasedyear,type=type,quality=quality,coverphoto=form_en.coverphoto,duration=length,short_description=text_de,trailer=form_en.trailer,price=price)
+      
+
+      form_de.images.set(images_list)
+
+      for star in request.POST.getlist('stars'):
+        star=StarsModel.objects.get(id=star)
+        form_de.stars.add(star)
+
+      for studio in request.POST.getlist('studio_de'):
+        studio=StudioModel.objects.get(id=studio)
+        
+      form_de.studio=studio
+      for gen in request.POST.getlist('genre_de'):
+        category=Category.objects.get(id=gen)
+        form_de.genre.add(category)
+      form_de.save()
+
+
+
       messages.error(request,'please check a details')
       return render(request,'owner/add-item.html',context)
     return render(request,'owner/add-item.html',context)
