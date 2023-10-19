@@ -370,7 +370,7 @@ clickyes()
 					<h1 style="margin-bottom:0px;padding:20px;" class="home__title">{% trans "Recently Added Scenes" %} <span style="font-size:16px;position:absolute;right:10%;"><a class="span_hover" href="{% url 'scenes' %}">{% trans "View All" %}</a></span></h1><F5>
 					</div>
 					
-						<div id="paginator_data" style="justify-content:center; margin:0 auto;" class="row row--grid">
+						<div id="paginator_data_scene" style="justify-content:center; margin:0 auto;" class="row row--grid">
 							{% for item in scenes %}
 
 				
@@ -734,8 +734,8 @@ clickyes()
 
 									
 								<h3 class="card__title"><a href="{% url 'album_detail' item.id%}">{{item.album_name}}</a></h3>
-								<ul class="card__list">
-									<li>{{item.price}} $</li>
+								<ul style="justify-content:center;"class="card__list" >
+									<li >{{item.price}} $</li>
 								</ul>
 							</div>
 						</div>

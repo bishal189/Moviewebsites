@@ -8,7 +8,6 @@ from owner.models import Page
 def contact(request):
     pages=Page.objects.all().order_by('-id')
     if request.method=='POST':
-       print(request.POST)
        first_name=request.POST['first_name']
        last_name=request.POST['last_name']
        email=request.POST['email']

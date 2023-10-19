@@ -10,7 +10,7 @@ from owner.models import Page
 def album(request):
     pages=Page.objects.all().order_by('-id')
     albums=Albums.objects.filter(lang=request.LANGUAGE_CODE).order_by('-id')
-    paginator_album=Paginator(albums,1)
+    paginator_album=Paginator(albums,12)
     page_album=request.GET.get('page_albums')
     paged_album=paginator_album.get_page(page_album)
     if request.META.get('HTTP_X_REQUESTED_WITH') == 'Fetch':
@@ -38,7 +38,7 @@ def album(request):
 def album_detail(request,id):
     pages=Page.objects.all().order_by('-id')
     album=Albums.objects.get(id=id) 
-    movies=MovieDetail.objects.filter(genre__in=album.genre.all(),type=album.type,lang=request.LANGUAGE_CODE).order_by('-id').distinct()
+    movies=MovieDetail.objects.filter(genre__in=album.genre.all(),type=album.type).order_by('-id').distinct()
     counter=0
 
     #since previous movies which are alraedy bough should not be shown
@@ -86,7 +86,7 @@ def album_detail(request,id):
         
         #movies already bought are not shown album 
         filtered_movie_details = [movie for movie in movies if movie not in li]    
-        paginator = Paginator(filtered_movie_details, 2)
+        paginator = Paginator(filtered_movie_details, 20)
 
     # Get the current page number from the request's GET parameters
         page_number = request.GET.get('page_album')

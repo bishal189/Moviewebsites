@@ -16,6 +16,7 @@ from django.db.models.functions import Lower
 
 #Home page
 def home(request): 
+    lang=request.LANGUAGE_CODE
 
     #just for showing filtering data
     attribute_mapping = {
@@ -47,18 +48,21 @@ def home(request):
             values = StarsModel.objects.values(attribute_mapping[attribute]).distinct()
             values_list = [value[attribute_mapping[attribute]] for value in values]
             attribute_choices.extend([f"{attribute}:{value}" for value in values_list])
-    popular_genres=popular_categories = Category.objects.annotate(
+    
+    genres=Category.objects.filter(lang=lang).order_by('-id')
+   
+    popular_genres= genres.annotate(
     total_views=Count('moviedetail__view_count'),
     total_carts=Count('moviedetail__cart_count')
     ).order_by('-total_views', '-total_carts')[:10]
-    studio=StudioModel.objects.all().order_by('-id')
+    studio=StudioModel.objects.filter(lang=lang).order_by('-id')
 
 # end attribute for showing data in model star for filtering 
 
-
-    all_dvd=MovieDetail.objects.filter(type="DVD").order_by('-id')
-    all_scene=MovieDetail.objects.filter(type="Scene").order_by('-id')
-    all_photosets=MovieDetail.objects.filter(type="PhotoSets").order_by('-id')
+    movies=MovieDetail.objects.filter(lang=lang)
+    all_dvd=movies.filter(type="DVD").order_by('-id')
+    all_scene=movies.filter(type="Scene").order_by('-id')
+    all_photosets=movies.filter(type="PhotoSets").order_by('-id')
 
     paginator_dvd=Paginator(all_dvd,12)
     page_dvd=request.GET.get('page_dvd')
@@ -73,8 +77,8 @@ def home(request):
     paged_photo=paginator_photo.get_page(page_photo)
 
     count_dvd=all_dvd.count()
-    allalbums=Albums.objects.all().order_by('-id')
-    paginator_album=Paginator(allalbums,2)
+    allalbums=Albums.objects.filter(lang=lang).order_by('-id')
+    paginator_album=Paginator(allalbums,12)
     page_album=request.GET.get('page_album')
     paged_album=paginator_album.get_page(page_album)
 
@@ -83,7 +87,6 @@ def home(request):
     page_star=request.GET.get('page_star')
     paged_star=paginator_star.get_page(page_star)
 
-    genres=Category.objects.all().order_by('-id')
     haircolor=StarsModel.objects.values('haircolor').distinct()
 
     user_favorite_movies=None
@@ -105,7 +108,13 @@ def home(request):
 
         if page_scene is not None:
             paged_scene = paginator_scene.get_page(page_scene)
-            scenes_html = render_to_string('partial/scenes_partial.html', {'scenes': paged_scene}, request=request)
+            context={
+            'user_favourite_movie':user_favorite_movies,
+            'user_added_cart':user_added_cart,
+            'scenes':paged_scene
+            }
+            
+            scenes_html = render_to_string('partial/scenes_partial.html',context, request=request)
             pagination_html = render_to_string('partial/pagination_partial.html', {'data': paged_scene,'type':"scene",}, request=request)
             response_data = {
         'content': scenes_html,
@@ -114,7 +123,12 @@ def home(request):
 
         if page_dvd is not None:
             paged_dvd= paginator_dvd.get_page(page_dvd)
-            dvd_html = render_to_string('partial/dvd_partial.html', {'dvd': paged_dvd}, request=request)
+            context={
+            'user_favourite_movie':user_favorite_movies,
+            'user_added_cart':user_added_cart,
+            'dvd':paged_dvd
+            }
+            dvd_html = render_to_string('partial/dvd_partial.html',context, request=request)
             pagination_html = render_to_string('partial/pagination_partial.html', {'data': paged_dvd,'type':"dvd",}, request=request)
             response_data = {
         'content': dvd_html,
@@ -123,7 +137,12 @@ def home(request):
 
         if page_photo is not None:
             paged_photo= paginator_photo.get_page(page_photo)
-            photo_html = render_to_string('partial/photo_partial.html', {'photoset': paged_photo}, request=request)
+            context={
+            'user_favourite_movie':user_favorite_movies,
+            'user_added_cart':user_added_cart,
+            'photoset':paged_photo
+            }
+            photo_html = render_to_string('partial/photo_partial.html',context, request=request)
             pagination_html = render_to_string('partial/pagination_partial.html', {'data': paged_photo,'type':"photo",}, request=request)
             response_data = {
         'content': photo_html,
@@ -131,6 +150,7 @@ def home(request):
             }
         if page_album is not None:
             paged_album=paginator_album.get_page(page_album)
+
             album_html=render_to_string('partial/album_partial.html',{'albums':paged_album},request=request)
             pagination_html=render_to_string('partial/pagination_partial.html',{'data':paged_album,'type':'album'})
             response_data={
@@ -163,9 +183,7 @@ def home(request):
         'pages':pages,
         'popular_genre':popular_genres,
         'attributes':attribute_choices,
-        'studio':studio
-
-        
+        'studio':studio   
     }
 
 
@@ -203,12 +221,14 @@ def studio_detail(request,id):
 
 #Searching functionality
 def search(request):
+    lang=request.LANGUAGE_CODE
     pages=Page.objects.all().order_by('-id')
     tosearch=request.POST['searchtext']
-    get_dvd=MovieDetail.objects.filter(movie_name__icontains=tosearch,type="DVD").order_by('-id')
-    get_scene=MovieDetail.objects.filter(movie_name__icontains=tosearch,type="Scene").order_by('-id')
-    get_photoset=MovieDetail.objects.filter(movie_name__icontains=tosearch,type="PhotoSets").order_by('-id')
-    get_album=Albums.objects.filter(album_name__icontains=tosearch).order_by('-id')
+    movies=MovieDetail.objects.filter(lang=lang)
+    get_dvd=movies.filter(movie_name__icontains=tosearch,type="DVD").order_by('-id')
+    get_scene=movies.filter(movie_name__icontains=tosearch,type="Scene").order_by('-id')
+    get_photoset=movies.filter(movie_name__icontains=tosearch,type="PhotoSets").order_by('-id')
+    get_album=Albums.objects.filter(lang=lang,album_name__icontains=tosearch).order_by('-id')
    
     paginator_dvd = Paginator(get_dvd, per_page=10)
     paginator_scene=Paginator(get_scene,per_page=10)  # Set the number of items per page (e.g., 10 items per page)
@@ -272,6 +292,7 @@ def pagination(request):
 
 #Getting list of scene type Movies
 def scenes(request):
+    lang=request.LANGUAGE_CODE
     pages=Page.objects.all().order_by('-id')
     #just for showing filtering data
     attribute_mapping = {
@@ -303,16 +324,18 @@ def scenes(request):
             values = StarsModel.objects.values(attribute_mapping[attribute]).distinct()
             values_list = [value[attribute_mapping[attribute]] for value in values]
             attribute_choices.extend([f"{attribute}:{value}" for value in values_list])
-    popular_genres=popular_categories = Category.objects.annotate(
+    
+    genres=Category.objects.filter(lang=lang).order_by('-id')
+    popular_genres= genres.annotate(
     total_views=Count('moviedetail__view_count'),
     total_carts=Count('moviedetail__cart_count')
     ).order_by('-total_views', '-total_carts')[:10]
-    genres=Category.objects.all().order_by('-id')
-    studio=StudioModel.objects.all().order_by('-id')
+    
+    studio=StudioModel.objects.filter(lang=lang).order_by('-id')
 
 # end attribute for showing data in model star for filtering 
 
-    alldata = MovieDetail.objects.filter(type='Scene').order_by('-id')
+    alldata = MovieDetail.objects.filter(lang=lang,type='Scene').order_by('-id')
     paginator_scene = Paginator(alldata, 20)
     page_scene = request.GET.get('page_scene')
     paged_scene = paginator_scene.get_page(page_scene)
@@ -347,14 +370,24 @@ def scenes(request):
             
 
             if page_scene is None:
-                html=render_to_string('partial/scenes_partial.html',{'scenes':actual_data},request=request)
+                context={
+            'user_favourite_movie':user_favorite_movies,
+            'user_added_cart':user_added_cart,
+            'scenes':actual_data
+            }
+                html=render_to_string('partial/scenes_partial.html',context,request=request)
                 response_data={
                     'content':html
                 }
 
         if page_scene is not None:
             paged_scene = paginator_scene.get_page(page_scene)
-            scenes_html = render_to_string('partial/scenes_partial.html', {'scenes': paged_scene}, request=request)
+            context={
+            'user_favourite_movie':user_favorite_movies,
+            'user_added_cart':user_added_cart,
+            'scenes':paged_scene
+            }
+            scenes_html = render_to_string('partial/scenes_partial.html',context, request=request)
 
         # Render the pagination HTML
             pagination_html = render_to_string('partial/pagination_partial.html', {'data': paged_scene,'type':"scene",}, request=request)
@@ -379,6 +412,7 @@ def scenes(request):
     return render(request, 'scenes.html',context)
 
 def dvd(request):
+    lang=request.LANGUAGE_CODE
     pages=Page.objects.all().order_by('-id')
     #just for showing filtering data
     attribute_mapping = {
@@ -413,8 +447,8 @@ def dvd(request):
 
 
 # end attribute for showing data in model star for filtering 
-    studio=StudioModel.objects.all().order_by('-id')
-    alldata=MovieDetail.objects.filter(type='DVD').order_by('-id')
+    studio=StudioModel.objects.filter(lang=lang).order_by('-id')
+    alldata=MovieDetail.objects.filter(lang=lang,type='DVD').order_by('-id')
     paginator_dvd=Paginator(alldata,20)
     page_dvd=request.GET.get('page_dvd')
     paged_dvd=paginator_dvd.get_page(page_dvd)
@@ -451,7 +485,12 @@ def dvd(request):
             
 
             if page_dvd is None:
-                html=render_to_string('partial/dvd_partial.html',{'dvd':actual_data},request=request)
+                context={
+            'user_favourite_movie':user_favorite_movies,
+            'user_added_cart':user_added_cart,
+            'dvd':actual_data
+            }
+                html=render_to_string('partial/dvd_partial.html',context,request=request)
                 response_data={
                     'content':html
                 }
@@ -459,8 +498,12 @@ def dvd(request):
 
         if page_dvd is not None:
             paged_dvd= paginator_dvd.get_page(page_dvd)
-            print(paged_dvd)
-            dvd_html = render_to_string('partial/dvd_partial.html', {'dvd': paged_dvd}, request=request)
+            context={
+            'user_favourite_movie':user_favorite_movies,
+            'user_added_cart':user_added_cart,
+            'dvd':paged_dvd
+            }
+            dvd_html = render_to_string('partial/dvd_partial.html', context, request=request)
             pagination_html = render_to_string('partial/pagination_partial.html', {'data': paged_dvd,'type':"dvd",}, request=request)
             response_data = {
         'content': dvd_html,
@@ -468,12 +511,12 @@ def dvd(request):
             }
         return JsonResponse(response_data)
     
+    genres=Category.objects.filter(lang=lang).order_by('-id')
 
-    popular_genres= Category.objects.annotate(
+    popular_genres= genres.annotate(
     total_views=Count('moviedetail__view_count'),
     total_carts=Count('moviedetail__cart_count')
     ).order_by('-total_views', '-total_carts')[:10]
-    genres=Category.objects.all().order_by('-id')
 
     context={
         'dvd':paged_dvd,
@@ -491,6 +534,7 @@ def dvd(request):
     return render(request,'dvd.html',context)
 
 def stars(request):
+    
     pages=Page.objects.all().order_by('-id')
     allstars=StarsModel.objects.all().order_by('-id')
     paginator_star=Paginator(allstars,12)
@@ -517,6 +561,7 @@ def stars(request):
     
 
 def star_detail(request,id):
+    lang=request.LANGUAGE_CODE
     pages=Page.objects.all().order_by('-id')
     star=StarsModel.objects.get(id=id)
     star.view_count=star.view_count+1
@@ -527,7 +572,7 @@ def star_detail(request,id):
         age = current_date.year - dob.year - ((current_date.month, current_date.day) < (dob.month, dob.day))
     else:
         age=None
-    movies=MovieDetail.objects.filter(stars=star)
+    movies=MovieDetail.objects.filter(lang=lang,stars=star)
     data_dvd=movies.filter(type="DVD").order_by('-id')
     data_scene=movies.filter(type="Scene").order_by('-id')
 
@@ -554,6 +599,8 @@ def star_detail(request,id):
 
 
 def photosets(request):
+    lang=request.LANGUAGE_CODE
+
     pages=Page.objects.all().order_by('-id')
     #just for showing filtering data
     attribute_mapping = {
@@ -587,14 +634,15 @@ def photosets(request):
             attribute_choices.extend([f"{attribute}:{value}" for value in values_list])
 
 # end attribute for showing data in model star for filtering 
-    studio=StudioModel.objects.all().order_by('-id')
-    popular_genres= Category.objects.annotate(
+    studio=StudioModel.objects.filter(lang=lang).order_by('-id')
+    genres=Category.objects.filter(lang=lang).order_by('-id')
+
+    popular_genres= genres.annotate(
     total_views=Count('moviedetail__view_count'),
     total_carts=Count('moviedetail__cart_count')
     ).order_by('-total_views', '-total_carts')[:10]
-    genres=Category.objects.all().order_by('-id')
 
-    movies=MovieDetail.objects.filter(type="PhotoSets")
+    movies=MovieDetail.objects.filter(lang=lang,type="PhotoSets")
     paginator_photo=Paginator(movies,20)
     page_photo=request.GET.get('page_photo')
     paged_photo=paginator_photo.get_page(page_photo)
@@ -630,14 +678,25 @@ def photosets(request):
             
 
             if page_photo is None:
-                html=render_to_string('partial/photo_partial.html',{'photoset':actual_data},request=request)
+                context={
+            'user_favourite_movie':user_favorite_movies,
+            'user_added_cart':user_added_cart,
+            'photoset':actual_data
+            }
+                html=render_to_string('partial/photo_partial.html',context,request=request)
                 response_data={
                     'content':html
                 }
 
         if page_photo is not None:
+            
             paged_photo= paginator_photo.get_page(page_photo)
-            photo_html = render_to_string('partial/photo_partial.html', {'photoset': paged_photo}, request=request)
+            context={
+            'user_favourite_movie':user_favorite_movies,
+            'user_added_cart':user_added_cart,
+            'photoset':paged_photo
+            }
+            photo_html = render_to_string('partial/photo_partial.html', context, request=request)
             pagination_html = render_to_string('partial/pagination_partial.html', {'data': paged_photo,'type':"photo",}, request=request)
             response_data = {
         'content': photo_html,
