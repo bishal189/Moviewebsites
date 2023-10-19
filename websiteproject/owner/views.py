@@ -45,12 +45,17 @@ def dashboard(request):
 @user_passes_test(is_superadmin)
 def  add_item(request):
     star=StarsModel.objects.all().order_by('-id')
-    studio=StudioModel.objects.all().order_by('-id')
-    genres=Category.objects.all().order_by('-id')
+    studio_en=StudioModel.objects.filter(lang='en').order_by('-id')
+    genres_en=Category.objects.filter(lang='en').order_by('-id')
+
+    studio_de=StudioModel.objects.filter(lang='de').order_by('-id')
+    genres_de=Category.objects.filter(lang='de').order_by('-id')
     context={
       'star':star,
-      'studio':studio,
-      'genres':genres,
+      'studio_en':studio_en,
+      'genres_en':genres_en,
+      'studio_de':studio_de,
+      'genres_de':genres_de,
     }
     if request.method == 'POST' and request.FILES.get('form__img-upload'):
       images_list=[]
@@ -98,23 +103,31 @@ def  add_item(request):
 def add_album(request):
    if request.method=="POST" and request.FILES.get('form__img-upload'):
       coverphoto=request.FILES['form__img-upload']
-      title=request.POST['title']
+      title_en=request.POST['title_en']
+      title_de=request.POST['title_de']
       limit=request.POST['limit']
       price=request.POST['price']
       type=request.POST['type']
 
-      creator=Albums.objects.create(coverphoto=coverphoto,album_name=title,type=type,limit=limit,price=price)
-      for gen in request.POST.getlist('genre'):
-
+      creator_en=Albums.objects.create(coverphoto=coverphoto,album_name=title_en,type=type,limit=limit,price=price,lang='en')
+      for gen in request.POST.getlist('genre_en'):
         category=Category.objects.get(id=gen)
-        creator.genre.add(category)
+        creator_en.genre.add(category)     
+      creator_en.save()
 
-      
-      creator.save()
-   genres=Category.objects.all().order_by('-id')
+
+      creator_de=Albums.objects.create(coverphoto=creator_en.coverphoto,album_name=title_de,type=type,limit=limit,price=price,lang='de')
+      for gen in request.POST.getlist('genre_de'):
+        category=Category.objects.get(id=gen)
+        creator_de.genre.add(category)     
+      creator_de.save()
+
+   genres_en=Category.objects.filter(lang='en').order_by('-id')
+   genres_de=Category.objects.filter(lang='de').order_by('-id')
 
    context={
-      'genres':genres
+      'genres_en':genres_en,
+      'genres_de':genres_de,
    }
    return render(request,"owner/add-album.html",context)
    
@@ -272,15 +285,29 @@ def user_list(request):
 @user_passes_test(is_superadmin)
 def add_studio(request):
   if request.method == 'POST' :
-      studioname=request.POST['studio']
-      studio,created=StudioModel.objects.get_or_create(category_name=studioname.title())
+      if 'studio_en' in request.POST and request.POST['studio_en']!="":
+          studioname_en=request.POST['studio_en']
+          studio,created=StudioModel.objects.get_or_create(name=studioname_en.title(),lang='en')
+
+      if 'studio_de' in request.POST and request.POST['studio_de']!="":
+         studioname_de=request.POST['studio_de']
+         studio,created=StudioModel.objects.get_or_create(name=studioname_de.title(),lang='de')
+
+
       return render(request,'owner/add_studio.html')
   return render(request,'owner/add_studio.html')
 
 def add_genre(request):
   if request.method == 'POST' :
-      genrename=request.POST['genre']
-      category,created=Category.objects.get_or_create(category_name=genrename.title())
+      if 'genrename_en' in request.POST and request.POST['genrename_en']!="":
+        genrename_en=request.POST['genrename_en']
+        category,created=Category.objects.get_or_create(category_name=genrename_en.title(),lang='en')
+      
+      if 'genrename_de' in request.POST and request.POST['genrename_de']!="":
+         genrename_de=request.POST['genrename_de']
+         category,created=Category.objects.get_or_create(category_name=genrename_de.title(),lang='de')
+         
+
       return render(request,'owner/add-genre.html')
   return render(request,'owner/add-genre.html')
 

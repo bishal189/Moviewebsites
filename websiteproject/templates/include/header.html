@@ -1,7 +1,15 @@
 {% load static %}
 {% load i18n %}
 {% get_current_language as LANGUAGE_CODE %}
+<style>
+.sign__input{
+  background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"%3E%3Cpath fill="%23ffffff" d="M7 10l5 5 5-5z" /%3E%3C/svg%3E');
+  background-repeat: no-repeat;
+background-position: right center; /* Adjust the position as needed */
+}
 
+
+</style>
 <header style="z-index:100" class="header header--hidden">
   <div style="max-width:100%;" class="container">
     <div class="row" style='background:black;'>
@@ -16,6 +24,7 @@
           {% comment %} <a style="color:white;font-size:18px;" href="{% url 'home'  %}" class="header__logo">
            Adult Star Content
           </a> {% endcomment %}
+        
           
           <ul class="header__nav">
             <li class="header__nav-item">
@@ -26,23 +35,7 @@
                 aria-haspopup="true"
                 aria-expanded="false"
                 >{% trans "Home" %}</a></li>
-                <li class="header__nav-link">
-                  <form action={% url 'set_language' %} method="post">
-                    {% csrf_token %}
-                    <input type="hidden"name="next" value={{redirect_to}}>
-                    <select name="language"id="">
-                        {% get_available_languages as LANGUAGES %}
-                        {% get_language_info_list for  LANGUAGES as languages %}
-                        {% for language in languages %}
-                            <option value="{{language.code}}"{% if language.code == LANGUAGE_CODE %}selected{% endif %}>
-                                {{language.name_local}}({{language.code}})
-                
-                        {% endfor %}
-                        <input type="submit" value="Go">
-                    </select>
-                </form>
-                
-                </li>
+              
                
            
             <li class="header__nav-item">
@@ -80,8 +73,7 @@
                 aria-haspopup="true"
                 aria-expanded="false"
                 > 
-                {% url 'photosets' as photosets_url %}
-                <span>{% trans photosets_url %}</span>
+
 
                 {% trans "PhotoSets" %}</a>
             </li>
@@ -169,13 +161,39 @@
             <span class="cart-icon">&#x1F6D2;</span>
             <!-- Cart value (replace '3' with the actual value) -->
             <span style="right:0px;" id="cart-value" class="cart-value">{{cart_count}}</span>
-        </a>
+        
+          </a>
+
+          <li class="header__nav-link">
+            <form action={% url 'set_language' %} method="post">
+              {% csrf_token %}
+              <input type="hidden"name="next" value={{redirect_to}}>
+              <select class="sign__input" name="language"id="selector">
+                  {% get_available_languages as LANGUAGES %}
+                  {% get_language_info_list for  LANGUAGES as languages %}
+                  {% for language in languages %}
+                      <option value="{{language.code}}"{% if language.code == LANGUAGE_CODE %}selected{% endif %}>
+                          ({{language.code}})
+          
+                  {% endfor %}
+                  <!-- <input  type="submit" value="Go"> -->
+              </select>
+          </form>
+          
+          </li>
         </div>
       </div>
     </div>
   </div>
  
 </header>
+<script>
 
+document.querySelector('select[name="language"]').addEventListener('change', function() {
+  this.form.submit();
+});
+
+
+</script>
 
 <!-- end header -->
