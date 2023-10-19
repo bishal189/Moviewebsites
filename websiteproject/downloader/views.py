@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from .ftpsettings import FTP_SERVER,FTP_PASSWORD,FTP_USERNAME
 from django.shortcuts import render
 from django.http import StreamingHttpResponse,JsonResponse
 from detailapp.models import Order_Product,Order_Product_album
@@ -17,7 +16,7 @@ def download_list(request):
         order_items=Order_Product.objects.filter(user=user)
 
         user_home_directory = "/home/"+user.username        
-        centralized_movies_directory = "/home/website"
+        centralized_movies_directory = os.getenv('Centralized_Directory')
 
         for item in order_items:
             purchased_movie = item.product.movie_name
@@ -26,9 +25,10 @@ def download_list(request):
             command = ["sudo", "ln", "-s", source_path, symlink_path]
             try:
                 subprocess.run(command, check=True)
-                print("Symbolic link created successfully.")
+                # print("Symbolic link created successfully.")
             except subprocess.CalledProcessError as e:
-                print(f"Error: {e}")
+                pass
+                # print(f"Error: {e}")
 
         albums=Order_Product_album.objects.filter(user=user)
         for album in albums:
@@ -42,9 +42,10 @@ def download_list(request):
                 command = ["sudo", "ln", "-s", source_path, symlink_path]
                 try:
                     subprocess.run(command, check=True)
-                    print("Symbolic link created successfully.")
+                    # print("Symbolic link created successfully.")
                 except subprocess.CalledProcessError as e:
-                    print(f"Error: {e}")
+                    pass
+                    # print(f"Error: {e}")
         data_dvd=order_items.filter(product__type='DVD')
         data_scene=order_items.filter(product__type='Scene')
         data_photoset=order_items.filter(product__type='PhotoSets')
@@ -72,7 +73,7 @@ def inc_counter(request,id):
 
 def file_download(request,filename):
     try:
-        host = ftputil.FTPHost(FTP_SERVER, FTP_USERNAME, FTP_PASSWORD)
+        host = ftputil.FTPHost(os.getenv('FTP_SERVER'), os.getenv('FTP_USERNAME'), os.getenv('FTP_PASSWORD'))
         # Define source path (FTP server's home folder) and destination path (user's local download folder)
         source_folder = "."  # Replace with the actual path on the FTP server
 

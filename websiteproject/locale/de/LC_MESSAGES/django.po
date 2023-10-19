@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 05:05+0000\n"
+"POT-Creation-Date: 2023-10-19 13:11+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -58,13 +58,13 @@ msgid "Add to Packages"
 msgstr "Zu Paketen hinzufügen"
 
 #: templates/album.html:20 templates/album.html:26
-#: templates/download-list.html:320 templates/include/header.html:74
+#: templates/download-list.html:317 templates/include/header.html:67
 #: templates/index.html:731
 msgid "Packages"
 msgstr "Pakete"
 
 #: templates/album.html:25 templates/category.html:25
-#: templates/include/header.html:29 templates/profile.html:121
+#: templates/include/header.html:38 templates/profile.html:121
 #: templates/search.html:26 templates/stars.html:24
 msgid "Home"
 msgstr "Home"
@@ -124,15 +124,15 @@ msgstr "Anzeige"
 msgid "Filter"
 msgstr "Filter"
 
-#: templates/category.html:151 templates/download-list.html:149
+#: templates/category.html:151 templates/download-list.html:148
 #: templates/dvd.html:25 templates/include/footer.html:33
-#: templates/include/header.html:65 templates/partial/partial-category.html:5
+#: templates/include/header.html:58 templates/partial/partial-category.html:5
 #: templates/profile.html:211 templates/search.html:42
 #: templates/studio-detail.html:29
 msgid "DVD"
 msgstr "DVD"
 
-#: templates/category.html:267 templates/download-list.html:200
+#: templates/category.html:267 templates/download-list.html:199
 #: templates/include/footer.html:35 templates/partial/partial-category.html:120
 #: templates/profile.html:266 templates/search.html:131
 msgid "Scene"
@@ -191,12 +191,28 @@ msgstr "\tZum Warenkorb hinzugefügt"
 msgid "Similar Items"
 msgstr "ähnliche Gegenstände"
 
+#: templates/download-list.html:78 templates/package-list.html:77
+msgid "FTP CREDENTIALS"
+msgstr "FTP-Zugangsdaten"
+
+#: templates/download-list.html:79 templates/package-list.html:78
+msgid "Donot Share With Others"
+msgstr "Nicht mit anderen teilen"
+
+#: templates/download-list.html:87 templates/profile.html:105
+msgid "Cancel"
+msgstr "Abbrechen"
+
 #: templates/download-list.html:100 templates/package-list.html:99
-#: templates/package-list.html:172 templates/profile.html:725
+#: templates/package-list.html:171 templates/profile.html:725
 msgid "Download"
 msgstr "herunterladen"
 
-#: templates/download-list.html:260 templates/include/header.html:87
+#: templates/download-list.html:101 templates/package-list.html:101
+msgid "Get your Ftp Credentials"
+msgstr "Abrufen Ihrer FTP-Anmeldeinformationen"
+
+#: templates/download-list.html:259 templates/include/header.html:79
 msgid "PhotoSets"
 msgstr "Fotosets"
 
@@ -248,36 +264,36 @@ msgstr "Seiten"
 msgid "©Copy right reserved, 2023. Created by"
 msgstr "©Urheberrecht vorbehalten, 2023. Erstellt von"
 
-#: templates/include/header.html:56 templates/scenes.html:27
+#: templates/include/header.html:49 templates/scenes.html:27
 #: templates/studio-detail.html:216
 msgid "Scenes"
 msgstr "Szenen"
 
-#: templates/include/header.html:79
+#: templates/include/header.html:72
 #, fuzzy
 #| msgid "Photosets"
 msgid "photosets"
 msgstr "Fotosets"
 
-#: templates/include/header.html:96 templates/stars.html:19
+#: templates/include/header.html:88 templates/stars.html:19
 #: templates/stars.html:25
 msgid "Stars"
 msgstr "Schauspieler"
 
-#: templates/include/header.html:107
+#: templates/include/header.html:97
 msgid "I am looking for..."
 msgstr "Ich suche nach..."
 
-#: templates/include/header.html:142
+#: templates/include/header.html:115
 msgid "Sign Out"
 msgstr "Abmelden"
 
-#: templates/include/header.html:152 templates/signin.html:42
+#: templates/include/header.html:125 templates/signin.html:42
 #: templates/signup.html:61
 msgid "Sign in"
 msgstr "Anmelden"
 
-#: templates/include/header.html:166
+#: templates/include/header.html:139
 msgid "Welcome"
 msgstr "Willkommen"
 
@@ -330,14 +346,6 @@ msgstr "Kürzlich hinzugefügte Fotosets"
 msgid "Trending Stars"
 msgstr "Trendende Stars"
 
-#: templates/package-list.html:77
-msgid "FTP CREDENTIALS"
-msgstr "FTP-Zugangsdaten"
-
-#: templates/package-list.html:78
-msgid "Donot Share With Others"
-msgstr "Nicht mit anderen teilen"
-
 #: templates/profile.html:93
 msgid "Are You sure you want to Delete Your Account"
 msgstr "Sind Sie sicher, dass Sie Ihr Konto löschen möchten"
@@ -352,17 +360,11 @@ msgstr "Ich akzeptiere alle Downloadrechte des gekauften Videos"
 
 #: templates/profile.html:101
 msgid "I know what i decided and there's no way to get back the account"
-msgstr ""
-"Ich weiß, was ich entschieden habe, und es gibt keinen Weg, das Konto "
-"zurückzubekommen"
+msgstr "Ich weiß, was ich beschlossen habe, und es gibt keine Möglichkeit, das Konto zurückzubekommen"
 
 #: templates/profile.html:104 templates/profile.html:195
 msgid "Delete Account"
 msgstr "Konto löschen"
-
-#: templates/profile.html:105
-msgid "Cancel"
-msgstr "Abbrechen"
 
 #: templates/profile.html:122
 msgid "Profile"

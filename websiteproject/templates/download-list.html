@@ -74,8 +74,8 @@
 </style>
 <div id="age_check">
     <div class="modal1" id="ageModal">
-        <h2>FTP CREDENTIALS</h2>
-        <h3>Donot Share With Others</h3>
+        <h2>{% trans "FTP CREDENTIALS" %}</h2>
+        <h3>{% trans "Donot Share With Others" %}</h3>
 
         <hr>
         <h3>IP: 107.173.171.228</h3>
@@ -83,7 +83,7 @@
         <h3>PASSWORD: {{user.username}}</h3>
 
         <div class="ft-buttons">
-            <button class="ft-btn" id="noButton">Cancel</button>
+            <button class="ft-btn" id="noButton">{% trans "Cancel" %}</button>
         </div>
     </div>
 </div>
@@ -97,8 +97,7 @@
                     class="article__content">
 
                     <h1>{% trans "Download" %}</h1>
-                    <button onclick='modalshow()' style="max-width:40%;" class="sign__btn">{% trans "Get your Ftp
-                        Credentials" %}</button>
+                    <button onclick='modalshow()' style="max-width:40%;" class="sign__btn">{% trans "Get your Ftp Credentials" %}</button>
                 </div>
                 <!-- end article content -->
             </div>
@@ -310,8 +309,6 @@
 
             </div>
             {% endif %}
-
-
             <div class="row">
                 <div style="flex-direction:row;display:flex;justify-content:space-between;width:100%"
                     class="article__content">
@@ -323,7 +320,7 @@
             <div style="justify-content: center;margin:0 auto;" class="row row--grid">
                 {% for item in albums %}
                 <div  class="large_screen col-6 col-sm-4 col-lg-3 col-xl-2">
-                    <div class="card">
+                    <div class="card" style="width:220px;">
                         <a href="{% url 'package_list' id=item.product.id %}" class="card__cover">
                             <img class="product_image" src="{{item.product.album.coverphoto.url}}" alt="">
                             <svg width="22" height="22" viewBox="0 0 22 22" fill="none"
