@@ -67,7 +67,7 @@ msgstr "Pakete"
 #: templates/include/header.html:29 templates/profile.html:121
 #: templates/search.html:26 templates/stars.html:24
 msgid "Home"
-msgstr "Heim"
+msgstr "Home"
 
 #: templates/category.html:20 templates/category.html:26
 msgid "Category"
