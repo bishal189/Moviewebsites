@@ -9,7 +9,7 @@ from owner.models import Page
 #for getting the list of albums in album page
 def album(request):
     pages=Page.objects.all().order_by('-id')
-    albums=Albums.objects.all().order_by('-id')
+    albums=Albums.objects.filter(lang=request.LANGUAGE_CODE).order_by('-id')
     paginator_album=Paginator(albums,12)
     page_album=request.GET.get('page_albums')
     paged_album=paginator_album.get_page(page_album)

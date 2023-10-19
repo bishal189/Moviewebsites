@@ -68,11 +68,16 @@ $(document).ready(function () {
 	
 	
 
- $('#genre').select2({
-	 	placeholder: "Choose genre / genres",
-		closeOnSelect: false // Add this line to keep the dropdown open after selecting an item
+	$('#genre_en').select2({
+		placeholder: "Choose genres In English",
+	   closeOnSelect: false // Add this line to keep the dropdown open after selecting an item
 
-	});
+   });
+    $('#genre_de').select2({
+	placeholder: "Choose genres In German ",
+   closeOnSelect: false // Add this line to keep the dropdown open after selecting an item
+
+});
 
 	$('#stars').select2({
 		placeholder: "Choose Stars",
@@ -83,7 +88,7 @@ $(document).ready(function () {
    $('#studio').select2({
 	placeholder: "Choose Studio"
 });
-
+	
 
 
 

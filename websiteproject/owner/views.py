@@ -45,49 +45,78 @@ def dashboard(request):
 @user_passes_test(is_superadmin)
 def  add_item(request):
     star=StarsModel.objects.all().order_by('-id')
-    studio=StudioModel.objects.all().order_by('-id')
-    genres=Category.objects.all().order_by('-id')
+    studio_en=StudioModel.objects.filter(lang='en').order_by('-id')
+    genres_en=Category.objects.filter(lang='en').order_by('-id')
+
+    studio_de=StudioModel.objects.filter(lang='de').order_by('-id')
+    genres_de=Category.objects.filter(lang='de').order_by('-id')
     context={
       'star':star,
-      'studio':studio,
-      'genres':genres,
+      'studio_en':studio_en,
+      'genres_en':genres_en,
+      'studio_de':studio_de,
+      'genres_de':genres_de,
     }
     if request.method == 'POST' and request.FILES.get('form__img-upload'):
       images_list=[]
       
       cover_image=request.FILES['form__img-upload']
-      title=request.POST['title']
-      text=request.POST['text']
+      title_en=request.POST['title_en']
+      title_de=request.POST['title_de']
+      text_en=request.POST['text_en']
+      text_de=request.POST['text_de']
+
       releasedyear=request.POST['releasedyear']
       length=request.POST['length']
       quality=request.POST['quality']
       type=request.POST['type']
       price=request.POST['price']
-      if 'movie' in request.FILES:
 
+      if 'movie' in request.FILES:
         movie=request.FILES['movie']
       else:
-        movie=None     
-      form=MovieDetail.objects.create(movie_name=title,year=releasedyear,type=type,quality=quality,coverphoto=cover_image,duration=length,short_description=text,trailer=movie,price=price)
-      
+        movie=None  
+
+      form_en=MovieDetail.objects.create(movie_name=title_en,lang='en',year=releasedyear,type=type,quality=quality,coverphoto=cover_image,duration=length,short_description=text_en,trailer=movie,price=price)
       for uploaded_file in request.FILES.getlist('image'):
         image_instance=ImagesModel.objects.create(image=uploaded_file)
         images_list.append(image_instance)
-      form.images.set(images_list)
+      form_en.images.set(images_list)
+
       for star in request.POST.getlist('stars'):
         star=StarsModel.objects.get(id=star)
-        form.stars.add(star)
+        form_en.stars.add(star)
 
-      for studio in request.POST.getlist('studio'):
+      for studio in request.POST.getlist('studio_en'):
         studio=StudioModel.objects.get(id=studio)
         
-      form.studio=studio
-      for gen in request.POST.getlist('genre'):
+      form_en.studio=studio
+      for gen in request.POST.getlist('genre_en'):
         category=Category.objects.get(id=gen)
-        form.genre.add(category)
+        form_en.genre.add(category)
+      form_en.save()
 
 
-      form.save()
+      form_de=MovieDetail.objects.create(movie_name=title_de,lang='de',year=releasedyear,type=type,quality=quality,coverphoto=form_en.coverphoto,duration=length,short_description=text_de,trailer=form_en.trailer,price=price)
+      
+
+      form_de.images.set(images_list)
+
+      for star in request.POST.getlist('stars'):
+        star=StarsModel.objects.get(id=star)
+        form_de.stars.add(star)
+
+      for studio in request.POST.getlist('studio_de'):
+        studio=StudioModel.objects.get(id=studio)
+        
+      form_de.studio=studio
+      for gen in request.POST.getlist('genre_de'):
+        category=Category.objects.get(id=gen)
+        form_de.genre.add(category)
+      form_de.save()
+
+
+
       messages.error(request,'please check a details')
       return render(request,'owner/add-item.html',context)
     return render(request,'owner/add-item.html',context)
@@ -98,23 +127,31 @@ def  add_item(request):
 def add_album(request):
    if request.method=="POST" and request.FILES.get('form__img-upload'):
       coverphoto=request.FILES['form__img-upload']
-      title=request.POST['title']
+      title_en=request.POST['title_en']
+      title_de=request.POST['title_de']
       limit=request.POST['limit']
       price=request.POST['price']
       type=request.POST['type']
 
-      creator=Albums.objects.create(coverphoto=coverphoto,album_name=title,type=type,limit=limit,price=price)
-      for gen in request.POST.getlist('genre'):
-
+      creator_en=Albums.objects.create(coverphoto=coverphoto,album_name=title_en,type=type,limit=limit,price=price,lang='en')
+      for gen in request.POST.getlist('genre_en'):
         category=Category.objects.get(id=gen)
-        creator.genre.add(category)
+        creator_en.genre.add(category)     
+      creator_en.save()
 
-      
-      creator.save()
-   genres=Category.objects.all().order_by('-id')
+
+      creator_de=Albums.objects.create(coverphoto=creator_en.coverphoto,album_name=title_de,type=type,limit=limit,price=price,lang='de')
+      for gen in request.POST.getlist('genre_de'):
+        category=Category.objects.get(id=gen)
+        creator_de.genre.add(category)     
+      creator_de.save()
+
+   genres_en=Category.objects.filter(lang='en').order_by('-id')
+   genres_de=Category.objects.filter(lang='de').order_by('-id')
 
    context={
-      'genres':genres
+      'genres_en':genres_en,
+      'genres_de':genres_de,
    }
    return render(request,"owner/add-album.html",context)
    
@@ -272,15 +309,29 @@ def user_list(request):
 @user_passes_test(is_superadmin)
 def add_studio(request):
   if request.method == 'POST' :
-      studioname=request.POST['studio']
-      studio,created=StudioModel.objects.get_or_create(category_name=studioname.title())
+      if 'studio_en' in request.POST and request.POST['studio_en']!="":
+          studioname_en=request.POST['studio_en']
+          studio,created=StudioModel.objects.get_or_create(name=studioname_en.title(),lang='en')
+
+      if 'studio_de' in request.POST and request.POST['studio_de']!="":
+         studioname_de=request.POST['studio_de']
+         studio,created=StudioModel.objects.get_or_create(name=studioname_de.title(),lang='de')
+
+
       return render(request,'owner/add_studio.html')
   return render(request,'owner/add_studio.html')
 
 def add_genre(request):
   if request.method == 'POST' :
-      genrename=request.POST['genre']
-      category,created=Category.objects.get_or_create(category_name=genrename.title())
+      if 'genrename_en' in request.POST and request.POST['genrename_en']!="":
+        genrename_en=request.POST['genrename_en']
+        category,created=Category.objects.get_or_create(category_name=genrename_en.title(),lang='en')
+      
+      if 'genrename_de' in request.POST and request.POST['genrename_de']!="":
+         genrename_de=request.POST['genrename_de']
+         category,created=Category.objects.get_or_create(category_name=genrename_de.title(),lang='de')
+         
+
       return render(request,'owner/add-genre.html')
   return render(request,'owner/add-genre.html')
 

@@ -30,7 +30,7 @@ def details(request,slug=None):
     product.view_count=product.view_count+1
     product.save()
     user=request.user
-    similar=MovieDetail.objects.filter(type=product.type).order_by('?')[:10]
+    similar=MovieDetail.objects.filter(type=product.type,lang=request.LANGUAGE_CODE).order_by('?')[:10]
     li=[]
     if request.user.is_authenticated:
 

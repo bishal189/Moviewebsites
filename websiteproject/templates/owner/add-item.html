@@ -33,15 +33,25 @@
 
 							<div class="col-12 col-md-7 form__content">
 								<div class="row">
-									<div class="col-12">
+									<div class="col-12 col-sm-6">
 										<div class="form__group">
-											<input type="text" required class="form__input" name='title' placeholder="Title">
+											<input type="text" required class="form__input" name='title_en' placeholder="Title In english">
+										</div>
+									</div>
+									<div class="col-12 col-sm-6">
+										<div class="form__group">
+											<input type="text" required class="form__input" name='title_de' placeholder="Title In german">
 										</div>
 									</div>
 
 									<div class="col-12">
 										<div class="form__group">
-											<textarea id="text" required name="text" class="form__textarea" placeholder="Description"></textarea>
+											<textarea id="text" required name="text_en" class="form__textarea" placeholder="Description In english"></textarea>
+										</div>
+									</div>
+									<div class="col-12">
+										<div class="form__group">
+											<textarea id="text" required name="text_de" class="form__textarea" placeholder="Description In german"></textarea>
 										</div>
 									</div>
 
@@ -77,10 +87,19 @@
 										</div>
 									</div>
 	
-									<div class="col-12 col-lg-6 ">
+									<div class="col-12 ">
 										<div class="form__group">
-											<select class="js-example-basic-multiple" name='genre' id="genre" multiple="multiple">
-												{% for genre in genres %}
+											<select class="js-example-basic-multiple" name='genre_en' id="genre_en" multiple="multiple">
+												{% for genre in genres_en %}
+												<option value="{{genre.id}}">{{genre.category_name}}</option>
+												{% endfor %}
+											</select>
+										</div>
+									</div> 
+									<div class="col-12 ">
+										<div class="form__group">
+											<select class="js-example-basic-multiple" name='genre_de' id="genre_de" multiple="multiple">
+												{% for genre in genres_de %}
 												<option value="{{genre.id}}">{{genre.category_name}}</option>
 												{% endfor %}
 											</select>
@@ -106,9 +125,11 @@
 											<input data-name="#movie1"  id="form__video-upload" name="movie" class="form__video-upload" type="file" accept="video/mp4,video/x-m4v,video/*">
 										</div>
 									</div>
+
+
 										<div class="col-12 col-lg-6">
 										<div class="form__group">
-											<select class="custom-select" style="text-align:center;padding:3px;background-color:#151f30;color:white;height:40px;border-color:#151f30;border-radius:20%;width:150px;" name='type'  >
+											<select class="js-example-basic-single"  id="type" name='type'  >
 												<option  value="DVD">DVD</option>
 												<option value="Scene">Scene</option>
 												<option value="PhotoSets">Photo Sets</option>
@@ -116,7 +137,7 @@
 											</select>
 										</div>
 									</div>
-									<div class="col-12 col-lg-6 ">
+									<div class="col-12">
 										<div class="form__group">
 											<select class="js-example-basic-multiple" name='stars' id="stars" multiple="multiple">
 												{% for item in star %}
@@ -128,16 +149,48 @@
 									</div> 
 
 									
-									<div class="col-12 col-sm-6 col-lg-3">
+									<div class="col-12 col-sm-6 ">
 										<div class="form__group">
 
-											<select class="js-example-basic-single" name='studio' multiple="multiple" id="studio" >
-												{% for item in studio %}
+											<select class="js-example-basic-single" name='studio_en' multiple="multiple" id="studio_en" >
+												{% for item in studio_en %}
 												<option value="{{item.id}}">{{item.name}}</option>
 												{% endfor %}
 											</select>
+
 										</div>
 									</div>
+									<div class="col-12 col-sm-6 ">
+										<div class="form__group">
+
+											<select class="js-example-basic-single" name='studio_de' multiple="multiple" id="studio_de" >
+												{% for item in studio_de %}
+												<option value="{{item.id}}">{{item.name}}</option>
+												{% endfor %}
+											</select>
+
+										</div>
+									</div>
+
+
+									<script src="{% static 'js/jquery-3.5.1.min.js' %}"></script>
+										<script src="{% static 'js/select2.min.js' %}"></script>
+
+									<script>
+										$("#type").select2({
+												placeholder:"type"
+												})
+												;	$('#studio_en').select2({
+												placeholder: "Choose Studio In English",
+	   												closeOnSelect: true // Add this line to keep the dropdown open after selecting an item
+
+											});
+												$('#studio_de').select2({
+												placeholder: "Choose Studio In German ",
+											closeOnSelect: true // Add this line to keep the dropdown open after selecting an item
+
+											});
+									</script>
 
 
 									

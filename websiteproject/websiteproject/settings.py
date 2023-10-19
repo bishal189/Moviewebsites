@@ -9,6 +9,9 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
+import dotenv
+dotenv.load_dotenv()
+
 import os 
 from pathlib import Path
 
@@ -116,7 +119,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
-# LANGUAGE_CODE = 'de'
+LANGUAGE_CODE = 'de'
 
 TIME_ZONE = 'UTC'
 USE_I18N = True

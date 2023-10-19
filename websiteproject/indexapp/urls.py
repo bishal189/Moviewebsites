@@ -14,5 +14,5 @@ urlpatterns = [
     path(_('stars/'), views.stars, name='stars'),
     path('stars/<int:id>',views.star_detail,name='star_detail'),
     path('studio/<int:id>',views.studio_detail,name='studio_detail'),
-    path('photosets/',views.photosets,name='photosets'),
+    path(_('photosets/'),views.photosets,name='photosets'),
 ]
