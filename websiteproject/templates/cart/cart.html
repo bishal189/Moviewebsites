@@ -1,12 +1,36 @@
 {% extends 'cart/base.html' %}
 {% load static %}
 {% block content %}
-
-
-
+<style>
+    @media screen and (max-width:500px){
+        .table-shopping-cart.table th {
+            padding-left: 0rem!important;
+            padding-right: 0rem!important;
+        }
+        .table-shopping-cart.table td, .table-shopping-cart.table th {
+            padding-left: 0rem!important;
+            padding-right: 1.25rem!important;
+        }
+        .input-spinner {
+            width: 37px;
+            flex-wrap: nowrap;
+            display: inline-flex;
+            vertical-align: middle;
+        }
+        .section-content{
+            min-width:341px!important;
+        }
+        .footer{
+            min-width:341px!important;
+        }
+        .title{
+            margin-left:2px!important;
+        }
+        
+    }
 </style>
 <section class="section-content padding-y bg">
-    <div class="container"style='height:80vh;'>
+    <div class="container"style='min-height:80vh;'>
         
 
         <!-- ============================ COMPONENT 1 ================================= -->
@@ -115,8 +139,8 @@
             </aside> <!-- col.// -->
             <aside class="col-lg-3" style='margin-top:45px;'>
 
-                <div class="card">
-                    <div class="card-body" style="margin-left:17px">
+                <div class="card" >
+                    <div class="card-body" style="margin-left:17px ;margin:0 auto;">
                         <dl class="dlist-align">
                             <dt>Total price:</dt>
                             <dd class="text-right"><strong>${{total}}</strong></dd>

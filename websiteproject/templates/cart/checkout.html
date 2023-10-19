@@ -2,7 +2,14 @@
 {% load static %}
 {% block content %}
 
-
+<style>
+    @media screen and (max-width:280px){
+        .table-shopping-cart.table td, .table-shopping-cart.table th {
+             padding-left: 0rem!important; 
+            padding-right: 1rem!important; 
+        }
+    }
+</style>
 <section class="section-content padding-y bg">
     <div class="container">
 
@@ -149,7 +156,7 @@
                 
                         
                         <button type="submit" name="submit" class="btn btn-primary btn-block"> Place Order</button>
-                        <a href="" class="btn btn-light btn-block">Continue Shopping</a>
+                        <a href="{% url 'home' %}" class="btn btn-light btn-block">Continue Shopping</a>
                    
                     </form>
                    
