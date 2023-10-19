@@ -30,6 +30,8 @@ class StarsModel(models.Model):
     eyecolor=models.CharField(max_length=200,blank=True,null=True)
     bodytype=models.CharField(max_length=200,blank=True,null=True)
     created_at=models.DateField(auto_now_add=True,null=True)
+    lang=models.CharField(max_length=3,blank=True)
+
 
     def __str__(self):
        return str(self.created_at)
@@ -41,6 +43,8 @@ class StarsModel(models.Model):
 
 class StudioModel(models.Model):
     name=models.CharField(max_length=100,blank=True)
+    lang=models.CharField(max_length=3,blank=True)
+
 
 
 class MovieDetail(models.Model):
@@ -61,6 +65,8 @@ class MovieDetail(models.Model):
     created_at=models.DateField(auto_now=True,null=True)
     view_count=models.IntegerField(default=0)
     cart_count=models.IntegerField(default=0)
+    lang=models.CharField(max_length=3,blank=True)
+
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.movie_name)

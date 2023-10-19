@@ -16,7 +16,7 @@
           {% comment %} <a style="color:white;font-size:18px;" href="{% url 'home'  %}" class="header__logo">
            Adult Star Content
           </a> {% endcomment %}
-
+          
           <ul class="header__nav">
             <li class="header__nav-item">
               <a
@@ -75,11 +75,15 @@
             <li class="header__nav-item">
               <a
                 class="header__nav-link"
-                href="{% url 'photosets' %}"
-                role="button"
+                href="{% url _('photosets') %}"
+                                role="button"
                 aria-haspopup="true"
                 aria-expanded="false"
-                >{% trans "PhotoSets" %}</a>
+                > 
+                {% url 'photosets' as photosets_url %}
+                <span>{% trans photosets_url %}</span>
+
+                {% trans "PhotoSets" %}</a>
             </li>
  <li class="header__nav-item">
               <a

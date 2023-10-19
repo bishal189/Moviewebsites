@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-18 14:06+0000\n"
+"POT-Creation-Date: 2023-10-19 05:05+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,6 +26,12 @@ msgstr "DVD/"
 msgid "stars/"
 msgstr "Sterne/"
 
+#: indexapp/urls.py:17
+#, fuzzy
+#| msgid "Photosets"
+msgid "photosets/"
+msgstr "Fotosets"
+
 #: templates/404.html:20
 msgid "The page you are looking for not available!"
 msgstr "Die von Ihnen gesuchte Seite ist nicht verfügbar!"
@@ -42,11 +48,12 @@ msgstr "Genres"
 msgid "items added in album"
 msgstr "Im Album hinzugefügte Elemente"
 
-#: templates/album-detail.html:70 templates/album-detail.html:75
+#: templates/album-detail.html:71 templates/album-detail.html:76
 msgid "Added"
 msgstr "Hinzugefügt"
 
-#: templates/album-detail.html:72 templates/album-detail.html:77
+#: templates/album-detail.html:73 templates/album-detail.html:78
+#: templates/partial/album_detail_partial.html:38
 msgid "Add to Packages"
 msgstr "Zu Paketen hinzufügen"
 
@@ -60,7 +67,7 @@ msgstr "Pakete"
 #: templates/include/header.html:29 templates/profile.html:121
 #: templates/search.html:26 templates/stars.html:24
 msgid "Home"
-msgstr "heim"
+msgstr "Heim"
 
 #: templates/category.html:20 templates/category.html:26
 msgid "Category"
@@ -102,11 +109,11 @@ msgstr "Full HD"
 
 #: templates/category.html:82 templates/scenes.html:84
 msgid "HD"
-msgstr "hd"
+msgstr "HD"
 
 #: templates/category.html:85 templates/scenes.html:87
 msgid "SD"
-msgstr "sd"
+msgstr "SD"
 
 #: templates/category.html:92 templates/dvd.html:87 templates/photosets.html:89
 msgid "Display"
@@ -119,19 +126,19 @@ msgstr "Filter"
 
 #: templates/category.html:151 templates/download-list.html:149
 #: templates/dvd.html:25 templates/include/footer.html:33
-#: templates/include/header.html:65 templates/partial/partial-category.html:3
+#: templates/include/header.html:65 templates/partial/partial-category.html:5
 #: templates/profile.html:211 templates/search.html:42
-#: templates/studio-detail.html:27
+#: templates/studio-detail.html:29
 msgid "DVD"
 msgstr "DVD"
 
 #: templates/category.html:267 templates/download-list.html:200
-#: templates/include/footer.html:35 templates/partial/partial-category.html:118
+#: templates/include/footer.html:35 templates/partial/partial-category.html:120
 #: templates/profile.html:266 templates/search.html:131
 msgid "Scene"
 msgstr "Szene"
 
-#: templates/category.html:383 templates/partial/partial-category.html:234
+#: templates/category.html:383 templates/partial/partial-category.html:236
 msgid "PhotoSet"
 msgstr "FotoSet"
 
@@ -189,9 +196,10 @@ msgstr "ähnliche Gegenstände"
 msgid "Download"
 msgstr "herunterladen"
 
-#: templates/download-list.html:260 templates/include/header.html:83
+#: templates/download-list.html:260 templates/include/header.html:87
 msgid "PhotoSets"
 msgstr "Fotosets"
+
 #: templates/forgot.html:26 templates/reset.html:26 templates/signup.html:46
 msgid "I agree to the"
 msgstr "Ich stimme der"
@@ -227,6 +235,7 @@ msgstr "Durchsuchen"
 #: templates/include/footer.html:34
 msgid "Movies"
 msgstr "Filme"
+
 #: templates/include/footer.html:36
 msgid "Collections"
 msgstr "Sammlungen"
@@ -240,35 +249,58 @@ msgid "©Copy right reserved, 2023. Created by"
 msgstr "©Urheberrecht vorbehalten, 2023. Erstellt von"
 
 #: templates/include/header.html:56 templates/scenes.html:27
-#: templates/studio-detail.html:214
+#: templates/studio-detail.html:216
 msgid "Scenes"
 msgstr "Szenen"
 
-#: templates/include/header.html:92 templates/stars.html:19
+#: templates/include/header.html:79
+#, fuzzy
+#| msgid "Photosets"
+msgid "photosets"
+msgstr "Fotosets"
+
+#: templates/include/header.html:96 templates/stars.html:19
 #: templates/stars.html:25
 msgid "Stars"
 msgstr "Schauspieler"
 
-#: templates/include/header.html:103
+#: templates/include/header.html:107
 msgid "I am looking for..."
 msgstr "Ich suche nach..."
 
-#: templates/include/header.html:138
+#: templates/include/header.html:142
 msgid "Sign Out"
 msgstr "Abmelden"
 
-#: templates/include/header.html:148 templates/signin.html:42
+#: templates/include/header.html:152 templates/signin.html:42
 #: templates/signup.html:61
 msgid "Sign in"
 msgstr "Anmelden"
 
-#: templates/include/header.html:162
+#: templates/include/header.html:166
 msgid "Welcome"
 msgstr "Willkommen"
+
+#: templates/include/selectjs.html:17
+msgid "Popular Categories"
+msgstr "Beliebte Kategorien"
+
+#: templates/include/selectjs.html:21
+msgid "Studio"
+msgstr "Studio"
+
+#: templates/include/selectjs.html:25
+msgid "Scene Categories"
+msgstr "Szenen-Kategorien"
+
+#: templates/include/selectjs.html:30
+msgid "Model Types"
+msgstr "Körpertyp"
 
 #: templates/index.html:96
 msgid "Are you 18 years of age or older?"
 msgstr "Sind Sie 18 Jahre alt oder älter?"
+
 #: templates/index.html:101
 msgid "Enter"
 msgstr "Eingeben"
@@ -282,19 +314,19 @@ msgid "Recently Added Dvds"
 msgstr "Kürzlich hinzugefügte DVDs"
 
 #: templates/index.html:248 templates/index.html:373 templates/index.html:512
-#: templates/index.html:642 templates.index.html:731
+#: templates/index.html:642 templates/index.html:731
 msgid "View All"
 msgstr "Alle anzeigen"
 
-#: templates.index.html:373
+#: templates/index.html:373
 msgid "Recently Added Scenes"
 msgstr "Kürzlich hinzugefügte Szenen"
 
-#: templates.index.html:512
+#: templates/index.html:512
 msgid "Recently Added PhotoSets"
 msgstr "Kürzlich hinzugefügte Fotosets"
 
-#: templates.index.html:642
+#: templates/index.html:642
 msgid "Trending Stars"
 msgstr "Trendende Stars"
 
@@ -320,7 +352,9 @@ msgstr "Ich akzeptiere alle Downloadrechte des gekauften Videos"
 
 #: templates/profile.html:101
 msgid "I know what i decided and there's no way to get back the account"
-msgstr "Ich weiß, was ich entschieden habe, und es gibt keinen Weg, das Konto zurückzubekommen"
+msgstr ""
+"Ich weiß, was ich entschieden habe, und es gibt keinen Weg, das Konto "
+"zurückzubekommen"
 
 #: templates/profile.html:104 templates/profile.html:195
 msgid "Delete Account"
@@ -361,6 +395,7 @@ msgstr "Fotosets"
 #: templates/profile.html:371
 msgid "Album"
 msgstr "Album"
+
 #: templates/profile.html:405
 msgid "Favourite DVDS"
 msgstr "Lieblings-DVDs"
@@ -409,6 +444,7 @@ msgstr "Laden Sie alle ausstehenden Dateien von hier herunter"
 #: templates/profile.html:745
 msgid "Order_number"
 msgstr "Bestellnummer"
+
 #: templates/profile.html:746
 msgid "Payment_Id"
 msgstr "Zahlungs-ID"
@@ -525,6 +561,6 @@ msgstr "Foto-Sets gespielt von Star"
 msgid "Scenes Played By Star"
 msgstr "Szenen gespielt von Star"
 
-#: templates/studio-detail.html:120
+#: templates/studio-detail.html:122
 msgid "Photo Sets"
 msgstr "Foto-Sets"
