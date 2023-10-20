@@ -145,20 +145,32 @@ background-position: right center; /* Adjust the position as needed */
         
           </a>
 
-        
+        <style>
+         
+    .custom-select {
+  width: 100px;
+  /* Other custom styles */
+}
+   /* Updated style for the container */
+  .custom-select .select2-container--default {
+  display: inline-block; /* Display the containers in a row */
+  width: 100px!important; /* Set a fixed width for each select item */
+  margin-right: 10px; /* Adjust the spacing between dropdowns */
+}
+        </style>
             <form action={% url 'set_language' %} method="post">
               {% csrf_token %}
               <input type="hidden"name="next" value={{redirect_to}}>
-              <select class="sign__input" name="language"id="selector">
-                  {% get_available_languages as LANGUAGES %}
-                  {% get_language_info_list for  LANGUAGES as languages %}
-                  {% for language in languages %}
-                      <option value="{{language.code}}"{% if language.code == LANGUAGE_CODE %}selected{% endif %}>
-                          ({{language.code}})
-          
-                  {% endfor %}
-                  <!-- <input  type="submit" value="Go"> -->
+              <div class="custom-select">
+              <select class="select2" name="language" id="selector">
+                {% get_available_languages as LANGUAGES %}
+                {% get_language_info_list for LANGUAGES as languages %}
+                {% for language in languages %}
+                  <option value="{{ language.code }}" {% if language.code == LANGUAGE_CODE %}selected{% endif %}>
+                  </option>
+                {% endfor %}
               </select>
+              </div>
           </form>
 
        
@@ -167,13 +179,34 @@ background-position: right center; /* Adjust the position as needed */
   </div>
  
 </header>
-<script>
+<script src="{% static 'js/jquery-3.5.1.min.js' %}"></script>
+	<script src="{% static 'js/select2.min.js' %}"></script>
 
-document.querySelector('select[name="language"]').addEventListener('change', function() {
-  this.form.submit();
+<script>
+$(document).ready(function() {
+  $('.select2').select2({
+    templateResult: formatLanguage,
+    templateSelection: formatLanguage,
+  });
+  $('.select2').on('change', function() {
+    // Your event handling code here
+    this.form.submit();
+
+  });
 });
 
+function formatLanguage(language) {
+  if (!language.id) {
+    return language.text;
+  }
 
-</script>
+  var $language = $(
+    '<span><img style="height:3em;width:4em;" class="language-flag" src="{% static 'img/flag_' %}' + language.id + '.png" alt="' + language.id + ' flag" /> ' + language.text + '</span>'
+  );
+
+  return $language;
+}</script>
+
+
 
 <!-- end header -->
