@@ -14,30 +14,16 @@ def download_list(request):
         user=request.user
         CreateUser(user.username)
         order_items=Order_Product.objects.filter(user=user)
-
         user_home_directory = "/home/"+user.username        
         centralized_movies_directory = os.getenv('Centralized_Directory')
 
         for item in order_items:
-            purchased_movie = item.product.movie_name
-            symlink_path = os.path.join(user_home_directory, purchased_movie)
-            source_path = os.path.join(centralized_movies_directory,purchased_movie)
-            command = ["sudo", "ln", "-s", source_path, symlink_path]
-            try:
-                subprocess.run(command, check=True)
-                # print("Symbolic link created successfully.")
-            except subprocess.CalledProcessError as e:
-                pass
-                # print(f"Error: {e}")
+            purchased_movie = item.product.videoname
+            purchased_movie='demo/file1.mp4'
+            symlink_path = os.path.join(user_home_directory, item.product.movie_name)
+            if not os.path.lexists(symlink_path):
+                print("true")
 
-        albums=Order_Product_album.objects.filter(user=user)
-        for album in albums:
-            albumdir=os.path.join(user_home_directory,album.product.album.album_name)
-            subprocess.run(['sudo','mkdir','-p',albumdir],check=True)
-
-            for movie in album.product.movies.all():
-                purchased_movie=movie.movie_name
-                symlink_path = os.path.join(albumdir, purchased_movie)
                 source_path = os.path.join(centralized_movies_directory,purchased_movie)
                 command = ["sudo", "ln", "-s", source_path, symlink_path]
                 try:
@@ -45,6 +31,26 @@ def download_list(request):
                     # print("Symbolic link created successfully.")
                 except subprocess.CalledProcessError as e:
                     pass
+                    # print(f"Error: {e}")
+
+        albums=Order_Product_album.objects.filter(user=user)
+        for album in albums:
+            albumdir=os.path.join(user_home_directory,album.product.album.album_name)
+            subprocess.run(['sudo','mkdir','-p',albumdir],check=True)
+
+            for movie in album.product.movies.all():
+                purchased_movie=movie.videoname
+                symlink_path = os.path.join(albumdir, movie.movie_name)
+                
+                if not os.path.lexists(symlink_path):
+
+                    source_path = os.path.join(centralized_movies_directory,purchased_movie)
+                    command = ["sudo", "ln", "-s", source_path, symlink_path]
+                    try:
+                        subprocess.run(command, check=True)
+                        # print("Symbolic link created successfully.")
+                    except subprocess.CalledProcessError as e:
+                        pass
                     # print(f"Error: {e}")
         data_dvd=order_items.filter(product__type='DVD')
         data_scene=order_items.filter(product__type='Scene')

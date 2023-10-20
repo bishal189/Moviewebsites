@@ -65,6 +65,7 @@ def  add_item(request):
       title_de=request.POST['title_de']
       text_en=request.POST['text_en']
       text_de=request.POST['text_de']
+      videoname=request.POST['videoname']
 
       releasedyear=request.POST['releasedyear']
       length=request.POST['length']
@@ -77,7 +78,7 @@ def  add_item(request):
       else:
         movie=None  
 
-      form_en=MovieDetail.objects.create(movie_name=title_en,lang='en',year=releasedyear,type=type,quality=quality,coverphoto=cover_image,duration=length,short_description=text_en,trailer=movie,price=price)
+      form_en=MovieDetail.objects.create(movie_name=title_en,lang='en',videoname=videoname,year=releasedyear,type=type,quality=quality,coverphoto=cover_image,duration=length,short_description=text_en,trailer=movie,price=price)
       for uploaded_file in request.FILES.getlist('image'):
         image_instance=ImagesModel.objects.create(image=uploaded_file)
         images_list.append(image_instance)
@@ -97,7 +98,7 @@ def  add_item(request):
       form_en.save()
 
 
-      form_de=MovieDetail.objects.create(movie_name=title_de,lang='de',year=releasedyear,type=type,quality=quality,coverphoto=form_en.coverphoto,duration=length,short_description=text_de,trailer=form_en.trailer,price=price)
+      form_de=MovieDetail.objects.create(movie_name=title_de,lang='de',year=releasedyear,videoname=videoname,type=type,quality=quality,coverphoto=form_en.coverphoto,duration=length,short_description=text_de,trailer=form_en.trailer,price=price)
       
 
       form_de.images.set(images_list)
