@@ -167,7 +167,7 @@ def home(request):
             }
         return JsonResponse(response_data)
     
-    pages=Page.objects.all().order_by('-id')
+    pages=Page.objects.filter(lang=request.LANGUAGE_CODE).order_by('-id')
 
     context={
         'genres':genres,
@@ -192,7 +192,7 @@ def home(request):
 
 #Studo Detail page which shows all list of items done by that studio 
 def studio_detail(request,id):
-    pages=Page.objects.all().order_by('-id')
+    pages=Page.objects.filter(lang=request.LANGUAGE_CODE).order_by('-id')
     studio=StudioModel.objects.get(id=id)
     movies=MovieDetail.objects.filter(studio=studio)
     dvd=movies.filter(type='DVD').order_by('-id')
@@ -222,7 +222,7 @@ def studio_detail(request,id):
 #Searching functionality
 def search(request):
     lang=request.LANGUAGE_CODE
-    pages=Page.objects.all().order_by('-id')
+    pages=Page.objects.filter(lang=request.LANGUAGE_CODE).order_by('-id')
     tosearch=request.POST['searchtext']
     movies=MovieDetail.objects.filter(lang=lang)
     get_dvd=movies.filter(movie_name__icontains=tosearch,type="DVD").order_by('-id')
@@ -293,7 +293,7 @@ def pagination(request):
 #Getting list of scene type Movies
 def scenes(request):
     lang=request.LANGUAGE_CODE
-    pages=Page.objects.all().order_by('-id')
+    pages=Page.objects.filter(lang=request.LANGUAGE_CODE).order_by('-id')
     #just for showing filtering data
     attribute_mapping = {
         'Hair Color': 'haircolor',
@@ -354,9 +354,12 @@ def scenes(request):
         page_display=request.GET.get('display')   
         page_scene=request.GET.get('page_scene')
         if page_sort is not None:
-            actual_data_quality=alldata.filter(quality=page_view)
-            if page_sort=="newest":
+            if page_view=='all':
+                actual_data_quality=alldata
+            else:
+                actual_data_quality=alldata.filter(quality=page_view)
 
+            if page_sort=="newest":
                 actual_data=actual_data_quality.order_by('-id')
             if page_sort=="alphabetical":
                 actual_data = actual_data_quality.order_by(Lower('movie_name'))
@@ -413,7 +416,7 @@ def scenes(request):
 
 def dvd(request):
     lang=request.LANGUAGE_CODE
-    pages=Page.objects.all().order_by('-id')
+    pages=Page.objects.filter(lang=request.LANGUAGE_CODE).order_by('-id')
     #just for showing filtering data
     attribute_mapping = {
         'Hair Color': 'haircolor',
@@ -469,9 +472,11 @@ def dvd(request):
         page_display=request.GET.get('display')   
         page_dvd=request.GET.get('page_dvd')
         if page_sort is not None:
-            actual_data_quality=alldata.filter(quality=page_view)
+            if page_view=="all":
+                actual_data_quality=alldata
+            else:
+                actual_data_quality=alldata.filter(quality=page_view)
             if page_sort=="newest":
-
                 actual_data=actual_data_quality.order_by('-id')
             if page_sort=="alphabetical":
                 actual_data = actual_data_quality.order_by(Lower('movie_name'))
@@ -535,7 +540,7 @@ def dvd(request):
 
 def stars(request):
     
-    pages=Page.objects.all().order_by('-id')
+    pages=Page.objects.filter(lang=request.LANGUAGE_CODE).order_by('-id')
     allstars=StarsModel.objects.all().order_by('-id')
     paginator_star=Paginator(allstars,12)
     page_star=request.GET.get('page_star')
@@ -562,7 +567,7 @@ def stars(request):
 
 def star_detail(request,id):
     lang=request.LANGUAGE_CODE
-    pages=Page.objects.all().order_by('-id')
+    pages=Page.objects.filter(lang=request.LANGUAGE_CODE).order_by('-id')
     star=StarsModel.objects.get(id=id)
     star.view_count=star.view_count+1
     star.save()
@@ -601,7 +606,7 @@ def star_detail(request,id):
 def photosets(request):
     lang=request.LANGUAGE_CODE
 
-    pages=Page.objects.all().order_by('-id')
+    pages=Page.objects.filter(lang=request.LANGUAGE_CODE).order_by('-id')
     #just for showing filtering data
     attribute_mapping = {
         'Hair Color': 'haircolor',
@@ -662,7 +667,10 @@ def photosets(request):
         page_display=request.GET.get('display')   
         page_photo=request.GET.get('page_photo')
         if page_sort is not None:
-            actual_data_quality=movies.filter(quality=page_view)
+            if page_view=="all":
+                actual_data_quality=movies
+            else:
+                actual_data_quality=movies.filter(quality=page_view)
             if page_sort=="newest":
 
                 actual_data=actual_data_quality.order_by('-id')
@@ -740,7 +748,7 @@ def remove_favourites(request,id):
 
 
 def pageshow(request,slug):
-    pages=Page.objects.all()
+    pages=Page.objects.filter(lang=request.LANGUAGE_CODE).order_by('-id')
     page=Page.objects.get(slug=slug)
     context={
         'page':page,

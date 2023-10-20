@@ -25,7 +25,7 @@ def _cart_id(request):
     return cart   
 
 def details(request,slug=None):
-    pages=Page.objects.all().order_by('-id')
+    pages=Page.objects.filter(lang=request.LANGUAGE_CODE).order_by('-id')
     product =MovieDetail.objects.get(slug=slug)
     product.view_count=product.view_count+1
     product.save()

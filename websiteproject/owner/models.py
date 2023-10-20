@@ -6,6 +6,7 @@ class Page(models.Model):
     slug=models.SlugField()
     status=models.CharField(max_length=20)
     body=models.TextField()
+    lang=models.CharField(max_length=2,blank=True)
     created_at=models.DateTimeField(auto_now=True)
 
 

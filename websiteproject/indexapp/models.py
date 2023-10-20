@@ -61,6 +61,7 @@ class MovieDetail(models.Model):
     view_count=models.IntegerField(default=0)
     cart_count=models.IntegerField(default=0)
     lang=models.CharField(max_length=3)
+    videoname=models.TextField(blank=True)
 
 
     def save(self, *args, **kwargs):

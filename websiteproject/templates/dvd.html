@@ -52,6 +52,7 @@
 											<li>
 												<a data-type="sort" class="radio-1 Array " onclick="clicker(this)" data-url="?sort=most-trending" style="cursor:pointer;">{% trans "Most Trending" %}</a>
 											</li>
+											
 											<li>
 												<a data-type="sort" class="radio-1 Array active " onclick="clicker(this)" data-url="?sort=newest" style="cursor:pointer;">{% trans "Newest" %}</a>
 											</li>
@@ -68,14 +69,18 @@
 										</h1>
 										<ul id="view" class="sort">
 											<li>
-												<a data-type="view" class="radio-1 Array " onclick="clicker(this)" data-url="view=4k" style="cursor:pointer;">4K</a>
+												<a data-type="view" class="radio-1 Array " onclick="clicker(this)" data-url="view=4K" style="cursor:pointer;">4K</a>
 											</li>
 											<li>
 												<a data-type="view"class="radio-1 Array " onclick="clicker(this)" data-url="view=FullHD" style="cursor:pointer;">Full HD</a>
 											</li>
 											<li>
-												<a data-type="view" class="radio-1 Array active " onclick="clicker(this)" data-url="view=HD" style="cursor:pointer;">HD</a>
+												<a data-type="view" class="radio-1 Array  " onclick="clicker(this)" data-url="view=HD" style="cursor:pointer;">HD</a>
 											</li>
+											<li>
+												<a data-type="view" class="radio-1 Array active " onclick="clicker(this)" data-url="view=all" style="cursor:pointer;">{% trans "ALL" %}</a>
+											</li>
+
 											<li>
 												<a data-type="view" class="radio-1 Array " onclick="clicker(this)" data-url="view=SD" style="cursor:pointer;">SD</a>
 											</li>
