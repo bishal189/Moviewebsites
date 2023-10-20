@@ -14,7 +14,7 @@ from owner.models import Page
 #Request to category page can be removed now as no category page is available now 
 def category(request):
     lang=request.LANGUAGE_CODE
-    pages=Page.objects.all().order_by('-id')
+    pages=Page.objects.filter(lang=lang).order_by('-id')
     attribute_mapping = {
         'Hair Color': 'haircolor',
         'Ethnicity': 'ethnicity',
@@ -68,7 +68,7 @@ def category(request):
 #filtering mechanism which filters based on post data from index page
 def category_filter(request,type=None):
     lang=request.LANGUAGE_CODE
-    pages=Page.objects.all().order_by('-id')
+    pages=Page.objects.filter(lang=lang).order_by('-id')
     attribute_mapping = {
         'Hair Color': 'haircolor',
         'Ethnicity': 'ethnicity',
@@ -196,7 +196,7 @@ def category_filter(request,type=None):
     if not isinstance(request.user,AnonymousUser):
         user_added_cart=Cartitem.objects.filter(user=request.user).values_list('product__id',flat=True)
 
-    popular_genres=Category.objects.annotate(
+    popular_genres=genres.annotate(
     total_views=Count('moviedetail__view_count'),
     total_carts=Count('moviedetail__cart_count')
     ).order_by('-total_views', '-total_carts')[:10]
@@ -286,7 +286,7 @@ def category_filter(request,type=None):
                 }
             else:
                 context={
-                     'dvd':paged_data,
+                     'photoset':paged_data,
                         'user_favourite_movie':user_favorite_movies,
                         'user_added_cart':user_added_cart,
                 }                
@@ -385,7 +385,7 @@ def category_filter(request,type=None):
 #simple categoy for genre
 def category_by_genre(request,genrename):
      lang=request.LANGUAGE
-     pages=Page.objects.all().order_by('-id')
+     pages=Page.objects.filter(lang=lang).order_by('-id')
      category=Category.objects.get(category_name=genrename)#first gets category
      genres=Category.objects.filter(lang=lang)#get all genre to show as options
      datatoshow=MovieDetail.objects.filter(genre=category,lang=lang) #finally get movie based on category

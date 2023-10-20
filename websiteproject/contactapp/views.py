@@ -6,7 +6,7 @@ from owner.models import Page
 # Create your views here.
 #Simple contact view  simply stores data in db 
 def contact(request):
-    pages=Page.objects.all().order_by('-id')
+    pages=Page.objects.filter(lang=request.LANGUAGE_CODE).order_by('-id')
     if request.method=='POST':
        first_name=request.POST['first_name']
        last_name=request.POST['last_name']

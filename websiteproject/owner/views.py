@@ -260,11 +260,11 @@ def remove_album(request,id):
  
 
 
-
+@user_passes_test(is_superadmin)
 def edit_user(request):
     return render(request,"owner/edit-user.html")
 
-
+@user_passes_test(is_superadmin)
 def user_list(request):
     if request.method=="POST":
       toSearch=request.POST['toSearch']
@@ -321,6 +321,7 @@ def add_studio(request):
       return render(request,'owner/add_studio.html')
   return render(request,'owner/add_studio.html')
 
+@user_passes_test(is_superadmin)
 def add_genre(request):
   if request.method == 'POST' :
       if 'genrename_en' in request.POST and request.POST['genrename_en']!="":
@@ -403,7 +404,7 @@ def add_stars(request):
 #   return render(request,'owner/index.html')
 
   
-
+@user_passes_test(is_superadmin)
 def show_transactions(request):
   if request.method=="POST":
     payments=None
@@ -471,6 +472,7 @@ def show_transactions(request):
 
   return render(request,'owner/transaction.html',context)
 
+@user_passes_test(is_superadmin)
 def show_transactions_country(request):
   if request.method=="POST":
     payments=None
@@ -561,7 +563,7 @@ def show_transactions_country(request):
 
   return render(request,'owner/transaction-country.html',context)
 
-
+@user_passes_test(is_superadmin)
 def show_transactions_product(request):
   if request.method=="POST":
     if request.method=="POST":
@@ -717,7 +719,8 @@ def active_user(request,id):
 
 
 
-# for displaying all pages 
+# for displaying all pages
+@user_passes_test(is_superadmin)
 def pages(request):
    all_pages=Page.objects.all()
 
@@ -726,15 +729,21 @@ def pages(request):
    }
    return render(request,'owner/pages.html',context)
 
+@user_passes_test(is_superadmin)
 def add_page(request):
 
   if request.method=="POST":
-      title=request.POST['title']
+      title_en=request.POST['title_en']
       status=request.POST['status']
-      body=request.POST['body']
+      body_en=request.POST['body_en']
+      title_de=request.POST['title_de']
+      body_de=request.POST['body_de']
       
-      pages=Page.objects.create(title=title,status=status,body=body)
-      pages.save()
+      pages_en=Page.objects.create(title=title_en,status=status,body=body_en,lang='en')
+      pages_en.save()
+      pages_de=Page.objects.create(title=title_de,status=status,body=body_de,lang='de')
+      pages_de.save()
+
       all_pages=Page.objects.all()
    
 
@@ -766,7 +775,7 @@ def delete_page(request,id):
    }
    return render(request,'owner/pages.html',context)
    
-   
+@user_passes_test(is_superadmin)
 def activate_page(request,id):
    page=Page.objects.get(id=id)
    page.status="Active"
@@ -776,7 +785,7 @@ def activate_page(request,id):
       'all_pages':all_pages
    }
    return render(request,'owner/pages.html',context)
-   
+@user_passes_test(is_superadmin)   
 def edit_page(request,id):
    page=Page.objects.get(id=id)
    context={
@@ -799,7 +808,7 @@ def edit_page(request,id):
    return render(request,'owner/edit-page.html',context)
    
 
-
+@user_passes_test(is_superadmin)
 def stars_catalog(request):
   get_stars=StarsModel.objects.all().order_by('-id')
   context={
@@ -808,7 +817,7 @@ def stars_catalog(request):
   return render(request,'owner/stars_catalog.html',context)
 
 
-
+@user_passes_test(is_superadmin)
 def edit_stars(request,id):
   stars= StarsModel.objects.get(id=id)
   

@@ -8,7 +8,7 @@ from django.template.loader import render_to_string
 from owner.models import Page
 #for getting the list of albums in album page
 def album(request):
-    pages=Page.objects.all().order_by('-id')
+    pages=Page.objects.filter(lang=request.LANGUAGE_CODE).order_by('-id')
     albums=Albums.objects.filter(lang=request.LANGUAGE_CODE).order_by('-id')
     paginator_album=Paginator(albums,12)
     page_album=request.GET.get('page_albums')
@@ -36,7 +36,7 @@ def album(request):
 
 #for getting the particular album besed on id
 def album_detail(request,id):
-    pages=Page.objects.all().order_by('-id')
+    pages=Page.objects.filter(lang=request.LANGUAGE_CODE).order_by('-id')
     album=Albums.objects.get(id=id) 
     movies=MovieDetail.objects.filter(genre__in=album.genre.all(),type=album.type).order_by('-id').distinct()
     counter=0
