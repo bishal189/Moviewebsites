@@ -354,9 +354,12 @@ def scenes(request):
         page_display=request.GET.get('display')   
         page_scene=request.GET.get('page_scene')
         if page_sort is not None:
-            actual_data_quality=alldata.filter(quality=page_view)
-            if page_sort=="newest":
+            if page_view=='all':
+                actual_data_quality=alldata
+            else:
+                actual_data_quality=alldata.filter(quality=page_view)
 
+            if page_sort=="newest":
                 actual_data=actual_data_quality.order_by('-id')
             if page_sort=="alphabetical":
                 actual_data = actual_data_quality.order_by(Lower('movie_name'))
@@ -469,9 +472,11 @@ def dvd(request):
         page_display=request.GET.get('display')   
         page_dvd=request.GET.get('page_dvd')
         if page_sort is not None:
-            actual_data_quality=alldata.filter(quality=page_view)
+            if page_view=="all":
+                actual_data_quality=alldata
+            else:
+                actual_data_quality=alldata.filter(quality=page_view)
             if page_sort=="newest":
-
                 actual_data=actual_data_quality.order_by('-id')
             if page_sort=="alphabetical":
                 actual_data = actual_data_quality.order_by(Lower('movie_name'))
@@ -662,7 +667,10 @@ def photosets(request):
         page_display=request.GET.get('display')   
         page_photo=request.GET.get('page_photo')
         if page_sort is not None:
-            actual_data_quality=movies.filter(quality=page_view)
+            if page_view=="all":
+                actual_data_quality=movies
+            else:
+                actual_data_quality=movies.filter(quality=page_view)
             if page_sort=="newest":
 
                 actual_data=actual_data_quality.order_by('-id')

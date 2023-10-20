@@ -212,7 +212,11 @@ def category_filter(request,type=None):
         page_display=request.GET.get('display')   
 
         if page_sort is not None:
-            actual_data_quality=movies.filter(quality=page_view)
+            if page_view!="all":
+                actual_data_quality=movies.filter(quality=page_view)
+            else:
+                actual_data_quality=movies
+                
             if page_sort=="newest":
 
                 actual_data=actual_data_quality.order_by('-id')
