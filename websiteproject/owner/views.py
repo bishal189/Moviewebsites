@@ -218,12 +218,12 @@ def catalog(request):
 @user_passes_test(is_superadmin)
 def edit_movie(request,id):
     movie = get_object_or_404(MovieDetail, pk=id)
+    genres=Category.objects.all().order_by('-id')
     if request.method == 'POST':
         form = MovieDetailForm(request.POST, request.FILES, instance=movie)
         if form.is_valid():
             if not form.cleaned_data['images']:
               form.cleaned_data['images'] = movie.images.all()
-              print('hello world')
             form.save()
             return redirect('catalog')  # Redirect to the movie detail page after editing
         else:
@@ -232,6 +232,7 @@ def edit_movie(request,id):
         form = MovieDetailForm(instance=movie)
 
     context = {
+        'genres':genres,
         'form': form,
         'movie': movie,
     }
@@ -668,6 +669,7 @@ def show_transactions_product(request):
 from .forms import Album_form
 @user_passes_test(is_superadmin)
 def edit_album(request,id):
+    genres=Category.objects.all().order_by('-id')
     album = get_object_or_404(Albums, pk=id)
     if request.method == 'POST':
         form =Album_form(request.POST, request.FILES, instance=album)
@@ -682,6 +684,7 @@ def edit_album(request,id):
     context = {
         'form': form,
         'movie': album,
+        'genres':genres,
     }
 
     return render(request, 'owner/edit_album.html', context)

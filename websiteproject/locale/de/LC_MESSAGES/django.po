@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 13:11+0000\n"
+"POT-Creation-Date: 2023-10-20 08:05+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -59,7 +59,7 @@ msgstr "Zu Paketen hinzufügen"
 
 #: templates/album.html:20 templates/album.html:26
 #: templates/download-list.html:317 templates/include/header.html:67
-#: templates/index.html:731
+#: templates/index.html:725
 msgid "Packages"
 msgstr "Pakete"
 
@@ -88,17 +88,17 @@ msgstr "Am beliebtesten"
 msgid "Most Trending"
 msgstr "Am angesagtesten"
 
-#: templates/category.html:61 templates/dvd.html:56 templates/photosets.html:58
+#: templates/category.html:61 templates/dvd.html:57 templates/photosets.html:58
 #: templates/scenes.html:63
 msgid "Newest"
 msgstr "neueste"
 
-#: templates/category.html:64 templates/dvd.html:59 templates/photosets.html:61
+#: templates/category.html:64 templates/dvd.html:60 templates/photosets.html:61
 #: templates/scenes.html:66
 msgid "Alphabetical"
 msgstr "alphabetisch"
 
-#: templates/category.html:72 templates/dvd.html:67 templates/photosets.html:69
+#: templates/category.html:72 templates/dvd.html:68 templates/photosets.html:69
 msgid "View"
 msgstr "Sicht"
 
@@ -107,24 +107,29 @@ msgstr "Sicht"
 msgid "Full HD"
 msgstr "Full HD"
 
-#: templates/category.html:82 templates/scenes.html:84
+#: templates/category.html:82 templates/scenes.html:85
 msgid "HD"
 msgstr "HD"
 
-#: templates/category.html:85 templates/scenes.html:87
+#: templates/category.html:85 templates/dvd.html:81 templates/photosets.html:82
+#: templates/scenes.html:88
+msgid "ALL"
+msgstr ""
+
+#: templates/category.html:89 templates/scenes.html:92
 msgid "SD"
 msgstr "SD"
 
-#: templates/category.html:92 templates/dvd.html:87 templates/photosets.html:89
+#: templates/category.html:96 templates/dvd.html:92 templates/photosets.html:93
 msgid "Display"
 msgstr "Anzeige"
 
-#: templates/category.html:140 templates/dvd.html:135
-#: templates/photosets.html:138 templates/scenes.html:143
+#: templates/category.html:144 templates/dvd.html:140
+#: templates/photosets.html:142 templates/scenes.html:148
 msgid "Filter"
 msgstr "Filter"
 
-#: templates/category.html:151 templates/download-list.html:148
+#: templates/category.html:155 templates/download-list.html:148
 #: templates/dvd.html:25 templates/include/footer.html:33
 #: templates/include/header.html:58 templates/partial/partial-category.html:5
 #: templates/profile.html:211 templates/search.html:42
@@ -132,13 +137,13 @@ msgstr "Filter"
 msgid "DVD"
 msgstr "DVD"
 
-#: templates/category.html:267 templates/download-list.html:199
-#: templates/include/footer.html:35 templates/partial/partial-category.html:120
+#: templates/category.html:271 templates/download-list.html:199
+#: templates/include/footer.html:35 templates/partial/partial-category.html:121
 #: templates/profile.html:266 templates/search.html:131
 msgid "Scene"
 msgstr "Szene"
 
-#: templates/category.html:383 templates/partial/partial-category.html:236
+#: templates/category.html:387 templates/partial/partial-category.html:238
 msgid "PhotoSet"
 msgstr "FotoSet"
 
@@ -181,15 +186,15 @@ msgstr "Bilder"
 
 #: templates/details.html:397
 msgid "Trailer"
-msgstr "Anhänger"
+msgstr "Trailer"
 
 #: templates/details.html:476
 msgid "\tAdded To Cart"
 msgstr "\tZum Warenkorb hinzugefügt"
 
 #: templates/details.html:704
-msgid "Similar Items"
-msgstr "ähnliche Gegenstände"
+msgid "Similar Movies"
+msgstr "Ähnliche Filme"
 
 #: templates/download-list.html:78 templates/package-list.html:77
 msgid "FTP CREDENTIALS"
@@ -317,32 +322,43 @@ msgstr "Körpertyp"
 msgid "Are you 18 years of age or older?"
 msgstr "Sind Sie 18 Jahre alt oder älter?"
 
-#: templates/index.html:101
-msgid "Enter"
-msgstr "Eingeben"
+#: templates/index.html:97
+msgid ""
+"You must be 18 years or older and agree to our Terms of Use to access and "
+"use this website. By clicking ENTER below, you certify that you are 18 years "
+"or older and that you accept our Terms of Use."
+msgstr ""
+"Sie müssen mindestens 18 Jahre alt sein und unseren Nutzungsbedingungen "
+"zustimmen, um auf diese Website zugreifen und diese nutzen zu können. Indem "
+"Sie unten auf ENTER klicken, bestätigen Sie, dass Sie mindestens 18 Jahre "
+"alt sind und dass Sie unsere Nutzungsbedingungen akzeptieren."
 
-#: templates/index.html:102
+#: templates/index.html:100
+msgid "Enter"
+msgstr "Betreten"
+
+#: templates/index.html:101
 msgid "No"
 msgstr "Nein"
 
-#: templates/index.html:248
+#: templates/index.html:242
 msgid "Recently Added Dvds"
 msgstr "Kürzlich hinzugefügte DVDs"
 
-#: templates/index.html:248 templates/index.html:373 templates/index.html:512
-#: templates/index.html:642 templates/index.html:731
+#: templates/index.html:242 templates/index.html:367 templates/index.html:506
+#: templates/index.html:636 templates/index.html:725
 msgid "View All"
 msgstr "Alle anzeigen"
 
-#: templates/index.html:373
+#: templates/index.html:367
 msgid "Recently Added Scenes"
 msgstr "Kürzlich hinzugefügte Szenen"
 
-#: templates/index.html:512
+#: templates/index.html:506
 msgid "Recently Added PhotoSets"
 msgstr "Kürzlich hinzugefügte Fotosets"
 
-#: templates/index.html:642
+#: templates/index.html:636
 msgid "Trending Stars"
 msgstr "Trendende Stars"
 
@@ -360,7 +376,9 @@ msgstr "Ich akzeptiere alle Downloadrechte des gekauften Videos"
 
 #: templates/profile.html:101
 msgid "I know what i decided and there's no way to get back the account"
-msgstr "Ich weiß, was ich beschlossen habe, und es gibt keine Möglichkeit, das Konto zurückzubekommen"
+msgstr ""
+"Ich weiß, was ich beschlossen habe, und es gibt keine Möglichkeit, das Konto "
+"zurückzubekommen"
 
 #: templates/profile.html:104 templates/profile.html:195
 msgid "Delete Account"

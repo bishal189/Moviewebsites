@@ -73,6 +73,11 @@ $(document).ready(function () {
 	   closeOnSelect: false // Add this line to keep the dropdown open after selecting an item
 
    });
+   	$('#genre').select2({
+	placeholder: "Choose genres",
+   closeOnSelect: false // Add this line to keep the dropdown open after selecting an item
+
+});
     $('#genre_de').select2({
 	placeholder: "Choose genres In German ",
    closeOnSelect: false // Add this line to keep the dropdown open after selecting an item
