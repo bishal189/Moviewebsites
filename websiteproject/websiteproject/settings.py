@@ -91,11 +91,11 @@ WSGI_APPLICATION = 'websiteproject.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'adultwebsite',
-        'USER':'root',
-        'PASSWORD':'testing',
-        'HOST':'172.17.0.2',
-        'PORT':'3306',
+        'NAME': os.getenv('DBNAME'),
+        'USER':os.getenv('DBUSER'),
+        'PASSWORD':os.getenv('DBPASSWORD'),
+        'HOST':os.getenv('DBHOST'),
+        'PORT':os.getenv('DBPORT'),
     }
 }
 
