@@ -717,6 +717,7 @@ def active_user(request,id):
   user=Account.objects.get(id=id)
   if user is not None:
     user.is_suspended=False
+    print(user)
     user.save()
     return redirect('user_list')
     
