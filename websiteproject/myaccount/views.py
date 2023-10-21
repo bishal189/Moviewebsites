@@ -102,7 +102,7 @@ def Login(request):
             # Authenticate the user and perform other login logic
             user = auth.authenticate(email=email, password=password)
             if user is not None:
-                if user.is_suspended:
+                if  user.is_suspended:
                     messages.error(request, 'You have been suspended by the admin!')
                     return redirect('login')
                 elif Account.objects.filter(email=email, is_superadmin=True).exists():
