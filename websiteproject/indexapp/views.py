@@ -450,7 +450,9 @@ def dvd(request):
 
 
 # end attribute for showing data in model star for filtering 
-    studio=StudioModel.objects.filter(lang=lang).order_by('-id')
+    print(lang)
+    studio=StudioModel.objects.filter(lang=lang)
+    print(studio)
     alldata=MovieDetail.objects.filter(lang=lang,type='DVD').order_by('-id')
     paginator_dvd=Paginator(alldata,20)
     page_dvd=request.GET.get('page_dvd')
