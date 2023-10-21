@@ -1,0 +1,95 @@
+{% extends 'base.html'%}
+{% load i18n %}
+
+{% block content %}
+
+{% include 'include/header.html' %}
+<style>
+    #age_check {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100vw;
+        height: 100vh;
+        /* {% comment %} background-color: rgba(8,11,14,.7); {% endcomment %} */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /* background-color:black; */
+    }
+
+    .modal1 {
+       
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+        overflow: hidden;
+        border: 1px solid #233140;
+    }
+
+
+    .modal1 h3 {
+        color: #f08e84;
+        font-size: 1.5em;
+        line-height: 3em;
+        font-weight: 400;
+        text-align: center;
+    }
+
+    .modal1 p {
+        color: #698aac
+    }
+
+    .modal1 h2 {
+        background-color: #080b0e;
+        text-align: center;
+        color: white;
+        padding: 8px;
+    }
+
+    .modal1 .ft-buttons {
+        padding: 20px 0;
+        border-bottom: 2px solid #080b0e;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+
+    .modal1 .ft-buttons .ft-btn {
+        padding: 5px 90px;
+        font-size: 1.5em;
+        clear: both;
+        background-color: #77180e;
+        color: white;
+        margin-left: 2px;
+    }
+    @media screen and (max-width:768px){
+		.modal1{
+			   width:100%;
+   
+		   }
+		   body{
+			   font-size:10px;
+		   }
+		   .ft-btn{
+			   margin-top:10px;
+		   }
+	   } 
+</style>
+<div id="age_check">
+    <div class="modal1" id="ageModal">
+        <h2>{% trans "FTP CREDENTIALS" %}</h2>
+        <h3>{% trans "Donot Share With Others" %}</h3>
+
+        <hr>
+        <h3>IP: 107.173.171.228</h3>
+        <h3>{% trans "USERNAME" %}: {{user.username}}</h3>
+        <h3>{% trans "PASSWORD" %}:{{password}}</h3>
+
+        <div class="ft-buttons">
+            <a href="{% url 'download_list' %}" class="ft-btn" id="noButton">{% trans "Go back" %}</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

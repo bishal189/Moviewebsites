@@ -388,9 +388,9 @@ def category_filter(request,type=None):
    
 #simple categoy for genre
 def category_by_genre(request,genrename):
-     lang=request.LANGUAGE
+     lang=request.LANGUAGE_CODE
      pages=Page.objects.filter(lang=lang).order_by('-id')
-     category=Category.objects.get(category_name=genrename)#first gets category
+     category=Category.objects.get(lang=lang,category_name=genrename)#first gets category
      genres=Category.objects.filter(lang=lang)#get all genre to show as options
      datatoshow=MovieDetail.objects.filter(genre=category,lang=lang) #finally get movie based on category
      get_dvd=datatoshow.filter(type="DVD").order_by('-id')
