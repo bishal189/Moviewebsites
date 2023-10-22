@@ -4,8 +4,8 @@ from django.utils.text import slugify
 # Create your models here.
 
 class Category(models.Model):
-    category_name = models.CharField(max_length=50, unique=True, null=True)
-    slug = models.SlugField(max_length=100, unique=True, null=True)
+    category_name = models.CharField(max_length=50, null=True)
+    slug = models.SlugField(max_length=100,  null=True)
     lang = models.CharField(max_length=3, blank=True)
 
 

@@ -12,14 +12,29 @@ import subprocess
 #List all the downloads in download page 
 def download_list(request):
         user=request.user
-        CreateUser(user.username)
         order_items=Order_Product.objects.filter(user=user)
-        user_home_directory = "/home/"+user.username        
-        centralized_movies_directory = os.getenv('Centralized_Directory')
+        albums=Order_Product_album.objects.filter(user=user)
+        data_dvd=order_items.filter(product__type='DVD')
+        data_scene=order_items.filter(product__type='Scene')
+        data_photoset=order_items.filter(product__type='PhotoSets')
+        context={
+            'albums':albums,
+            'data_dvd':data_dvd,
+            'data_scene':data_scene,
+            'data_photoset':data_photoset,
+        }
+        return render(request, 'download-list.html',context)
+    
+def get_ftp(request):
+    user=request.user
+    password=CreateUser(user.username,user)
+       
+    order_items=Order_Product.objects.filter(user=user)
+    user_home_directory = "/home/"+user.username        
+    centralized_movies_directory = os.getenv('Centralized_Directory')
 
-        for item in order_items:
+    for item in order_items:
             purchased_movie = item.product.videoname
-            purchased_movie='demo/file1.mp4'
             symlink_path = os.path.join(user_home_directory, item.product.movie_name)
             if not os.path.lexists(symlink_path):
                 print("true")
@@ -32,9 +47,10 @@ def download_list(request):
                 except subprocess.CalledProcessError as e:
                     pass
                     # print(f"Error: {e}")
+   
 
-        albums=Order_Product_album.objects.filter(user=user)
-        for album in albums:
+    albums=Order_Product_album.objects.filter(user=user)
+    for album in albums:
             albumdir=os.path.join(user_home_directory,album.product.album.album_name)
             subprocess.run(['sudo','mkdir','-p',albumdir],check=True)
 
@@ -51,18 +67,11 @@ def download_list(request):
                         # print("Symbolic link created successfully.")
                     except subprocess.CalledProcessError as e:
                         pass
-                    # print(f"Error: {e}")
-        data_dvd=order_items.filter(product__type='DVD')
-        data_scene=order_items.filter(product__type='Scene')
-        data_photoset=order_items.filter(product__type='PhotoSets')
-        context={
-            'albums':albums,
-            'data_dvd':data_dvd,
-            'data_scene':data_scene,
-            'data_photoset':data_photoset,
-        }
-        return render(request, 'download-list.html',context)
-    
+    context={
+         'password':password
+    }
+    return render(request,'ftp-details.html',context)
+            
 
 def package_list(request,id):
     album=AlbumMovie.objects.get(id=id)

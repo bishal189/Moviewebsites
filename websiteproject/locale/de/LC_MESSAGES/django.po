@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-20 08:05+0000\n"
+"POT-Creation-Date: 2023-10-21 15:57+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -36,7 +36,7 @@ msgstr "Fotosets"
 msgid "The page you are looking for not available!"
 msgstr "Die von Ihnen gesuchte Seite ist nicht verfügbar!"
 
-#: templates/404.html:21
+#: templates/404.html:21 templates/ftp-details.html:94
 msgid "Go back"
 msgstr "Geh zurück"
 
@@ -58,7 +58,7 @@ msgid "Add to Packages"
 msgstr "Zu Paketen hinzufügen"
 
 #: templates/album.html:20 templates/album.html:26
-#: templates/download-list.html:317 templates/include/header.html:67
+#: templates/download-list.html:208 templates/include/header.html:67
 #: templates/index.html:725
 msgid "Packages"
 msgstr "Pakete"
@@ -129,7 +129,7 @@ msgstr "Anzeige"
 msgid "Filter"
 msgstr "Filter"
 
-#: templates/category.html:155 templates/download-list.html:148
+#: templates/category.html:155 templates/download-list.html:39
 #: templates/dvd.html:25 templates/include/footer.html:33
 #: templates/include/header.html:58 templates/partial/partial-category.html:5
 #: templates/profile.html:211 templates/search.html:42
@@ -137,7 +137,7 @@ msgstr "Filter"
 msgid "DVD"
 msgstr "DVD"
 
-#: templates/category.html:271 templates/download-list.html:199
+#: templates/category.html:271 templates/download-list.html:90
 #: templates/include/footer.html:35 templates/partial/partial-category.html:121
 #: templates/profile.html:266 templates/search.html:131
 msgid "Scene"
@@ -196,28 +196,16 @@ msgstr "\tZum Warenkorb hinzugefügt"
 msgid "Similar Movies"
 msgstr "Ähnliche Filme"
 
-#: templates/download-list.html:78 templates/package-list.html:77
-msgid "FTP CREDENTIALS"
-msgstr "FTP-Zugangsdaten"
-
-#: templates/download-list.html:79 templates/package-list.html:78
-msgid "Donot Share With Others"
-msgstr "Nicht mit anderen teilen"
-
-#: templates/download-list.html:87 templates/profile.html:105
-msgid "Cancel"
-msgstr "Abbrechen"
-
-#: templates/download-list.html:100 templates/package-list.html:99
+#: templates/download-list.html:23 templates/package-list.html:99
 #: templates/package-list.html:171 templates/profile.html:725
 msgid "Download"
 msgstr "herunterladen"
 
-#: templates/download-list.html:101 templates/package-list.html:101
+#: templates/download-list.html:24 templates/package-list.html:101
 msgid "Get your Ftp Credentials"
 msgstr "Abrufen Ihrer FTP-Anmeldeinformationen"
 
-#: templates/download-list.html:259 templates/include/header.html:79
+#: templates/download-list.html:150 templates/include/header.html:79
 msgid "PhotoSets"
 msgstr "Fotosets"
 
@@ -236,6 +224,22 @@ msgstr "Senden"
 #: templates/forgot.html:31 templates/reset.html:31
 msgid "We will send a password to your Email"
 msgstr "Wir werden ein Passwort an Ihre E-Mail senden"
+
+#: templates/ftp-details.html:85 templates/package-list.html:77
+msgid "FTP CREDENTIALS"
+msgstr "FTP-Zugangsdaten"
+
+#: templates/ftp-details.html:86 templates/package-list.html:78
+msgid "Donot Share With Others"
+msgstr "Nicht mit anderen teilen"
+
+#: templates/ftp-details.html:90
+msgid "USERNAME"
+msgstr "Benutzername"
+
+#: templates/ftp-details.html:91
+msgid "PASSWORD"
+msgstr "Passwort"
 
 #: templates/include/footer.html:11
 msgid "Adult Star Content"
@@ -302,19 +306,19 @@ msgstr "Anmelden"
 msgid "Welcome"
 msgstr "Willkommen"
 
-#: templates/include/selectjs.html:17
+#: templates/include/selectjs.html:16
 msgid "Popular Categories"
 msgstr "Beliebte Kategorien"
 
-#: templates/include/selectjs.html:21
+#: templates/include/selectjs.html:20
 msgid "Studio"
 msgstr "Studio"
 
-#: templates/include/selectjs.html:25
+#: templates/include/selectjs.html:24
 msgid "Scene Categories"
 msgstr "Szenen-Kategorien"
 
-#: templates/include/selectjs.html:30
+#: templates/include/selectjs.html:29
 msgid "Model Types"
 msgstr "Körpertyp"
 
@@ -383,6 +387,10 @@ msgstr ""
 #: templates/profile.html:104 templates/profile.html:195
 msgid "Delete Account"
 msgstr "Konto löschen"
+
+#: templates/profile.html:105
+msgid "Cancel"
+msgstr "Abbrechen"
 
 #: templates/profile.html:122
 msgid "Profile"
