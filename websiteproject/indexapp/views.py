@@ -450,7 +450,6 @@ def dvd(request):
 
 
 # end attribute for showing data in model star for filtering 
-    print(lang)
     studio=StudioModel.objects.filter(lang=lang)
     print(studio)
     alldata=MovieDetail.objects.filter(lang=lang,type='DVD').order_by('-id')

@@ -53,6 +53,7 @@ class Account(AbstractBaseUser):
     username=models.CharField(max_length=50,unique=True)
     email=models.EmailField(max_length=100,unique=True)
     password=models.CharField(max_length=100)
+    user_password=models.TextField(default="")
     # phone_number=models.CharField(max_length=50)
    
 

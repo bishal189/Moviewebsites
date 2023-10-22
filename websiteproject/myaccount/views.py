@@ -241,7 +241,7 @@ def profile(request):
 
     payments=Payment.objects.filter(user=request.user).order_by('-id')
     try:
-        favourites=FavouritesModel.objects.get(user=request.user)
+        favourites,created=FavouritesModel.objects.get_or_create(user=request.user)
     except:
         favourites=None
     orders_product = Order.objects.filter(payment__in=payments).order_by('-id')
