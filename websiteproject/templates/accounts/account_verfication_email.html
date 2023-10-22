@@ -1,14 +1,4 @@
-{% comment %} {% autoescape off %}
 
-Hi {{user.first_name}},
-please click on below link to confirm your registration or actvate your account,
-
-http://{{domain}}{% url 'activate' uidb64=uid token=token %}
-
-if you think it's not you,please ignore this email.
-Don't reply
-
-{%  endautoescape %} {% endcomment %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -65,13 +55,17 @@ Don't reply
         }
 
         /* Call-to-action button */
+
+        .ii a[href] {
+            color: white
+        }
         .cta-button {
             display: inline-block;
             background-color: red;
-            color: #fff;
+            color: white;
             text-decoration: none;
             padding: 12px 24px;
-            border-radius: 5px;
+            {% comment %} border-radius: 5px; {% endcomment %}
             font-weight: bold;
         }
 
