@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-21 15:57+0000\n"
+"POT-Creation-Date: 2023-10-22 05:49+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -36,7 +36,7 @@ msgstr "Fotosets"
 msgid "The page you are looking for not available!"
 msgstr "Die von Ihnen gesuchte Seite ist nicht verfügbar!"
 
-#: templates/404.html:21 templates/ftp-details.html:94
+#: templates/404.html:21 templates/ftp-details.html:91
 msgid "Go back"
 msgstr "Geh zurück"
 
@@ -196,12 +196,12 @@ msgstr "\tZum Warenkorb hinzugefügt"
 msgid "Similar Movies"
 msgstr "Ähnliche Filme"
 
-#: templates/download-list.html:23 templates/package-list.html:99
-#: templates/package-list.html:171 templates/profile.html:725
+#: templates/download-list.html:23 templates/package-list.html:22
+#: templates/package-list.html:61 templates/profile.html:725
 msgid "Download"
 msgstr "herunterladen"
 
-#: templates/download-list.html:24 templates/package-list.html:101
+#: templates/download-list.html:24
 msgid "Get your Ftp Credentials"
 msgstr "Abrufen Ihrer FTP-Anmeldeinformationen"
 
@@ -225,19 +225,19 @@ msgstr "Senden"
 msgid "We will send a password to your Email"
 msgstr "Wir werden ein Passwort an Ihre E-Mail senden"
 
-#: templates/ftp-details.html:85 templates/package-list.html:77
+#: templates/ftp-details.html:82
 msgid "FTP CREDENTIALS"
 msgstr "FTP-Zugangsdaten"
 
-#: templates/ftp-details.html:86 templates/package-list.html:78
+#: templates/ftp-details.html:83
 msgid "Donot Share With Others"
 msgstr "Nicht mit anderen teilen"
 
-#: templates/ftp-details.html:90
+#: templates/ftp-details.html:87
 msgid "USERNAME"
 msgstr "Benutzername"
 
-#: templates/ftp-details.html:91
+#: templates/ftp-details.html:88
 msgid "PASSWORD"
 msgstr "Passwort"
 
@@ -577,15 +577,29 @@ msgstr "Tätowierung"
 msgid "Piercing"
 msgstr "Piercing"
 
-#: templates/stardetail.html:155
+#: templates/stardetail.html:132
+msgid "Current Status"
+msgstr "Aktueller Stand"
+
+#: templates/stardetail.html:138
+msgid "Gender"
+msgstr "Geschlecht"
+
+#: templates/stardetail.html:144
+#, fuzzy
+#| msgid "Model Types"
+msgid "ModelType"
+msgstr "Körpertyp"
+
+#: templates/stardetail.html:173
 msgid "DVD Played By Star"
 msgstr "DVD gespielt von Star"
 
-#: templates/stardetail.html:243
+#: templates/stardetail.html:261
 msgid "PhotoSets Played By Star"
 msgstr "Foto-Sets gespielt von Star"
 
-#: templates/stardetail.html:332
+#: templates/stardetail.html:350
 msgid "Scenes Played By Star"
 msgstr "Szenen gespielt von Star"
 

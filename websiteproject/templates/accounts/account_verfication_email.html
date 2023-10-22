@@ -65,7 +65,6 @@
             color: white;
             text-decoration: none;
             padding: 12px 24px;
-            {% comment %} border-radius: 5px; {% endcomment %}
             font-weight: bold;
         }
 
@@ -86,14 +85,17 @@
                 <p class="subheading">Welcome to our platform.</p>
             </div>
             <div class="body-text">
+
                 <p>Hello [Name],</p>
                 <p>We're excited to have you on board. Please click the button below to activate your account:</p>
                 <a href="http://{{domain}}{% url 'activate' uidb64=uid token=token %}" class="cta-button">Activate Your Account</a>
+
                 <p>If you didn't create an account with us, please ignore this email.</p>
+                <p>Thank you for choosing our services. We're thrilled to have you on board, and we're committed to providing you with the best experience.</p>
+                <p>If you have any questions or need further assistance, please don't hesitate to contact us.</p>
             </div>
             <div class="footer">
-                <p>If you have any questions, please contact our support team at support@company.com.</p>
-            </div>
+                <p>If you have any questions, please contact our support team at support@company.com.</p>            </div>
         </div>
     </div>
 </body>

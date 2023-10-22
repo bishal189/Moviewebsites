@@ -22,7 +22,7 @@ class StarsModel(models.Model):
     tatoo=models.CharField(max_length=600,blank=True,null=True)
     piercing=models.CharField(max_length=200,blank=True,null=True)
     breasttype=models.CharField(max_length=100,null=True,blank=True)
-    breastsize=models.CharField(max_length=10,blank=True,null=True)
+    breastsize=models.CharField(max_length=50,blank=True,null=True)
     bodymarking=models.CharField(max_length=30,blank=True,null=True)
     currentstatus=models.CharField(max_length=30,blank=True,null=True)
     gender=models.CharField(max_length=30,blank=True,null=True)

@@ -66,10 +66,16 @@
 								<span class="text_data ">{{star.birthplace}}</span>
 								</div>
 							{% endif %}
-							{% if star.ethnicity %}
-								<div class="col-12"  style="margin-top:8px;display:flex;">
+							{% if star.ethnicity  %}
+								<div class="col-12 col-lg-6"  style="margin-top:8px;display:flex;">
 								<div class="text_title">{% trans "Ethnicity" %}:</div>
 								<span class="text_data ">{{star.ethnicity}}</span>
+								</div>
+							{% endif %}
+							{% if star.modeltype %}
+								<div class=" col-12 col-lg-6"  style="margin-top:8px;display:flex;">
+								<div class="text_title">{% trans "ModelType" %}:</div>
+								<span class="text_data ">{{star.modeltype}}</span>
 								</div>
 							{% endif %}
 							{% if star.nationality %}
@@ -127,6 +133,19 @@
 								<span class="text_data ">{{star.piercing}}</span>
 								</div>
 							{% endif %}
+							{% if star.currentstatus %}
+								<div class=" col-12 col-lg-6"  style="margin-top:8px;display:flex;">
+								<div class="text_title">{% trans "Current Status" %}:</div>
+								<span class="text_data ">{{star.currentstatus}}</span>
+								</div>
+							{% endif %}
+							{% if star.gender %}
+								<div class=" col-12 col-lg-6"  style="margin-top:8px;display:flex;">
+								<div class="text_title">{% trans "Gender" %}:</div>
+								<span class="text_data ">{{star.gender}}</span>
+								</div>
+							{% endif %}
+							
 
 						</div>
 							

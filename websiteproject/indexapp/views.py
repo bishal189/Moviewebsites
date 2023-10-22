@@ -46,7 +46,7 @@ def home(request):
             attribute_choices.extend(age_ranges)
         else:
             values = StarsModel.objects.values(attribute_mapping[attribute]).distinct()
-            values_list = [value[attribute_mapping[attribute]] for value in values]
+            values_list = [value[attribute_mapping[attribute]] for value in values if value[attribute_mapping[attribute]] is not None]
             attribute_choices.extend([f"{attribute}:{value}" for value in values_list])
     
     genres=Category.objects.filter(lang=lang).order_by('-id')
@@ -322,7 +322,7 @@ def scenes(request):
             attribute_choices.extend(age_ranges)
         else:
             values = StarsModel.objects.values(attribute_mapping[attribute]).distinct()
-            values_list = [value[attribute_mapping[attribute]] for value in values]
+            values_list = [value[attribute_mapping[attribute]] for value in values if value[attribute_mapping[attribute]] is not None]
             attribute_choices.extend([f"{attribute}:{value}" for value in values_list])
     
     genres=Category.objects.filter(lang=lang).order_by('-id')
@@ -445,7 +445,7 @@ def dvd(request):
             attribute_choices.extend(age_ranges)
         else:
             values = StarsModel.objects.values(attribute_mapping[attribute]).distinct()
-            values_list = [value[attribute_mapping[attribute]] for value in values]
+            values_list = [value[attribute_mapping[attribute]] for value in values if value[attribute_mapping[attribute]] is not None]
             attribute_choices.extend([f"{attribute}:{value}" for value in values_list])
 
 
@@ -636,7 +636,7 @@ def photosets(request):
             attribute_choices.extend(age_ranges)
         else:
             values = StarsModel.objects.values(attribute_mapping[attribute]).distinct()
-            values_list = [value[attribute_mapping[attribute]] for value in values]
+            values_list = [value[attribute_mapping[attribute]] for value in values if value[attribute_mapping[attribute]] is not None]
             attribute_choices.extend([f"{attribute}:{value}" for value in values_list])
 
 # end attribute for showing data in model star for filtering 

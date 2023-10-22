@@ -39,7 +39,7 @@ def category(request):
             attribute_choices.extend(age_ranges)
         else:
             values = StarsModel.objects.values(attribute_mapping[attribute]).distinct()
-            values_list = [value[attribute_mapping[attribute]] for value in values]
+            values_list = [value[attribute_mapping[attribute]] for value in values if value[attribute_mapping[attribute]] is not None]
             attribute_choices.extend([f"{attribute}:{value}" for value in values_list])
 
 
@@ -93,7 +93,7 @@ def category_filter(request,type=None):
             attribute_choices.extend(age_ranges)
         else:
             values = StarsModel.objects.values(attribute_mapping[attribute]).distinct()
-            values_list = [value[attribute_mapping[attribute]] for value in values]
+            values_list = [value[attribute_mapping[attribute]] for value in values if value[attribute_mapping[attribute]] is not None]
             attribute_choices.extend([f"{attribute}:{value}" for value in values_list])
 
 
