@@ -292,7 +292,7 @@ def reset_password(request):
     if request.method == 'POST':
         password= request.POST['password']
         # print(request.POST)
-        confirm_password= request.POST['confirm_password']
+        confirm_password= request.POST['confrim_password']
         if  password == confirm_password:
             pk=request.session.get('uid')
             user=Account.objects.get(pk=pk)
