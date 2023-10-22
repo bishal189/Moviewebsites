@@ -65,15 +65,8 @@ def Register(request):
                 })
                 to_email=email
                 send_email=EmailMessage(mail_subject,message,to=[to_email])
+                send_email.content_subtype = 'html'
                 send_email.send()
-
-
-
-
-
-
-
-                
                 messages.success(request,'Registration successful')
                 return redirect('signup')
 
