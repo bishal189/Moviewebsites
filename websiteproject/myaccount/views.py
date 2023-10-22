@@ -54,12 +54,35 @@ def Register(request):
                 user = Account.objects.create_user(
                     email=email, username=username, password=password)
                 user.save()
+                # user activation
+                current_site=get_current_site(request)
+                mail_subject='Please activate your account'
+                message=render_to_string('accounts/account_verfication_email.html',{
+                    'user':user,
+                    'domain':current_site,
+                    'uid':urlsafe_base64_encode(force_bytes(user.pk)),
+                    'token':default_token_generator.make_token(user),
+                })
+                to_email=email
+                send_email=EmailMessage(mail_subject,message,to=[to_email])
+                send_email.send()
+
+
+
+
+
+
 
                 
-                user = auth.authenticate(email=email, password=password)
-                auth.login(request, user)
+                messages.success(request,'Registration successful')
+                return redirect('register')
+
+
+                
+                # user = auth.authenticate(email=email, password=password)
+                # auth.login(request, user)
             
-                return redirect('home')
+                # return redirect('home')
             else:
                 messages.error(request,"UNIQUE Contraint failed for Username or Email")
                 return redirect('signup')
@@ -262,5 +285,30 @@ def changed_password(request):
             return redirect('profile')
         else:
             return messages.error(request,'password doesnot match')
+
+
+
+
+
+
+
+def activate(request,uidb64,token):
+    # activate the user by setting the is_activate status to true
+    
+    try:
+        uid=urlsafe_base64_decode(uidb64).decode() 
+        user=User._default_manager.get(pk=uid)
+    except(TypeError,ValueError,OverflowError,user.DoesNotExist):
+        user=None
+    
+    if user is not None and default_token_generator.check_token(user,token):
+        user.is_active=True
+        user.save()
+        messages.success(request,'Congrulations your account is activated.')
+        return redirect ('home')
+    else: 
+        messages.error(request,'invalid activation link')
+        return redirect('register')
+
 
 
