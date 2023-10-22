@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'albums',
     'downloader',
     'captcha',
+    # 'myaccount.utils',
 ]
 
 MIDDLEWARE = [
