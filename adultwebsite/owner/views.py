@@ -220,11 +220,29 @@ def edit_movie(request,id):
     movie = get_object_or_404(MovieDetail, pk=id)
     genres=Category.objects.all().order_by('-id')
     types=MovieDetail.objects.all().order_by('-id')
+    print(request.POST)
+
     if request.method == 'POST':
         form = MovieDetailForm(request.POST, request.FILES, instance=movie)
         if form.is_valid():
+            
             if not form.cleaned_data['images']:
               form.cleaned_data['images'] = movie.images.all()
+            
+            
+            selected_genre = request.POST.get('genre_en')
+            movie.type = selected_genre
+
+
+            genre = request.POST.get('genre')
+            if genre:
+              for genre_id in genre:
+                  genre = Category.objects.get(pk=genre_id)
+                  movie.genre.add(genre)
+            
+
+            
+          
             form.save()
             return redirect('catalog')  # Redirect to the movie detail page after editing
         else:

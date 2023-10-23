@@ -65,14 +65,17 @@ $(document).ready(function () {
 		placeholder: "Choose quality",
 		allowClear: true
 	});
-	
-	
+	$('#type').select2({
+		placeholder: "Choose the type",
+	   closeOnSelect: false // Add this line to keep the dropdown open after selecting an item
 
+   });
 	$('#genre_en').select2({
 		placeholder: "Choose genres In English",
 	   closeOnSelect: false // Add this line to keep the dropdown open after selecting an item
 
    });
+
    	$('#genre').select2({
 	placeholder: "Choose genres",
    closeOnSelect: false // Add this line to keep the dropdown open after selecting an item

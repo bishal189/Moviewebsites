@@ -146,15 +146,19 @@
                     </select>
                   </div>
                 </div>
+
+                {% comment %} types code here  {% endcomment %}
                 <div class="col-12 ">
                   <div class="form__group">
-                    <select class="js-example-basic-multiple" name='genre_en' id="genre_en" multiple="multiple">
+                    <select class="js-example-basic-multiple" name='genre_en' id="type" >
                       {% for genre in types %}
-                      <option value="{{genre.id}}">{{genre.type}}</option>
+                      <option value="{{genre.type}}">{{genre.type}}</option>
                       {% endfor %}
                     </select>
                   </div>
                 </div> 
+
+
                 <div class="col-12">
                   <div class="form__gallery">
                     <label id="gallery1" for="form__gallery-upload">Upload photos of movie</label>
@@ -193,4 +197,5 @@
   </div>
 </main>
 <!-- end main content -->
+
 {% endblock %}

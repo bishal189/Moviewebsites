@@ -7,6 +7,8 @@ class Category(models.Model):
     category_name = models.CharField(max_length=50, null=True)
     slug = models.SlugField(max_length=100,  null=True)
     lang = models.CharField(max_length=3, blank=True)
+    def __str__(self):
+        return self.category_name;
 
 
     
