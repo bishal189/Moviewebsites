@@ -91,14 +91,14 @@ WSGI_APPLICATION = 'websiteproject.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        #NAME': BASE_DIR / 'db.sqlite3',
-         'NAME': os.getenv('DBNAME'),
-         'USER':os.getenv('DBUSER'),
-         'PASSWORD':os.getenv('DBPASSWORD'),
-         'HOST':os.getenv('DBHOST'),
-         'PORT':os.getenv('DBPORT'),
+        # 'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+        #  'NAME': os.getenv('DBNAME'),
+        #  'USER':os.getenv('DBUSER'),
+        #  'PASSWORD':os.getenv('DBPASSWORD'),
+        #  'HOST':os.getenv('DBHOST'),
+        #  'PORT':os.getenv('DBPORT'),
     }
 }
 
