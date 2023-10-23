@@ -64,6 +64,7 @@ class MovieDetail(models.Model):
     videoname=models.TextField(blank=True)
 
 
+
     def save(self, *args, **kwargs):
         self.slug = slugify(self.movie_name)
         super(MovieDetail, self).save(*args, **kwargs)

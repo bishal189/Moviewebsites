@@ -226,7 +226,7 @@ body::-webkit-scrollbar-thumb {
   justify-content: flex-start;
   align-items: flex-start;
   position: fixed;
-  background-color: #131720;
+  background-color: black;
   top: -400px;
   left: 0;
   width: 100%;
@@ -306,7 +306,7 @@ body::-webkit-scrollbar-thumb {
   /* border-radius: 16px; */
   padding: 0 20px;
   width: 200px;
-  transition: 0.5s;
+  /* transition: 0.5s; */
   transform: translate3d(0px, 22px, 0px);
   margin-top: 10px;
   height: auto;
@@ -5374,7 +5374,7 @@ body::-webkit-scrollbar-thumb {
   border-bottom: none;
   border-top: none;
   /* border-radius: 0; */
-  min-width: 180px;
+  /* min-width: 180px; */
   padding: 10px 0 10px 20px;
   background-color: black;
 }
