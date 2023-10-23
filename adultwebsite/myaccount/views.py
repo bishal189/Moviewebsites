@@ -31,7 +31,15 @@ django.utils.encoding.force_text = force_str
 # register page is here
 
 #for registering new user
+
 def Register(request):
+    userid=None
+    registered=False
+    if 'userid' in request.session:
+        userid = request.session['userid']
+    if 'registered' in request.session:
+        registered=request.session['registered']
+
     if request.method == 'POST':
         recaptcha_response = request.POST.get('g-recaptcha-response')
         secret_key = '6Lc-44YmAAAAAMummGaU9yWtpf5GUtlbcz2QDdYn'  
@@ -43,7 +51,7 @@ def Register(request):
 
         response = requests.post('https://www.google.com/recaptcha/api/siteverify', data=data)
         result = response.json()
-
+        
         if result['success']:
             form = ResitrationForm(request.POST)
             if form.is_valid():
@@ -68,19 +76,17 @@ def Register(request):
                 send_email.content_subtype = 'html'
                 send_email.send()
 
- 
-                messages.success(request,'We have sent an Email  to verify Your Account.Please Check Your Email.')
-                
+                request.session['userid']=user.id
+                request.session['registered']=True
+                context={
+                    'registered':registered,
+                    'user':user
+                }                
                 return redirect('signup')     
-                # user = auth.authenticate(email=email, password=password)
-                # auth.login(request, user)
-            
-                # return redirect('home')
+
             else:
                 messages.error(request,"UNIQUE Contraint failed for Username or Email")
                 return redirect('signup')
-
-
         else:
             # CAPTCHA verification failed
             messages.error(request, 'CAPTCHA verification failed.')
@@ -88,9 +94,36 @@ def Register(request):
     else:
        form = ResitrationForm()
     context = {
-        'form': form
+        'form': form,
+        'userid':userid,
+        'registered':registered,
+
     }
     return render(request, 'signup.html', context)
+
+
+def resend_verification_email(request, user_id):
+    try:
+        user = Account.objects.get(pk=user_id)
+        # Create and send the verification email
+        current_site = get_current_site(request)
+        mail_subject = 'Please activate your account'
+        message = render_to_string('accounts/account_verfication_email.html', {
+            'user': user,
+            'domain': current_site.domain,
+            'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+            'token': default_token_generator.make_token(user),
+        })
+        to_email = user.email
+        send_email = EmailMessage(mail_subject, message, to=[to_email])
+        send_email.content_subtype = 'html'
+        send_email.send()
+        messages.success(request, 'We have resent the verification email. Please check your email.')
+    except Account.DoesNotExist:
+        messages.error(request, 'User not found.')
+    
+    return redirect('signup')
+
 
 
 import requests
@@ -137,17 +170,15 @@ def Login(request):
 
     return render(request, 'signin.html')
 
-
 # logout function is here
 @login_required(login_url='login')
 def logout(request):
     auth.logout(request)
+
+    request.session['userid']=None
+    request.session['reigstered']=False
     messages.success(request, 'you are logged out!')
     return redirect('home')
-
-
-
-
 
 
 def forget_password(request):
@@ -374,6 +405,8 @@ def activate(request,uidb64,token):
         user.save()
         auth.login(request, user)
         messages.success(request,'Congrulations your account is activated.')
+        request.session['registered']=False
+        request.session['userid']=None
         return redirect ('home')
     else: 
         messages.error(request,'invalid activation link')
