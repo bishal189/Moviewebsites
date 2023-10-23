@@ -219,6 +219,7 @@ def catalog(request):
 def edit_movie(request,id):
     movie = get_object_or_404(MovieDetail, pk=id)
     genres=Category.objects.all().order_by('-id')
+    types=MovieDetail.objects.all().order_by('-id')
     if request.method == 'POST':
         form = MovieDetailForm(request.POST, request.FILES, instance=movie)
         if form.is_valid():
@@ -232,6 +233,7 @@ def edit_movie(request,id):
         form = MovieDetailForm(instance=movie)
 
     context = {
+        'types':types,
         'genres':genres,
         'form': form,
         'movie': movie,

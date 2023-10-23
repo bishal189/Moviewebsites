@@ -65,6 +65,20 @@
                     {% endcomment %}
                   </div>
                 </div>
+                <div class="col-12">
+                  <div class="form__group">
+                    {{form.videoname}} {% comment %}
+                    <input
+                      type="text"
+                      required
+                      class="form__input"
+                      name="title"
+                      placeholder="Title"
+                      value="{{movie.movie_name}}"
+                    />
+                    {% endcomment %}
+                  </div>
+                </div>
 
                 <div class="col-12">
                   <div class="form__group">
@@ -87,7 +101,7 @@
                   </div>
                 </div>
 
-                <div class="col-12 col-sm-6 col-lg-3">
+                <div class="col-12 col-sm-6">
                   <div class="form__group">
                     <select
                       class="js-example-basic-single"
@@ -101,6 +115,8 @@
                     </select>
                   </div>
                 </div>
+
+
 
                 <div class="col-12 col-sm-6 col-lg-3">
                   <div class="form__group">
@@ -130,6 +146,15 @@
                     </select>
                   </div>
                 </div>
+                <div class="col-12 ">
+                  <div class="form__group">
+                    <select class="js-example-basic-multiple" name='genre_en' id="genre_en" multiple="multiple">
+                      {% for genre in types %}
+                      <option value="{{genre.id}}">{{genre.type}}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                </div> 
                 <div class="col-12">
                   <div class="form__gallery">
                     <label id="gallery1" for="form__gallery-upload">Upload photos of movie</label>

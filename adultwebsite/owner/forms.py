@@ -32,7 +32,7 @@ class movie_form(forms.ModelForm):
 class MovieDetailForm(forms.ModelForm):
     class Meta:
         model = MovieDetail
-        fields = ['movie_name', 'year', 'quality', 'coverphoto', 'duration', 'short_description', 'trailer', 'price','images']
+        fields = ['movie_name', 'year', 'quality', 'coverphoto', 'duration', 'short_description', 'trailer', 'price','images','videoname']
         images = forms.ImageField(required=False)
 
 
@@ -41,17 +41,28 @@ class MovieDetailForm(forms.ModelForm):
         self.fields ['trailer'].widget.attrs['class']='form__video-upload'      
         self.fields ['trailer'].widget.attrs['id']='form__video-upload'      
         self.fields ['trailer'].widget.attrs['type']='file'      
+        self.fields ['trailer'].widget.attrs['placeholder']='trailer'      
         self.fields ['coverphoto'].widget.attrs['id']='form__img-upload'      
+        self.fields ['coverphoto'].widget.attrs['placeholder']='coverphoto'      
         self.fields ['movie_name'].widget.attrs['class']='form__input'      
+        self.fields ['movie_name'].widget.attrs['placeholder']='movie name'      
         self.fields ['short_description'].widget.attrs['class']='form__textarea'      
+        self.fields ['short_description'].widget.attrs['placeholder']='descriptions'      
         self.fields ['price'].widget.attrs['class']='form__input'      
+        self.fields ['price'].widget.attrs['placeholder']='price'      
+        self.fields ['videoname'].widget.attrs['class']='form__input'      
+        self.fields ['videoname'].widget.attrs['placeholder']='videoname'      
+        # self.fields ['price'].widget.attrs['class']='form__input'      
         self.fields ['year'].widget.attrs['class']='form__input'      
+        self.fields ['year'].widget.attrs['placeholder']='year'      
         self.fields ['duration'].widget.attrs['class']='form__input'      
+        self.fields ['duration'].widget.attrs['placeholder']='duration'      
         self.fields ['images'].widget.attrs['class']='form__gallery-upload'      
         self.fields ['images'].widget.attrs['id']='form__gallery-upload'      
         self.fields ['images'].widget.attrs['type']='file'      
         self.fields ['images'].widget.attrs['accept']='.png, .jpg, .jpeg'      
         self.fields ['images'].widget.attrs['data_name']='#gallery1'  
+        self.fields ['images'].widget.attrs['placeholder']='images'  
           
 
 
