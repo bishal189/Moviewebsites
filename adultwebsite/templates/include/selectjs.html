@@ -15,20 +15,38 @@
 	$('#popular_category').select2({
 	 	placeholder: "{% trans 'Popular Categories' %}",
 		closeOnSelect: false, // Add this line to keep the dropdown open after selecting an item
+		
 	});
-	$('#studio').select2({
+	$("#popular_category").on("select2:select select2:unselect", function (e) {  // Clear the search input field
+  $(this).next(".select2-container").find(".select2-search input[type='search']").val('').trigger('input');
+});
+	
+	
+  $('#studio').select2({
 	 	placeholder: "{% trans 'Studio' %}",
 		closeOnSelect: false ,// Add this line to keep the dropdown open after selecting an item
 	});
+	$("#studio").on("select2:select select2:unselect", function (e) {  // Clear the search input field
+  $(this).next(".select2-container").find(".select2-search input[type='search']").val('').trigger('input');
+});
+	
 	$('#scene_category').select2({
 	 	placeholder: "{% trans 'Scene Categories' %}",
 		closeOnSelect: false // Add this line to keep the dropdown open after selecting an item
 
 	});
+	$("#scene_category").on("select2:select select2:unselect", function (e) {  // Clear the search input field
+  $(this).next(".select2-container").find(".select2-search input[type='search']").val('').trigger('input');
+});
+	
 	$('#model').select2({
 	 	placeholder: "{% trans 'Model Types' %}",
 		closeOnSelect: false // Add this line to keep the dropdown open after selecting an item
 
 	});
+	$("#model").on("select2:select select2:unselect", function (e) {  // Clear the search input field
+  $(this).next(".select2-container").find(".select2-search input[type='search']").val('').trigger('input');
+});
+	
 
 	</script>

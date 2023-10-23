@@ -68,18 +68,10 @@ def Register(request):
                 send_email.content_subtype = 'html'
                 send_email.send()
 
-
-
-
-
-
-
-                
+ 
                 messages.success(request,'We have sent an Email  to verify Your Account.Please Check Your Email.')
-                return redirect('signup')
-
-
                 
+                return redirect('signup')     
                 # user = auth.authenticate(email=email, password=password)
                 # auth.login(request, user)
             
@@ -380,6 +372,7 @@ def activate(request,uidb64,token):
     if user is not None and default_token_generator.check_token(user,token):
         user.is_active=True
         user.save()
+        auth.login(request, user)
         messages.success(request,'Congrulations your account is activated.')
         return redirect ('home')
     else: 

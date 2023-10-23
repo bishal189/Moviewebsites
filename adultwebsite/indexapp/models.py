@@ -60,7 +60,7 @@ class MovieDetail(models.Model):
     created_at=models.DateField(auto_now=True,null=True)
     view_count=models.IntegerField(default=0)
     cart_count=models.IntegerField(default=0)
-    lang=models.CharField(max_length=3)
+    lang=models.CharField(max_length=3,db_index=True)
     videoname=models.TextField(blank=True)
 
 
