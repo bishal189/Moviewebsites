@@ -193,7 +193,8 @@ body::-webkit-scrollbar-thumb {
   top: 0;
   left: 0;
   width: 100%;
-  background-color: #131720;
+  background-color:black;
+  /* background-color: #131720; */
   z-index: 99;
   transition: 0.5s, margin 0s;
 }
@@ -234,7 +235,7 @@ body::-webkit-scrollbar-thumb {
   height: 250px;
   padding: 20px;
   transition: 0.5s;
-  background: #131720;
+  background: black;
   border-bottom: 1px solid #151f30;
 }
 .header__nav--active {
