@@ -4,10 +4,168 @@
 	{% block title %}
 <title>Adult Content Shop</title>
 	{% endblock%}
-
-
-
 	{% block content %}
+
+	<style>
+		#age_check {
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			width: 100vw;
+			height: 100vh;
+			/* {% comment %} background-color: rgba(8,11,14,.7); {% endcomment %} */
+			z-index: 10000;
+			backdrop-filter: blur(20px);
+			-webkit-backdrop-filter: blur(20px);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+	}
+		.modal1 {
+		display:none;
+		z-index:1000;
+		width: 50vw;
+		background-color: #11181f;
+		-webkit-border-radius: 5px;
+		-moz-border-radius: 5px;
+		border-radius: 5px;
+		overflow: hidden;
+		text-align: center;
+		border: 1px solid #233140;
+		}
+		
+	
+		.modal1 h3{
+			color:#f08e84;
+			font-size: 1.5em;
+			line-height: 3em;
+			font-weight:400;
+		}
+		.modal1 p{
+			color:#698aac
+		}
+		
+		.modal1 h2{
+			background-color:#080b0e;
+			text-align:center;
+			color:white;
+			padding:8px;
+		}
+		
+		.modal1 .ft-buttons{
+			padding: 20px 0;
+		border-bottom: 2px solid #080b0e;
+		margin-bottom: 10px;
+		}
+		
+		.modal1 .ft-buttons .ft-btn{
+		padding: 5px 90px;
+		font-size: 1.5em;
+		clear: both;
+		background-color: #77180e;
+		color:white;
+		margin-left:2px;
+		}
+		@media screen and (max-width:768px){
+		 .modal1{
+				width:100%;
+	
+			}
+			body{
+				font-size:10px;
+			}
+			.ft-btn{
+				margin-top:10px;
+			}
+		} 
+	
+	</style>
+	
+<div id="age_check">	
+
+	<div class="modal1" id="ageModal">
+			<h2>{% trans "Adult Content Shop" %}</h2>
+            <h3>{% trans "Email Verification" %}</h3>
+			<p>{% trans "Thank You For Registering in Our Platform"%}</p>
+			<p>{% trans "Before Entering please Verify Your Email.If You didnot receive any Email then click the resend button." %}
+			</p>
+
+
+			<div class="ft-buttons">
+
+			{% if registered %}
+			<button fetch-url="{% url 'resend-verification-email' userid %}" class="ft-btn"id="yesButton">{% trans "Resend Email" %}</button>
+			{% else %}
+			<button class="ft-btn" id="yesButton"></button>{% endif %}
+			<button   class="ft-btn"id="noButton">{% trans "Submit Again" %}</button>
+			</div>
+    </div>
+</div>
+
+
+	<script>
+	
+		// Get modal and site content elements by their IDs
+// Get modal and site content elements by their IDs
+const ageModal = document.getElementById("ageModal");
+const siteContent = document.getElementById("siteContent");
+
+// Get the Yes and No buttons by their IDs
+const yesButton = document.getElementById("yesButton");
+const noButton = document.getElementById("noButton");
+
+const agecheck=document.getElementById("age_check")
+
+function clickyes(){
+	ageModal.style.display = "none";
+	agecheck.style.backdropFilter="none"
+	agecheck.style.zIndex='0'
+	ageModal.style.zIndex='0'
+}
+
+function startCountdown(seconds) {
+    var countdown = seconds;
+
+    function updateButton() {
+        yesButton.textContent="{% trans 'Resend Email (' %}" + countdown + " sec)";
+        countdown--;
+
+        if (countdown < 0) {
+            yesButton.textContent="{% trans 'Resend Email' %}";
+            yesButton.disabled=false // Re-enable the button
+			yesButton.style.cursor="pointer"
+        } else {
+            setTimeout(updateButton, 1000);
+        }
+    }
+	updateButton()
+}
+    yesButton.addEventListener("click",function () {
+        // Disable the button immediately upon click
+         yesButton.disabled=true
+		 yesButton.style.cursor="default"
+        startCountdown(60); // Change the number of seconds as needed
+		url=yesButton.getAttribute('fetch-url')
+		fetch(url)
+
+        // Handle the resend email logic (e.g., AJAX request to the resend view)
+    });
+
+
+	noButton.addEventListener("click", () => {
+	clickyes()
+		});
+	{% if registered %}
+	ageModal.style.display = "block";
+	{% else %}
+	clickyes()
+	{% endif %}
+
+	</script>
+
+
 	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
 	<!-- sign in -->

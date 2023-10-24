@@ -373,14 +373,18 @@ def scenes(request):
             
 
             if page_scene is None:
+                paged_scene = paginator_scene.get_page(page_scene)
                 context={
             'user_favourite_movie':user_favorite_movies,
             'user_added_cart':user_added_cart,
-            'scenes':actual_data
+            'scenes':paged_scene
             }
                 html=render_to_string('partial/scenes_partial.html',context,request=request)
+                pagination_html = render_to_string('partial/pagination_partial.html', {'data': paged_scene,'type':"scene",}, request=request)
+
                 response_data={
-                    'content':html
+                    'content':html,
+                    'pagination':pagination_html,
                 }
 
         if page_scene is not None:
@@ -451,7 +455,6 @@ def dvd(request):
 
 # end attribute for showing data in model star for filtering 
     studio=StudioModel.objects.filter(lang=lang)
-    print(studio)
     alldata=MovieDetail.objects.filter(lang=lang,type='DVD').order_by('-id')
     paginator_dvd=Paginator(alldata,20)
     page_dvd=request.GET.get('page_dvd')
@@ -491,14 +494,18 @@ def dvd(request):
             
 
             if page_dvd is None:
+                paged_dvd=paginator_dvd.get_page(page_dvd)
                 context={
             'user_favourite_movie':user_favorite_movies,
             'user_added_cart':user_added_cart,
-            'dvd':actual_data
+            'dvd':paged_dvd
             }
                 html=render_to_string('partial/dvd_partial.html',context,request=request)
+                pagination_html = render_to_string('partial/pagination_partial.html', {'data': paged_dvd,'type':"dvd",}, request=request)
+
                 response_data={
-                    'content':html
+                    'content':html,
+                    'pagination':pagination_html
                 }
 
 
@@ -687,14 +694,19 @@ def photosets(request):
             
 
             if page_photo is None:
+                paged_photo=paginator_photo.get_page(page_photo)
+
                 context={
             'user_favourite_movie':user_favorite_movies,
             'user_added_cart':user_added_cart,
-            'photoset':actual_data
+            'photoset':paged_photo
             }
                 html=render_to_string('partial/photo_partial.html',context,request=request)
+                pagination_html = render_to_string('partial/pagination_partial.html', {'data': paged_photo,'type':"photo",}, request=request)
+
                 response_data={
-                    'content':html
+                    'content':html,
+                    'pagination':pagination_html
                 }
 
         if page_photo is not None:

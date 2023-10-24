@@ -307,11 +307,9 @@
 		},
 		}).then(response=>response.json()).then(data=>{
 		data_content.innerHTML=data.content
-		if (pageOption){
-			console.log(data.pagination)
 
 		paginator_data.innerHTML=data.pagination
-		}
+		
 		})																	// Perform your sorting or other actions here
 							}
 		</script>
@@ -338,7 +336,6 @@
 					data_content=document.getElementById(data_content)
 					const nextPageHref = targetElement.getAttribute('href');
 					var nextPage=nextPageHref.split('?')[1]
-					console.log(nextPage)
 					var sortOption = document.querySelector('#sort .active');
 					var viewOption = document.querySelector('#view .active');
 					var displayOption = document.querySelector('#display .active');

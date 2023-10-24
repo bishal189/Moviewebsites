@@ -105,21 +105,78 @@ background-position: right center; /* Adjust the position as needed */
             
             </form>
             </li>
-                     </ul>
-         
-          
+            </ul>
 
             {% if user.is_authenticated %}
-            <a href="{% url 'logout' %}" class="header__user">
-              <span>{% trans "Sign Out" %}</span>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <path
-                  d="M20,12a1,1,0,0,0-1-1H11.41l2.3-2.29a1,1,0,1,0-1.42-1.42l-4,4a1,1,0,0,0-.21.33,1,1,0,0,0,0,.76,1,1,0,0,0,.21.33l4,4a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42L11.41,13H19A1,1,0,0,0,20,12ZM17,2H7A3,3,0,0,0,4,5V19a3,3,0,0,0,3,3H17a3,3,0,0,0,3-3V16a1,1,0,0,0-2,0v3a1,1,0,0,1-1,1H7a1,1,0,0,1-1-1V5A1,1,0,0,1,7,4H17a1,1,0,0,1,1,1V8a1,1,0,0,0,2,0V5A3,3,0,0,0,17,2Z"
-                />
-              </svg>
-            </a>
-            {% else %}
+  
+          
+            {% endif %}
+            
+         
+          <style>
+              .header-custom {
+      position: relative; /* Change to relative */
+      /* background-color: #131720; */
+      color:white;
+      z-index: 99;
+      transition: 0.5s, margin 0s;
+      font-size:16px;
+    }
 
+    .dropdown {   
+      margin-left:-25px;
+      margin-top:15px;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 140px;
+      background-color: #1a1a1a;
+      display: none;
+    }
+    .header__content{
+      overflow:visible
+    }
+ 
+    .dropdown ul{
+display:flex;
+justify-content: center; 
+align-items:center;
+flex-direction: column;   
+}
+      .dropdown ul li{
+        margin-top:10px;
+        margin-bottom:10px;
+      }
+          </style>
+
+            {% if user.is_authenticated %}
+            
+              <div class="header-custom">
+                <button style="padding:8px" class="sign__btn" id="toggleDropdown">Account
+                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12"><path d="M1.293 4.293a1 1 0 011.414 0L6 7.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" fill="black"/></svg></button>
+                <div id="mydropdown" class="dropdown">
+                  <ul>
+                    <li>
+                      <a href="{% url 'logout' %}" class="header__user">
+                        <span>{% trans "Sign Out" %}</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                          <path
+                            d="M20,12a1,1,0,0,0-1-1H11.41l2.3-2.29a1,1,0,1,0-1.42-1.42l-4,4a1,1,0,0,0-.21.33,1,1,0,0,0,0,.76,1,1,0,0,0,.21.33l4,4a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42L11.41,13H19A1,1,0,0,0,20,12ZM17,2H7A3,3,0,0,0,4,5V19a3,3,0,0,0,3,3H17a3,3,0,0,0,3-3V16a1,1,0,0,0-2,0v3a1,1,0,0,1-1,1H7a1,1,0,0,1-1-1V5A1,1,0,0,1,7,4H17a1,1,0,0,1,1,1V8a1,1,0,0,0,2,0V5A3,3,0,0,0,17,2Z"
+                          />
+                        </svg>
+                      </a>
+                    </li>
+                    <li>
+                      <a class="header__user" href='{% url 'profile' %}' >
+                        <span>
+                          <i class="fa-solid fa-user"></i>
+
+                      {% trans "Profile"%}</span>
+                      </a></li>
+                  </ul>
+                </div>
+              </div>
+            {% else %}
             <a href="{% url 'login' %}" class="header__user">
               <span>{% trans "Sign in" %}</span>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -132,11 +189,7 @@ background-position: right center; /* Adjust the position as needed */
             {% endif %}
 
          
-          {% if user.is_authenticated %}
-          <a  href='{% url 'profile' %}' style='font-size:1.1rem; color:white;'>
-          <i class="fa-solid fa-user"></i>
-         {% trans "Welcome"%},<br> <strong style='margin-left:25px;'> {{user.username}}</strong>
-          </a>{% endif %}
+        
           <a style="padding-right:10px;"  href='{% url 'cart' %}' class="cart-icon-container" style='font-size:2rem;'>
             <!-- Shopping cart icon (you can replace this with your own icon) -->
             <span class="cart-icon">&#x1F6D2;</span>
@@ -145,34 +198,128 @@ background-position: right center; /* Adjust the position as needed */
         
           </a>
 
+
         <style>
-         
-    .custom-selecthere {
-  width: 100px;
-  /* Other custom styles */
+/* Your existing CSS for the custom dropdown */
+.custom-selecthere {
+  position: relative;
+  /* width: 200px; Adjust the width as needed */
 }
-   /* Updated style for the container */
-  .custom-selecthere .select2-container--default {
-  display: inline-block; /* Display the containers in a row */
-  width: 100px!important; /* Set a fixed width for each select item */
-  margin-right: 10px; /* Adjust the spacing between dropdowns */
+
+.custom-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.language-selector-button {
+  padding: 10px;
+  background-color: black;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.selected-language {
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #1a1a1a;
+  /* border: 1px solid #ccc; */
+  width: 80px;
+  z-index: 1;
+}
+
+.language-item {
+  padding: 10px;
+  cursor: pointer;
+}
+
+/* Style for the flag image */
+.language-flag {
+
+  margin-right: 10px;
+}
+.show{
+  display:block;
 }
         </style>
-            <form action={% url 'set_language' %} method="post">
+            <!-- <form action={% url 'set_language' %} method="post">
               {% csrf_token %}
               <input type="hidden"name="next" value={{redirect_to}}>
-              <div class="custom-selecthere">
-              <select class="select-lang" name="language" id="selector">
+                 <select class="select-lang" name="language" id="selector">
                 {% get_available_languages as LANGUAGES %}
                 {% get_language_info_list for LANGUAGES as languages %}
                 {% for language in languages %}
+                  
                   <option value="{{ language.code }}" {% if language.code == LANGUAGE_CODE %}selected{% endif %}>
                   </option>
                 {% endfor %}
               </select>
-              </div>
-          </form>
+          </form> -->
+          <form style="font-size:16px;" action="{% url 'set_language' %}" method="post" id="language-form">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ redirect_to }}">
+            <div id="custom-container" class="custom-selecthere">
+              <div class="custom-dropdown" id="custom-dropdown">
+                <div id="language-selector-button" class="language-selector-button">
+                  <span class="selected-language">
+                    <img style="height:2em;width:2em;" class="language-flag" src="{% static 'img/flag_'|add:LANGUAGE_CODE|add:'.png' %}" alt="' + language.id + ' flag" />
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12"><path d="M1.293 4.293a1 1 0 011.414 0L6 7.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" fill="white"/></svg> 
+                  </span>
+                </div>
+                <div class="dropdown-content" id="dropdown-content">
+                  {% get_available_languages as LANGUAGES %}
+                  {% get_language_info_list for LANGUAGES as languages %}
+                  {% for language in languages %}
+                    <div class="language-item" data-value="{{ language.code }}">
+                      <img style="height:2.5em;width:2em;" class="language-flag" src="{% static 'img/flag_'|add:language.code|add:'.png' %}" alt="' + language.id + ' flag" /> 
 
+                    </div>
+                  {% endfor %}
+                </div>
+              </div>
+              <input type="hidden" name="language" id="selected-language" value="{{ LANGUAGE_CODE }}">
+            </div>
+          </form>
+        
+          
+          <script>
+            document.addEventListener("DOMContentLoaded", function() {
+              const selectorButton = document.getElementById("language-selector-button");
+              const dropdownContent = document.getElementById("dropdown-content");
+              const selectedLanguage = document.getElementById("selected-language");
+              let currentLanguage = selectedLanguage.value;
+              selectorButton.addEventListener("click", function(event) {
+                event.preventDefault()
+                dropdownContent.classList.toggle("show");
+                
+                event.stopPropagation()
+              });
+
+              document.addEventListener("click", function(event) {
+  if (!dropdownContent.contains(event.target) && event.target !== selectorButton) {
+    // Close the dropdown when clicking outside of it
+    dropdownContent.classList.remove("show");
+  }
+});
+        
+              const languageItems = document.querySelectorAll(".language-item");
+              languageItems.forEach(function(item) {
+                item.addEventListener("click", function() {
+                  event.preventDefault()
+
+                  const languageCode = item.getAttribute("data-value");
+                  if (currentLanguage !== languageCode) {
+                    selectedLanguage.value = languageCode;
+                     document.getElementById("language-form").submit();
+                  }
+                });
+              });
+            });
+          </script>
        
       </div>
     </div>
@@ -181,32 +328,24 @@ background-position: right center; /* Adjust the position as needed */
 </header>
 <script src="{% static 'js/jquery-3.5.1.min.js' %}"></script>
 	<script src="{% static 'js/select2.min.js' %}"></script>
-
-<script>
-  $('.select-lang').select2({
-    minimumResultsForSearch: Infinity,    templateResult: formatLanguage,
-    templateSelection: formatLanguage,
-    
-
-    
+  <script>
+    document.getElementById("toggleDropdown").addEventListener("click", function() {
+var dropdown = document.getElementById("mydropdown");
+if (dropdown.style.display === "block") {
+dropdown.style.display = "none";
+} else {
+dropdown.style.display = "block";
+}
+event.stopPropagation(); // Prevent the click event from reaching the document
+});
+document.addEventListener("click", function(event) {
+    var dropdown = document.getElementById("mydropdown");
+    if (dropdown.style.display === "block" && event.target !== dropdown && !dropdown.contains(event.target)) {
+      dropdown.style.display = "none";
+    }
   });
-  $('.select-lang').on('change', function() {
-    // Your event handling code here
-    this.form.submit();
-  });
+ </script>
 
-
-function formatLanguage(language) {
-  if (!language.id) {
-    return language.text;
-  }
-
-  var $language = $(
-    '<span><img style="height:3em;width:4em;" class="language-flag" src="{% static 'img/flag_' %}' + language.id + '.png" alt="' + language.id + ' flag" /> ' + language.text + '</span>'
-  );
-
-  return $language;
-}</script>
 
 
 

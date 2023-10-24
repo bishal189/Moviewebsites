@@ -11,6 +11,7 @@ from django.template.loader import render_to_string
 from django.core.paginator import Paginator
 from django.http import JsonResponse
 from owner.models import Page
+from django.db.models import Q
 #Request to category page can be removed now as no category page is available now 
 def category(request):
     lang=request.LANGUAGE_CODE
